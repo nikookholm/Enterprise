@@ -1,5 +1,7 @@
 package GUI;
 
-public class PanelQ3 {
+import javax.swing.JPanel;
+
+public class PanelQ3 extends JPanel {
 
 }
