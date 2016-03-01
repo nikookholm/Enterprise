@@ -6,34 +6,18 @@ import GUI.DroneGUI;
 public class Enterprise {
 	
 	DroneGUI gui;
+	Drone	 drone;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		new Enterprise(new Drone(), new IDroneProgram() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void abort() {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+	private void initialize() {
+		 gui   = new DroneGUI();
+		 drone = new Drone();
 	}
 	
-	public void initialize() {
-		 gui = new DroneGUI();
-		
-		
-	}
-	public Enterprise(Drone drone, IDroneProgram program)
+	public Enterprise()
 	{
-		
+		initialize();
 	}
+	
+	
 
 }
