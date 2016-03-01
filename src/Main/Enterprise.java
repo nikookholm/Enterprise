@@ -11,11 +11,16 @@ public class Enterprise {
 	private void initialize() {
 		 gui   = new DroneGUI();
 		 drone = new Drone();
-	}
+	}	
 	
 	public Enterprise()
 	{
 		initialize();
+	}
+	
+	private void runProgram(DroneProgram program)
+	{
+		
 	}
 	
 	
