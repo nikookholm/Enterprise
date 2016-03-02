@@ -1,14 +1,19 @@
 package Main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.yadrone.apps.controlcenter.YADroneControlCenter;
 import Common.Drone;
 import GUI.DroneGUI;
 
 public class Enterprise {
 	
-	DroneGUI 	 gui;
-	Drone	 	 drone;
-	DroneProgram program;
+	private DroneGUI 	 gui;
+	private Drone	 	 drone;
+	private DroneProgram activeProgram;
+	
+	ArrayList<DroneProgram> programs;
 	
 	public Enterprise()
 	{
@@ -18,21 +23,31 @@ public class Enterprise {
 	private void initialize() {
 		 gui   = new DroneGUI(this);
 		 drone = new Drone();
+		 
+		 loadDronePrograms();
 	}	
 	
+	private void loadDronePrograms() {
+		
+		programs = new ArrayList<>();
+		
+		programs.add(new TestProgram("Test program"));
+		
+	}
+
 	private void setProgram(DroneProgram program)
 	{
-		this.program = program;
+		this.activeProgram = program;
 	}
 	
 	private void runProgram()
 	{
-		program.run();
+		activeProgram.run();
 	}
 	
 	private void stopProgram()
 	{
-		program.abort();
+		activeProgram.abort();
 	}
 	
 	private Drone getDrone()
