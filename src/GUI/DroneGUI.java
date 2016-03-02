@@ -42,7 +42,7 @@ public class DroneGUI {
 		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		frame.setLayout(gbLayout);
 		
-		q1 = new PanelQ1();
+		q1 = new PanelQ1(enterprise);
 		q2 = new PanelQ2();
 		q3 = new PanelQ3();
 		q4 = new PanelQ4();
