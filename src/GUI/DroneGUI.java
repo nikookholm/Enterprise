@@ -21,6 +21,7 @@ public class DroneGUI {
 	
 	public DroneGUI()
 	{
+		
 		initizlaize();
 		
 	}
