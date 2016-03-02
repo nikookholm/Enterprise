@@ -28,18 +28,14 @@ public class Enterprise {
 		
 		programs = new ArrayList<>();
 		
-		programs.add(new TestProgram("Test program"));
+		programs.add(new TestProgram());
 		
 	}
-
-	private void setProgram(DroneProgram program)
-	{
-		this.activeProgram = program;
-	}
 	
-	private void runProgram()
+	private void startProgram(DroneProgram program)
 	{
-		activeProgram.run();
+		activeProgram = program;
+		activeProgram.start(drone);
 	}
 	
 	private void stopProgram()

@@ -1,12 +1,11 @@
 package Main;
 
+import Common.Drone;
+
 public class TestProgram extends DroneProgram {
 
-	public TestProgram(String programName) {
-		super(programName);
-		// TODO Auto-generated constructor stub
-	}
-
+	private String name = "Test program";
+	
 	@Override
 	public void abort() {
 		// TODO Auto-generated method stub

@@ -5,12 +5,22 @@ import Navigation.DroneNavigation;
 
 public class Drone {
 	
-	public DroneNavigation navigation;
-	public DroneMovement   movement;
+	private DroneNavigation navigation;
+	private DroneMovement   movement;
 
 	public Drone()
 	{
 		
+	}
+	
+	public DroneNavigation getNavigation()
+	{
+		return navigation;
+	}
+	
+	public DroneMovement getMovement()
+	{
+		return movement;
 	}
 	
 }
