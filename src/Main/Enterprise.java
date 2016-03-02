@@ -20,10 +20,12 @@ public class Enterprise {
 	}
 	
 	private void initialize() {
-		 gui   = new DroneGUI(this);
+		 
 		 drone = new Drone();
 		 
 		 loadDronePrograms();
+		 
+		 gui   = new DroneGUI(this);
 	}	
 	
 	private void loadDronePrograms() {

@@ -9,7 +9,7 @@ public abstract class DroneProgram implements IDroneProgram {
 	
 	public String getName()
 	{
-		return name;
+		return name + "HARDCODED";
 	}
 	
 	public void start(Drone drone)
