@@ -15,7 +15,9 @@ public class TestProgram extends DroneProgram {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		
+		
+		System.out.println("IM A RUNNING PROGRAM!!!!");
 		
 	}
 
