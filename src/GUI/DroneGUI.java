@@ -7,8 +7,11 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Main.Enterprise;
+
 public class DroneGUI {
 	
+	private Enterprise main;
 	
 	private JPanel q1;
 	private JPanel q2;
@@ -19,14 +22,16 @@ public class DroneGUI {
 	private final int SCREEN_WIDTH  = 800;
 	
 	
-	public DroneGUI()
+	public DroneGUI(Enterprise enterprise)
 	{
 		
-		initizlaize();
+		initizlaize(enterprise);
 		
 	}
 	
-	public  void initizlaize(){
+	public  void initizlaize(Enterprise enterprise){
+		
+		main = enterprise;
 		
 		GridBagLayout	   gbLayout = new GridBagLayout();
 		GridBagConstraints c 		= new GridBagConstraints();
@@ -36,7 +41,6 @@ public class DroneGUI {
 		
 		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		frame.setLayout(gbLayout);
-		
 		
 		q1 = new PanelQ1();
 		q2 = new PanelQ2();
