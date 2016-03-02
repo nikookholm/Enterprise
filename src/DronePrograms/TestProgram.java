@@ -5,7 +5,7 @@ import Main.DroneProgram;
 
 public class TestProgram extends DroneProgram {
 
-	private String name
+	private String name;
 	
 	@Override
 	public void abort() {
