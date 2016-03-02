@@ -36,7 +36,7 @@ public class Enterprise {
 		
 	}
 	
-	private void startProgram(DroneProgram program)
+	public void startProgram(DroneProgram program)
 	{
 		activeProgram = program;
 		activeProgram.start(drone);
