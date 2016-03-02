@@ -55,4 +55,9 @@ public class Enterprise {
 		return drone;
 	}
 	
+	public ArrayList<DroneProgram> getDronePrograms()
+	{
+		return programs;  
+	}
+	
 }
