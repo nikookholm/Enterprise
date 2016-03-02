@@ -1,6 +1,7 @@
-package Main;
+package DronePrograms;
 
 import Common.Drone;
+import Main.DroneProgram;
 
 public class TestProgram extends DroneProgram {
 
