@@ -3,13 +3,10 @@ package Main;
 import Common.Drone;
 
 public abstract class DroneProgram implements IDroneProgram {
-
-	private String name;
-	private Drone  drone;
 	
 	public String getName()
 	{
-		return name + "HARDCODED";
+		return name;
 	}
 	
 	public void start(Drone drone)
