@@ -18,14 +18,13 @@ public class PanelQ1 extends JPanel{
 
 	private JButton start, cancel;
 	private JComboBox box = new JComboBox();
-	private JTextField functions = new JTextField(5);
 	private int count = 0;
 
 	private Enterprise main;
-	
+
 	public  PanelQ1(Enterprise enterprise) {
 
-		setBackground(Color.BLUE);
+//		setBackground(Color.BLUE);
 
 		initizlaize(enterprise);
 
@@ -34,51 +33,60 @@ public class PanelQ1 extends JPanel{
 	public  void initizlaize(Enterprise enterprise){
 
 		main = enterprise;
-			
+
+		box.addItem("select progarm!");
+
+
+
 		for( DroneProgram dp: main.getDronePrograms()){
 			box.addItem(dp.getName());
-			functions.setEditable(false);
+
+
+
+			start = new JButton("START");
+			cancel = new JButton("ABORT");
+
+			start.setEnabled(false);
+			cancel.setEnabled(false);
+
+			box.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (box.getSelectedIndex() != 0){
+
+						start.setEnabled(true);
+						cancel.setEnabled(true);
+					}else
+					{
+						start.setEnabled(false);
+						cancel.setEnabled(false);
+					}
+				}
+			});
+
+			start.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					main.startProgram(main.getDronePrograms().get(box.getSelectedIndex() - 1));
+				}
+			});
+
+			cancel.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+
+				}
+			});
 			
+			
+			this.add(box);
+			this.add(start);
+			this.add(cancel);
+
 		}
-
-		start = new JButton("START");
-		cancel = new JButton("CANCEL");
-
-		start.setEnabled(false);
-		cancel.setEnabled(false);
-		
-		box.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			if (box.getSelectedIndex() != 0){
-				start.setEnabled(true);
-				cancel.setEnabled(true);
-				
-			}else{
-				start.setEnabled(false);
-				cancel.setEnabled(false);
-				
-			}
-		
-			}
-		});
-
-		start.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		this.add(box);
-		this.add(start);
-		this.add(cancel);
-
 	}
-
-
 }
