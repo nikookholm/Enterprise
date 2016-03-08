@@ -1,24 +1,27 @@
 package Common;
 
+import de.yadrone.base.ARDrone;
 import Movements.DroneMovement;
+import Movements.iDroneMovement;
 import Navigation.DroneNavigation;
+import Navigation.iDroneNavigation;
 
-public class Drone {
+public class Drone extends ARDrone {
 	
-	private DroneNavigation navigation;
-	private DroneMovement   movement;
+	private static final iDroneNavigation navigation = new DroneNavigation();
+	private static final iDroneMovement   movement   = new DroneMovement();
 
-	public Drone()
+	public Drone() 
 	{
-		
+		super();
 	}
 	
-	public DroneNavigation getNavigation()
+	public iDroneNavigation getNavigation()
 	{
 		return navigation;
 	}
 	
-	public DroneMovement getMovement()
+	public iDroneMovement getMovement()
 	{
 		return movement;
 	}

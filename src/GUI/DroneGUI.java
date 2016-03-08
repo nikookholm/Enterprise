@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,10 +14,10 @@ public class DroneGUI {
 	
 	private Enterprise main;
 	
-	private JPanel q1;
-	private JPanel q2;
-	private JPanel q3;
-	private JPanel q4;
+	private PanelQ1 q1;
+	private PanelQ2 q2;
+	private PanelQ3 q3;
+	private PanelQ4 q4;
 	
 	private final int SCREEN_HEIGHT = 800;
 	private final int SCREEN_WIDTH  = 800;
@@ -77,6 +78,9 @@ public class DroneGUI {
 		frame.setVisible(true);
 	}
 
-	
+	public Image getCameraPanel()
+	{
+		return q2.getCameraPanel();
+	}
 	
 }

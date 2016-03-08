@@ -1,5 +1,7 @@
 package Navigation;
 
-public class DroneNavigation {
+public class DroneNavigation implements iDroneNavigation {
+	
+
 
 }
