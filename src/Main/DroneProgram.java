@@ -4,6 +4,8 @@ import Common.Drone;
 
 public abstract class DroneProgram implements IDroneProgram {
 	
+	private Drone drone;
+	
 	public String getName()
 	{
 		return name;
