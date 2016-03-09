@@ -22,61 +22,17 @@ public class DroneNavigation implements iDroneNavigation {
 		this.sensors = new DroneSensors(drone);
 		this.vision  = new DroneVision(drone); 
 	}
-	
 
-	/**
-	 * 
-	 */
 	@Override
 	public DroneSensors getSensors() {
-		return sensors;
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	/**
-	 * 
-	 */
+
 	@Override
 	public DroneVision getVision() {
-		return vision;
+		return null;
 	}
 	
-	/**
-	 * The hoverTo method sets the max height, to be sure how high it is allowed to flight.
-	 * It then flies as high as possible and hovers until another command is given.
-	 * @param height
-	 * @return void
-	 */
-	@Override
-	public void hoverTo(int height) {
-		CommandManager commands = drone.getCommandManager();
-		commands.setMaxAltitude(height);
-		//commands.up();
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void flyTo(POI interest) {
-		// TODO venter p� billedebehandling
-	
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void rotateRight(int degrees) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * 
-	 */
-	@Override
-	public void rotateLeft(int degrees) {
-		// TODO Auto-generated method stub
-	
-	}
+
 }
