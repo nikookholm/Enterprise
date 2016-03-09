@@ -2,17 +2,14 @@ package Movements;
 
 import Common.Drone;
 import Common.POI;
-import Navigation.DroneSensors;
-import Navigation.DroneVision;
-import de.yadrone.base.command.CommandManager;
 
 public class DroneMovement implements iDroneMovement {
-
+	
 	private Drone drone;
 	
 	public DroneMovement(Drone drone)
 	{
-		this.drone = drone; 
+		this.drone = drone;
 	}
 	
 	/**
@@ -21,11 +18,9 @@ public class DroneMovement implements iDroneMovement {
 	 * @param height
 	 * @return void
 	 */
-	
 	public void hoverTo(int height) {
-		CommandManager commands = drone.getCommandManager();
-		commands.setMaxAltitude(height);
-		//commands.up();
+		drone.getCommandManager().setMaxAltitude(height);
+		drone.getCommandManager().up(30);
 	}
 	
 	/**
@@ -33,7 +28,7 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	
 	public void flyTo(POI interest) {
-		// TODO venter p� billedebehandling
+		// TODO venter på billedebehandling
 	
 	}
 	
