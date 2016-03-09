@@ -1,12 +1,27 @@
 package Navigation;
 
+import de.yadrone.base.command.CommandManager;
 import Common.Drone;
 import Common.POI;
 
 public class DroneNavigation implements iDroneNavigation {
 	
-	private static DroneSensors sensors = new DroneSensors(null);
-	private static DroneVision  vision  = new DroneVision();
+	private DroneSensors sensors;
+	private DroneVision  vision;
+	
+	private Drone drone;
+	
+	public DroneNavigation(Drone drone) {
+		initialize(drone);
+		
+	}
+	
+	private void initialize(Drone drone)
+	{
+		this.drone   = drone;
+		this.sensors = new DroneSensors(drone);
+		this.vision  = new DroneVision(drone); 
+	}
 	
 
 	/**
@@ -33,9 +48,9 @@ public class DroneNavigation implements iDroneNavigation {
 	 */
 	@Override
 	public void hoverTo(int height) {
-		CommandManager commands = new drone.getCommanManager();
+		CommandManager commands = drone.getCommandManager();
 		commands.setMaxAltitude(height);
-		commands.getCommandManager.up();
+		//commands.up();
 	}
 	
 	/**

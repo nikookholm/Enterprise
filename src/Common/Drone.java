@@ -12,13 +12,19 @@ import Navigation.iDroneNavigation;
 
 public class Drone extends ARDrone {
 	
-	private static final iDroneNavigation navigation = new DroneNavigation();
-	private static final iDroneMovement   movement   = new DroneMovement();
+	private iDroneNavigation navigation;
+	private iDroneMovement   movement;
 
 	public Drone() 
 	{
 		super();
 		
+	}
+	
+	private void initialize()
+	{
+		this.navigation = new DroneNavigation(this);
+		this.movement   = new DroneMovement(this);
 	}
 	
 	public iDroneNavigation getNavigation()
