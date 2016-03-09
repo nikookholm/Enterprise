@@ -5,7 +5,7 @@ import Common.POI;
 
 public class DroneNavigation implements iDroneNavigation {
 	
-	private static DroneSensors sensors = new DroneSensors();
+	private static DroneSensors sensors = new DroneSensors(null);
 	private static DroneVision  vision  = new DroneVision();
 	
 
@@ -43,7 +43,7 @@ public class DroneNavigation implements iDroneNavigation {
 	 */
 	@Override
 	public void flyTo(POI interest) {
-		// TODO venter på billedebehandling
+		// TODO venter pï¿½ billedebehandling
 	
 	}
 	
