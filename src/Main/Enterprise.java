@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import Common.Drone;
 import DronePrograms.TestProgram;
 import GUI.DroneGUI;
+import GUI.iDroneGUI;
 
 public class Enterprise {
 	
-	private DroneGUI 	 gui;
+	private iDroneGUI 	 gui;
 	private Drone	 	 drone;
 	private DroneProgram activeProgram;
 	
@@ -25,7 +26,8 @@ public class Enterprise {
 		 
 		 loadDronePrograms();
 		 
-		 gui   = new DroneGUI(this);
+		 gui   = new DroneGUI();
+		 gui.initialize(this);
 	}	
 	
 	private void loadDronePrograms() {

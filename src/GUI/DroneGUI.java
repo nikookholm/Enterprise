@@ -8,9 +8,11 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import de.yadrone.base.navdata.AltitudeListener;
+import de.yadrone.base.navdata.VideoListener;
 import Main.Enterprise;
 
-public class DroneGUI {
+public class DroneGUI implements iDroneGUI {
 	
 	private Enterprise main;
 	
@@ -23,14 +25,11 @@ public class DroneGUI {
 	private final int SCREEN_WIDTH  = 800;
 	
 	
-	public DroneGUI(Enterprise enterprise)
+	public DroneGUI()
 	{
-		
-		initizlaize(enterprise);
-		
 	}
 	
-	public  void initizlaize(Enterprise enterprise){
+	public  void initialize(Enterprise enterprise){
 		
 		main = enterprise;
 		
@@ -81,6 +80,18 @@ public class DroneGUI {
 	public Image getCameraPanel()
 	{
 		return q2.getCameraPanel();
+	}
+
+	@Override
+	public VideoListener getVideoListener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AltitudeListener getAltitudeListener() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
