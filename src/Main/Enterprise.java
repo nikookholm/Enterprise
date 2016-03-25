@@ -26,14 +26,22 @@ public class Enterprise {
 		 
 		 loadDronePrograms();
 		 
-		 gui   = new DroneGUI();
+		 gui = new DroneGUI();
 		 gui.initialize(this);
-	}	
+		 
+		 attachDroneHandlers();
+	}
+	
+	private void attachDroneHandlers()
+	{
+		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
+		drone.getNavDataManager().addVideoListener(gui.getVideoListener());
+	}
+	
 	
 	private void loadDronePrograms() {
 		
 		programs = new ArrayList<>();
-		
 		programs.add(new TestProgram());
 		
 	}
