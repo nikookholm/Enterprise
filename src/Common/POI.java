@@ -4,9 +4,9 @@ public class POI {
 	
 	public static enum POIType { RING, DICE };
 
-	private int x, y, z;
+	private int 	x, y, z;
 	private POIType type;
-	private int angle;
+	private int 	angle;
 	
 	public POI(POIType type, int x, int y, int z)
 	{
