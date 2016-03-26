@@ -38,7 +38,7 @@ public class Enterprise {
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addVideoListener(gui.getVideoListener());
 		
-		//drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
+		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
 		
 	}
 	
