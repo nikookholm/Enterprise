@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,24 +15,26 @@ import javax.swing.JPanel;
 
 public class PanelQ2 extends JPanel{
 	
-	private Image cameraPanel;
-	private ImageIcon img;
-	private JButton frontBtn, bottomBtn;
+	private CameraPanel cameraPanel;
+	private ImageIcon   img;
+	private JButton     frontBtn, bottomBtn;
 	
 	public PanelQ2(){
-		
-
 		initialize();
-		
+	}
+	
+	public void updateCameraPanel(Image image)
+	{
+		cameraPanel.updateCameraPanel(image);
 	}
 	
 	private void initialize()
 	{
 		setBackground(Color.BLACK);
 		
-		JPanel cameraPanel = new JPanel();
+		cameraPanel = new CameraPanel();
 		
-		frontBtn = new JButton("FRONT CAMERA");
+		frontBtn  = new JButton("FRONT CAMERA");
 		bottomBtn = new JButton("BOTTOM CAMERA");
 		
 		try {
@@ -40,7 +43,6 @@ public class PanelQ2 extends JPanel{
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
-		
 		
 		ToggelCamera tc = new ToggelCamera();
 		frontBtn.addActionListener(tc);
@@ -53,33 +55,42 @@ public class PanelQ2 extends JPanel{
 		this.add(bottomBtn);
 	}
 	
-	public Image getCameraPanel()
-	{
-		return cameraPanel;
-	}
-	
-
-	
 	public class ToggelCamera implements ActionListener{
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	
-	
+		if(e.getSource().equals(frontBtn)){
 		
-	if(e.getSource().equals(frontBtn)){
-	
-		frontBtn.setIcon(img);
-		bottomBtn.setIcon(null);
-	} else {
-		bottomBtn.setIcon(img);
-		frontBtn.setIcon(null);
-		
-	}
-		
-	}
+			frontBtn.setIcon(img);
+			bottomBtn.setIcon(null);
+		} else {
+			bottomBtn.setIcon(img);
+			frontBtn.setIcon(null);
+		}
+			
+		}
 	}
 	
+	public class CameraPanel extends JPanel
+	{
+		private Image image;
+		
+		@Override
+		public void paint(Graphics g)
+		{
+			super.paint(g);
+	        if (image != null)
+	            g.drawImage(image, 0, 0, image.getWidth(null), image.getHeight(null), null);
+		}
+		
+		public void updateCameraPanel(Image image)
+		{
+			this.image = image;
+			paint(this.getGraphics());
+			
+		}
+	}
 
 }

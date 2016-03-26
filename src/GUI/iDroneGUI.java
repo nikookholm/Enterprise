@@ -8,6 +8,7 @@ import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.HDVideoStreamData;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.navdata.VideoStreamData;
+import de.yadrone.base.video.ImageListener;
 
 public interface iDroneGUI {
 	
@@ -15,5 +16,6 @@ public interface iDroneGUI {
 	public AltitudeListener getAltitudeListener();
 	public void initialize(Enterprise enterprise);
 	public void updateCameraPanel(Image image);
+	public ImageListener    getImageListener();
 
 }

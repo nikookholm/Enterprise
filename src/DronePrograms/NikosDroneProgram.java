@@ -10,12 +10,7 @@ public class NikosDroneProgram extends DroneProgram {
 	public void run() {
 		
 		
-		drone.start();
 		
-		while (true)
-		{
-			
-		}
 		
 		
 	}

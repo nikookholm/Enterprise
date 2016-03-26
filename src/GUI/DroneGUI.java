@@ -4,12 +4,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.VideoListener;
+import de.yadrone.base.video.ImageListener;
 import Main.Enterprise;
 
 public class DroneGUI implements iDroneGUI {
@@ -77,11 +79,6 @@ public class DroneGUI implements iDroneGUI {
 		frame.setVisible(true);
 	}
 
-	public Image getCameraPanel()
-	{
-		return q2.getCameraPanel();
-	}
-
 	@Override
 	public VideoListener getVideoListener() {
 		// TODO Auto-generated method stub
@@ -93,10 +90,25 @@ public class DroneGUI implements iDroneGUI {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public ImageListener getImageListener()
+	{
+		return new ImageListener() {
+			
+			@Override
+			public void imageUpdated(BufferedImage arg0) {
+
+				updateCameraPanel(arg0);
+				
+				
+			}
+		};
+	}
 
 	@Override
 	public void updateCameraPanel(Image image) {
-		// TODO Auto-generated method stub
+		q2.updateCameraPanel(image);
 		
 	}
 	
