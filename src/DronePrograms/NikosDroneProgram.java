@@ -8,6 +8,13 @@ public class NikosDroneProgram extends DroneProgram {
 	
 	@Override
 	public void run() {
+		
+		
+		
+		drone.takeOff();
+		drone.hover();
+		
+		drone.up();
 	}
 
 	@Override

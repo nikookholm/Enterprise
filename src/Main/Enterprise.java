@@ -3,6 +3,7 @@ package Main;
 import java.util.ArrayList;
 
 import Common.Drone;
+import DronePrograms.NikosDroneProgram;
 import DronePrograms.TestProgram;
 import GUI.DroneGUI;
 import GUI.iDroneGUI;
@@ -37,14 +38,15 @@ public class Enterprise {
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addVideoListener(gui.getVideoListener());
 		
-		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
+		//drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
+		
 	}
 	
 	
-	private void loadDronePrograms() {
-		
+	private void loadDronePrograms()
+	{
 		programs = new ArrayList<>();
-		programs.add(new TestProgram());
+		programs.add(new NikosDroneProgram());
 		
 	}
 	
