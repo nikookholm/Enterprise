@@ -26,4 +26,9 @@ public class TestProgram extends DroneProgram {
 
 	}
 
+	@Override
+	public String getProgramName() {
+		return "Proof of Concept!";
+	}
+
 }

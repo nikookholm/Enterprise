@@ -7,5 +7,6 @@ public interface IDroneProgram extends Runnable {
 
 	public static String name  = "Default drone program";
 	public void   		 abort();
+	public String getProgramName();
 	
 }

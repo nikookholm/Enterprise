@@ -47,6 +47,7 @@ public class Enterprise {
 	{
 		programs = new ArrayList<>();
 		programs.add(new NikosDroneProgram());
+		programs.add(new TestProgram());
 		
 	}
 	

@@ -93,5 +93,11 @@ public class DroneGUI implements iDroneGUI {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateCameraPanel(Image image) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

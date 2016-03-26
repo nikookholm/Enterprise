@@ -25,4 +25,10 @@ public class NikosDroneProgram extends DroneProgram {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public String getProgramName() {
+		return "Nikos test program";
+	}
+
 }

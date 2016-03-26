@@ -39,7 +39,7 @@ public class PanelQ1 extends JPanel{
 
 
 		for( DroneProgram dp: main.getDronePrograms()){
-			box.addItem(dp.getName());
+			box.addItem(dp.getProgramName());
 
 
 
