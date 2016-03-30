@@ -1,7 +1,9 @@
 package Main;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import de.yadrone.base.video.ImageListener;
 import Common.Drone;
 import DronePrograms.NikosDroneProgram;
 import DronePrograms.TestProgram;
@@ -35,11 +37,22 @@ public class Enterprise {
 	
 	private void attachDroneHandlers()
 	{
-		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
-		drone.getNavDataManager().addVideoListener(gui.getVideoListener());
+		//drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
+		//drone.getNavDataManager().addVideoListener(gui.getVideoListener());
+				
+		System.out.println("Attaches tempListener to imageListenerArray");
+		ImageListener tempListener = new ImageListener() {
+			
+			@Override
+			public void imageUpdated(BufferedImage arg0) {
+				System.out.println("Billede opdateret! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				
+			}
+		};
 		
-		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
-		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
+		//drone.getVideoManager().addImageListener(tempListener);
+
+		//drone.getVideoManager().addImageListener(gui.getImageListener());
 		
 	}
 	

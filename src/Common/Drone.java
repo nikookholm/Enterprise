@@ -27,7 +27,21 @@ public class Drone extends ARDrone {
 		this.navigation = new DroneNavigation(this);
 		this.movement   = new DroneMovement(this);
 		
-		super.start();
+		try
+		{
+			super.start();
+		}
+		catch (Exception e)
+		{
+			System.err.println("Exception caugt, should stop!");
+			down();
+			this.stop();
+		}
+		finally
+		{
+			this.stop();
+		}
+		
 		
 	}
 	

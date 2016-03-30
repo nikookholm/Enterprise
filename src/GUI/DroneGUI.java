@@ -100,8 +100,7 @@ public class DroneGUI implements iDroneGUI {
 			public void imageUpdated(BufferedImage arg0) {
 
 				updateCameraPanel(arg0);
-				
-				
+
 			}
 		};
 	}
