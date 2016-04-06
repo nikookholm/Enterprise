@@ -8,15 +8,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import de.yadrone.base.navdata.AltitudeListener;
 import Main.DroneProgram;
 import Main.Enterprise;
 
 public class PanelQ1 extends JPanel{
 
 	private JButton start, cancel;
+	private JLabel altitud, altiText;
 	private JComboBox box = new JComboBox();
 	private int count = 0;
 
@@ -24,7 +27,6 @@ public class PanelQ1 extends JPanel{
 
 	public  PanelQ1(Enterprise enterprise) {
 
-//		setBackground(Color.BLUE);
 
 		initizlaize(enterprise);
 
@@ -35,7 +37,11 @@ public class PanelQ1 extends JPanel{
 		main = enterprise;
 
 		box.addItem("select progarm!");
-
+		start = new JButton("START");
+		cancel = new JButton("ABORT");
+		altitud = new JLabel("Altitude: ");
+		altiText = new JLabel("er: ");
+		
 
 
 		for( DroneProgram dp: main.getDronePrograms()){
@@ -43,8 +49,7 @@ public class PanelQ1 extends JPanel{
 
 
 
-			start = new JButton("START");
-			cancel = new JButton("ABORT");
+			
 
 			start.setEnabled(false);
 			cancel.setEnabled(false);
@@ -86,7 +91,40 @@ public class PanelQ1 extends JPanel{
 			this.add(box);
 			this.add(start);
 			this.add(cancel);
+			this.add(altitud);
+			this.add(altiText);
 
 		}
 	}
+	
+ public class Altitude implements AltitudeListener{
+	 
+	@Override
+	public void receivedAltitude(int arg0) {
+		
+		altiText = new JLabel(" " + arg0);
+		
+	}
+
+	@Override
+	public void receivedExtendedAltitude(de.yadrone.base.navdata.Altitude arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	 
+ }
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
 }

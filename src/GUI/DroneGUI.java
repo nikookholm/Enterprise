@@ -8,7 +8,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.text.rtf.RTFEditorKit;
 
+import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.video.ImageListener;
@@ -87,8 +89,14 @@ public class DroneGUI implements iDroneGUI {
 
 	@Override
 	public AltitudeListener getAltitudeListener() {
-		// TODO Auto-generated method stub
+		
+//		return new Altitude();
 		return null;
+	}
+	
+	public void recAltitude(int altit){
+//		q1.recAltitude(altit);
+		
 	}
 	
 	@Override
