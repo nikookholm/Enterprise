@@ -90,12 +90,13 @@ public class DroneGUI implements iDroneGUI {
 	@Override
 	public AltitudeListener getAltitudeListener() {
 		
-//		return new Altitude();
-		return null;
+		PanelQ1.Altitude a = q1.new Altitude();
+		return a;
+	
 	}
 	
 	public void recAltitude(int altit){
-//		q1.recAltitude(altit);
+
 		
 	}
 	
