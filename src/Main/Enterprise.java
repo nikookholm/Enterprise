@@ -37,22 +37,8 @@ public class Enterprise {
 	
 	private void attachDroneHandlers()
 	{
-		//drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
-		//drone.getNavDataManager().addVideoListener(gui.getVideoListener());
-				
-		System.out.println("Attaches tempListener to imageListenerArray");
-		ImageListener tempListener = new ImageListener() {
-			
-			@Override
-			public void imageUpdated(BufferedImage arg0) {
-				System.out.println("Billede opdateret! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-				
-			}
-		};
-		
-		//drone.getVideoManager().addImageListener(tempListener);
-
-		//drone.getVideoManager().addImageListener(gui.getImageListener());
+		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
+		drone.getNavDataManager().addVideoListener(gui.getVideoListener());
 		
 	}
 	
