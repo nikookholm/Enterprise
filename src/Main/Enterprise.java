@@ -39,6 +39,7 @@ public class Enterprise {
 	{
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addVideoListener(gui.getVideoListener());
+		drone.getVideoManager().addImageListener(gui.getImageListener());
 		
 	}
 	
@@ -48,7 +49,6 @@ public class Enterprise {
 		programs = new ArrayList<>();
 		programs.add(new NikosDroneProgram());
 		programs.add(new TestProgram());
-		
 	}
 	
 	public void startProgram(DroneProgram program)
