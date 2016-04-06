@@ -21,17 +21,19 @@ public class DroneVision implements iDroneVision {
 
 	private Drone drone;
 
+	ArrayList<POI> tempPoI = new ArrayList<POI>();
+	
 	public DroneVision(Drone drone) {
 		this.drone = drone;
 	}
 
 	@Override
 	public List<POI> scan() {
-		// circles = findCircles();
-		// dices = findDices();
 
 		ArrayList<POI> poi = new ArrayList<POI>();
-
+		poi = tempPoI;
+		
+		
 		return poi;
 	}
 
@@ -41,42 +43,29 @@ public class DroneVision implements iDroneVision {
 		return null;
 	}
 
-	private void findCircles() {
-		BufferList bf = new BufferList();
-		HoughCircles circles = new HoughCircles();
+	
 
-		ArrayList<BufferedImage> bImages = bf.getImages();
-		ArrayList<POI> tempPoI = new ArrayList<POI>();
+	private class ImageHandler implements ImageListener {
+
+		BufferedImage lastImage = null;
+		BufferedImage newImage = null;
+
+		OpenCVOperations CVOp = new OpenCVOperations();
 		
-		for (int i = 0; i < bImages.size(); i++) {
-			circles.findCircles(bImages.get(i));
-		}
-	}
-
-	private class BufferList implements ImageListener {
-
-		ArrayList<BufferedImage> listOfImages = new ArrayList<BufferedImage>();
 
 		@Override
 		public void imageUpdated(BufferedImage arg0) {
-			if (listOfImages.size() < 15) {
-				listOfImages.add(arg0);
-			} else {
-				listOfImages.removeAll(listOfImages);
-				listOfImages.add(arg0);
+			if (newImage != null) {
+				lastImage = newImage;
+				newImage = arg0;
+				
+				tempPoI = CVOp.compareImages(lastImage, newImage);
+			}else{
+				newImage = arg0;
+				
 			}
 		}
-
-		public ArrayList<BufferedImage> getImages() {
-
-			return listOfImages;
-		}
-
-		public BufferedImage getImage() {
-
-			return listOfImages.get(listOfImages.size());
-		}
-
+		
 	}
 
 }
