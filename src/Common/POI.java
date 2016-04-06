@@ -4,11 +4,11 @@ public class POI {
 	
 	public static enum POIType { RING, DICE };
 
-	private int 	x, y, z;
+	private double 	x, y, z;
 	private POIType type;
 	private int 	angle;
 	
-	public POI(POIType type, int x, int y, int z)
+	public POI(POIType type, double x, double y, double z)
 	{
 		this.type = type;
 		this.x    = x;
@@ -20,6 +20,12 @@ public class POI {
 	{
 		this.type  = type;
 		this.angle = angle;
+	}
+	
+	public POI(POIType type, double x, double y){
+		this.type = type;
+		this.x = x;
+		this.y = y;
 	}
 	
 }

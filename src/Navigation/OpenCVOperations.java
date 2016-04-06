@@ -10,34 +10,37 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import Common.POI;
+import Common.POI.POIType;
 
 public class OpenCVOperations {
 
-	public Mat findObjects(BufferedImage arg0) {
+	ArrayList<POI> objectsFound = new ArrayList<POI>();
+
+	ArrayList<POI> interestsFound = new ArrayList<POI>();
+
+	private ArrayList<POI> findObjects(BufferedImage arg0) {
+
+		objectsFound.clear();
 
 		Mat ImageMat = bufferedImageToMat(arg0);
-		Mat QR = findQR(ImageMat);
-		Mat circles = findCircles(ImageMat);
-		Mat blocks = findBlocks(ImageMat);
-		Mat airports = findAirports(ImageMat);
-		
-		return ImageMat;
+		findQR(ImageMat);
+		findCircles(ImageMat);
+		findBlocks(ImageMat);
+		findAirports(ImageMat);
+
+		return objectsFound;
 	}
-	
-	public ArrayList<Mat> findObjects(BufferedImage arg0, BufferedImage arg1){
-		ArrayList<Mat> test = new ArrayList<Mat>();
-		return test;
-	}
-	
+
 	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage) {
-		
-		ArrayList<POI> interestsFound = new ArrayList<POI>();
+
+		ArrayList<POI> li = findObjects(lastImage);
+		ArrayList<POI> ni = findObjects(newImage);
 
 		return interestsFound;
 	}
 
 	public Mat findQR(Mat image) {
-		
+
 		boolean QRFound = false;
 
 		if (QRFound) {
@@ -47,7 +50,8 @@ public class OpenCVOperations {
 		return image;
 	}
 
-	public Mat findCircles(Mat image) {
+	public void findCircles(Mat image) {
+
 		Mat image_gray = new Mat();
 		Mat circles = new Mat();
 
@@ -55,15 +59,21 @@ public class OpenCVOperations {
 		Imgproc.GaussianBlur(image_gray, image_gray, new Size(9, 9), 2, 2);
 		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 200, 100, 0, 0);
 
-		return circles;
+		for (int i = 0; i < circles.cols(); i++) {
+
+			double circle[] = circles.get(0, i);
+
+			objectsFound.add(new POI(POIType.RING, Math.round(circle[0]), Math.round(circle[1]), -1));
+		}
+
 	}
 
-	public Mat findBlocks(Mat image) {
-		return image;
+	public void findBlocks(Mat image) {
+		// Add code to find Blocks
 	}
 
-	public Mat findAirports(Mat image) {
-		return image;
+	public void findAirports(Mat image) {
+		// Add code to find Airports
 	}
 
 	public Mat bufferedImageToMat(BufferedImage bi) {
