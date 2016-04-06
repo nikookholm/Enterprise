@@ -15,6 +15,7 @@ public class Drone extends ARDrone {
 	
 	private iDroneNavigation navigation;
 	private iDroneMovement   movement;
+//	test
 
 	public Drone() 
 	{
