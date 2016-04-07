@@ -28,4 +28,14 @@ public class POI {
 		this.y = y;
 	}
 	
+	
+	public POIType getType(){
+		return type;
+	}
+	// Subject to change
+	public double[] getCoordinates(){
+		double[] coordinates = {x,y,z};
+		return coordinates;
+	}
+	
 }

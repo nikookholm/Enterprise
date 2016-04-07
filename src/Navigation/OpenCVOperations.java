@@ -30,12 +30,27 @@ public class OpenCVOperations {
 
 		return objectsFound;
 	}
-
+	/**
+	 * Returns a single ArrayList containing points of interest, that can be located on both images.
+	 * The function is used to reduce noise and possible only gather the true points of interest.
+	 * POI types includes rings, blocks, QR or Airports.
+	 * 
+	 * @param lastImage the previous image stored
+	 * @param newImage the newest image stored
+	 * @return Points of Interests
+	 */
 	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage) {
 
 		ArrayList<POI> li = findObjects(lastImage);
 		ArrayList<POI> ni = findObjects(newImage);
 
+		for(POI liCheck : li){
+			for(POI niCheck : ni){
+				if(liCheck.getType() == niCheck.getType()){
+					
+				}
+			}
+		}
 		return interestsFound;
 	}
 
