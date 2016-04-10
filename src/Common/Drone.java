@@ -15,12 +15,10 @@ public class Drone extends ARDrone {
 	
 	private iDroneNavigation navigation;
 	private iDroneMovement   movement;
-//	test
 
 	public Drone() 
 	{
 		super("192.168.1.1", new XugglerDecoder());
-		
 	}
 	
 	private void initialize()
@@ -28,22 +26,7 @@ public class Drone extends ARDrone {
 		this.navigation = new DroneNavigation(this);
 		this.movement   = new DroneMovement(this);
 		
-		try
-		{
-			super.start();
-		}
-		catch (Exception e)
-		{
-			System.err.println("Exception caugt, should stop!");
-			down();
-			this.stop();
-		}
-		finally
-		{
-			this.stop();
-		}
-		
-		
+		super.start();
 	}
 	
 	public iDroneNavigation getNavigation()

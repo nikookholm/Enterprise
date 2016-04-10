@@ -87,6 +87,7 @@ public class PanelQ2 extends JPanel{
 		@Override
 		public void paint(Graphics g)
 		{
+			System.out.println("Painting!");
 			super.paint(g);
 	        if (image != null)
 	            g.drawImage(image, 0, 0, image.getWidth(null), image.getHeight(null), null);
@@ -94,6 +95,7 @@ public class PanelQ2 extends JPanel{
 		
 		public void updateCameraPanel(Image image)
 		{
+			System.out.println("UPDATING!");
 			this.image = image;
 			paint(this.getGraphics());
 			

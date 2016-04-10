@@ -9,7 +9,16 @@ public abstract class DroneProgram implements IDroneProgram {
 	public void start(Drone drone)
 	{
 		this.drone = drone;
-		this.run();
+		
+		try
+		{
+			this.run();
+		}
+		catch (Exception e)
+		{
+			drone.landing();
+			drone.stop();
+		}
 	}
 	
 	
