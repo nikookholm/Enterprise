@@ -86,6 +86,7 @@ public class PanelQ2 extends JPanel{
 			System.out.println("Painting!");
 			super.paint(g);
 	        if (image != null)
+	        	System.err.println("Repaint ?");
 	            g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
 		}
 		
@@ -101,7 +102,7 @@ public class PanelQ2 extends JPanel{
 			});
 		
 	}
-	public class VideoVeiw implements ImageListener{
+	public class CustomImageListener implements ImageListener{
 
 		@Override
 		public void imageUpdated(BufferedImage arg0) {

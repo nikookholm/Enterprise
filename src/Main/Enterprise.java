@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import de.yadrone.base.video.ImageListener;
 import Common.Drone;
+import DronePrograms.LpogDollar;
 import DronePrograms.NikosDroneProgram;
 import DronePrograms.TestProgram;
 import GUI.DroneGUI;
@@ -39,8 +40,6 @@ public class Enterprise {
 	
 	private void attachDroneHandlers()
 	{
-		//drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
-		//drone.getNavDataManager().addVideoListener(gui.getVideoListener());
 		drone.getVideoManager().addImageListener(gui.getImageListener());
 	}
 	
@@ -50,6 +49,7 @@ public class Enterprise {
 		programs = new ArrayList<>();
 		programs.add(new NikosDroneProgram());
 		programs.add(new TestProgram());
+		programs.add(new LpogDollar());
 	}
 	
 	public void startProgram(DroneProgram program)
