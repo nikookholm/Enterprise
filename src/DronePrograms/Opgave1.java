@@ -3,7 +3,7 @@ package DronePrograms;
 import java.util.ArrayList;
 import java.util.List;
 
-import Common.POI;
+import POI.POI;
 
 public class Opgave1 {
 //

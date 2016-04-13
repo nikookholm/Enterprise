@@ -1,7 +1,7 @@
 package Movements;
 
 import Common.Drone;
-import Common.POI;
+import POI.POI;
 
 public class DroneMovement implements iDroneMovement {
 	
