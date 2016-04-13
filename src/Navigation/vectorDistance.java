@@ -1,8 +1,12 @@
 package Navigation;
 
+import java.util.ArrayList;
+
+import POI.POI;
+
 public class vectorDistance {
 
-	public double[] calculateDistance(double [] coord1, double[] coord2){
+	public ArrayList<POI> calculateDistance(POI object1, POI object2, POI object3){
 		double[] coords = null;
 		
 		return coords;

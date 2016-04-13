@@ -1,16 +1,14 @@
 package POI;
 
+import com.sun.javafx.geom.Vec3d;
+
 public class POIWallPoint extends POI {
 	
-	String contains;
+	String QRcontains;
 	
-	public POIWallPoint(POIType type, double x, double y, String contains) {
-		super(type, x, y);
-		this.contains = contains;
+	public POIWallPoint(Vec3d coordinates, String QRcontains) {
+		super(coordinates);
+		this.QRcontains = QRcontains;
 	}
 	
-	public POIWallPoint(POIType type, double x, double y, double z, String contains) {
-		super(type, x, y, z);
-		this.contains = contains;
-	}
 }

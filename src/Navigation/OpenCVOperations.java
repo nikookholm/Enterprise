@@ -9,6 +9,8 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import com.sun.javafx.geom.Vec3d;
+
 import POI.POI;
 import POI.POI.POIType;
 import POI.POICircle;
@@ -19,15 +21,15 @@ public class OpenCVOperations {
 
 	ArrayList<POI> interestsFound = new ArrayList<POI>();
 
-	private ArrayList<POI> findObjects(BufferedImage arg0) {
+	private ArrayList<POI> findObjects(BufferedImage arg0, Vec3d coordinates) {
 
 		objectsFound.clear();
 
 		Mat ImageMat = bufferedImageToMat(arg0);
-		findQR(ImageMat);
-		findCircles(ImageMat);
-		findBlocks(ImageMat);
-		findAirports(ImageMat);
+		findQR(ImageMat, coordinates);
+		findCircles(ImageMat, coordinates);
+		findBlocks(ImageMat, coordinates);
+		findAirports(ImageMat, coordinates);
 
 		return objectsFound;
 	}
@@ -40,10 +42,10 @@ public class OpenCVOperations {
 	 * @param newImage the newest image stored
 	 * @return Points of Interests
 	 */
-	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage) {
+	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage, Vec3d coordinates, int angle) {
 
-		ArrayList<POI> li = findObjects(lastImage);
-		ArrayList<POI> ni = findObjects(newImage);
+		ArrayList<POI> li = findObjects(lastImage, coordinates);
+		ArrayList<POI> ni = findObjects(newImage, coordinates);
 
 		for(POI liCheck : li){
 			for(POI niCheck : ni){
@@ -61,7 +63,7 @@ public class OpenCVOperations {
 		return interestsFound;
 	}
 
-	public void findQR(Mat image) {
+	public void findQR(Mat image, Vec3d coordinates) {
 
 		
 
@@ -70,7 +72,7 @@ public class OpenCVOperations {
 		
 	}
 
-	public void findCircles(Mat image) {
+	public void findCircles(Mat image, Vec3d coordinates) {
 
 		Mat image_gray = new Mat();
 		Mat circles = new Mat();
@@ -82,17 +84,18 @@ public class OpenCVOperations {
 		for (int i = 0; i < circles.cols(); i++) {
 
 			double circle[] = circles.get(0, i);
-
-			objectsFound.add(new POI(POIType.RING, Math.round(circle[0]), Math.round(circle[1]), -1));
+			int radius = (int) Math.round(circle[2]);
+			//objectsFound.add(new POICircle(POIType.RING, Math.round(circle[0]), Math.round(circle[1]), -1));
+			objectsFound.add(new POICircle(new Vec3d(0, 0, 0), radius));
 		}
 
 	}
 
-	public void findBlocks(Mat image) {
+	public void findBlocks(Mat image, Vec3d coordinates) {
 		// Add code to find Blocks
 	}
 
-	public void findAirports(Mat image) {
+	public void findAirports(Mat image, Vec3d coordinates) {
 		// Add code to find Airports
 	}
 

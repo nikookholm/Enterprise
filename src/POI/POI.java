@@ -1,36 +1,29 @@
 package POI;
 
+import com.sun.javafx.geom.Vec3d;
+
 public class POI {
 	
-	public static enum POIType { RING, DICE, QR };
 
-	private double 	x, y, z;
-	private POIType type;
+
+	private Vec3d coordinates;
+	private Vec3d dronePos;
+	
 	private int 	angle;
 	
-	public POI(POIType type, double x, double y, double z)
+	public POI(Vec3d coordinates)
 	{
-		this.type = type;
-		this.x    = x;
-		this.y    = y;
-		this.z    = z;
+		
+		this.coordinates = coordinates;
 	}
 	
-	public POI(POIType type, int angle)
+	public POI(Vec3d coordinates, int angle)
 	{
-		this.type  = type;
+
+		this.coordinates = coordinates;
 		this.angle = angle;
 	}
 	
-	public POI(POIType type, double x, double y){
-		this.type = type;
-		this.x = x;
-		this.y = y;
-	}
-	// Subject to change
-	public double[] getCoordinates(){
-		double[] coordinates = {x,y,z};
-		return coordinates;
-	}
+	
 	
 }

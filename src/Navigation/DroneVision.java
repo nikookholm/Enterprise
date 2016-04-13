@@ -15,22 +15,40 @@ import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
+
+import com.sun.javafx.geom.Vec3d;
+
 import org.opencv.highgui.VideoCapture;
 
 public class DroneVision implements iDroneVision {
 
 	private Drone drone;
+	
+	BufferedImage lastImage;
+	BufferedImage newImage;
+	
 
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
+	OpenCVOperations CVOp;
 	
 	public DroneVision(Drone drone) {
 		this.drone = drone;
+		OpenCVOperations CVOp = new OpenCVOperations();
 	}
 
 	@Override
 	public List<POI> scan() {
 
 		ArrayList<POI> poi = new ArrayList<POI>();
+		for(int i = 0; i <360; i+=5){
+		//	drone.getMovement().rotateAngle(i);
+			Vec3d coordinates;
+			coordinates.x = drone.getCoordX();
+			coordinates.y = drone.getCoordY();
+			coordinates.z = drone.getCoordZ();
+
+			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
+		}
 		poi = tempPoI;
 		
 		
@@ -47,19 +65,11 @@ public class DroneVision implements iDroneVision {
 
 	private class ImageHandler implements ImageListener {
 
-		BufferedImage lastImage = null;
-		BufferedImage newImage = null;
-
-		OpenCVOperations CVOp = new OpenCVOperations();
-		
-
 		@Override
 		public void imageUpdated(BufferedImage arg0) {
 			if (newImage != null) {
 				lastImage = newImage;
 				newImage = arg0;
-					
-				tempPoI = CVOp.compareImages(lastImage, newImage);
 			}else{
 				newImage = arg0;
 				

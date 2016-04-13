@@ -1,18 +1,15 @@
 package POI;
 
+import com.sun.javafx.geom.Vec3d;
+
 public class POICircle extends POI {
 
 	int radius;
 	boolean QR;
 	String contains;
 	
-	public POICircle(POIType type, double x, double y, int radius) {
-		super(type, x, y);
-		this.radius = radius;
-	}
-
-	public POICircle(POIType type, double x, double y, double z, int radius){
-		super(type, x, y, z);
+	public POICircle(Vec3d coordinates, int radius) {
+		super(coordinates);
 		this.radius = radius;
 	}
 	
