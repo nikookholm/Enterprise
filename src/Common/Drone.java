@@ -15,10 +15,42 @@ public class Drone extends ARDrone {
 	
 	private iDroneNavigation navigation;
 	private iDroneMovement   movement;
+	
+	private double x, y, z;
 
 	public Drone() 
 	{
 		super("192.168.1.1", new XugglerDecoder());
+	}
+	
+	public double getCoordX()
+	{
+		return x;
+	}
+	
+	public double incCoordX(double inc)
+	{
+		return x + inc;
+	}
+	
+	public double getCoordY()
+	{
+		return y;
+	}
+	
+	public double incCoordY(double inc)
+	{
+		return y + inc;
+	}
+	
+	public double getCoordZ()
+	{
+		return z;
+	}
+	
+	public double incCoordZ(double inc)
+	{
+		return z + inc;
 	}
 	
 	private void initialize()
