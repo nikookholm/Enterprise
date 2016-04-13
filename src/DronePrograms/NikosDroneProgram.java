@@ -9,18 +9,18 @@ public class NikosDroneProgram extends DroneProgram {
 		
 
 		drone.getCommandManager().setMaxAltitude(1);
-		drone.getCommandManager().takeOff();
-		drone.getCommandManager().hover();
+		//drone.getCommandManager().takeOff();
+		//drone.getCommandManager().hover();
 		
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(20000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		drone.getCommandManager().landing();
-		drone.getCommandManager().stop();
+		//drone.getCommandManager().landing();
+		//drone.getCommandManager().stop();
 		
 	}
 

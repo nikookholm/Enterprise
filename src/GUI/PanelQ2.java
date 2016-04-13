@@ -21,6 +21,7 @@ public class PanelQ2 extends JPanel{
 	private CameraPanel cameraPanel;
 	private ImageIcon   img;
 	private JButton     frontBtn, bottomBtn;
+	private BufferedImage image;
 
 	public PanelQ2(){
 		initialize();
@@ -96,6 +97,7 @@ public class PanelQ2 extends JPanel{
 		{
 			System.out.println("UPDATING!");
 			System.out.println("Image is here, go to form pleeeease");
+			image = image;
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run()
 				{
