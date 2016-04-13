@@ -1,8 +1,8 @@
-package Common;
+package POI;
 
 public class POI {
 	
-	public static enum POIType { RING, DICE };
+	public static enum POIType { RING, DICE, QR };
 
 	private double 	x, y, z;
 	private POIType type;
@@ -26,11 +26,6 @@ public class POI {
 		this.type = type;
 		this.x = x;
 		this.y = y;
-	}
-	
-	
-	public POIType getType(){
-		return type;
 	}
 	// Subject to change
 	public double[] getCoordinates(){
