@@ -7,8 +7,8 @@ import java.util.List;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
-import Common.POI;
-import Common.POI.POIType;
+import POI.POI;
+import POI.POI.POIType;
 
 import org.opencv.core.Point;
 import org.opencv.core.Mat;
@@ -58,7 +58,7 @@ public class DroneVision implements iDroneVision {
 			if (newImage != null) {
 				lastImage = newImage;
 				newImage = arg0;
-				
+					
 				tempPoI = CVOp.compareImages(lastImage, newImage);
 			}else{
 				newImage = arg0;

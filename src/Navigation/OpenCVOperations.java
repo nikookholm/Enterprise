@@ -9,8 +9,9 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-import Common.POI;
-import Common.POI.POIType;
+import POI.POI;
+import POI.POI.POIType;
+import POI.POICircle;
 
 public class OpenCVOperations {
 
@@ -46,23 +47,27 @@ public class OpenCVOperations {
 
 		for(POI liCheck : li){
 			for(POI niCheck : ni){
-				if(liCheck.getType() == niCheck.getType()){
+				if(liCheck instanceof POICircle && niCheck instanceof POICircle){
+					if(((POICircle)liCheck).getRadius() == ((POICircle)niCheck).getRadius() && ((POICircle)liCheck).getRadius() > 10){
 					
+					}
 				}
+				// elseif QR
+				// elseif block
+				// elseif airport
+				
 			}
 		}
 		return interestsFound;
 	}
 
-	public Mat findQR(Mat image) {
+	public void findQR(Mat image) {
 
-		boolean QRFound = false;
+		
 
-		if (QRFound) {
-			// tempPoI.add();
-		}
+		
 
-		return image;
+		
 	}
 
 	public void findCircles(Mat image) {

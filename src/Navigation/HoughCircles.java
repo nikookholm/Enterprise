@@ -4,6 +4,8 @@ import javax.print.attribute.Size2DSyntax;
 import javax.swing.JFrame;
 
 import Navigation.PanelVid;
+import POI.POI;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 
@@ -19,7 +21,6 @@ import org.opencv.core.Size;
 import org.opencv.highgui.Highgui;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.Imgproc;
-import Common.POI;
 public class HoughCircles {
 	
 	private JFrame frameCamera;

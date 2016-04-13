@@ -2,8 +2,8 @@ package Navigation;
 
 import java.util.List;
 
+import POI.POI;
 import de.yadrone.base.video.ImageListener;
-import Common.POI;
 
 public interface iDroneVision {
 
