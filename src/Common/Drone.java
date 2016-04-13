@@ -29,7 +29,7 @@ public class Drone extends ARDrone {
 		return x;
 	}
 	
-	public float incCoordX(float inc)
+	public float incCoordX(int inc)
 	{
 		return x + inc;
 	}
@@ -39,7 +39,7 @@ public class Drone extends ARDrone {
 		return y;
 	}
 	
-	public float incCoordY(float inc)
+	public float incCoordY(int inc)
 	{
 		return y + inc;
 	}
@@ -49,7 +49,7 @@ public class Drone extends ARDrone {
 		return z;
 	}
 	
-	public float incCoordZ(float inc)
+	public float incCoordZ(int inc)
 	{
 		return z + inc;
 	}
@@ -59,7 +59,7 @@ public class Drone extends ARDrone {
 		return z;
 	}
 	
-	public float incAngle(float inc)
+	public float incAngle(int inc)
 	{
 		return angle + inc;
 	}
