@@ -57,6 +57,7 @@ public class PanelQ2 extends JPanel{
 
 		this.add(frontBtn);
 		this.add(bottomBtn);
+		this.add(cameraPanel);
 	}
 
 	public class ToggelCamera implements ActionListener{
@@ -89,21 +90,19 @@ public class PanelQ2 extends JPanel{
 			System.out.println("Painting!");
 			super.paint(g);
 			if (image != null)
+			{
 				System.err.println("Repaint ?");
-			g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
+				g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
+			}
 		}
 
 		public void updateCameraPanel(Image image)
 		{
 			System.out.println("UPDATING!");
 			System.out.println("Image is here, go to form pleeeease");
-			image = image;
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run()
-				{
-					cameraPanel.repaint();
-				}
-			});
+			this.image = (BufferedImage)image;
+			
+			cameraPanel.paint(getGraphics());
 
 		}
 
