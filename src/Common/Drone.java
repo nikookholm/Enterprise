@@ -17,7 +17,7 @@ public class Drone extends ARDrone {
 	private iDroneMovement   movement;
 	
 	private float x, y, z;
-	private float angle = 0;
+	private float angle;
 
 	public Drone() 
 	{
@@ -66,6 +66,12 @@ public class Drone extends ARDrone {
 	
 	private void initialize()
 	{
+		x = 0;
+		y = 0;
+		z = 0;
+		
+		angle = 0;
+		
 		this.navigation = new DroneNavigation(this);
 		this.movement   = new DroneMovement(this);
 	}
