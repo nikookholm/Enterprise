@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -19,8 +20,8 @@ import de.yadrone.base.video.ImageListener;
 public class PanelQ2 extends JPanel{
 
 	private CameraPanel cameraPanel;
-	private ImageIcon   img;
-	private JButton     frontBtn, bottomBtn;
+	private ImageIcon   img, img2;
+	private JButton     frontBtn, bottomBtn, imageBtn;
 	private BufferedImage image;
 
 	public PanelQ2(){
@@ -37,26 +38,35 @@ public class PanelQ2 extends JPanel{
 		setBackground(Color.BLACK);
 
 		cameraPanel = new CameraPanel();
+		
+		
 
 		frontBtn  = new JButton("FRONT CAMERA");
 		bottomBtn = new JButton("BOTTOM CAMERA");
+		imageBtn = new JButton("image");
 
 		try {
 			img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
+			img2 = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/uncheck.png")));
 		} catch (IOException ex) {
-			// TODO Auto-generated catch block
+		
 			ex.printStackTrace();
 		}
 
 		ToggelCamera tc = new ToggelCamera();
 		frontBtn.addActionListener(tc);
 		bottomBtn.addActionListener(tc);
+		imageBtn.addActionListener(tc);
 
 		frontBtn.setIcon(img);
-
-
+		bottomBtn.setIcon(img2);
+		imageBtn.setIcon(img2);
+		
+		
+		
 		this.add(frontBtn);
 		this.add(bottomBtn);
+		this.add(imageBtn);
 		this.add(cameraPanel);
 	}
 
@@ -69,11 +79,19 @@ public class PanelQ2 extends JPanel{
 			if(e.getSource().equals(frontBtn)){
 
 				frontBtn.setIcon(img);
-				bottomBtn.setIcon(null);
-			} else {
+				bottomBtn.setIcon(img2);
+				imageBtn.setIcon(img2);
+			} else if (e.getSource().equals(bottomBtn)){
 				bottomBtn.setIcon(img);
-				frontBtn.setIcon(null);
+				frontBtn.setIcon(img2);
+				imageBtn.setIcon(img2);
 			}
+			else {
+				imageBtn.setIcon(img);
+				frontBtn.setIcon(img2);
+				bottomBtn.setIcon(img2);
+			}
+
 
 		}
 	}
@@ -101,7 +119,6 @@ public class PanelQ2 extends JPanel{
 			System.out.println("UPDATING!");
 			System.out.println("Image is here, go to form pleeeease");
 			this.image = (BufferedImage)image;
-			
 			cameraPanel.paint(getGraphics());
 
 		}
