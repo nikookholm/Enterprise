@@ -25,8 +25,6 @@ public class Drone extends ARDrone {
 	{
 		this.navigation = new DroneNavigation(this);
 		this.movement   = new DroneMovement(this);
-		
-		super.start();
 	}
 	
 	public iDroneNavigation getNavigation()

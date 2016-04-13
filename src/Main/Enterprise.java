@@ -33,11 +33,13 @@ public class Enterprise {
 		 gui.initialize(this);
 		 
 		 attachDroneHandlers();
+		 
+		 drone.start();
 	}
 	
 	private void attachDroneHandlers()
 	{
-		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
+		//drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		//drone.getNavDataManager().addVideoListener(gui.getVideoListener());
 		drone.getVideoManager().addImageListener(gui.getImageListener());
 	}

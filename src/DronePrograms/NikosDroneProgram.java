@@ -9,7 +9,7 @@ public class NikosDroneProgram extends DroneProgram {
 		
 
 		drone.getCommandManager().setMaxAltitude(1);
-		drone.takeOff();
+		drone.getCommandManager().takeOff();
 		drone.getCommandManager().hover();
 		
 		try {
@@ -20,7 +20,7 @@ public class NikosDroneProgram extends DroneProgram {
 		}
 		
 		drone.getCommandManager().landing();
-		drone.stop();
+		drone.getCommandManager().stop();
 		
 	}
 

@@ -82,7 +82,7 @@ public class PanelQ2 extends JPanel{
 	
 	public class CameraPanel extends JPanel
 	{
-		private Image image;
+		private BufferedImage image;
 		
 		@Override
 		public void paint(Graphics g)
@@ -90,15 +90,15 @@ public class PanelQ2 extends JPanel{
 			System.out.println("Painting!");
 			super.paint(g);
 	        if (image != null)
-	            g.drawImage(image, 0, 0, image.getWidth(null), image.getHeight(null), null);
+	            g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), null);
 		}
 		
 		public void updateCameraPanel(Image image)
 		{
 			System.out.println("UPDATING!");
+			System.out.println("Image dimentions: (" + image.getWidth() + ", " + image.getHeight() + ")");
 			this.image = image;
 			paint(this.getGraphics());
-			
 		}
 		
 		
@@ -109,9 +109,7 @@ public class PanelQ2 extends JPanel{
 		public void imageUpdated(BufferedImage arg0) {
 			
 			cameraPanel.updateCameraPanel(arg0);
-			
 		}
-
 
 	}
 	
