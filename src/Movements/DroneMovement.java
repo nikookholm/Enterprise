@@ -28,25 +28,43 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	
 	public void flyTo(POI interest) {
-		// TODO venter på billedebehandling
-	
-	}
-	
-	/**
-	 * 
-	 */
-	
-	public void rotateRight(int degrees) {
-		// TODO Auto-generated method stub
 		
+	
 	}
 	
 	/**
 	 * 
 	 */
 	
-	public void rotateLeft(int degrees) {
-		// TODO Auto-generated method stub
+
 	
+	@Override
+	public void rotateAngle(int angle) {
+		if(checkInterval(angle)){
+			return;
+		}
+	}
+	
+	/***********************************************************/
+	/*********************private*******************************/
+	/***********************************************************/
+	
+	private boolean checkInterval(int degrees){
+		if(0 <= degrees && degrees < 360){
+			return true;
+		}
+		return false;
+	}
+	
+	private void rotateRight(int degrees) {
+		drone.goRight();
+	}
+	
+	/**
+	 * 
+	 */
+	
+	private void rotateLeft(int degrees) {
+		drone.goLeft();
 	}
 }
