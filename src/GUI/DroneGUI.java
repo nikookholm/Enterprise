@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.text.rtf.RTFEditorKit;
 
-import GUI.PanelQ2.CameraPanel.CustomImageListener;
 import Main.Enterprise;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
@@ -108,8 +107,14 @@ public class DroneGUI implements iDroneGUI {
 
 	@Override
 	public ImageListener getImageListener() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ImageListener() {
+			
+			@Override
+			public void imageUpdated(BufferedImage arg0) {
+				q2.updateCameraPanel(arg0);
+				
+			}
+		};
 	}
 	
 }
