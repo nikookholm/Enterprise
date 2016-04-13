@@ -16,8 +16,8 @@ public class Drone extends ARDrone {
 	private iDroneNavigation navigation;
 	private iDroneMovement   movement;
 	
-	private float x, y, z;
-	private float angle;
+	private int x, y, z;
+	private int angle;
 
 	public Drone() 
 	{
