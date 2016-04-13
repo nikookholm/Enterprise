@@ -1,18 +1,23 @@
 package Navigation;
 
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
+import Navigation.QRPoi;
+
 
 
 import POI.POI;
 
+import POI.POIWallPoint;
 import POI.POICircle;
 import Vector.Vector3D;
 
@@ -66,9 +71,13 @@ public class OpenCVOperations {
 
 	public void findQR(Mat image, Vector3D coordinates, int angle) {
 
-		
+		List<QRPoi> fundet = new ArrayList<>();
+		QRfinder findqr = new QRfinder();
+		fundet = findqr.findQR(image);  // exceptions klare jeg senere.
 
-		
+		for (int i = 0; i<fundet.size(); i++){
+			interestsFound.add(new POIWallPoint(new Vector3D(0, 0, 0), coordinates, fundet.get(i).getCode()));
+		}
 
 		
 	}
