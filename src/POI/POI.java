@@ -1,23 +1,25 @@
 package POI;
 
-import com.sun.javafx.geom.Vec3d;
-
+import java.util.Vector;
+import Vector.Vector3D;
 public class POI {
 	
 
 
-	private Vec3d coordinates;
-	private Vec3d dronePos;
+	private Vector3D coordinates;
+	private Vector3D dronePos;
 	
-	private int 	angle;
+	private int angle;
 	
-	public POI(Vec3d coordinates)
+	public POI(Vector3D coordinates, Vector3D dronepos)
 	{
 		
+		
 		this.coordinates = coordinates;
+		this.dronePos = dronepos;
 	}
 	
-	public POI(Vec3d coordinates, int angle)
+	public POI(Vector3D coordinates, int angle)
 	{
 
 		this.coordinates = coordinates;
