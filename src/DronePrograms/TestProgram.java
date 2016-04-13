@@ -16,13 +16,12 @@ public class TestProgram extends DroneProgram {
 	@Override
 	public void run() {
 		
-		System.out.println("IM A RUNNING PROGRAM!!!!");
+		//List<POI> pois = drone.scan();      -- Flyver op og ser alt hvad der kan genkende fra dens position.
+		//drone.calibrate();				  -- Kalibrerer i forhold til mærkerne på væggen
 		
-	
+		//drone.flyTo(pois[0]);
 		
-		
-		
-		
+		//drone.returnHome();
 
 	}
 
