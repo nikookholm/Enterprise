@@ -24,42 +24,42 @@ public class Drone extends ARDrone {
 		super("192.168.1.1", new XugglerDecoder());
 	}
 	
-	public float getCoordX()
+	public int getCoordX()
 	{
 		return x;
 	}
 	
-	public float incCoordX(int inc)
+	public int incCoordX(int inc)
 	{
 		return x + inc;
 	}
 	
-	public float getCoordY()
+	public int getCoordY()
 	{
 		return y;
 	}
 	
-	public float incCoordY(int inc)
+	public int incCoordY(int inc)
 	{
 		return y + inc;
 	}
 	
-	public float getCoordZ()
+	public int getCoordZ()
 	{
 		return z;
 	}
 	
-	public float incCoordZ(int inc)
+	public int incCoordZ(int inc)
 	{
 		return z + inc;
 	}
 	
-	public float getAngle()
+	public int getAngle()
 	{
 		return z;
 	}
 	
-	public float incAngle(int inc)
+	public int incAngle(int inc)
 	{
 		return angle + inc;
 	}
