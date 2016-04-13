@@ -11,12 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import GUI.PanelQ2.CameraPanel.CustomImageListener;
+import Main.Enterprise;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.video.ImageListener;
-import GUI.PanelQ2.CameraPanel.CustomImageListener;
-import Main.Enterprise;
 
 public class DroneGUI implements iDroneGUI {
 	
@@ -98,16 +98,18 @@ public class DroneGUI implements iDroneGUI {
 		
 	}
 	
-	@Override
-	public CustomImageListener getImageListener()
-	{
-		return null;   
-	}
+
 
 	@Override
 	public void updateCameraPanel(Image image) {
 		q2.updateCameraPanel(image);
 		
+	}
+
+	@Override
+	public ImageListener getImageListener() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
