@@ -99,9 +99,9 @@ public class DroneGUI implements iDroneGUI {
 	}
 	
 	@Override
-	public PanelQ2.CustomImageListener getImageListener()
+	public CustomImageListener getImageListener()
 	{
-		return q2.new   
+		return null;   
 	}
 
 	@Override
