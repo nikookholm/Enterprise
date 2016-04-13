@@ -1,6 +1,6 @@
 package Movements;
 
-import Common.POI;
+import POI.POI;
 
 public interface iDroneMovement {
 	
