@@ -39,7 +39,7 @@ public class QRfinder {
 
 	private static Point dj = new Point();
 
-	public void CaptureWebcam(Mat newImage) throws Exception {
+	public void findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -327,8 +327,10 @@ public class QRfinder {
 							String result = decode(qrdet);
 
 							if (result != " ")
-								DecodeQR.add(result);
+								QRFun.get(i).setCode(result);
 
+							
+							
 						}
 					}
 
