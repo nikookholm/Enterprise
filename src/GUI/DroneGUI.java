@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.video.ImageListener;
+import GUI.PanelQ2.CameraPanel.CustomImageListener;
 import Main.Enterprise;
 
 public class DroneGUI implements iDroneGUI {
@@ -81,11 +83,7 @@ public class DroneGUI implements iDroneGUI {
 		frame.setVisible(true);
 	}
 
-	@Override
-	public VideoListener getVideoListener() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public AltitudeListener getAltitudeListener() {
@@ -101,17 +99,9 @@ public class DroneGUI implements iDroneGUI {
 	}
 	
 	@Override
-	public ImageListener getImageListener()
+	public PanelQ2.CustomImageListener getImageListener()
 	{
-		return new ImageListener() {
-			
-			@Override
-			public void imageUpdated(BufferedImage arg0) {
-
-				updateCameraPanel(arg0);
-
-			}
-		};
+		return q2.new   
 	}
 
 	@Override
