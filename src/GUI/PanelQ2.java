@@ -1,7 +1,10 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +27,9 @@ public class PanelQ2 extends JPanel{
 	private JButton     frontBtn, bottomBtn, imageBtn;
 	private BufferedImage image;
 
+	private GridBagLayout gbLayout;
+	GridBagConstraints c;
+
 	public PanelQ2(){
 		initialize();
 	}
@@ -36,6 +42,10 @@ public class PanelQ2 extends JPanel{
 	private void initialize()
 	{
 		setBackground(Color.BLACK);
+		 gbLayout = new GridBagLayout();
+		 c 	= new GridBagConstraints();
+		 
+//		 this.setLayout(gbLayout);
 
 		cameraPanel = new CameraPanel();
 		
@@ -62,12 +72,14 @@ public class PanelQ2 extends JPanel{
 		bottomBtn.setIcon(img2);
 		imageBtn.setIcon(img2);
 		
-		
-		
+		cameraPanel.setPreferredSize(new Dimension(390, 350));
+
+
 		this.add(frontBtn);
 		this.add(bottomBtn);
 		this.add(imageBtn);
 		this.add(cameraPanel);
+		
 	}
 
 	public class ToggelCamera implements ActionListener{
@@ -96,8 +108,6 @@ public class PanelQ2 extends JPanel{
 		}
 	}
 
-
-
 	public class CameraPanel extends JPanel
 	{
 		private BufferedImage image;
@@ -110,7 +120,7 @@ public class PanelQ2 extends JPanel{
 			if (image != null)
 			{
 				System.err.println("Repaint ?");
-				g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
+				g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 			}
 		}
 
