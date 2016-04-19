@@ -21,9 +21,8 @@ public class OpenCVOperations {
 	ArrayList<POI> objectsFound = new ArrayList<POI>();
 
 	ArrayList<POI> interestsFound = new ArrayList<POI>();
-
+	
 	private ArrayList<POI> findObjects(BufferedImage arg0, Vector3D coordinates, int angle) {
-
 		objectsFound.clear();
 
 		Mat ImageMat = bufferedImageToMat(arg0);
