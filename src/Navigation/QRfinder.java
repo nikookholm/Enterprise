@@ -36,10 +36,11 @@ public class QRfinder {
 	private final int eas = 1;
 	private final int syd = 2;
 	private final int ves = 3;
+	private List<QRPoi> QRFun = new ArrayList<QRPoi>();
 
 	private static Point dj = new Point();
 
-	public void findQR(Mat newImage) throws Exception {
+	public List<QRPoi> findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -127,7 +128,6 @@ public class QRfinder {
 
 			List<String> DecodeQR = new ArrayList<String>();
 
-			List<QRPoi> QRFun = new ArrayList<QRPoi>();
 			int check = 0;
 
 			List<Integer> taken = new ArrayList<>(3);
@@ -323,7 +323,6 @@ public class QRfinder {
 							byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
 							qr_thres.get(0, 0, data);
-
 							String result = decode(qrdet);
 
 							if (result != " ")
@@ -341,7 +340,9 @@ public class QRfinder {
 				}
 
 			}}
-		}
+		
+	return QRFun;
+	}
 	
 
 	private MatOfPoint2f corn(ArrayList<MatOfPoint> Dj, int punk1, double slop, MatOfPoint2f cd) {
