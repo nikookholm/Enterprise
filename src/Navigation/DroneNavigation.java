@@ -2,7 +2,7 @@ package Navigation;
 
 import de.yadrone.base.command.CommandManager;
 import Common.Drone;
-import Common.POI;
+import POI.POI;
 
 public class DroneNavigation implements iDroneNavigation {
 	

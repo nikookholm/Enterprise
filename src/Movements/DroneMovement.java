@@ -2,6 +2,7 @@ package Movements;
 
 import Common.Drone;
 import POI.POI;
+import POI.POICircle;
 
 public class DroneMovement implements iDroneMovement {
 	
@@ -66,5 +67,9 @@ public class DroneMovement implements iDroneMovement {
 	
 	private void rotateLeft(int degrees) {
 		drone.goLeft();
+	}
+	
+	private void flyThroughRing(POICircle poiC){
+		
 	}
 }
