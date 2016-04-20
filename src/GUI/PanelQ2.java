@@ -80,6 +80,8 @@ public class PanelQ2 extends JPanel{
 		this.add(imageBtn);
 		this.add(cameraPanel);
 		
+		
+		
 	}
 
 	public class ToggelCamera implements ActionListener{
