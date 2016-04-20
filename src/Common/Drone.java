@@ -42,6 +42,11 @@ public class Drone extends ARDrone {
 		return coords.getXCoord();
 	}
 	
+	public void setCoords(Vector3D newCoords)
+	{
+		coords = newCoords;
+	}
+	
 	public int incCoordY(int inc)
 	{
 		return y + inc;
