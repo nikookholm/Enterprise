@@ -1,9 +1,13 @@
 package DronePrograms;
 
 import Main.DroneProgram;
+import Movements.DroneMovement;
+
 
 public class LpogDollar extends DroneProgram {
-
+	
+	private DroneMovement droneMovement; 
+	
 	@Override
 	public void abort() {
 		// TODO Auto-generated method stub
@@ -17,7 +21,12 @@ public class LpogDollar extends DroneProgram {
 
 	@Override
 	public void run() {
-		// KODE HER ....
+		drone.hover();
+		drone.getCommandManager().manualTrim(0, 0, 0);
+		droneMovement.flyForward(4);
+		
+		
+		
 		
 	}
 

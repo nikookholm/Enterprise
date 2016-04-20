@@ -3,10 +3,12 @@ package Movements;
 import Common.Drone;
 import POI.POI;
 import POI.POICircle;
+import Vector.Vector3D;
 
 public class DroneMovement implements iDroneMovement {
 	
 	private Drone drone;
+	double z;
 	
 	public DroneMovement(Drone drone)
 	{
@@ -56,20 +58,40 @@ public class DroneMovement implements iDroneMovement {
 		}
 		return false;
 	}
-	
+	//testes 27/4
 	private void rotateRight(int degrees) {
-		drone.goRight();
+		drone.getCommandManager().goRight(degrees);
+		drone.incAngle(-degrees);
 	}
-	
 	/**
 	 * 
 	 */
-	
+	//testes 27/4
 	private void rotateLeft(int degrees) {
-		drone.goLeft();
+		drone.getCommandManager().goLeft(degrees);
+		drone.incAngle(degrees);
+	}
+
+	public void flyForward(int cm){
+		drone.getCommandManager().forward(cm); // omregnes til en mængde tid
+		drone.setCoords(calculateNewCoords(cm));
+		
+	}
+	private void flyThroughRing(POICircle poiC){
+		
 	}
 	
-	private void flyThroughRing(POICircle poiC){
+	private Vector3D calculateNewCoords(int distance){
+		
+		
+		double x = drone.getCoordX();
+		double y = drone.getCoordY();
+		int angle = drone.getAngle();
+		
+		double newX = distance*Math.cos(x);
+		double newY = distance*Math.sin(y);
+		
+		return new Vector3D(x+newX, y+newY, z);
 		
 	}
 }
