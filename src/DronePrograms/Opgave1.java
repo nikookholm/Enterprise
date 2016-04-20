@@ -1,32 +1,51 @@
 package DronePrograms;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import Main.DroneProgram;
 import POI.POI;
+import POI.POICircle;
 
-public class Opgave1 {
-//
-//	List<POI> pois  = new ArrayList<POI>();
-//	List<POI> rings = new ArrayList<POI>();
-//	
-//	drone.hoverTo(2)                           // Meters.
-//	
-//	pois = drone.getNavigation().scan();
-//	
-//	for(POI poi : pois)
-//	{
-//		if (poi instanceof poiRING)
-//		{
-//			rings.add(poi);
-//		}
-//	}
-//	
-//	drone.getNavigation.flyTo(closestRing.positionFront());
-//	
-//	// Repeat for all rings ...
-//	
-//	drone.returnToHome();
-	
-	
+public class Opgave1 extends DroneProgram {
+
+	private ArrayList<POICircle> rings;
+	private ArrayList<POI> 		 pois;
+	private POICircle 			 closestRing;
+
+	@Override
+	public void abort() {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public String getProgramName() {
+		return "Opgave 1 er the shit!";
+	}
+	@Override
+	public void run() {
+
+
+		int holesToDo       = 4;
+		int holesPenetrated = 0;
+		while (holesPenetrated < holesToDo)
+		{
+			pois = drone.getNavigation().scan();
+			for(POI poi : pois)
+			{
+				if (poi instanceof POICircle)
+				{
+					rings.add((POICircle)poi);
+					if (((POICircle)poi).getQRValue().equals(holesPenetrated))
+					{
+						drone.getNavigation().flyTo(poi);
+					}
+
+				}
+			}
+		}
+		
+		drone.getNavigation().flyToHome();
+	}
+
+
 }
