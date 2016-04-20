@@ -10,33 +10,36 @@ import Movements.DroneMovement;
 import Movements.iDroneMovement;
 import Navigation.DroneNavigation;
 import Navigation.iDroneNavigation;
+import Vector.Vector3D;
 
 public class Drone extends ARDrone {
 	
 	private iDroneNavigation navigation;
 	private iDroneMovement   movement;
 	
-	private int x, y, z;
-	private int angle;
+	private Vector3D coords;
+	private int 	 angle;
 
 	public Drone() 
 	{
 		super("192.168.1.1", new XugglerDecoder());
+		initialize();
 	}
 	
-	public int getCoordX()
+	public double getCoordX()
 	{
-		return x;
+		return coords.getXCoord();
 	}
 	
-	public int incCoordX(int inc)
+	public double incCoordX(double inc)
 	{
+		coords.
 		return x + inc;
 	}
 	
 	public int getCoordY()
 	{
-		return y;
+		return coords.getXCoord();
 	}
 	
 	public int incCoordY(int inc)
@@ -46,7 +49,7 @@ public class Drone extends ARDrone {
 	
 	public int getCoordZ()
 	{
-		return z;
+		return coords.getXCoord();
 	}
 	
 	public int incCoordZ(int inc)
@@ -66,11 +69,8 @@ public class Drone extends ARDrone {
 	
 	private void initialize()
 	{
-		x = 0;
-		y = 0;
-		z = 0;
-		
-		angle = 0;
+		coords = new Vector3D();
+		angle  = 0;
 		
 		this.navigation = new DroneNavigation(this);
 		this.movement   = new DroneMovement(this);

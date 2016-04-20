@@ -11,6 +11,11 @@ public class Vector3D {
 		this.z = z;
 	}
 	
+	public Vector3D()
+	{
+		
+	}
+	
 	public double getXCoord(){
 		return x;
 	}
@@ -21,5 +26,17 @@ public class Vector3D {
 	
 	public double getZCoord(){
 		return z;
+	}
+	
+	public double incXCoord(double incX){
+		return x += incX;
+	}
+	
+	public double incYCoord(double incY){
+		return y += incY;
+	}
+	
+	public double incZCoord(double incZ){
+		return z += incZ;
 	}
 }
