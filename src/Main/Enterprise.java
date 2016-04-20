@@ -63,7 +63,7 @@ public class Enterprise {
 		activeProgram.abort();
 	}
 	
-	private Drone getDrone()
+	public Drone getDrone()
 	{
 		return drone;
 	}

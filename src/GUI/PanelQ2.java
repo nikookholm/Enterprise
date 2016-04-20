@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.security.acl.Owner;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -18,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import Main.Enterprise;
+import Navigation.HoughCircles;
+import Navigation.QRfinder;
 import de.yadrone.base.video.ImageListener;
 
 public class PanelQ2 extends JPanel{
@@ -29,9 +33,14 @@ public class PanelQ2 extends JPanel{
 
 	private GridBagLayout gbLayout;
 	GridBagConstraints c;
-
-	public PanelQ2(){
+	private DroneGUI droneGui;
+	
+	
+	public PanelQ2(DroneGUI owner){
 		initialize();
+		droneGui = owner;
+//		owner = enterprise;
+		
 	}
 
 	public void updateCameraPanel(Image image)
@@ -64,6 +73,9 @@ public class PanelQ2 extends JPanel{
 		}
 
 		ToggelCamera tc = new ToggelCamera();
+		
+		
+		
 		frontBtn.addActionListener(tc);
 		bottomBtn.addActionListener(tc);
 		imageBtn.addActionListener(tc);
@@ -91,11 +103,16 @@ public class PanelQ2 extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 
 			if(e.getSource().equals(frontBtn)){
+				
+				
 
+				droneGui.getMain().getDrone().toggleCamera();
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
 			} else if (e.getSource().equals(bottomBtn)){
+				
+				droneGui.getMain().getDrone().toggleCamera();
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
@@ -132,6 +149,19 @@ public class PanelQ2 extends JPanel{
 			System.out.println("Image is here, go to form pleeeease");
 			this.image = (BufferedImage)image;
 			cameraPanel.paint(getGraphics());
+//			Mat imageMat = new Mat();
+//			imageMat = new HoughCircles().bufferedImageToMat(this.image);
+//		
+//			try {
+//		  im =  new QRfinder().findQR(imageMat);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				
+//			}
+//			for(int i= 0; i< im.size(); i++){
+//				if(im.get(i).getCode() != null)
+//		System.out.println("new qr " +  im.get(i).getCode());	
+//			}
 
 		}
 

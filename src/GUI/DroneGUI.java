@@ -48,7 +48,7 @@ public class DroneGUI implements iDroneGUI {
 		frame.setLayout(gbLayout);
 		
 		q1 = new PanelQ1(enterprise);
-		q2 = new PanelQ2();
+		q2 = new PanelQ2(this);
 		q3 = new PanelQ3();
 		q4 = new PanelQ4();
 		
@@ -80,6 +80,10 @@ public class DroneGUI implements iDroneGUI {
 		frame.pack();
 		
 		frame.setVisible(true);
+	}
+	
+	public Enterprise getMain() {
+		return main;
 	}
 
 
