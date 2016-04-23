@@ -134,19 +134,15 @@ public class PanelQ2 extends JPanel{
 		@Override
 		public void paint(Graphics g)
 		{
-			System.out.println("Painting!");
 			super.paint(g);
 			if (image != null)
 			{
-				System.err.println("Repaint ?");
 				g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 			}
 		}
 
 		public void updateCameraPanel(Image image)
 		{
-			System.out.println("UPDATING!");
-			System.out.println("Image is here, go to form pleeeease");
 			this.image = (BufferedImage)image;
 			cameraPanel.paint(getGraphics());
 //			Mat imageMat = new Mat();

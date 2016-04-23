@@ -8,7 +8,8 @@ import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
 import POI.POI;
-import POI.POI.POIType;
+
+
 
 import org.opencv.core.Point;
 import org.opencv.core.Mat;
@@ -17,6 +18,7 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import com.sun.javafx.geom.Vec3d;
+import Vector.Vector3D;
 
 import org.opencv.highgui.VideoCapture;
 

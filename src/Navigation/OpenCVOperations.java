@@ -72,7 +72,12 @@ public class OpenCVOperations {
 
 		List<QRPoi> fundet = new ArrayList<>();
 		QRfinder findqr = new QRfinder();
-		fundet = findqr.findQR(image);  // exceptions klare jeg senere.
+		try {
+			fundet = findqr.findQR(image);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  // exceptions klare jeg senere.
 
 		for (int i = 0; i<fundet.size(); i++){
 			interestsFound.add(new POIWallPoint(new Vector3D(0, 0, 0), coordinates, fundet.get(i).getCode()));
