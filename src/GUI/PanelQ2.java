@@ -41,6 +41,7 @@ public class PanelQ2 extends JPanel{
 	GridBagConstraints c;
 	private DroneGUI droneGui;
 	private List<QRPoi> im;
+	private QRfinder qrfind = new QRfinder();
 	
 	
 	public PanelQ2(DroneGUI owner){
@@ -159,16 +160,19 @@ public class PanelQ2 extends JPanel{
 			imageMat = new HoughCircles().bufferedImageToMat(this.image);
 		
 			try {
-		  im =  new QRfinder().findQR(imageMat);
+				qrfind.findQR(imageMat);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				
 			}
+			
+			im = qrfind.getQRFun();
 			for(int i= 0; i< im.size(); i++){
-				System.out.println("test12");
 				if(im.get(i).getCode() != null)
-		System.out.println("new qr " +  im.get(i).getCode());	
+		System.out.println("new qr " +  im.get(i).getCode());
+				System.out.println(im.size() + " ---- size");
 			}
+			im.clear();
 
 		}
 

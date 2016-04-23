@@ -40,7 +40,7 @@ public class QRfinder {
 
 	private static Point dj = new Point();
 
-	public List<QRPoi> findQR(Mat newImage) throws Exception {
+	public void findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -76,6 +76,7 @@ public class QRfinder {
 			int antalF = 0;
 			int count = 0;
 
+
 			ArrayList<Integer> boxEs = new ArrayList<Integer>();
 
 			for (int i = 0; i < heica.rows(); i++) {
@@ -99,6 +100,7 @@ public class QRfinder {
 				}
 			}
 
+
 			Point[] poinF = new Point[countersFundet.size()];
 			for (int i = 0; i < countersFundet.size(); i++) {
 				momm[i] = Imgproc.moments(countersFundet.get(i), false);
@@ -120,7 +122,7 @@ public class QRfinder {
 
 			List<Point[]> punktCorn = new ArrayList<Point[]>(boxEs.size());
 			List<Integer> removeP = new ArrayList<Integer>(3);
-			
+
 			for (int i = 0; i < boxEs.size(); i++) {
 
 				punktCorn.add(conn.get(i).toArray());
@@ -134,61 +136,75 @@ public class QRfinder {
 			int tjek;
 
 			if (boxEs.size() > 2) {
+
 				for (tjek = 0; tjek < boxEs.size(); tjek++) {
-					if(boxEs.size() >2){
-					Point p1 = new Point();
-					Point p2 = new Point();
-					Point pn1 = new Point();
-					Point[] pjA;
-					Point[] pjB;
+					if (boxEs.size() > 2) {
+						Point p1 = new Point();
+						Point p2 = new Point();
+						Point pn1 = new Point();
+						Point[] pjA;
+						Point[] pjB;
+						if (tjek + 1 < punktCorn.size()) {
 
-					if (tjek + 1 < punktCorn.size()) {
+							pjA = punktCorn.get(tjek);
+							p1 = pjA[0];
+							p2 = pjA[1];
+							double dist1 = distance(p1, p2);
+							double maksV = (dist1 * 2) + 100;
+							double minV = (dist1 * 2) - 100;
 
-						pjA = punktCorn.get(tjek);
-						p1 = pjA[0];
-						p2 = pjA[1];
-						double dist1 = distance(p1, p2);
-						double maksV = (dist1 * 2) + 30;
-						double minV = (dist1 * 2) - 30;
+							for (int j = tjek + 1; j < boxEs.size(); j++) {
 
-						for (int j = tjek + 1; j < boxEs.size(); j++) {
-							pjB = punktCorn.get(j);
-							pn1 = pjB[0];
-							double dist2p = distance(p1, pn1);
-							if (dist2p < maksV && dist2p > minV) {
-								if (check == 0) {
-									removeP.add(tjek);
-									taken.add(boxEs.get(tjek));
-									check++;
-								}
-								removeP.add(j);
-								taken.add(boxEs.get(j));
-								if (taken.size() == 3) {
+								pjB = punktCorn.get(j);
+								pn1 = pjB[0];
+								double dist2p = distance(p1, pn1);
+								if (dist2p < maksV && dist2p > minV) {
+									if (check == 0) {
+										int deal = boxEs.get(tjek);
+										taken.add(deal);
+										
+										
+										removeP.add(tjek);
+										check++;
+									}
+									int real = boxEs.get(j);
+									taken.add(real);
+									removeP.add(j);
+									if (taken.size() == 3) {
 
-									QRFun.add(new QRPoi(taken.get(0), taken.get(1), taken.get(2)));
-									taken.clear();
-									;
+										QRFun.add(new QRPoi(taken.get(0), taken.get(1), taken.get(2)));
+										taken.clear();
+										;
 
-									boxEs.remove(removeP.get(2));
-									boxEs.remove(removeP.get(1));
-									boxEs.remove(removeP.get(0));
-									punktCorn.remove(removeP.get(2));
-									punktCorn.remove(removeP.get(1));
-									punktCorn.remove(removeP.get(0));
+										int j1 = removeP.get(0);
+										int j2 = removeP.get(1);
+										int j3 = removeP.get(2);
 
-									removeP.clear();
-									check = 0;
-									tjek = -1;
-									j = j + 10000;
+										boxEs.remove(j3);
+										boxEs.remove(j2);
+										boxEs.remove(j1);
+										punktCorn.remove(j3);
+										punktCorn.remove(j2);
+										punktCorn.remove(j1);
+
+
+
+										removeP.clear();
+										check = 0;
+										tjek = -1;
+
+										j = j + 10000;
+
+									}
 								}
 							}
-						}
 
-					}
+						}
 					}
 				}
 
 			}
+
 
 			for (int i = 0; i < QRFun.size(); i++) {
 				int top = 0, mid = 0, bot = 0;
@@ -251,9 +267,9 @@ public class QRfinder {
 					}
 
 					if (top1 < countersFundet.size() && mid1 < countersFundet.size() && bot1 < countersFundet.size()
-							&& Imgproc.contourArea(countersFundet.get(top1)) > 20
-							&& Imgproc.contourArea(countersFundet.get(mid1)) > 20
-							&& Imgproc.contourArea(countersFundet.get(bot1)) > 20) {
+							&& Imgproc.contourArea(countersFundet.get(top1)) > 10
+							&& Imgproc.contourArea(countersFundet.get(mid1)) > 10
+							&& Imgproc.contourArea(countersFundet.get(bot1)) > 10) {
 						MatOfPoint2f jim = new MatOfPoint2f(), dim = new MatOfPoint2f(), tim = new MatOfPoint2f(),
 								jimTemp = new MatOfPoint2f(), dimTemp = new MatOfPoint2f(),
 								timTemp = new MatOfPoint2f();
@@ -300,7 +316,6 @@ public class QRfinder {
 						MatOfPoint2f finT = new MatOfPoint2f(toArFin);
 
 						if (srcT.total() == 4 && finT.total() == 4) {
-
 							warp = Imgproc.getPerspectiveTransform(srcT, finT);
 
 							Imgproc.warpPerspective(newImage, qr_raw, warp, new Size(qr.cols(), qr.rows()));
@@ -315,14 +330,14 @@ public class QRfinder {
 
 							byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
-							qr_gray.get(0, 0, data);
+							qr_thres.get(0, 0, data);
 							String result = decode(qrdet);
 
-							if (result != " ")
+							if (result != " ") {
 								QRFun.get(i).setCode(result);
+								QRFun.get(i).setQRimg(qrdet);
+							}
 
-							
-							
 						}
 					}
 
@@ -332,11 +347,10 @@ public class QRfinder {
 					throw new Exception("Kunne ikke fÃ¥ billeder fra kamera.");
 				}
 
-			}}
-		
-	return QRFun;
+			}
+		}
+
 	}
-	
 
 	private MatOfPoint2f corn(ArrayList<MatOfPoint> Dj, int punk1, double slop, MatOfPoint2f cd) {
 
@@ -616,6 +630,7 @@ public class QRfinder {
 		return " ";
 	}
 
+	public List<QRPoi> getQRFun() {
+		return QRFun;
+	}
 }
-
-

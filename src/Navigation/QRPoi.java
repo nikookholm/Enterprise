@@ -1,5 +1,7 @@
 package Navigation;
 
+import java.awt.image.BufferedImage;
+
 import org.opencv.core.Point;
 
 public class QRPoi {
@@ -11,6 +13,7 @@ public class QRPoi {
 	private double xpos;
 	private double ypos;
 	private String message;
+	private BufferedImage QRimg;
 
 	public void setX(double k){
 		xpos = k;
@@ -66,6 +69,12 @@ public class QRPoi {
 		this.top = top1;
 		this.mid = mid1;
 		this.bot = bot1;
+	}
+	public void setQRimg(BufferedImage qRimg) {
+		QRimg = qRimg;
+	}
+	public BufferedImage getQRimg() {
+		return QRimg;
 	}
 	
 	
