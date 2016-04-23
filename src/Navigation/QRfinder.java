@@ -141,8 +141,6 @@ public class QRfinder {
 					Point pn1 = new Point();
 					Point[] pjA;
 					Point[] pjB;
-					for (int k = 0; k < boxEs.size(); k++) {
-					}
 
 					if (tjek + 1 < punktCorn.size()) {
 
@@ -160,28 +158,23 @@ public class QRfinder {
 							if (dist2p < maksV && dist2p > minV) {
 								if (check == 0) {
 									removeP.add(tjek);
-									int deal = boxEs.get(tjek);
-									taken.add(deal);
+									taken.add(boxEs.get(tjek));
 									check++;
 								}
-								int real = boxEs.get(j);
 								removeP.add(j);
-								taken.add(real);
+								taken.add(boxEs.get(j));
 								if (taken.size() == 3) {
 
 									QRFun.add(new QRPoi(taken.get(0), taken.get(1), taken.get(2)));
 									taken.clear();
 									;
-									int j1 = removeP.get(0);
-									int j2 = removeP.get(1);
-									int j3 = removeP.get(2);
 
-									boxEs.remove(j3);
-									boxEs.remove(j2);
-									boxEs.remove(j1);
-									punktCorn.remove(j3);
-									punktCorn.remove(j2);
-									punktCorn.remove(j1);
+									boxEs.remove(removeP.get(2));
+									boxEs.remove(removeP.get(1));
+									boxEs.remove(removeP.get(0));
+									punktCorn.remove(removeP.get(2));
+									punktCorn.remove(removeP.get(1));
+									punktCorn.remove(removeP.get(0));
 
 									removeP.clear();
 									check = 0;
@@ -258,9 +251,9 @@ public class QRfinder {
 					}
 
 					if (top1 < countersFundet.size() && mid1 < countersFundet.size() && bot1 < countersFundet.size()
-							&& Imgproc.contourArea(countersFundet.get(top1)) > 10
-							&& Imgproc.contourArea(countersFundet.get(mid1)) > 10
-							&& Imgproc.contourArea(countersFundet.get(bot1)) > 10) {
+							&& Imgproc.contourArea(countersFundet.get(top1)) > 20
+							&& Imgproc.contourArea(countersFundet.get(mid1)) > 20
+							&& Imgproc.contourArea(countersFundet.get(bot1)) > 20) {
 						MatOfPoint2f jim = new MatOfPoint2f(), dim = new MatOfPoint2f(), tim = new MatOfPoint2f(),
 								jimTemp = new MatOfPoint2f(), dimTemp = new MatOfPoint2f(),
 								timTemp = new MatOfPoint2f();
@@ -322,7 +315,7 @@ public class QRfinder {
 
 							byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
-							qr_thres.get(0, 0, data);
+							qr_gray.get(0, 0, data);
 							String result = decode(qrdet);
 
 							if (result != " ")
