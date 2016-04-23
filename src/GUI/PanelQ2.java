@@ -170,7 +170,7 @@ public class PanelQ2 extends JPanel{
 			for(int i= 0; i< im.size(); i++){
 				if(im.get(i).getCode() != null)
 		System.out.println("new qr " +  im.get(i).getCode());
-				System.out.println(im.size() + " ---- size");
+				System.out.println(im.size() + " ------- size");
 			}
 			im.clear();
 
