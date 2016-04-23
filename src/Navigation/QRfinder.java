@@ -351,7 +351,6 @@ public class QRfinder {
 						int debuk = 1;
 
 						if (debuk == 1) {
-							System.out.println("test123");
 							if (slo > 5)
 								Core.circle(traces, new Point(10, 20), 5, new Scalar(150, 0, 50), -1, 8, 0);
 							else if (slo < -5)

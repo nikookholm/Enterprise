@@ -24,6 +24,7 @@ import javax.swing.SwingUtilities;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
+import Common.Drone;
 import Main.Enterprise;
 import Navigation.HoughCircles;
 import Navigation.QRPoi;
@@ -45,11 +46,13 @@ public class PanelQ2 extends JPanel{
 	private List<QRPoi> im;
 	private QRfinder qrfind = new QRfinder();
 	private boolean showImg = false;
+	private Drone dron;
 	
 	
 	public PanelQ2(DroneGUI owner){
 		initialize();
 		droneGui = owner;
+		dron = owner.getMain().getDrone();
 //		owner = enterprise;
 		
 	}
@@ -119,8 +122,13 @@ public class PanelQ2 extends JPanel{
 			if(e.getSource().equals(frontBtn)){
 				
 				
+				
+				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
+				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(4000);
+				
+				droneGui.getMain().getDrone().getCommandManager().setVideoCodec(VideoCodec.H264_720P);
 				showImg = false;
-				droneGui.getMain().getDrone().toggleCamera();
+				//droneGui.getMain().getDrone().toggleCamera();
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
@@ -130,10 +138,12 @@ public class PanelQ2 extends JPanel{
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
-				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
+				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(250);
 				VideoCodec qual = VideoCodec.H264_720P;
 				
-				droneGui.getMain().getDrone().getCommandManager().setVideoCodec( qual);
+				
+				
+				
 			}
 			else if (e.getSource().equals(imageBtn)){
 				showImg = true;
