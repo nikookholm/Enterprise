@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.security.acl.Owner;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,8 +21,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+
 import Main.Enterprise;
 import Navigation.HoughCircles;
+import Navigation.QRPoi;
 import Navigation.QRfinder;
 import de.yadrone.base.video.ImageListener;
 
@@ -34,6 +40,7 @@ public class PanelQ2 extends JPanel{
 	private GridBagLayout gbLayout;
 	GridBagConstraints c;
 	private DroneGUI droneGui;
+	private List<QRPoi> im;
 	
 	
 	public PanelQ2(DroneGUI owner){
@@ -129,6 +136,7 @@ public class PanelQ2 extends JPanel{
 
 	public class CameraPanel extends JPanel
 	{
+		
 		private BufferedImage image;
 
 		@Override
@@ -145,19 +153,22 @@ public class PanelQ2 extends JPanel{
 		{
 			this.image = (BufferedImage)image;
 			cameraPanel.paint(getGraphics());
-//			Mat imageMat = new Mat();
-//			imageMat = new HoughCircles().bufferedImageToMat(this.image);
-//		
-//			try {
-//		  im =  new QRfinder().findQR(imageMat);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				
-//			}
-//			for(int i= 0; i< im.size(); i++){
-//				if(im.get(i).getCode() != null)
-//		System.out.println("new qr " +  im.get(i).getCode());	
-//			}
+			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
+			Mat imageMat = new Mat();
+			imageMat = new HoughCircles().bufferedImageToMat(this.image);
+		
+			try {
+		  im =  new QRfinder().findQR(imageMat);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				
+			}
+			for(int i= 0; i< im.size(); i++){
+				System.out.println("test123");
+				if(im.get(i).getCode() != null)
+		System.out.println("new qr " +  im.get(i).getCode());	
+			}
 
 		}
 

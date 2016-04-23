@@ -208,7 +208,7 @@ public void findCircles(BufferedImage bi){
 		panelFilter.setImageWithMat(imageFilter);
 	}
 	
-	private Mat bufferedImageToMat(BufferedImage bi){
+	public Mat bufferedImageToMat(BufferedImage bi){
 		Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
 		byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
 		mat.put(0, 0, data);

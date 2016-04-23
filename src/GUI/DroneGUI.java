@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import org.opencv.core.Core;
+
 import Main.Enterprise;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
@@ -32,6 +34,8 @@ public class DroneGUI implements iDroneGUI {
 	
 	public DroneGUI()
 	{
+
+
 	}
 	
 	public  void initialize(Enterprise enterprise){
