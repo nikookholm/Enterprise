@@ -36,7 +36,11 @@ public class QRfinder {
 	private final int eas = 1;
 	private final int syd = 2;
 	private final int ves = 3;
+	private BufferedImage qrdet;
 	private List<QRPoi> QRFun = new ArrayList<QRPoi>();
+	private Mat traces;
+	private BufferedImage debuImg;
+	
 
 	private static Point dj = new Point();
 
@@ -53,6 +57,9 @@ public class QRfinder {
 		Mat qr_raw = new Mat();
 		Mat qr_gray = new Mat();
 		Mat qr_thres = new Mat();
+		traces =  new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
+
+		
 
 		int mark;
 
@@ -150,8 +157,8 @@ public class QRfinder {
 							p1 = pjA[0];
 							p2 = pjA[1];
 							double dist1 = distance(p1, p2);
-							double maksV = (dist1 * 2) + 100;
-							double minV = (dist1 * 2) - 100;
+							double maksV = (dist1 * 2) + (dist1/2);
+							double minV = (dist1 * 2) - (dist1/2);
 
 							for (int j = tjek + 1; j < boxEs.size(); j++) {
 
@@ -325,7 +332,7 @@ public class QRfinder {
 							Imgproc.cvtColor(qr, qr_gray, Imgproc.COLOR_RGB2GRAY);
 							Imgproc.threshold(qr_gray, qr_thres, 127, 255, Imgproc.THRESH_BINARY);
 
-							BufferedImage qrdet = new BufferedImage(qr_gray.width(), qr_gray.height(),
+							 qrdet = new BufferedImage(qr_gray.width(), qr_gray.height(),
 									BufferedImage.TYPE_BYTE_GRAY);
 
 							byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
@@ -339,6 +346,79 @@ public class QRfinder {
 							}
 
 						}
+						
+						
+						int debuk = 1;
+
+						if (debuk == 1) {
+							System.out.println("test123");
+							if (slo > 5)
+								Core.circle(traces, new Point(10, 20), 5, new Scalar(150, 0, 50), -1, 8, 0);
+							else if (slo < -5)
+								Core.circle(traces, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
+
+							Imgproc.drawContours(traces, countersFundet, top1, new Scalar(100, 50, 255), 3, 8,
+									heica, 0, new Point(-1, -1));
+							Imgproc.drawContours(traces, countersFundet, mid1, new Scalar(100, 50, 255), 3, 8,
+									heica, 0, new Point(-1, -1));
+							Imgproc.drawContours(traces, countersFundet, bot1, new Scalar(100, 50, 255), 3, 8,
+									heica, 0, new Point(-1, -1));
+
+							
+							
+							Core.circle(traces, o[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, o[1], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, o[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, o[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+
+							Core.circle(traces, n[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, n[1], 10, new Scalar(0, 0, 0), 4, 8, 0);
+							Core.circle(traces, n[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, n[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+
+							Core.circle(traces, m[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, m[1], 10, new Scalar(0, 0, 255), 4, 8, 0);
+							Core.circle(traces, m[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(traces, m[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+
+							Core.circle(traces, dj, 20, new Scalar(255, 100, 0), 4, 8, 0);
+
+							Core.line(traces, m[3], dj, new Scalar(255, 100, 0), 10, 8, 0);
+							Core.line(traces, n[2], dj, new Scalar(255, 100, 0), 10, 8, 0);
+
+							if (polen == nord)
+								Core.putText(traces, "den er OP", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
+										new Scalar(255, 100, 0));
+
+							else if (polen == eas)
+								Core.putText(traces, "den er HØJRE", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
+										new Scalar(255, 100, 0));
+
+							else if (polen == syd)
+								Core.putText(traces, "den er NED", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
+										new Scalar(255, 100, 0));
+
+							else if (polen == ves)
+								Core.putText(traces, "den er VENSTER", new Point(50, 50), Core.FONT_HERSHEY_PLAIN,
+										4, new Scalar(255, 100, 0));
+							
+							
+							debuImg = new BufferedImage(newImage.width(), newImage.height(),
+									BufferedImage.TYPE_BYTE_GRAY);
+							
+							
+							byte[] data1 = ((DataBufferByte) debuImg.getRaster().getDataBuffer()).getData();
+
+							traces.get(0, 0, data1);
+							
+							
+							
+							
+						}
+						
+						
+						
+						
 					}
 
 				}
@@ -633,4 +713,13 @@ public class QRfinder {
 	public List<QRPoi> getQRFun() {
 		return QRFun;
 	}
+	public BufferedImage getQrdet() {
+		return qrdet;
+	}
+	
+	public BufferedImage getDebuImg() {
+		return debuImg;
+	}
+	
+	
 }

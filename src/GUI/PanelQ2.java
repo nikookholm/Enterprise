@@ -33,6 +33,7 @@ import de.yadrone.base.video.ImageListener;
 public class PanelQ2 extends JPanel{
 
 	private CameraPanel cameraPanel;
+	private CameraPanel cameralppanel;
 	private ImageIcon   img, img2;
 	private JButton     frontBtn, bottomBtn, imageBtn;
 	private BufferedImage image;
@@ -42,6 +43,7 @@ public class PanelQ2 extends JPanel{
 	private DroneGUI droneGui;
 	private List<QRPoi> im;
 	private QRfinder qrfind = new QRfinder();
+	private boolean showImg = false;
 	
 	
 	public PanelQ2(DroneGUI owner){
@@ -113,19 +115,20 @@ public class PanelQ2 extends JPanel{
 			if(e.getSource().equals(frontBtn)){
 				
 				
-
+				showImg = false;
 				droneGui.getMain().getDrone().toggleCamera();
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
 			} else if (e.getSource().equals(bottomBtn)){
-				
+				showImg = false;
 				droneGui.getMain().getDrone().toggleCamera();
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
 			}
-			else {
+			else if (e.getSource().equals(imageBtn)){
+				showImg = true;
 				imageBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				bottomBtn.setIcon(img2);
@@ -152,10 +155,8 @@ public class PanelQ2 extends JPanel{
 
 		public void updateCameraPanel(Image image)
 		{
-			this.image = (BufferedImage)image;
-			cameraPanel.paint(getGraphics());
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
+			this.image = (BufferedImage)image;
 			Mat imageMat = new Mat();
 			imageMat = new HoughCircles().bufferedImageToMat(this.image);
 		
@@ -170,8 +171,15 @@ public class PanelQ2 extends JPanel{
 			for(int i= 0; i< im.size(); i++){
 				if(im.get(i).getCode() != null)
 		System.out.println("new qr " +  im.get(i).getCode());
-				System.out.println(im.size() + " ------- size");
+				System.out.println(im.size() + " ---- size");
 			}
+			
+			if(showImg == true)
+				this.image = qrfind.getDebuImg();
+			
+			//this.image = qrfind.getQrdet();
+			
+			cameraPanel.paint(getGraphics());
 			im.clear();
 
 		}
