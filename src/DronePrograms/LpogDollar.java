@@ -24,6 +24,7 @@ public class LpogDollar extends DroneProgram {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
+
 		drone.takeOff();
 		drone.setMaxAltitude(1);
 		drone.hover();

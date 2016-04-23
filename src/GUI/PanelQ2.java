@@ -28,6 +28,7 @@ import Main.Enterprise;
 import Navigation.HoughCircles;
 import Navigation.QRPoi;
 import Navigation.QRfinder;
+import de.yadrone.base.command.VideoCodec;
 import de.yadrone.base.video.ImageListener;
 
 public class PanelQ2 extends JPanel{
@@ -60,6 +61,9 @@ public class PanelQ2 extends JPanel{
 
 	private void initialize()
 	{
+		
+
+
 		setBackground(Color.BLACK);
 		 gbLayout = new GridBagLayout();
 		 c 	= new GridBagConstraints();
@@ -126,6 +130,10 @@ public class PanelQ2 extends JPanel{
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
+				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
+				VideoCodec qual = VideoCodec.H264_720P;
+				
+				droneGui.getMain().getDrone().getCommandManager().setVideoCodec( qual);
 			}
 			else if (e.getSource().equals(imageBtn)){
 				showImg = true;
@@ -167,6 +175,8 @@ public class PanelQ2 extends JPanel{
 				
 			}
 			
+			
+			 
 			im = qrfind.getQRFun();
 			for(int i= 0; i< im.size(); i++){
 				if(im.get(i).getCode() != null)

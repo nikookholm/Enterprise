@@ -157,7 +157,7 @@ public class QRfinder {
 							p1 = pjA[0];
 							p2 = pjA[1];
 							double dist1 = distance(p1, p2);
-							double maksV = (dist1 * 2) + (dist1/2);
+							double maksV = (dist1 * 3) + (dist1/2);
 							double minV = (dist1 * 2) - (dist1/2);
 
 							for (int j = tjek + 1; j < boxEs.size(); j++) {
