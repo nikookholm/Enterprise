@@ -14,6 +14,7 @@ public class QRPoi {
 	private double ypos;
 	private String message;
 	private BufferedImage QRimg;
+	private Point centrum;
 
 	public void setX(double k){
 		xpos = k;
@@ -75,6 +76,13 @@ public class QRPoi {
 	}
 	public BufferedImage getQRimg() {
 		return QRimg;
+	}
+	
+	public void setCentrum(Point centrum) {
+		this.centrum = centrum;
+	}
+	public Point getCentrum() {
+		return centrum;
 	}
 	
 	

@@ -303,6 +303,10 @@ public class QRfinder {
 						LastPoint(n[1], n[2], m[3], m[2]);
 
 						QRFun.get(i).setLP(dj);
+						
+						Point cen = centrumPoint(o[0], n[1]);
+						
+						QRFun.get(i).setCentrum(cen);
 
 						srcP.add(o[0]);
 						srcP.add(n[1]);
@@ -715,6 +719,17 @@ public class QRfinder {
 	public BufferedImage getQrdet() {
 		return qrdet;
 	}
+	
+	private Point centrumPoint(Point corn1, Point lastCorn){
+		Point cen;
+		
+		double len = distance(corn1, lastCorn);
+		cen = new Point(corn1.x+(len/2),corn1.y+(len/2));
+		
+		
+		return cen;
+	}
+	
 	
 	public BufferedImage getDebuImg() {
 		return debuImg;
