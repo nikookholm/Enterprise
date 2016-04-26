@@ -1,8 +1,14 @@
 calibrate(alpha , beta, POIWall, POIWall, POIWall)
 {
+	PoI interests = scan();
+	if(interests.contains(wallmark1) && interests.contains(wallmark2) && interests.contains(wallmark3){ 
+		
 	getAlphaBeta(3 x POIWall)
 	general(alpha , beta, POIWall, POIWall, POIWall)
-
+	}else{
+	// ryk sig til en anden position og scan
+	}
+	
 	return Vector3D // med dronens koordinator
 }
 
