@@ -1,0 +1,32 @@
+calibrate(alpha , beta, POIWall, POIWall, POIWall)
+{
+	getAlphaBeta(3 x POIWall)
+	general(alpha , beta, POIWall, POIWall, POIWall)
+
+	return Vector3D // med dronens koordinator
+}
+
+List<POI> scan()
+{
+
+	POIsFound = List<POI>
+	
+	for (i = 0 til 360)
+	{
+		POIsFound.Add ( compareImages( ? ) )
+	}
+	
+	return List<POI> // Returnere til global liste af POIs
+
+}
+
+
+Anwar:
+
+AlphaBeta(POIWall, POIWall, POIWall)
+{
+
+	// 3-point-navigation
+
+	return alpha og beta
+}
