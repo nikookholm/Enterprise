@@ -30,6 +30,7 @@ public class DroneGUI implements iDroneGUI {
 	
 	private final int SCREEN_HEIGHT = 800;
 	private final int SCREEN_WIDTH  = 800;
+	private Log log;
 	
 	
 	public DroneGUI()
@@ -80,6 +81,7 @@ public class DroneGUI implements iDroneGUI {
 		q4.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
 		frame.add(q4, c);
 
+		log = new Log(q3.getTextArea());
 		
 		frame.pack();
 		
@@ -123,6 +125,13 @@ public class DroneGUI implements iDroneGUI {
 				
 			}
 		};
+	}
+	
+	
+	public Log getLog(){
+		
+		return log;
+		
 	}
 	
 }
