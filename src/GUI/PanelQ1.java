@@ -89,7 +89,7 @@ public class PanelQ1 extends JPanel{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-
+					main.stopProgram();
 
 				}
 			});

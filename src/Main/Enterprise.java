@@ -58,7 +58,7 @@ public class Enterprise {
 		activeProgram.start(drone);
 	}
 	
-	private void stopProgram()
+	public void stopProgram()
 	{
 		activeProgram.abort();
 	}

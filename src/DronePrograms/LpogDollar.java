@@ -12,7 +12,7 @@ public class LpogDollar extends DroneProgram {
 	
 	@Override
 	public void abort() {
-		// TODO Auto-generated method stub
+		drone.landing();
 		
 	}
 
@@ -25,18 +25,22 @@ public class LpogDollar extends DroneProgram {
 	@Override
 	public void run() {
 
-		drone.takeOff();
 		drone.setMaxAltitude(1);
-		drone.hover();
+		drone.takeOff();
+		
+//		drone.hover();
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 		}
+		
 		drone.getCommandManager().manualTrim(0, 0, 0);
 		long startTime = date.getTime();
 		droneMovement.flyForward(400);
 		long endTime = date.getTime();
 		Date taken = new Date();
+		System.out.println("Start tid " + startTime);
+		System.out.println("Slut tid " + endTime);
 		taken.setTime(endTime-startTime);
 		System.out.println("----->>>>>>" + taken.getSeconds());
 		drone.landing();
