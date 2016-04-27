@@ -22,14 +22,13 @@ public class vectorDistance {
 		System.out.print(radToDegree(alpha));
 
 	}
-	
+
 	/**
 	 * Method returns Vector -1,-1,-1 if it was unable to find Drone position.
 	 */
 
 	public Vector3D calcDronePos(Vector3D wallmark1, Vector3D wallmark2, Vector3D wallmark3, double a, double b,
 			double alpha, double beta) {
-		
 
 		double c1_r = (1 / 2) * (a / Math.sin(alpha));
 		Vector3D c1_c = new Vector3D(0, 0, 0);
@@ -66,17 +65,19 @@ public class vectorDistance {
 				}
 			}
 		}
-		
-		for(int i = 0; i < p1_pot.size(); i++){
-			for(int j = 0; j < p2_pot.size(); i++){
-				if(p1_pot.get(i).getXCoord() == p2_pot.get(j).getXCoord() && p1_pot.get(i).getYCoord() == p2_pot.get(j).getYCoord()){
-					return p1_pot.get(i);//TODO can return negative so far.
+
+		for (int i = 0; i < p1_pot.size(); i++) {
+			for (int j = 0; j < p2_pot.size(); i++) {
+				if (p1_pot.get(i).getXCoord() == p2_pot.get(j).getXCoord()
+						&& p1_pot.get(i).getYCoord() == p2_pot.get(j).getYCoord()) {
+					if (p1_pot.get(i).getXCoord() < 0 | p1_pot.get(i).getYCoord() < 0) {
+						return p1_pot.get(i);
+					}
 				}
 			}
 		}
 
-		
-		return new Vector3D(-1,-1,-1);
+		return new Vector3D(-1, -1, -1);
 	}
 
 	double dot(Vector3D object1, Vector3D object2) {
