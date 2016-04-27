@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
@@ -14,6 +15,7 @@ import javax.swing.text.rtf.RTFEditorKit;
 import org.opencv.core.Core;
 
 import Main.Enterprise;
+import Navigation.QRfinder;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.VideoListener;
@@ -31,6 +33,7 @@ public class DroneGUI implements iDroneGUI {
 	private final int SCREEN_HEIGHT = 800;
 	private final int SCREEN_WIDTH  = 800;
 	private Log log;
+	private QRfinder qrFinder;
 	
 	
 	public DroneGUI()
@@ -41,6 +44,9 @@ public class DroneGUI implements iDroneGUI {
 	
 	public  void initialize(Enterprise enterprise){
 		
+		Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		
 		main = enterprise;
 		
 		GridBagLayout	   gbLayout = new GridBagLayout();
@@ -48,7 +54,7 @@ public class DroneGUI implements iDroneGUI {
 		
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setMaximumSize(DimMax);
 		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		frame.setLayout(gbLayout);
 		
@@ -131,6 +137,12 @@ public class DroneGUI implements iDroneGUI {
 	public Log getLog(){
 		
 		return log;
+		
+	}
+	
+	public BufferedImage getCode(){
+		return null;
+		
 		
 	}
 	

@@ -187,6 +187,8 @@ public class PanelQ2 extends JPanel{
 			im = qrfind.getQRFun();
 			for(int i= 0; i< im.size(); i++){
 				if(im.get(i).getCode() != null)
+					droneGui.getLog().add(im.get(i).getCode());
+
 		System.out.println("new qr " +  im.get(i).getCode());
 			}
 			

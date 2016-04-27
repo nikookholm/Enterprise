@@ -41,8 +41,7 @@ public class PanelQ3 extends JPanel {
 	    JScrollPane scroll = new JScrollPane(textArea);
 
 	    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	    
-
+	
 		this.add(scroll);
 		
 	}
