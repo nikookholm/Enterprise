@@ -123,10 +123,10 @@ public class PanelQ2 extends JPanel{
 				
 				
 				
-				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
-				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(4000);
-				
-				droneGui.getMain().getDrone().getCommandManager().setVideoCodec(VideoCodec.H264_720P);
+//				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
+//				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(4000);
+//				
+//				droneGui.getMain().getDrone().getCommandManager().setVideoCodec(VideoCodec.H264_720P);
 				showImg = false;
 				//droneGui.getMain().getDrone().toggleCamera();
 				frontBtn.setIcon(img);
@@ -138,7 +138,7 @@ public class PanelQ2 extends JPanel{
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
-				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(250);
+			//	droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(250);
 				VideoCodec qual = VideoCodec.H264_720P;
 				
 				
