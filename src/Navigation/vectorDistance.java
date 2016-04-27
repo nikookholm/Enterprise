@@ -65,9 +65,10 @@ public class vectorDistance {
 				}
 			}
 		}
-
+		System.out.println(p1_pot.size());
+		System.out.println(p2_pot.size());
 		for (int i = 0; i < p1_pot.size(); i++) {
-			for (int j = 0; j < p2_pot.size(); i++) {
+			for (int j = 0; j < p2_pot.size(); j++) {
 				if (p1_pot.get(i).getXCoord() == p2_pot.get(j).getXCoord()
 						&& p1_pot.get(i).getYCoord() == p2_pot.get(j).getYCoord()) {
 					if (p1_pot.get(i).getXCoord() < 0 | p1_pot.get(i).getYCoord() < 0) {
