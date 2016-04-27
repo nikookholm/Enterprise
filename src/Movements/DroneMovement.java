@@ -2,13 +2,11 @@ package Movements;
 
 import Common.Drone;
 import POI.POI;
-import POI.POICircle;
-import Vector.Vector3D;
 
 public class DroneMovement implements iDroneMovement {
 	
 	private Drone drone;
-	double z;
+	private int currentAngle = 0;
 	
 	public DroneMovement(Drone drone)
 	{
@@ -32,20 +30,30 @@ public class DroneMovement implements iDroneMovement {
 	
 	public void flyTo(POI interest) {
 		
-	
+		
 	}
 	
 	/**
 	 * 
 	 */
 	
-
-	
 	@Override
-	public void rotateAngle(int angle) {
-		if(checkInterval(angle)){
-			return;
+	public void rotateToAngle(int angle) {
+		angle = angle%360;
+		int aod; //amount of degrees
+		aod = ((currentAngle-angle)+180)%360-180;
+		if(aod < -180){
+			aod += 360;
 		}
+		
+		if(aod < 0){
+			rotateRight(Math.abs(aod));
+		}else if(aod > 0){
+			rotateLeft(Math.abs(aod));
+		}else {
+			System.out.println("You are already there");
+		}
+		
 	}
 	
 	/***********************************************************/
@@ -58,47 +66,18 @@ public class DroneMovement implements iDroneMovement {
 		}
 		return false;
 	}
-	//testes 27/4
+	
 	private void rotateRight(int degrees) {
-		drone.getCommandManager().goRight(degrees);
-		drone.incAngle(-degrees);
+		int aot; //amount of time to go right
+		drone.goRight();
 	}
+	
 	/**
 	 * 
 	 */
-	//testes 27/4
-	private void rotateLeft(int degrees) {
-		drone.getCommandManager().goLeft(degrees);
-		drone.incAngle(degrees);
-	}
-
-	public void flyForward(int cm){
-		int speed = 25;
-		drone.getCommandManager().forward(speed); // omregnes til en mængde tid
-	// mangler hastighed til at begrænse distancen
-		try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e) {
-			
-		}
-		drone.setCoords(calculateNewCoords(cm));
-		
-	}
-	private void flyThroughRing(POICircle poiC){
-		
-	}
 	
-	private Vector3D calculateNewCoords(int distance){
-		
-		
-		double x = drone.getCoordX();
-		double y = drone.getCoordY();
-		int angle = drone.getAngle();
-		
-		double newX = distance*Math.cos(x);
-		double newY = distance*Math.sin(y);
-		
-		return new Vector3D(x+newX, y+newY, z);
-		
+	private void rotateLeft(int degrees) {
+		int aot; //amount of time to go left
+		drone.goLeft();
 	}
 }

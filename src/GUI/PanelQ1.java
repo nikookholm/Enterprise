@@ -57,26 +57,27 @@ public class PanelQ1 extends JPanel{
 
 		for( DroneProgram dp: main.getDronePrograms()){
 			box.addItem(dp.getProgramName());
-
-			start.setEnabled(false);
-			cancel.setEnabled(false);
-
-			box.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (box.getSelectedIndex() != 0){
-
-						start.setEnabled(true);
-						cancel.setEnabled(true);
-					}else
-					{
-						start.setEnabled(false);
-						cancel.setEnabled(false);
-					}
-				}
-			});
 		}
+		
+		start.setEnabled(false);
+		cancel.setEnabled(false);
+
+		box.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (box.getSelectedIndex() != 0){
+
+					start.setEnabled(true);
+					cancel.setEnabled(true);
+				}else
+				{
+					start.setEnabled(false);
+					cancel.setEnabled(false);
+				}
+			}
+		});
+
 
 			start.addActionListener(new ActionListener() {
 
