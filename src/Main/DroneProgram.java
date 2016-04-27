@@ -16,6 +16,8 @@ public abstract class DroneProgram implements IDroneProgram {
 		}
 		catch (Exception e)
 		{
+			System.err.println("Cauht EXCEPTION on STARTUP");
+			e.printStackTrace();
 			drone.landing();
 			drone.stop();
 		}
