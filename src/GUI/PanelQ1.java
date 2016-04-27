@@ -76,6 +76,7 @@ public class PanelQ1 extends JPanel{
 					}
 				}
 			});
+		}
 
 			start.addActionListener(new ActionListener() {
 
@@ -102,7 +103,7 @@ public class PanelQ1 extends JPanel{
 			this.add(altiText);
 			this.add(battery);
 
-		}
+		
 	}
 
 //	public void paint(Graphics g)
