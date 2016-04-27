@@ -47,13 +47,13 @@ public class PanelQ2 extends JPanel{
 	private QRfinder qrfind = new QRfinder();
 	private boolean showImg = false;
 	private Drone dron;
+	private boolean camTjek = false;
 	
 	
 	public PanelQ2(DroneGUI owner){
 		initialize();
 		droneGui = owner;
 		dron = owner.getMain().getDrone();
-//		owner = enterprise;
 		
 	}
 
@@ -70,13 +70,9 @@ public class PanelQ2 extends JPanel{
 		setBackground(Color.BLACK);
 		 gbLayout = new GridBagLayout();
 		 c 	= new GridBagConstraints();
-		 
-//		 this.setLayout(gbLayout);
 
 		cameraPanel = new CameraPanel();
 		
-		
-
 		frontBtn  = new JButton("FRONT CAMERA");
 		bottomBtn = new JButton("BOTTOM CAMERA");
 		imageBtn = new JButton("image");
@@ -90,8 +86,6 @@ public class PanelQ2 extends JPanel{
 		}
 
 		ToggelCamera tc = new ToggelCamera();
-		
-		
 		
 		frontBtn.addActionListener(tc);
 		bottomBtn.addActionListener(tc);
@@ -118,32 +112,35 @@ public class PanelQ2 extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		
 
-			if(e.getSource().equals(frontBtn)){
-				
-				
-				
+			if(e.getSource().equals(frontBtn) && camTjek == true){
 //				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
 //				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(4000);
 //				
 //				droneGui.getMain().getDrone().getCommandManager().setVideoCodec(VideoCodec.H264_720P);
+//				if(camTjek == true){
 				showImg = false;
-				//droneGui.getMain().getDrone().toggleCamera();
+			
+				droneGui.getMain().getDrone().toggleCamera();
+				camTjek = false;
+//				}
+				
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
-			} else if (e.getSource().equals(bottomBtn)){
+				
+			} else if (e.getSource().equals(bottomBtn) && camTjek == false){
+//				if(camTjek == false){
 				showImg = false;
 				droneGui.getMain().getDrone().toggleCamera();
+				camTjek = true;
+//				}
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
 			//	droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(250);
-				VideoCodec qual = VideoCodec.H264_720P;
-				
-				
-				
-				
+				VideoCodec qual = VideoCodec.H264_720P;				
 			}
 			else if (e.getSource().equals(imageBtn)){
 				showImg = true;
