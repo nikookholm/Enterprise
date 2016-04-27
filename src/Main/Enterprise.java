@@ -38,7 +38,12 @@ public class Enterprise {
 		 
 		 attachDroneHandlers();
 		 
-		 drone.start();
+		 try {
+			drone.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void attachDroneHandlers()
