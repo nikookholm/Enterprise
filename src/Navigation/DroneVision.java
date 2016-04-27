@@ -8,8 +8,7 @@ import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
 import POI.POI;
-
-
+import POI.POIWallPoint;
 
 import org.opencv.core.Point;
 import org.opencv.core.Mat;
@@ -32,22 +31,21 @@ public class DroneVision implements iDroneVision {
 
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
 	OpenCVOperations CVOp;
+	vectorDistance VD;
 	
 	public DroneVision(Drone drone) {
 		this.drone = drone;
 		OpenCVOperations CVOp = new OpenCVOperations();
+		vectorDistance VD = new vectorDistance();
 	}
 
 	@Override
-	public List<POI> scan() {
+	public ArrayList<POI> scan() {
 
 		ArrayList<POI> poi = new ArrayList<POI>();
 		for(int i = 0; i <360; i+=5){
 		//	drone.getMovement().rotateAngle(i);
-			Vec3d coordinates;
-			coordinates.x = drone.getCoordX();
-			coordinates.y = drone.getCoordY();
-			coordinates.z = drone.getCoordZ();
+			Vector3D coordinates = new Vector3D(drone.getCoordX(), drone.getCoordY(), drone.getCoordZ());
 
 			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
 		}
@@ -55,6 +53,26 @@ public class DroneVision implements iDroneVision {
 		
 		
 		return poi;
+	}
+	
+	public Vector3D calibrate(){
+		Vector3D dronepos;
+		
+		ArrayList<POI> poi = scan();
+		ArrayList<POI> Wallpoints = null;
+		int wallpointsFound = 0;
+		for(int i = 0; i < poi.size(); i++){
+			if(poi.get(i) instanceof POIWallPoint){
+				if((((POIWallPoint)poi.get(i)).getQRString() == "W00.00") | (((POIWallPoint)poi.get(i)).getQRString() == "W00.01") | (((POIWallPoint)poi.get(i)).getQRString() == "W00.02")){
+					Wallpoints.add(poi.get(i));
+					wallpointsFound++;
+				}
+			}
+		}
+		if(wallpointsFound == 3){
+			VD.calculateDronepos(Wallpoints.get(0).getCoordinates(), Wallpoints.get(1).getCoordinates(), Wallpoints.get(2).getCoordinates());
+		}
+		return dronepos;
 	}
 
 	@Override

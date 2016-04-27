@@ -11,4 +11,8 @@ public class POIWallPoint extends POI {
 		this.QRcontains = QRcontains;
 	}
 	
+	public String getQRString(){
+		return QRcontains;
+	}
+	
 }

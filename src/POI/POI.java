@@ -1,6 +1,6 @@
 package POI;
 
-import java.util.Vector;
+
 import Vector.Vector3D;
 public class POI {
 	
@@ -26,6 +26,21 @@ public class POI {
 		this.angle = angle;
 	}
 	
+	public Vector3D getCoordinates(){
+		return coordinates;
+	}
+	
+	public double getxPos(){
+		return coordinates.getXCoord();
+	}
+	
+	public double getyPos(){
+		return coordinates.getYCoord();
+	}
+	
+	public double getzPos(){
+		return coordinates.getZCoord();
+	}
 	
 	
 }
