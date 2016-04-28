@@ -37,24 +37,26 @@ public class vectorDistance {
 		double c1_r = (0.5*a / (Math.sin(alpha)));
 		Vector3D c1_c = new Vector3D(0, 0, 0);
 		
-		c1_c.incYCoord(0.5 * (wallmark2.getYCoord() - wallmark1.getYCoord() / magnitude(wallmark1, wallmark2))
-				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / (2 * wallmark1.getXCoord()))
-				+ 1 / (2 * wallmark2.getXCoord()));
-		c1_c.incXCoord(0.5 * (wallmark2.getXCoord() - wallmark1.getXCoord() / magnitude(wallmark1, wallmark2))
-				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / (2 * wallmark1.getYCoord()))
-				+ 1 / (2 * wallmark2.getYCoord()));
+		double l1 = -wallmark2.getXCoord() + wallmark1.getXCoord();
+		double l2 = magnitude(wallmark1,wallmark2);
+		double l3 = Math.sqrt(((Math.pow(a, 2)))/(Math.pow(Math.sin(alpha), 2)));
+		double l5 = (1)/(2*wallmark1.getYCoord());
+		double l6 = (1)/(2*wallmark2.getYCoord());
+		
+		c1_c.incYCoord(0.5 * (l1/l2)*(l3)+l5+l6);
+//		c1_c.incXCoord(0.5 * (wallmark2.getXCoord() - wallmark1.getXCoord() / magnitude(wallmark1, wallmark2))
+//				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / (2 * wallmark1.getYCoord()))
+//				+ 1 / (2 * wallmark2.getYCoord()));
 		
 		double c2_r = (0.5*b / (Math.sin(beta)));
-		Vector3D c2_c = new Vector3D(0, 0, 0);
 		System.out.println("c1_r: " + c1_r +" c2_r: "+c2_r);
-		c2_c.incYCoord(0.5 * (wallmark3.getYCoord() - wallmark2.getYCoord() / magnitude(wallmark2, wallmark3))
-				* Math.sqrt(Math.pow(b, 2) / Math.pow(Math.sin(beta), 2)) + (1 / (2 * wallmark2.getXCoord()))
-				+ (1 / (2 * wallmark3.getXCoord())));
-		c2_c.incXCoord(0.5 * (wallmark3.getXCoord() - wallmark2.getXCoord() / magnitude(wallmark2, wallmark3))
-				* Math.sqrt(Math.pow(b, 2) / Math.pow(Math.sin(beta), 2)) + (1 / (2 * wallmark2.getYCoord()))
-				+ (1 / (2 * wallmark3.getYCoord())));
-		System.out.println("c2_c_y: "+c2_c.getYCoord());
-		System.out.println("c2_c_x: "+c2_c.getXCoord());
+		System.out.println("l1: " + l1);
+		System.out.println("l2: " + l2);
+		System.out.println("l3: " + l3);
+		System.out.println("l5: " + l5);
+		System.out.println("l6: " + l6);
+		Vector3D c2_c = new Vector3D(0, 0, 0);
+
 		ArrayList<Vector3D> p1_pot = new ArrayList<>();
 		ArrayList<Vector3D> p2_pot = new ArrayList<>();
 
