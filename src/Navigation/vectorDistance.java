@@ -29,34 +29,40 @@ public class vectorDistance {
 
 	public Vector3D calcDronePos(Vector3D wallmark1, Vector3D wallmark2, Vector3D wallmark3, double a, double b,
 			double alpha, double beta) {
-
-		double c1_r = (1 / 2) * (a / Math.sin(alpha));
+		System.out.println("WM1: " + wallmark1.getXCoord() + "," + wallmark1.getYCoord() + " WM2: " + wallmark2.getXCoord() + "," + wallmark2.getYCoord() + " WM3: " + wallmark3.getXCoord() + "," + wallmark3.getYCoord() + " Alpha: " + alpha + " Beta: "+ beta);
+		alpha = degreeToRad(alpha);
+		beta = degreeToRad(beta);
+		
+		System.out.println("Angles after conversion, alpha: " + alpha + " beta: " + beta);
+		double c1_r = (0.5*a / (Math.sin(alpha)));
 		Vector3D c1_c = new Vector3D(0, 0, 0);
-
-		c1_c.incYCoord((1 / 2) * (wallmark2.getYCoord() - wallmark1.getYCoord() / magnitude(wallmark1, wallmark2))
-				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / 2 * wallmark1.getXCoord())
-				+ 1 / 2 * wallmark2.getXCoord());
-		c1_c.incXCoord((1 / 2) * (wallmark2.getXCoord() - wallmark1.getXCoord() / magnitude(wallmark1, wallmark2))
-				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / 2 * wallmark1.getYCoord())
-				+ 1 / 2 * wallmark2.getYCoord());
-
-		double c2_r = (1 / 2) * (b / Math.sin(beta));
+		
+		c1_c.incYCoord(0.5 * (wallmark2.getYCoord() - wallmark1.getYCoord() / magnitude(wallmark1, wallmark2))
+				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / (2 * wallmark1.getXCoord()))
+				+ 1 / (2 * wallmark2.getXCoord()));
+		c1_c.incXCoord(0.5 * (wallmark2.getXCoord() - wallmark1.getXCoord() / magnitude(wallmark1, wallmark2))
+				* Math.sqrt(Math.pow(a, 2) / Math.pow(Math.sin(alpha), 2)) + (1 / (2 * wallmark1.getYCoord()))
+				+ 1 / (2 * wallmark2.getYCoord()));
+		
+		double c2_r = (0.5*b / (Math.sin(beta)));
 		Vector3D c2_c = new Vector3D(0, 0, 0);
-
-		c2_c.incYCoord((1 / 2) * (wallmark3.getYCoord() - wallmark2.getYCoord() / magnitude(wallmark2, wallmark3))
-				* Math.sqrt(Math.pow(b, 2) / Math.pow(Math.sin(beta), 2)) + (1 / 2 * wallmark2.getXCoord())
-				+ 1 / 2 * wallmark3.getXCoord());
-		c2_c.incXCoord((1 / 2) * (wallmark3.getXCoord() - wallmark2.getXCoord() / magnitude(wallmark2, wallmark3))
-				* Math.sqrt(Math.pow(b, 2) / Math.pow(Math.sin(beta), 2)) + (1 / 2 * wallmark2.getYCoord())
-				+ 1 / 2 * wallmark3.getYCoord());
-
+		System.out.println("c1_r: " + c1_r +" c2_r: "+c2_r);
+		c2_c.incYCoord(0.5 * (wallmark3.getYCoord() - wallmark2.getYCoord() / magnitude(wallmark2, wallmark3))
+				* Math.sqrt(Math.pow(b, 2) / Math.pow(Math.sin(beta), 2)) + (1 / (2 * wallmark2.getXCoord()))
+				+ (1 / (2 * wallmark3.getXCoord())));
+		c2_c.incXCoord(0.5 * (wallmark3.getXCoord() - wallmark2.getXCoord() / magnitude(wallmark2, wallmark3))
+				* Math.sqrt(Math.pow(b, 2) / Math.pow(Math.sin(beta), 2)) + (1 / (2 * wallmark2.getYCoord()))
+				+ (1 / (2 * wallmark3.getYCoord())));
+		System.out.println("c2_c_y: "+c2_c.getYCoord());
+		System.out.println("c2_c_x: "+c2_c.getXCoord());
 		ArrayList<Vector3D> p1_pot = new ArrayList<>();
 		ArrayList<Vector3D> p2_pot = new ArrayList<>();
 
 		for (double x = 0; x < 10.78; x += 0.01) {
 			for (double y = 0; y < 9.63; y += 0.01) {
-				if (Math.pow(x, 2) - c1_c.getXCoord() + Math.pow(c1_c.getXCoord(), 2) + Math.pow(y, 2)
-						- c1_c.getYCoord() * y + Math.pow(c1_c.getYCoord(), 2) == c1_r) {
+			//	System.out.println("Result need to be: " + c1_r + " is actually: " + (Math.pow(x, 2)-c1_c.getXCoord()*x + Math.pow(c1_c.getXCoord(), 2)+Math.pow(y, 2)-c1_c.getYCoord()*y + Math.pow(c1_c.getYCoord(), 2)) + " x: " + x + " y: " + y);
+				if ((Math.pow(x, 2)-c1_c.getXCoord()*x + Math.pow(c1_c.getXCoord(), 2)+Math.pow(y, 2)-c1_c.getYCoord()*y + Math.pow(c1_c.getYCoord(), 2)) == c1_r) {
+					System.out.println("success!");
 					p1_pot.add(new Vector3D(x, y, 0));
 				}
 				if (Math.pow(x, 2) - c2_c.getXCoord() + Math.pow(c2_c.getXCoord(), 2) + Math.pow(y, 2)
@@ -65,6 +71,7 @@ public class vectorDistance {
 				}
 			}
 		}
+		System.out.println((1 / (2 * wallmark2.getXCoord())));
 		System.out.println(p1_pot.size());
 		System.out.println(p2_pot.size());
 		for (int i = 0; i < p1_pot.size(); i++) {
@@ -109,5 +116,8 @@ public class vectorDistance {
 	double radToDegree(double value) {
 		return (value * (180) / Math.PI);
 	}
-
+	
+	double degreeToRad(double value){
+		return ((value * Math.PI)/180);
+	}
 }
