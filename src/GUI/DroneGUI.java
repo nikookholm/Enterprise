@@ -18,6 +18,7 @@ import Main.Enterprise;
 import Navigation.QRfinder;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
+import de.yadrone.base.navdata.BatteryListener;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.video.ImageListener;
 
@@ -143,6 +144,24 @@ public class DroneGUI implements iDroneGUI {
 	public BufferedImage getCode(){
 		return null;
 		
+		
+	}
+	
+	public BatteryListener getBatteryListener(){
+		return new BatteryListener() {
+			
+			@Override
+			public void voltageChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void batteryLevelChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 		
 	}
 	

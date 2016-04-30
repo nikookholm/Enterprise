@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,9 +53,12 @@ public class PanelQ1 extends JPanel{
 		altitud.setEnabled(false);
 		altiText = new JLabel("er: ");
 		battery = new JButton("Battery");
-		battery.setEnabled(false);;
-
-
+		battery.setEnabled(false);
+		
+		GridBagLayout gbLayout = new GridBagLayout();
+		GridBagConstraints c = new  GridBagConstraints(); 
+		this.setLayout(gbLayout);
+	
 
 		for( DroneProgram dp: main.getDronePrograms()){
 			box.addItem(dp.getProgramName());
@@ -95,59 +100,34 @@ public class PanelQ1 extends JPanel{
 
 				}
 			});
-
-
+			c.weighty = 0;
+			c.gridx = 0;
+			c.gridy = 0;
+			gbLayout.setConstraints(box, c);
 			this.add(box);
-			this.add(start);
-			this.add(cancel);
-			this.add(altitud);
-			this.add(altiText);
-			this.add(battery);
+			
+			c.gridx = 1;
+			c.gridy = 0;
+			this.add(start, c);
+			
+			c.gridx = 2;
+			c.gridy = 0;
+			this.add(cancel,c);
+			
+			c.gridx = 0;
+			c.gridy = 1;
+			this.add(altitud,c);
+			
+			c.gridx = 1;
+			c.gridy = 1;
+			this.add(altiText, c);
+			
+			c.gridx = 0;
+			c.gridy = 2;
+			this.add(battery,c);
 
 		
 	}
-
-//	public void paint(Graphics g)
-//	{
-//		g.setColor(Color.black);
-//		g.drawRect(0, 0, this.getWidth(), this.getHeight());
-//
-//		Color c;
-//		if (batteryLevel >= 50)
-//		{
-//			c = new Color((Math.abs(batteryLevel-100f)/100f) * 2f, 1f, 0f);
-//		}
-//		else
-//		{
-//			c = new Color(1f, (batteryLevel/100f) * 2f, 0f);
-//		}
-//
-//		g.setColor(c);
-//		g.fillRect(0, getHeight() * (batteryLevel / 100), this.getWidth(), this.getHeight());
-//
-//		FontMetrics metrics = g.getFontMetrics(font);
-//		int hgt = metrics.getHeight();
-//		g.setFont(font);
-//
-//		g.setColor(Color.black);
-//		g.drawString("Battery", (this.getWidth() / 2) - (metrics.stringWidth("Battery") / 2), (this.getHeight() / 2) - (hgt / 2));
-//		g.drawString(batteryLevel + " %", (this.getWidth() / 2) - (metrics.stringWidth(batteryLevel + " %") / 2), (this.getHeight() / 2) + (hgt / 2));
-//		g.drawString(voltageLevel + " V", (this.getWidth() / 2) - (metrics.stringWidth(voltageLevel + " V") / 2), (int)((this.getHeight() / 2) + ((hgt / 2) * 2.5)));
-//	}
-//
-//
-//	public class Battary implements BatteryListener{
-//
-//		@Override
-//		public void batteryLevelChanged(int arg0) {	}
-//
-//		@Override
-//		public void voltageChanged(int battaryLevel) {
-//
-//
-//		}
-//	}
-
 
 		public class Altitude implements AltitudeListener{
 
