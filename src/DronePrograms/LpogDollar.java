@@ -1,29 +1,52 @@
 package DronePrograms;
 
 import java.util.Date;
+
+import Common.Drone;
 import Main.DroneProgram;
 import Movements.DroneMovement;
+import de.yadrone.base.ARDrone;
+import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.VideoCodec;
 
 
-public class LpogDollar extends DroneProgram {
-	private int sleeper = 3000;
-	private Date date;
+public class LpogDollar {
+	private static int sleeper = 3000;
+	private static Date date;
 	boolean qrfin = false;
+	static Drone drone = new Drone();
 	
-	@Override
-	public void abort() {
-		drone.landing();
-		
+	public static void main(String[] args)
+	{
+	    IARDrone iDrone = null;
+	    try
+	    {
+	    	drone.start();
+	    	run();
+	    }
+	    catch (Exception exc)
+		{
+			exc.printStackTrace();
+		}
+		finally
+		{
+			if (iDrone != null)
+				iDrone.stop();
+			System.exit(0);
+		}
 	}
+//	@Override
+//	public void abort() {
+//		drone.landing();
+//		
+//	}
+//
+//	@Override
+//	public String getProgramName() {
+//		return "LP og DOLLAR holder!";
+//	}
 
-	@Override
-	public String getProgramName() {
-		return "LP og DOLLAR holder!";
-	}
-
-	@Override
-	public void run() {
+	public static void run() {
 		System.out.println("test1");
 		
 		drone.setMaxAltitude(1);
@@ -47,7 +70,7 @@ public class LpogDollar extends DroneProgram {
 		long startTime = date.getTime();
 		System.out.println("nuværende tidspunkt " + startTime);
 		
-		drone.getMovement().flyForward(3);
+		drone.getMovement().flyForward(400);
 		
 		long endTime = date.getTime();
 		System.out.println("slut tidspunkt " + endTime);
