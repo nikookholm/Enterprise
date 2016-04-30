@@ -24,10 +24,11 @@ import Main.Enterprise;
 
 public class PanelQ1 extends JPanel{
 
-	private JButton start, cancel, battery, altitud;
-	private JLabel altiText;
+	private JButton start, cancel;
+	private JLabel altiText, altitud, battery, batteryTest;
 	private JComboBox box = new JComboBox();
 	private int count = 0;
+	
 
 	private int batteryLevel = 100;
 	private Font font = new Font("Helvetica", Font.PLAIN, 10);
@@ -49,11 +50,10 @@ public class PanelQ1 extends JPanel{
 		box.addItem("select progarm!");
 		start = new JButton("START");
 		cancel = new JButton("ABORT");
-		altitud = new JButton("Altitude: ");
-		altitud.setEnabled(false);
+		altitud = new JLabel("Altitude: ");
 		altiText = new JLabel("er: ");
-		battery = new JButton("Battery");
-		battery.setEnabled(false);
+		battery = new JLabel("Battery: ");
+		batteryTest = new JLabel(" testB: ");
 		
 		GridBagLayout gbLayout = new GridBagLayout();
 		GridBagConstraints c = new  GridBagConstraints(); 
@@ -125,6 +125,7 @@ public class PanelQ1 extends JPanel{
 			c.gridx = 0;
 			c.gridy = 2;
 			this.add(battery,c);
+	
 
 		
 	}
@@ -134,7 +135,7 @@ public class PanelQ1 extends JPanel{
 			@Override
 			public void receivedAltitude(int arg0) {
 
-				altiText = new JLabel(" " + arg0);
+				altitud.setText("Altitud :" + arg0);
 
 			}
 
@@ -144,6 +145,24 @@ public class PanelQ1 extends JPanel{
 
 			}
 
+		}
+		
+		public class Battery implements BatteryListener{
+
+			@Override
+			public void batteryLevelChanged(int arg0) {
+				battery.setText("Battery: " + arg0 + " % ");
+				
+			}
+
+			@Override
+			public void voltageChanged(int arg0) {
+
+				
+				
+			}
+			
+			
 		}
 
 	

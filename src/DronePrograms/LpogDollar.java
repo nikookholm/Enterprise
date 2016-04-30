@@ -10,7 +10,7 @@ import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.VideoCodec;
 
 
-public class LpogDollar {
+public class LpogDollar extends DroneProgram {
 	private static int sleeper = 3000;
 	private static Date date;
 	boolean qrfin = false;
@@ -45,8 +45,7 @@ public class LpogDollar {
 //	public String getProgramName() {
 //		return "LP og DOLLAR holder!";
 //	}
-
-	public static void run() {
+	public void run() {
 		System.out.println("test1");
 		
 		drone.setMaxAltitude(1);
@@ -82,5 +81,15 @@ public class LpogDollar {
 
 		drone.landing();
 	}
+@Override
+public void abort() {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public String getProgramName() {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 }

@@ -5,6 +5,7 @@ import java.awt.Image;
 import Main.Enterprise;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
+import de.yadrone.base.navdata.BatteryListener;
 import de.yadrone.base.navdata.HDVideoStreamData;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.navdata.VideoStreamData;
@@ -16,5 +17,6 @@ public interface iDroneGUI {
 	public void initialize(Enterprise enterprise);
 	public void updateCameraPanel(Image image);
 	public ImageListener    getImageListener();
+	public BatteryListener  getBatteryListener();
 
 }

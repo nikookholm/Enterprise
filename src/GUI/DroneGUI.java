@@ -33,17 +33,20 @@ public class DroneGUI implements iDroneGUI {
 	
 	private final int SCREEN_HEIGHT = 800;
 	private final int SCREEN_WIDTH  = 800;
-	//private Log log;
+	private Log log;
 	private QRfinder qrFinder;
 	
 	
 	public DroneGUI()
 	{
+
+
 	}
 	
 	public  void initialize(Enterprise enterprise){
 		
 		Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
+		
 		
 		main = enterprise;
 		
@@ -85,7 +88,7 @@ public class DroneGUI implements iDroneGUI {
 		q4.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
 		frame.add(q4, c);
 
-		//log = new Log(q3.getTextArea());
+		log = new Log(q3.getTextArea());
 		
 		frame.pack();
 		
@@ -96,21 +99,6 @@ public class DroneGUI implements iDroneGUI {
 		return main;
 	}
 
-
-
-	@Override
-	public AltitudeListener getAltitudeListener() {
-		
-		PanelQ1.Altitude a = q1.new Altitude();
-		return a;
-	
-	}
-	
-	public void recAltitude(int altit){
-
-		
-	}
-	
 
 
 	@Override
@@ -132,11 +120,11 @@ public class DroneGUI implements iDroneGUI {
 	}
 	
 	
-//	public Log getLog(){
-//		
-//		return log;
-//		
-//	}
+	public Log getLog(){
+		
+		return log;
+		
+	}
 	
 	public BufferedImage getCode(){
 		return null;
@@ -145,21 +133,12 @@ public class DroneGUI implements iDroneGUI {
 	}
 	
 	public BatteryListener getBatteryListener(){
-		return new BatteryListener() {
-			
-			@Override
-			public void voltageChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void batteryLevelChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
+			return q1.new Battery();
 		
+	}
+	public AltitudeListener getAltitudeListener() {
+		
+		return  q1.new Altitude();
 	}
 	
 }
