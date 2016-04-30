@@ -18,7 +18,7 @@ public class Drone extends ARDrone {
 	private iDroneMovement   movement;
 	
 	private Vector3D coords;
-	private int 	 angle;
+	private double 	 angle;
 
 	public Drone() 
 	{
@@ -61,12 +61,12 @@ public class Drone extends ARDrone {
 		return coords.getZCoord() + inc;
 	}
 	
-	public int getAngle()
+	public double getAngle()
 	{
 		return angle;
 	}
 	
-	public int incAngle(int inc)
+	public double incAngle(double inc)
 	{
 		return angle + inc;
 	}

@@ -1,11 +1,7 @@
 package Main;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import com.xuggle.xuggler.io.InputOutputStreamHandler;
-
-import de.yadrone.base.video.ImageListener;
 import Common.Drone;
 import DronePrograms.LpogDollar;
 import DronePrograms.NikosDroneProgram;
@@ -16,11 +12,10 @@ import GUI.iDroneGUI;
 
 public class Enterprise {
 	
-	private iDroneGUI 	 gui;
-	private Drone	 	 drone;
-	private DroneProgram activeProgram;
-	
-	ArrayList<DroneProgram> programs;
+	private iDroneGUI 	 			gui;
+	private Drone	 	 			drone;
+	private DroneProgram 			activeProgram;
+	private ArrayList<DroneProgram> programs;
 	
 	public Enterprise()
 	{
@@ -39,16 +34,18 @@ public class Enterprise {
 		 attachDroneHandlers();
 		 
 		 try {
-			drone.start();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			 drone.start();
+		 } catch (Exception e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+		 }
 	}
 	
 	private void attachDroneHandlers()
 	{
 		drone.getVideoManager().addImageListener(gui.getImageListener());
+		drone.getNavDataManager().addBatteryListener (gui.getBatteryListener());
+		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 	}
 	
 	
@@ -63,10 +60,8 @@ public class Enterprise {
 	
 	public void startProgram(DroneProgram program)
 	{
-		
 		activeProgram = program;
-		activeProgram.start(drone);
-		
+		activeProgram.start(drone);		
 	}
 	
 	public void stopProgram()
