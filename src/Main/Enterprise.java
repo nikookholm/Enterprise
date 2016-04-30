@@ -44,7 +44,7 @@ public class Enterprise {
 	private void attachDroneHandlers()
 	{
 		drone.getVideoManager().addImageListener(gui.getImageListener());
-		drone.getNavDataManager().addBatteryListener (gui.getBatteryListener());
+		//drone.getNavDataManager().addBatteryListener (gui.getBatteryListener());
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 	}
 	
@@ -54,7 +54,7 @@ public class Enterprise {
 		programs = new ArrayList<>();
 		programs.add(new NikosDroneProgram());
 		programs.add(new TestProgram());
-		programs.add(new LpogDollar());
+		//programs.add(new LpogDollar());
 		programs.add(new RotationTestProgram());
 	}
 	

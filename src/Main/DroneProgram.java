@@ -4,7 +4,7 @@ import Common.Drone;
 
 public abstract class DroneProgram implements IDroneProgram {
 	
-	public Drone drone;
+	private Drone drone;
 	
 	public void start(Drone drone)
 	{

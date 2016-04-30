@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 
 public class PanelQ3 extends JPanel {
 	
-	private Log log;
+	//private Log log;
 	private String text;
 	private DroneGUI gui;
 	JTextArea textArea = new JTextArea(22, 30);
