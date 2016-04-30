@@ -75,14 +75,6 @@ public class DroneVision implements iDroneVision {
 		return dronepos;
 	}
 
-	@Override
-	public ImageListener getImageListener() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
 	private class ImageHandler implements ImageListener {
 
 		@Override
