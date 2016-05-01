@@ -29,14 +29,14 @@ public class Vector3D {
 	}
 	
 	public double incXCoord(double incX){
-		return x += incX;
+		return x = incX;
 	}
 	
 	public double incYCoord(double incY){
-		return y += incY;
+		return y = incY;
 	}
 	
 	public double incZCoord(double incZ){
-		return z += incZ;
+		return z = incZ;
 	}
 }

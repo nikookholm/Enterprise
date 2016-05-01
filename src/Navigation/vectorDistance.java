@@ -47,16 +47,20 @@ public class vectorDistance {
 		ArrayList<Vector3D> p1_pot = new ArrayList<>();
 		ArrayList<Vector3D> p2_pot = new ArrayList<>();
 		
-		System.out.println(Math.pow(1.0 - c1_c.getXCoord(), 2)+Math.pow(2.0 - c1_c.getYCoord(), 2));
-		c1_r = Double.parseDouble(new DecimalFormat("#,##").format(c1_r));
-		for(double x = 0; x < 10; x+=0.1){
-			for(double y = 0; y < 10; y+=0.1){
-				if(allowedRange(x,y, c1_c, c2_c)){
-					System.out.println("Success at: " + x + ", " + y);
-				}
-			}
-		}
+		double radius = (double) Math.round(Math.pow(c2_r, 2) * 100000d)/ 100000d;
+		double c1radius = (double) Math.round((Math.pow(10.350 - c2_c.getXCoord(), 2)+Math.pow(2.728 - c2_c.getYCoord(), 2)) * 100000d) / 100000d;
 		
+		System.out.println(radius);
+		System.out.println(c1radius);
+//		c1_r = Double.parseDouble(new DecimalFormat("#,##").format(c1_r));
+//		for(double x = 0; x < 10; x+=0.1){
+//			for(double y = 0; y < 10; y+=0.1){
+//				if(allowedRange(x,y, c1_c, c2_c)){
+//					System.out.println("Success at: " + x + ", " + y);
+//				}
+//			}
+//		}
+//		
 		return new Vector3D(-1, -1, -1);
 	}
 	
