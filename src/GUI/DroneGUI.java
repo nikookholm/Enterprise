@@ -16,6 +16,7 @@ import org.opencv.core.Core;
 
 import Main.Enterprise;
 import Navigation.QRfinder;
+import de.yadrone.base.navdata.AcceleroListener;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
@@ -140,6 +141,11 @@ public class DroneGUI implements iDroneGUI {
 	public AltitudeListener getAltitudeListener() {
 		
 		return  q1.new Altitude();
+	}
+	
+	public AcceleroListener getAcceleroListener(){
+
+		return q1.new Accelero();
 	}
 	
 }

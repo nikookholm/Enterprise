@@ -17,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import de.yadrone.base.navdata.AcceleroListener;
+import de.yadrone.base.navdata.AcceleroPhysData;
+import de.yadrone.base.navdata.AcceleroRawData;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
 import Main.DroneProgram;
@@ -25,7 +28,7 @@ import Main.Enterprise;
 public class PanelQ1 extends JPanel{
 
 	private JButton start, cancel;
-	private JLabel altiText, altitud, battery, batteryTest;
+	private JLabel accelero, altitud, battery, batteryTest;
 	private JComboBox box = new JComboBox();
 	private int count = 0;
 	
@@ -51,7 +54,7 @@ public class PanelQ1 extends JPanel{
 		start = new JButton("START");
 		cancel = new JButton("ABORT");
 		altitud = new JLabel("Altitude: ");
-		altiText = new JLabel("er: ");
+		accelero = new JLabel("accelero ");
 		battery = new JLabel("Battery: ");
 		batteryTest = new JLabel(" testB: ");
 		
@@ -118,14 +121,13 @@ public class PanelQ1 extends JPanel{
 			c.gridy = 1;
 			this.add(altitud,c);
 			
-			c.gridx = 1;
-			c.gridy = 1;
-			this.add(altiText, c);
-			
 			c.gridx = 0;
 			c.gridy = 2;
 			this.add(battery,c);
 	
+			c.gridx = 0;
+			c.gridy = 3;
+			this.add(accelero, c);
 
 		
 	}
@@ -159,6 +161,24 @@ public class PanelQ1 extends JPanel{
 			public void voltageChanged(int arg0) {
 
 				
+				
+			}
+			
+			
+		}
+		
+		public class Accelero implements AcceleroListener{
+
+			@Override
+			public void receivedPhysData(AcceleroPhysData arg0) {
+
+				accelero.setText("acceler is :" + arg0);
+				
+			}
+
+			@Override
+			public void receivedRawData(AcceleroRawData arg0) {
+				// TODO Auto-generated method stub
 				
 			}
 			
