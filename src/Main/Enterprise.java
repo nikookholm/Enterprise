@@ -3,6 +3,7 @@ package Main;
 import java.util.ArrayList;
 
 import Common.Drone;
+import DronePrograms.AmalProgram;
 import DronePrograms.LpogDollar;
 import DronePrograms.NikosDroneProgram;
 import DronePrograms.RotationTestProgram;
@@ -57,6 +58,7 @@ public class Enterprise {
 		programs.add(new TestProgram());
 		//programs.add(new LpogDollar());
 		programs.add(new RotationTestProgram());
+		programs.add(new AmalProgram());
 	}
 	
 	public void startProgram(DroneProgram program)

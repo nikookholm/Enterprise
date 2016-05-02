@@ -54,7 +54,7 @@ public class PanelQ1 extends JPanel{
 		start = new JButton("START");
 		cancel = new JButton("ABORT");
 		altitud = new JLabel("Altitude: ");
-		accelero = new JLabel("accelero ");
+		accelero = new JLabel("accelero: ");
 		battery = new JLabel("Battery: ");
 		batteryTest = new JLabel(" testB: ");
 		
@@ -172,7 +172,7 @@ public class PanelQ1 extends JPanel{
 			@Override
 			public void receivedPhysData(AcceleroPhysData arg0) {
 
-				accelero.setText("acceler is :" + arg0);
+//				accelero.setText("acceler is :" + arg0);
 				
 			}
 
