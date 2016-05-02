@@ -2,7 +2,9 @@ package GUI;
 
 import java.awt.Image;
 
+import GUI.PanelQ1.Accelero;
 import Main.Enterprise;
+import de.yadrone.base.navdata.AcceleroListener;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
@@ -18,5 +20,6 @@ public interface iDroneGUI {
 	public void updateCameraPanel(Image image);
 	public ImageListener    getImageListener();
 	public BatteryListener  getBatteryListener();
+	public AcceleroListener getAcceleroListener();
 
 }
