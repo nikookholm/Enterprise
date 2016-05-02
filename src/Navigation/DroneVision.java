@@ -135,10 +135,15 @@ public class DroneVision implements iDroneVision {
 		}
 		while (!listener.executed)
 		{
+			
+			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
+			Thread.sleep();
 			if (vt.POIFound != null)
 			{
+				
 				listener.execute();
 			}
+			
 		}	
 	}
 }

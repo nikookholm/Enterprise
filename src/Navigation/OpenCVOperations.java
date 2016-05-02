@@ -47,27 +47,48 @@ public class OpenCVOperations {
 	 * @param newImage the newest image stored
 	 * @return Points of Interests
 	 */
-	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage, Vector3D coordinates, int angle) {
+//	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage, Vector3D coordinates, int angle) {
+//
+//		ArrayList<POI> li = findObjects(lastImage, coordinates, angle);
+//		ArrayList<POI> ni = findObjects(newImage, coordinates, angle);
+//
+//		for(POI liCheck : li){
+//			for(POI niCheck : ni){
+//				if(liCheck instanceof POICircle && niCheck instanceof POICircle){
+//					if(((POICircle)liCheck).getRadius() == ((POICircle)niCheck).getRadius() && ((POICircle)liCheck).getRadius() > 10){
+//					
+//					}
+//				}
+//				// elseif QR
+//				// elseif block
+//				// elseif airport
+//				
+//			}
+//		}
+//		return interestsFound;
+//	}
 
-		ArrayList<POI> li = findObjects(lastImage, coordinates, angle);
-		ArrayList<POI> ni = findObjects(newImage, coordinates, angle);
+	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage){
+		
 
-		for(POI liCheck : li){
-			for(POI niCheck : ni){
-				if(liCheck instanceof POICircle && niCheck instanceof POICircle){
-					if(((POICircle)liCheck).getRadius() == ((POICircle)niCheck).getRadius() && ((POICircle)liCheck).getRadius() > 10){
-					
-					}
-				}
-				// elseif QR
-				// elseif block
-				// elseif airport
-				
-			}
-		}
+////		ArrayList<POI> li = findObjects(lastImage, coordinates, angle);
+////		ArrayList<POI> ni = findObjects(newImage, coordinates, angle);
+//
+//		for(POI liCheck : li){
+//			for(POI niCheck : ni){
+//				if(liCheck instanceof POICircle && niCheck instanceof POICircle){
+//					if(((POICircle)liCheck).getRadius() == ((POICircle)niCheck).getRadius() && ((POICircle)liCheck).getRadius() > 10){
+//					
+//					}
+//				}
+//				// elseif QR
+//				// elseif block
+//				// elseif airport
+//				
+//			}
+//		}
 		return interestsFound;
 	}
-
 	public void findQR(Mat image, Vector3D coordinates, int angle) {
 
 		List<QRPoi> fundet = new ArrayList<>();
