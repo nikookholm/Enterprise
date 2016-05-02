@@ -90,4 +90,9 @@ public class DroneVision implements iDroneVision {
 		
 	}
 
+	public void search() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

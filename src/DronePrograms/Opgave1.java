@@ -41,27 +41,42 @@ public class Opgave1 extends DroneProgram {
 		iDroneMovement   m = getDrone().getMovement();
 		iDroneNavigation n = getDrone().getNavigation();
 		
+		m.hoverTo(1);
 		
+		while (!hasFound3WallPOIs())
+		{
+			n.getVision().search();
+		}
 		
+		getDrone().setCoords(n.getVision().calibrate());
 		
+		while (!finished())
+		{
+			while(nextRingIsInList())
+			{
+				POI nextRing = null;
+				m.flyTo(nextRing);
+			}
+			
+			n.getVision().scan();
+		}
 		
+		m.flyHome();
 		
-		// Kalibrer / find dronens position !
+				
 		
-		// while POIWanted is in POIList 
-		
-		// Scan()
-		
-		
-		// Foreach POI fundet ved scan
-		
-		// Hvis den næste ring er i blandt POI's fundet, flyv der hen
-		
-		
-		
-		
-		
-		
+	}
+	private boolean nextRingIsInList() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	private boolean finished() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	private boolean hasFound3WallPOIs() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
