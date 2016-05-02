@@ -1,5 +1,7 @@
 package Movements;
 
+import java.rmi.server.ExportException;
+
 import Common.Drone;
 import POI.POI;
 
@@ -30,6 +32,15 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	
+	public void flyForward()
+	{
+		try {
+			throw new Exception("Fly forward er fucked!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void flyForward(int cm){
 		int speed = 8;
@@ -123,6 +134,8 @@ public class DroneMovement implements iDroneMovement {
 		
 	}
 	
+	public enum Movement { Forward, Backwards, Left, Right, SpinLeft, SpinRight };
+	
 	/******************************************/
 	/***************Inner_Class****************/
 	/******************************************/
@@ -132,6 +145,42 @@ public class DroneMovement implements iDroneMovement {
 	float roll;
 	float yaw;
 	//GyroPhysData gyroPhysData;
+
+	@Override
+	public void flyHome() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void flyBackwards() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void flyLeft() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void flyRight() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void spinLeft() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void spinRight() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	//Attitude listener
 //	class InnerAttitude implements AttitudeListener{

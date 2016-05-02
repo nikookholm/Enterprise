@@ -4,9 +4,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.Marshaller.Listener;
+
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
+import Movements.DroneMovement.Movement;
 import POI.POI;
 import POI.POIWallPoint;
 
@@ -17,6 +20,7 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 import com.sun.javafx.geom.Vec3d;
+
 import Vector.Vector3D;
 
 import org.opencv.highgui.VideoCapture;
@@ -91,8 +95,50 @@ public class DroneVision implements iDroneVision {
 	}
 
 	public void search() {
-		// TODO Auto-generated method stub
+				
+	}
+	
+	public class ObjectListener
+	{
+		public boolean executed;
 		
+		public void execute()
+		{
+			
+		}
 	}
 
+	private void scan(Movement movement, ObjectListener listener) {
+		
+		VisionThread vt = new VisionThread();
+		
+		switch (movement)
+		{
+			case Forward:
+				drone.getMovement().flyForward();
+				break;
+			case Backwards:
+				drone.getMovement().flyBackwards();
+				break;
+			case Left:
+				drone.getMovement().flyLeft();
+				break;
+			case Right:
+				drone.getMovement().flyRight();
+				break;
+			case SpinLeft:
+				drone.getMovement().spinLeft();
+				break;
+			case SpinRight:
+				drone.getMovement().spinRight();
+				break;
+		}
+		while (!listener.executed)
+		{
+			if (vt.POIFound != null)
+			{
+				listener.execute();
+			}
+		}	
+	}
 }
