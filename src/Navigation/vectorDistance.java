@@ -20,7 +20,6 @@ public class vectorDistance {
 
 		alpha = Math.acos(dotAB / (Math.abs(magnitudeA) * Math.abs(magnitudeB)));
 		beta = Math.acos(dotBC / Math.abs(magnitudeB) * Math.abs(magnitudeC));
-		System.out.print(radToDegree(alpha));
 
 	}
 

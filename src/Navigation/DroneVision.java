@@ -70,7 +70,7 @@ public class DroneVision implements iDroneVision {
 			}
 		}
 		if(wallpointsFound == 3){
-			VD.calculateDronepos(Wallpoints.get(0).getCoordinates(), Wallpoints.get(1).getCoordinates(), Wallpoints.get(2).getCoordinates());
+			VD.calcDronepos(Wallpoints.get(0).getCoordinates(), Wallpoints.get(1).getCoordinates(), Wallpoints.get(2).getCoordinates());
 		}
 		return dronepos;
 	}
