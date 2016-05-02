@@ -23,5 +23,10 @@ public abstract class DroneProgram implements IDroneProgram {
 		}
 	}
 	
+	public Drone getDrone()
+	{
+		return drone;
+	}
+	
 	
 }

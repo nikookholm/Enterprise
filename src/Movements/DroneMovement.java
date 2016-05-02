@@ -13,10 +13,10 @@ public class DroneMovement implements iDroneMovement {
 		this.drone = drone;
 	}
 
-	public void start(){
-		drone.getNavDataManager().addAttitudeListener(new InnerAttitude());
-		drone.getNavDataManager().addGyroListener(new InnerGyro());
-	}
+//	public void start(){
+//		drone.getNavDataManager().addAttitudeListener(new InnerAttitude());
+//		drone.getNavDataManager().addGyroListener(new InnerGyro());
+//	}
 	
 	/**
 	 * The hoverTo method sets the max height, to be sure how high it is allowed to flight.
@@ -107,11 +107,11 @@ public class DroneMovement implements iDroneMovement {
 	 * 
 	 */
 	
-	private void internalHover() {
-		float[] physGyro = gyroPhysData.getPhysGyros();
-		gyroPitch
-		
-	}
+//	private void internalHover() {
+//		float[] physGyro = gyroPhysData.getPhysGyros();
+//		gyroPitch
+//		
+//	}
 	
 	private void hardRecover() {
 		
@@ -129,53 +129,53 @@ public class DroneMovement implements iDroneMovement {
 	float pitch;
 	float roll;
 	float yaw;
-	GyroPhysData gyroPhysData;
+	//GyroPhysData gyroPhysData;
 	
 	//Attitude listener
-	class InnerAttitude implements AttitudeListener{
-
-		@Override
-		public void attitudeUpdated(float arg0, float arg1) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void attitudeUpdated(float arg0, float arg1, float arg2) {
-			pitch = arg0;
-			roll = arg1;
-			yaw = arg2;
-			
-		}
-
-		@Override
-		public void windCompensation(float arg0, float arg1) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		
-	}
-	
-	//gyro listener
-	class InnerGyro implements GyroListener{
-
-		@Override
-		public void receivedOffsets(float[] arg0) {
-			
-		}
-
-		@Override
-		public void receivedPhysData(GyroPhysData arg0) {
-			gyroPhysData = arg0;
-			
-		}
-
-		@Override
-		public void receivedRawData(GyroRawData arg0) {
-			
-		}
-		
-	}
+//	class InnerAttitude implements AttitudeListener{
+//
+//		@Override
+//		public void attitudeUpdated(float arg0, float arg1) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		@Override
+//		public void attitudeUpdated(float arg0, float arg1, float arg2) {
+//			pitch = arg0;
+//			roll = arg1;
+//			yaw = arg2;
+//			
+//		}
+//
+//		@Override
+//		public void windCompensation(float arg0, float arg1) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		
+//	}
+//	
+//	//gyro listener
+//	class InnerGyro implements GyroListener{
+//
+//		@Override
+//		public void receivedOffsets(float[] arg0) {
+//			
+//		}
+//
+//		@Override
+//		public void receivedPhysData(GyroPhysData arg0) {
+//			gyroPhysData = arg0;
+//			
+//		}
+//
+//		@Override
+//		public void receivedRawData(GyroRawData arg0) {
+//			
+//		}
+//		
+//	}
 	
 }

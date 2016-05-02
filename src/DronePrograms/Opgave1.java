@@ -3,6 +3,9 @@ package DronePrograms;
 import java.util.ArrayList;
 
 import Main.DroneProgram;
+import Movements.DroneMovement;
+import Movements.iDroneMovement;
+import Navigation.iDroneNavigation;
 import POI.POI;
 import POI.POICircle;
 
@@ -34,26 +37,31 @@ public class Opgave1 extends DroneProgram {
 		// keflge tller minus 1 point. At ikke returnere til landingspladsen, tller minus 2
 		// points. Tiden er 5 minutter.
 
-		int holesToDo       = 4;
-		int holesPenetrated = 0;
-		while (holesPenetrated < holesToDo)
-		{
-			pois = drone.getNavigation().scan();
-			for(POI poi : pois)
-			{
-				if (poi instanceof POICircle)
-				{
-					rings.add((POICircle)poi);
-					if (((POICircle)poi).getQRValue().equals(holesPenetrated))
-					{
-						drone.getNavigation().flyTo(poi);
-					}
 
-				}
-			}
-		}
+		iDroneMovement   m = getDrone().getMovement();
+		iDroneNavigation n = getDrone().getNavigation();
 		
-		drone.getNavigation().flyToHome();
+		
+		
+		
+		
+		
+		// Kalibrer / find dronens position !
+		
+		// while POIWanted is in POIList 
+		
+		// Scan()
+		
+		
+		// Foreach POI fundet ved scan
+		
+		// Hvis den næste ring er i blandt POI's fundet, flyv der hen
+		
+		
+		
+		
+		
+		
 	}
 
 
