@@ -34,14 +34,16 @@ public class DroneMovement implements iDroneMovement {
 	public void flyForward(int cm){
 		int speed = 8;
 		System.out.println("Syg so 1");
-		drone.getCommandManager().forward(speed).doFor(cm*50); // omregnes til en mængde tid
+		drone.setSpeed(8);
+		drone.forward();
+		// omregnes til en mængde tid
 		System.out.println("syg so 2");
 		//mangler hastighed til at begrænse distancen
-//		try {
-//			Thread.sleep(2000);
-//		} catch (InterruptedException e) {
-//			
-//		}
+		try {
+			Thread.sleep(cm*8);
+		} catch (InterruptedException e) {
+			
+		}
 		//drone.setCoords(calculateNewCoords(cm));
 		
 	}
