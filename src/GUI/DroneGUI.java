@@ -38,6 +38,7 @@ public class DroneGUI implements iDroneGUI {
 	
 	
 	public DroneGUI()
+	
 	{
 
 
