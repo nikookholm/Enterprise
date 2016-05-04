@@ -10,6 +10,7 @@ import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
 import Movements.DroneMovement.Movement;
+import Navigation.ScanListeners.ScanListener;
 import POI.POI;
 import POI.POIWallPoint;
 
@@ -97,18 +98,8 @@ public class DroneVision implements iDroneVision {
 	public void search() {
 				
 	}
-	
-	public class ObjectListener
-	{
-		public boolean executed;
-		
-		public void execute()
-		{
-			
-		}
-	}
 
-	private void scan(Movement movement, ObjectListener listener) {
+	private void scan(Movement movement, ScanListener listener) {
 		
 		VisionThread vt = new VisionThread();
 		

@@ -11,12 +11,13 @@ public class POI {
 	
 	private int angle;
 	
-	public POI(Vector3D coordinates, Vector3D dronepos)
+	public POI(Vector3D coordinates, Vector3D dronepos, int angle)
 	{
 		
 		
 		this.coordinates = coordinates;
 		this.dronePos = dronepos;
+		this.angle = angle;
 	}
 	
 	public POI(Vector3D coordinates, int angle)
