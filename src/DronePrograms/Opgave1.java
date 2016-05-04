@@ -8,16 +8,15 @@ import Movements.iDroneMovement;
 import Navigation.iDroneNavigation;
 import POI.POI;
 import POI.POICircle;
+import POI.POIWallPoint;
 
 public class Opgave1 extends DroneProgram {
 
-	private ArrayList<POICircle> rings;
 	private ArrayList<POI> 		 pois;
-	private POICircle 			 closestRing;
 
 	@Override
 	public void abort() {
-		// TODO Auto-generated method stub
+		getDrone().landing();
 
 	}
 	@Override
@@ -36,6 +35,9 @@ public class Opgave1 extends DroneProgram {
 		// objekt tller minus 2 points. Hvert portpassager i den forkerte retning eller rk-
 		// keflge tller minus 1 point. At ikke returnere til landingspladsen, tller minus 2
 		// points. Tiden er 5 minutter.
+		
+		
+		POI nextRing = null;						
 
 
 		iDroneMovement   m = getDrone().getMovement();
@@ -55,7 +57,6 @@ public class Opgave1 extends DroneProgram {
 		{
 			while(nextRingIsInList())						// ... og den næste ring vi skal finde er på listen
 			{
-				POI nextRing = null;						
 				m.flyTo(nextRing);							// flyv til den næste ring
 				m.flyThroughRing(nextRing);					// ... og igennem den
 			}
@@ -78,8 +79,18 @@ public class Opgave1 extends DroneProgram {
 		return false;
 	}
 	private boolean hasFound3WallPOIs() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		int wallPoisFound = 0;
+		
+		for (POI poi : pois )
+		{
+			if (poi instanceof POIWallPoint)
+			{
+				wallPoisFound++;
+			}
+		}
+		
+		return (wallPoisFound >= 3);
 	}
 
 
