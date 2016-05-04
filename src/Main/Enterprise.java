@@ -38,6 +38,7 @@ public class Enterprise {
 			 drone.start();
 		 } catch (Exception e) {
 			 // TODO Auto-generated catch block
+			 System.err.println("Exception caught in Enterprise class:");
 			 e.printStackTrace();
 		 }
 	}
