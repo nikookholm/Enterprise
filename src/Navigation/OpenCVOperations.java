@@ -91,18 +91,16 @@ public class OpenCVOperations {
 	}
 	public void findQR(Mat image, Vector3D coordinates, int angle) {
 
-		List<QRPoi> fundet = new ArrayList<>();
+		ArrayList<POIWallPoint> fundet = new ArrayList<>();
 		QRfinder findqr = new QRfinder();
 		try {
-			fundet = findqr.findQR(image);
+			fundet = findqr.findQR(image, coordinates, angle);
+			
+			for(int i = 0; i < fundet.size(); i++) interestsFound.add(fundet.get(i));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  // exceptions klare jeg senere.
-
-		for (int i = 0; i<fundet.size(); i++){
-			interestsFound.add(new POIWallPoint(new Vector3D(0, 0, 0), coordinates, fundet.get(i).getCode()));
-		}
 
 		
 	}
