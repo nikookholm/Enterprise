@@ -12,7 +12,8 @@ import POI.POIWallPoint;
 
 public class Opgave1 extends DroneProgram {
 
-	private ArrayList<POI> 		 pois;
+	private ArrayList<POI> pois;
+	private POI			   nextRing = null;						
 
 	@Override
 	public void abort() {
@@ -37,7 +38,6 @@ public class Opgave1 extends DroneProgram {
 		// points. Tiden er 5 minutter.
 		
 		
-		POI nextRing = null;						
 
 
 		iDroneMovement   m = getDrone().getMovement();
@@ -70,13 +70,24 @@ public class Opgave1 extends DroneProgram {
 				
 		
 	}
+	
 	private boolean nextRingIsInList() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 	private boolean finished() {
-		// TODO Auto-generated method stub
+		
+		// Været igennem alle ringe?
+		
+		// Returneret hjem ?
+		
+		// Success! 
+		
 		return false;
+		
+		 
 	}
 	private boolean hasFound3WallPOIs() {
 		
