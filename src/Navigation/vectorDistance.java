@@ -34,23 +34,25 @@ public class vectorDistance {
 
 		
 
-		double c1_r = (0.5*magnitude(wallmark1, wallmark2) / (Math.sin(alpha)));
-		double c2_r = (0.5*magnitude(wallmark2, wallmark3) / (Math.sin(beta)));
+		//double c1_r = (0.5*magnitude(wallmark1, wallmark2) / (Math.sin(alpha)));
+		//double c2_r = (0.5*magnitude(wallmark2, wallmark3) / (Math.sin(beta)));
 		
 		Vector3D c1_c = calcCircleCoords(wallmark1, wallmark2, alpha);
 		Vector3D c2_c = calcCircleCoords(wallmark2, wallmark3, beta);
 
-		System.out.println("C1: " + c1_c.getXCoord() + ", " + c1_c.getYCoord() + " radius: " + c1_r);
-		System.out.println("C2: " + c2_c.getXCoord() + ", " + c2_c.getYCoord() + " radius: " + c2_r);
-			
+		System.out.println("C1: " + c1_c.getXCoord() + ", " + c1_c.getYCoord() + " radius: " + c1_c.getZCoord());
+		System.out.println("C2: " + c2_c.getXCoord() + ", " + c2_c.getYCoord() + " radius: " + c2_c.getZCoord());
+		System.out.println(Math.pow(c2_c.getZCoord(), 2));
 		ArrayList<Vector3D> p1_pot = new ArrayList<>();
 		ArrayList<Vector3D> p2_pot = new ArrayList<>();
 		
-		double radius = (double) Math.round(Math.pow(c2_r, 2) * 100000d)/ 100000d;
 		double c1radius = (double) Math.round((Math.pow(10.350 - c2_c.getXCoord(), 2)+Math.pow(2.728 - c2_c.getYCoord(), 2)) * 100000d) / 100000d;
 		
-		System.out.println(radius);
+		
+		
+		
 		System.out.println(c1radius);
+
 //		c1_r = Double.parseDouble(new DecimalFormat("#,##").format(c1_r));
 //		for(double x = 0; x < 10; x+=0.1){
 //			for(double y = 0; y < 10; y+=0.1){
@@ -97,7 +99,6 @@ public class vectorDistance {
 		circle.incYCoord(t12 / t15 * t7 / 2.0 + wallmark1.getYCoord() / 2.0 + wallmark2.getYCoord() / 2.0);
 	
 		double r = 0.5*a/Math.sin(alpha);
-	
 		circle.incZCoord(r);
 		
 		return circle;
