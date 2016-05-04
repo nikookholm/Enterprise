@@ -1,6 +1,8 @@
 package Movements;
 
 import POI.POI;
+import de.yadrone.base.navdata.AttitudeListener;
+import de.yadrone.base.navdata.GyroListener;
 
 public interface iDroneMovement {
 	
@@ -17,7 +19,7 @@ public interface iDroneMovement {
 	public void spinRight();
 	public void flyThroughRing(POI nextRing);
 	
-	public void gyroListener();
-	public void attitudeListener();
+	public GyroListener getGyroListener();
+	public AttitudeListener getAttitudeListener();
 
 }

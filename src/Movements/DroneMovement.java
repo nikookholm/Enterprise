@@ -4,22 +4,31 @@ import java.rmi.server.ExportException;
 
 import Common.Drone;
 import POI.POI;
+import de.yadrone.base.navdata.AcceleroListener;
+import de.yadrone.base.navdata.AcceleroPhysData;
+import de.yadrone.base.navdata.AcceleroRawData;
+import de.yadrone.base.navdata.AttitudeListener;
+import de.yadrone.base.navdata.BatteryListener;
+import de.yadrone.base.navdata.GyroListener;
+import de.yadrone.base.navdata.GyroPhysData;
+import de.yadrone.base.navdata.GyroRawData;
 
 public class DroneMovement implements iDroneMovement {
 	
 	private Drone drone;
 	private int currentAngle = 0;
 	
+	GyroPhysData gyro; 
+	float pitch;
+	float roll;
+	float yaw;
+	
 	public DroneMovement(Drone drone)
 	{
 		this.drone = drone;
+		
 	}
 
-//	public void start(){
-//		drone.getNavDataManager().addAttitudeListener(new InnerAttitude());
-//		drone.getNavDataManager().addGyroListener(new InnerGyro());
-//	}
-	
 	/**
 	 * The hoverTo method sets the max height, to be sure how high it is allowed to flight.
 	 * It then flies as high as possible and hovers until another command is given.
@@ -62,7 +71,7 @@ public class DroneMovement implements iDroneMovement {
 	/**
 	 * 
 	 */
-	
+	@Override
 	public void flyTo(POI interest) {
 		
 		
@@ -82,70 +91,15 @@ public class DroneMovement implements iDroneMovement {
 		}
 		
 		if(aod < 0){
-			rotateRight(Math.abs(aod));
+			spinRight(Math.abs(aod));
 		}else if(aod > 0){
-			rotateLeft(Math.abs(aod));
+			spinLeft(Math.abs(aod));
 		}else {
 			System.out.println("You are already there");
 		}
 		
 	}
 	
-	/***********************************************************/
-	/*********************private*******************************/
-	/***********************************************************/
-	
-	private boolean checkInterval(int degrees){
-		if(0 <= degrees && degrees < 360){
-			return true;
-		}
-		return false;
-	}
-	
-	private void spinRight(int degrees) {
-		int aot; //amount of time to go right
-		drone.goRight();
-	}
-	
-	/**
-	 * 
-	 */
-	
-	private void spinLeft(int degrees) {
-		int aot; //amount of time to go left
-		drone.goLeft();
-	}
-	
-	/**
-	 * 
-	 */
-	
-//	private void internalHover() {
-//		float[] physGyro = gyroPhysData.getPhysGyros();
-//		gyroPitch
-//		
-//	}
-	
-	private void hardRecover() {
-		
-	}
-	
-	private void softRecover() {
-		
-	}
-	
-	public enum Movement { Forward, Backwards, Left, Right, SpinLeft, SpinRight };
-	
-	/******************************************/
-	/***************Inner_Class****************/
-	/******************************************/
-	
-	
-	float pitch;
-	float roll;
-	float yaw;
-	//GyroPhysData gyroPhysData;
-
 	@Override
 	public void flyHome() {
 		// TODO Auto-generated method stub
@@ -181,6 +135,45 @@ public class DroneMovement implements iDroneMovement {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/***********************************************************/
+	/*********************private*******************************/
+	/***********************************************************/
+	
+	private boolean checkInterval(int degrees){
+		if(0 <= degrees && degrees < 360){
+			return true;
+		}
+		return false;
+	}
+	
+	private void spinRight(int degrees) {
+		int aot; //amount of time to go right
+		drone.goRight();
+	}
+	
+	/**
+	 * 
+	 */
+	
+	private void spinLeft(int degrees) {
+		int aot; //amount of time to go left
+		drone.goLeft();
+	}
+	
+	/**
+	 * 
+	 */
+	
+	private void hardRecover() {
+		
+	}
+	
+	private void softRecover() {
+		
+	}
+	
+	public enum Movement { Forward, Backwards, Left, Right, SpinLeft, SpinRight };
 
 	@Override
 	public void flyThroughRing(POI nextRing) {
@@ -189,20 +182,66 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	/*******************************/
-	/**********Listener*************/
+	/*****Listener to interface*****/
 	/*******************************/
 	
 	@Override
-	public void gyroListener() {
-		// TODO Auto-generated method stub
-		
+	public GyroListener getGyroListener() {
+		return new Gyro();
 	}
 
 	@Override
-	public void attitudeListener() {
-		// TODO Auto-generated method stub
-		
+	public AttitudeListener getAttitudeListener() {
+		return new Attitude();
 	}
 	
+	/**********************************/
+	/**********class listener**********/
+	/**********************************/
+	
+	public class Attitude implements AttitudeListener{
+
+		@Override
+		public void attitudeUpdated(float arg0, float arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void attitudeUpdated(float arg0, float arg1, float arg2) {
+			pitch = arg0;
+			roll = arg1;
+			yaw = arg2;
+			
+		}
+
+		@Override
+		public void windCompensation(float arg0, float arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+	
+	public class Gyro implements GyroListener{
+
+		@Override
+		public void receivedOffsets(float[] arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void receivedPhysData(GyroPhysData arg0) {
+			gyro = arg0;
+		}
+
+		@Override
+		public void receivedRawData(GyroRawData arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	
+	}
 	
 }
