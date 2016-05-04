@@ -41,28 +41,31 @@ public class Opgave1 extends DroneProgram {
 		iDroneMovement   m = getDrone().getMovement();
 		iDroneNavigation n = getDrone().getNavigation();
 		
-		m.hoverTo(1);
+		m.hoverTo(1);										// Flyver op til 1 meter
 		
-		while (!hasFound3WallPOIs())
+		while (!hasFound3WallPOIs())						// Så længe at den ikke har fundet sine tre WallPOI's
 		{
-			n.getVision().search();
+			n.getVision().search();							// Afsøg rum
 		}
 		
-		getDrone().setCoords(n.getVision().calibrate());
+		getDrone().setCoords(n.getVision().calibrate());	// Når de er fundet og loop-et stopper, bruges calibrate()
+															// til at fastsætte dronens position
 		
-		while (!finished())
+		while (!finished())									// Så længe opgaven ikke er færdig ....							
 		{
-			while(nextRingIsInList())
+			while(nextRingIsInList())						// ... og den næste ring vi skal finde er på listen
 			{
-				POI nextRing = null;
-				m.flyTo(nextRing);
+				POI nextRing = null;						
+				m.flyTo(nextRing);							// flyv til den næste ring
+				m.flyThroughRing(nextRing);					// ... og igennem den
 			}
 			
-			n.getVision().scan();
+			n.getVision().scan();							// Har den ikke ringen på listen, så scan()-igen.
 		}
 		
-		m.flyHome();
+		m.flyHome();										// Og flyv hjem
 		
+															// All good!
 				
 		
 	}

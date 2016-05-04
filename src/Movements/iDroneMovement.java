@@ -15,5 +15,6 @@ public interface iDroneMovement {
 	public void flyRight();
 	public void spinLeft();
 	public void spinRight();
+	public void flyThroughRing(POI nextRing);
 
 }
