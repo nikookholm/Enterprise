@@ -29,6 +29,7 @@ import Main.Enterprise;
 import Navigation.HoughCircles;
 import Navigation.QRPoi;
 import Navigation.QRfinder;
+import Vector.Vector3D;
 import de.yadrone.base.command.VideoCodec;
 import de.yadrone.base.video.ImageListener;
 
@@ -175,8 +176,10 @@ public class PanelQ2 extends JPanel{
 			Mat imageMat = new Mat();
 			imageMat = new HoughCircles().bufferedImageToMat(this.image);
 		
+			Vector3D test = new Vector3D();
+			
 			try {
-				qrfind.findQR(imageMat);
+				qrfind.findQR(imageMat,test,0);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				
@@ -189,11 +192,11 @@ public class PanelQ2 extends JPanel{
 				if(im.get(i).getCode() != null)
 //					droneGui.getLog().add(im.get(i).getCode());
 
-		System.out.println("new qr " +  im.get(i).getCode());
+		System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
 			}
 			
-			if(showImg == true)
-				this.image = qrfind.getQRimg();
+//			if(showImg == true)
+//				this.image = qrfind.getQRimg();
 			
 			//this.image = qrfind.getQrdet();
 			
