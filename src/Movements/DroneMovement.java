@@ -102,7 +102,7 @@ public class DroneMovement implements iDroneMovement {
 		return false;
 	}
 	
-	private void rotateRight(int degrees) {
+	private void spinRight(int degrees) {
 		int aot; //amount of time to go right
 		drone.goRight();
 	}
@@ -111,7 +111,7 @@ public class DroneMovement implements iDroneMovement {
 	 * 
 	 */
 	
-	private void rotateLeft(int degrees) {
+	private void spinLeft(int degrees) {
 		int aot; //amount of time to go left
 		drone.goLeft();
 	}
@@ -181,52 +181,28 @@ public class DroneMovement implements iDroneMovement {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void flyThroughRing(POI nextRing) {
+		// TODO Auto-generated method stub
+		
+	}
 	
-	//Attitude listener
-//	class InnerAttitude implements AttitudeListener{
-//
-//		@Override
-//		public void attitudeUpdated(float arg0, float arg1) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void attitudeUpdated(float arg0, float arg1, float arg2) {
-//			pitch = arg0;
-//			roll = arg1;
-//			yaw = arg2;
-//			
-//		}
-//
-//		@Override
-//		public void windCompensation(float arg0, float arg1) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		
-//	}
-//	
-//	//gyro listener
-//	class InnerGyro implements GyroListener{
-//
-//		@Override
-//		public void receivedOffsets(float[] arg0) {
-//			
-//		}
-//
-//		@Override
-//		public void receivedPhysData(GyroPhysData arg0) {
-//			gyroPhysData = arg0;
-//			
-//		}
-//
-//		@Override
-//		public void receivedRawData(GyroRawData arg0) {
-//			
-//		}
-//		
-//	}
+	/*******************************/
+	/**********Listener*************/
+	/*******************************/
+	
+	@Override
+	public void gyroListener() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attitudeListener() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }

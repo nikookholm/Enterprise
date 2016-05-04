@@ -2,22 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Downloads/yadrone_032.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Downloads/opencv/build/java/opencv-2411.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/AnwarC/Downloads/opencv/build/java/x64"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/commons-net-3.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/core.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/jcommon-1.0.16.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/jfreechart-1.0.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/slf4j-api-1.7.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/slf4j-jdk14-1.7.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/External JARs/xuggle-xuggler-5.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/newjars/core-3.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/newjars/core-3.2.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/newjars/javase-3.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/AnwarC/Desktop/newjars/javase-3.2.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/commons-net-3.2.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/core.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/slf4j-jdk14-1.7.2.jar"/>
+	<classpathentry kind="lib" path="/YADrone/lib/xuggle-xuggler-5.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lars/Downloads/opencv/build/java/opencv-2411.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lars/Downloads/yadrone_032.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
