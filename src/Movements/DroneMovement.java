@@ -1,14 +1,9 @@
 package Movements;
 
-import java.rmi.server.ExportException;
 
 import Common.Drone;
 import POI.POI;
-import de.yadrone.base.navdata.AcceleroListener;
-import de.yadrone.base.navdata.AcceleroPhysData;
-import de.yadrone.base.navdata.AcceleroRawData;
 import de.yadrone.base.navdata.AttitudeListener;
-import de.yadrone.base.navdata.BatteryListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
 import de.yadrone.base.navdata.GyroRawData;
@@ -44,7 +39,7 @@ public class DroneMovement implements iDroneMovement {
 	public void flyForward()
 	{
 		try {
-			throw new Exception("Fly forward er fucked!");
+			drone.forward();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,7 +68,8 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	@Override
 	public void flyTo(POI interest) {
-		
+		//mangler current coordinates
+		//mangler fly to coordinates
 		
 	}
 	
@@ -97,59 +93,59 @@ public class DroneMovement implements iDroneMovement {
 		}else {
 			System.out.println("You are already there");
 		}
+		currentAngle = angle;
 		
 	}
 	
 	@Override
 	public void flyHome() {
+		//mangler startcoordinates
+		//mangler flytoCoordinate
+	}
+	@Override
+	public void flyThroughRing(POI nextRing) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	@Override
+	public void flyToRing(POI nextRing){
+		//mangler current coordinates
+		//mangler fly to coordinates
+	}
 	@Override
 	public void flyBackwards() {
-		// TODO Auto-generated method stub
-		
+		drone.backward();
 	}
 
 	@Override
 	public void flyLeft() {
-		// TODO Auto-generated method stub
+		drone.goLeft();
 		
 	}
 
 	@Override
 	public void flyRight() {
-		// TODO Auto-generated method stub
-		
+		drone.goRight();
 	}
 
 	@Override
 	public void spinLeft() {
-		// TODO Auto-generated method stub
-		
+		drone.spinLeft();
 	}
 
 	@Override
 	public void spinRight() {
-		// TODO Auto-generated method stub
-		
+		drone.spinRight();
 	}
 	
 	/***********************************************************/
 	/*********************private*******************************/
 	/***********************************************************/
 	
-	private boolean checkInterval(int degrees){
-		if(0 <= degrees && degrees < 360){
-			return true;
-		}
-		return false;
-	}
-	
 	private void spinRight(int degrees) {
-		int aot; //amount of time to go right
-		drone.goRight();
+		int aot = 0*degrees; //amount of time to go right
+		drone.spinRight();
 	}
 	
 	/**
@@ -158,12 +154,22 @@ public class DroneMovement implements iDroneMovement {
 	
 	private void spinLeft(int degrees) {
 		int aot; //amount of time to go left
-		drone.goLeft();
+		drone.spinLeft();
 	}
 	
 	/**
 	 * 
 	 */
+
+	private void internalHover(){
+		float[] pry = gyro.getPhysGyros();
+		int k = 0;
+		if((pry[0] + pry[1] + pry[2])> k){
+			hardRecover();
+		} else{
+			softRecover();
+		}
+	}
 	
 	private void hardRecover() {
 		
@@ -175,11 +181,7 @@ public class DroneMovement implements iDroneMovement {
 	
 	public enum Movement { Forward, Backwards, Left, Right, SpinLeft, SpinRight };
 
-	@Override
-	public void flyThroughRing(POI nextRing) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	/*******************************/
 	/*****Listener to interface*****/
