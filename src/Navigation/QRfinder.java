@@ -42,6 +42,7 @@ public class QRfinder {
 	private ArrayList<QRPoi> QRFun = new ArrayList<QRPoi>();
 	private Mat traces;
 	private BufferedImage debuImg;
+	private double disToQR;
 
 	private static Point dj = new Point();
 
@@ -292,6 +293,13 @@ public class QRfinder {
 						Point[] o = jim.toArray();
 
 						List<Point> srcP = new ArrayList<Point>(src1.toList());
+						
+						double x1 = (220.9319/distance(o[0], n[1]));
+						
+						disToQR = Math.pow(x1, 1/0.9583);
+						
+						
+						
 
 						LastPoint(n[1], n[2], m[3], m[2]);
 
@@ -339,7 +347,24 @@ public class QRfinder {
 							if (result != " ") {
 								QRFun.get(i).setCode(result);
 								QRFun.get(i).setQRimg(qrdet);
+								QRFun.get(i).setDistance(disToQR);
 							}
+							if(result == " "){
+							for(int lysloop = 0; lysloop<10; lysloop++){
+								double alpha = 0.15*lysloop;
+								double beta = 8*lysloop;
+								qr_gray.convertTo(qr_gray, -1, alpha, beta);
+								qr_gray.get(0, 0, data);
+								result = decode(qrdet);
+							if (result != " ") {
+								QRFun.get(i).setCode(result);
+								QRFun.get(i).setQRimg(qrdet);
+								QRFun.get(i).setDistance(disToQR);
+								lysloop = 15;
+							}
+							}
+							}
+							
 
 						}
 

@@ -193,7 +193,7 @@ public class PanelQ2 extends JPanel{
 			}
 			
 			if(showImg == true)
-				this.image = qrfind.getDebuImg();
+				this.image = qrfind.getQRimg();
 			
 			//this.image = qrfind.getQrdet();
 			
