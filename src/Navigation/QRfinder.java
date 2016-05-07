@@ -768,5 +768,39 @@ public class QRfinder {
 	public ArrayList<QRPoi> getQRFun() {
 		return QRFun;
 	}
+	
+	public Point currentDronePosition(QRPoi wallmark1, QRPoi wallmark2, QRPoi wallmark3){
+		Point postion;
+		
+		double x1 = wallmark1.getX();
+		double x2 = wallmark2.getX();
+		double x3 = wallmark3.getX();
+		double y1 = wallmark1.getY();
+		double y2 = wallmark2.getY();
+		double y3 = wallmark3.getY();
+		double dist1 = wallmark1.getDistance();
+		double dist2 = wallmark2.getDistance();
+		double dists3 = wallmark3.getDistance();
+		
+		Point tempPoint1 = new Point(wallmark1.getX(), wallmark1.getY());
+		
+		x1 = x1-tempPoint1.x;
+		x2 = x2-tempPoint1.x;
+		x3 = x3-tempPoint1.x;
+		y1 = y1-tempPoint1.y;
+		y2 = y2-tempPoint1.y;
+		y3 = y3-tempPoint1.y;
+		
+		
+		
+		
+		
+		
+		
+		return postion;
+		
+		
+	}
+	
 
 }
