@@ -36,12 +36,12 @@ public class PanelQ1 extends JPanel{
 	private int batteryLevel = 100;
 	private Font font = new Font("Helvetica", Font.PLAIN, 10);
 	private int voltageLevel;
-
+	
 	private Enterprise main;
 
 	public  PanelQ1(Enterprise enterprise) {
 
-
+		
 		initizlaize(enterprise);
 
 	}
@@ -53,14 +53,16 @@ public class PanelQ1 extends JPanel{
 		box.addItem("select progarm!");
 		start = new JButton("START");
 		cancel = new JButton("ABORT");
-		altitud = new JLabel("Altitude: ");
-		accelero = new JLabel("accelero: ");
-		battery = new JLabel("Battery: ");
+		altitud = new JLabel("Altitude: 0 ");
+		accelero = new JLabel("accelero:  0 m/s^2");
+		battery = new JLabel("Battery: %");
 		batteryTest = new JLabel(" testB: ");
 		
+		
 		GridBagLayout gbLayout = new GridBagLayout();
-		GridBagConstraints c = new  GridBagConstraints(); 
 		this.setLayout(gbLayout);
+		GridBagConstraints c = new  GridBagConstraints();
+		
 	
 
 		for( DroneProgram dp: main.getDronePrograms()){
@@ -103,28 +105,48 @@ public class PanelQ1 extends JPanel{
 
 				}
 			});
-			c.weighty = 0;
+			
+		c.fill= GridBagConstraints.BOTH;
+		c.weightx =0.0;
+		c.weighty = 0.0;
+		
 			c.gridx = 0;
 			c.gridy = 0;
-			gbLayout.setConstraints(box, c);
-			this.add(box);
+			this.add(box,c );
 			
+			c.fill= GridBagConstraints.BOTH;
+			c.weightx =0.0;
+			c.weighty = 0.0;
 			c.gridx = 1;
 			c.gridy = 0;
 			this.add(start, c);
 			
+			c.fill= GridBagConstraints.BOTH;
+			c.weightx =0.0;
+			c.weighty = 0.0;
 			c.gridx = 2;
 			c.gridy = 0;
 			this.add(cancel,c);
 			
+			
+			c.fill= GridBagConstraints.BOTH;
+			c.weightx =1;
+			c.weighty = 1;
 			c.gridx = 0;
 			c.gridy = 1;
 			this.add(altitud,c);
 			
+			c.fill= GridBagConstraints.BOTH;
+			c.weightx =1;
+			c.weighty = 1;
 			c.gridx = 0;
 			c.gridy = 2;
 			this.add(battery,c);
 	
+			
+			c.fill= GridBagConstraints.BOTH;
+			c.weightx = 1;
+			c.weighty = 1;
 			c.gridx = 0;
 			c.gridy = 3;
 			this.add(accelero, c);

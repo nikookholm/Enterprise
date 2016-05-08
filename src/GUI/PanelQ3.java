@@ -21,8 +21,6 @@ public class PanelQ3 extends JPanel {
 	
 	
 	public PanelQ3() {
-	
-		setBackground(Color.RED);
 		
 		initialize();
 		

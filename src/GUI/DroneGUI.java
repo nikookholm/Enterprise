@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,6 +9,7 @@ import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.text.rtf.RTFEditorKit;
@@ -34,9 +36,7 @@ public class DroneGUI implements iDroneGUI {
 	
 	private final int SCREEN_HEIGHT = 800;
 	private final int SCREEN_WIDTH  = 800;
-	private Log log;
-	private QRfinder qrFinder;
-	
+	private Log log;	
 	
 	public DroneGUI()
 	
@@ -65,35 +65,55 @@ public class DroneGUI implements iDroneGUI {
 		q2 = new PanelQ2(this);
 		q3 = new PanelQ3();
 		q4 = new PanelQ4();
-		
-		c.weightx = 1;
-		c.weighty = 1;
-		
+
+		// design of PanelQ2.java class
+		c = new java.awt.GridBagConstraints();
+		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		c.gridx = 0;
 		c.gridy = 0;
 		q2.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+	    q2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q2, c);
-
+		
+		// design of PanelQ1.java class
+		c = new java.awt.GridBagConstraints();
+		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		c.gridx = 1;
 		c.gridy = 0;
 		q1.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+	    q1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q1, c);
 		
-
+		// design of PanelQ3.java class
+		c = new java.awt.GridBagConstraints();
+		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		c.gridx = 0;
 		c.gridy = 1;
 		q3.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+	    q3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q3, c);
 	
+		// design of PanelQ4.java class
+		c = new java.awt.GridBagConstraints();
+		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		c.gridx = 1;
 		c.gridy = 1;
 		q4.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+		q4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q4, c);
 
+		// attach Log.java class to PanalQ3.java class
 		log = new Log(q3.getTextArea());
 		
 		frame.pack();
-		
 		frame.setVisible(true);
 	}
 	
