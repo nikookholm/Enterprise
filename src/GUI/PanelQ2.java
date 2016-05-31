@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.security.acl.Owner;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,7 +176,8 @@ public class PanelQ2 extends JPanel{
 
 		public void updateCameraPanel(Image image)
 		{
-
+			
+			DecimalFormat numberFormat = new DecimalFormat("0.00");
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 			this.image = (BufferedImage)image;
 			Mat imageMat = new Mat();
@@ -192,8 +194,8 @@ public class PanelQ2 extends JPanel{
 			for(int i= 0; i< im.size(); i++){
 				if(im.get(i).getCode() != null){
 
-					droneGui.getLog().add(im.get(i).getCode());
-					droneGui.getLog().add(im.get(i).getDistance() + "");
+					droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
+					droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"m");
 
 				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
 				}
