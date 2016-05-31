@@ -797,7 +797,7 @@ public class QRfinder {
 		
 		
 		
-		return postion;
+		 return null;//return postion;
 		
 		
 	}
