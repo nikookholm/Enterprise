@@ -27,6 +27,11 @@ public class POI {
 		this.angle = angle;
 	}
 	
+	public POI(Vector3D coordinates, Vector3D dronepos) {
+		this.coordinates = coordinates;
+		this.dronePos = dronepos;
+	}
+
 	public Vector3D getCoordinates(){
 		return coordinates;
 	}
