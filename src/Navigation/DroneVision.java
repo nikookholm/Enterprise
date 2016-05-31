@@ -20,7 +20,6 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
-import com.sun.javafx.geom.Vec3d;
 
 import Vector.Vector3D;
 
@@ -52,7 +51,7 @@ public class DroneVision implements iDroneVision {
 		//	drone.getMovement().rotateAngle(i);
 			Vector3D coordinates = new Vector3D(drone.getCoordX(), drone.getCoordY(), drone.getCoordZ());
 
-			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
+		//	tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
 		}
 		poi = tempPoI;
 		
@@ -75,9 +74,10 @@ public class DroneVision implements iDroneVision {
 			}
 		}
 		if(wallpointsFound == 3){
-			VD.calcDronepos(Wallpoints.get(0).getCoordinates(), Wallpoints.get(1).getCoordinates(), Wallpoints.get(2).getCoordinates());
+		//	VD.calcDronepos(Wallpoints.get(0).getCoordinates(), Wallpoints.get(1).getCoordinates(), Wallpoints.get(2).getCoordinates());
 		}
-		return dronepos;
+		return null;//return dronepos;
+		
 	}
 
 	private class ImageHandler implements ImageListener {
@@ -124,17 +124,23 @@ public class DroneVision implements iDroneVision {
 				drone.getMovement().spinRight();
 				break;
 		}
-		while (!listener.executed)
-		{
-			
-			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
-			Thread.sleep();
-			if (vt.POIFound != null)
-			{
-				
-				listener.execute();
-			}
-			
-		}	
+//		while (!listener.executed)
+//		{
+//			
+//			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
+//			Thread.sleep();
+//			if (vt.POIFound != null)
+//			{
+//				
+//				listener.execute();
+//			}
+//			
+//		}	
+	}
+
+	@Override
+	public ImageListener getImageListener() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
