@@ -139,13 +139,34 @@ public class DroneMovement implements iDroneMovement {
 		drone.spinRight();
 	}
 	
+	@Override
+	public void hover() {
+		drone.hover();
+	}
+	
 	/***********************************************************/
 	/*********************private*******************************/
-	/***********************************************************/
 	
-	private void spinRight(int degrees) {
-		int aot = 0*degrees; //amount of time to go right
-		drone.spinRight();
+	private void spinRight(int degrees){
+		for(int i=0; i<degrees; i++){
+			hover();
+			if(i!=0 && i%10 == 0){
+				hover();
+				try {
+					Thread.sleep(30);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			spinRight();
+			try {
+				Thread.sleep(28);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -153,8 +174,16 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	
 	private void spinLeft(int degrees) {
-		int aot; //amount of time to go left
-		drone.spinLeft();
+		for(int i=0; i<degrees; i++){
+			hover();
+			spinLeft();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -245,5 +274,4 @@ public class DroneMovement implements iDroneMovement {
 		}
 	
 	}
-	
 }

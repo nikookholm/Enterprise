@@ -19,6 +19,7 @@ public interface iDroneMovement {
 	public void spinRight();
 	public void flyToRing(POI nextRing);
 	public void flyThroughRing(POI nextRing);
+	public void hover();
 	
 	public GyroListener getGyroListener();
 	public AttitudeListener getAttitudeListener();

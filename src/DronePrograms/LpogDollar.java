@@ -18,11 +18,11 @@ public class LpogDollar extends DroneProgram {
 	
 	public static void main(String[] args)
 	{
-	    IARDrone iDrone = null;
+		IARDrone iDrone = null;
 	    try
 	    {
-	    	drone.start();
-	    	run();
+	    	LpogDollar a = new LpogDollar();
+	    	a.run();
 	    }
 	    catch (Exception exc)
 		{
@@ -46,39 +46,36 @@ public class LpogDollar extends DroneProgram {
 //		return "LP og DOLLAR holder!";
 //	}
 	public void run() {
-		System.out.println("test1");
-		
-		drone.setMaxAltitude(1);
-		drone.getCommandManager().takeOff().doFor(3000);
-		drone.getCommandManager().hover().doFor(2000);	
-		drone.getCommandManager().manualTrim(0, 0, 0);
-		try {
-			Thread.sleep(2*sleeper);
+		try{
+			DroneMovement dM = new DroneMovement(drone);
+				
+	    	drone.start();
+			drone.takeOff();
+			Thread.sleep(5000);
+			System.out.println("start hover");
+			//initial hover
+			dM.hover();
+			Thread.sleep(500);
+			//forward 0.5
+			System.out.println("start forward");
+			dM.flyForward();
+			Thread.sleep(1500);
+			//hover bf new command .5
+			System.out.println("start hover");
+			dM.hover();
+			Thread.sleep(500);
+			System.out.println("start spin");
+			dM.rotateToAngle(180);
+			System.out.println("hover");
+			dM.hover();
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-//		System.out.println("test1");
-//		drone.getCommandManager().setMaxVideoBitrate(4000).doFor(2000);
-//		System.out.println("test2");
-//		drone.getCommandManager().setVideoBitrate(4000).doFor(2000);
-//		System.out.println("test3");
-//		drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P).doFor(3000);
-//		System.out.println("test4");
-		//drone.getMovement().flyForward(10);
-		//drone.getCommandManager().manualTrim(0, 0, 0);
-		System.out.println("Drone Manual trim done getting time...");
-		long startTime = date.getTime();
-		System.out.println("nuværende tidspunkt " + startTime);
-		
-		drone.getMovement().flyForward(400);
-		
-		long endTime = date.getTime();
-		System.out.println("slut tidspunkt " + endTime);
-		
-		Date time = new Date();
-		
-		time.setTime(endTime-startTime);
-		System.out.println("tid i sekunder " + time.getSeconds());
 
+		System.out.println("end");
+		
 		drone.landing();
 	}
 @Override
@@ -93,3 +90,40 @@ public String getProgramName() {
 }
 
 }
+
+// kode LP har flyttet for at teste
+
+
+//System.out.println("test1");
+//
+//drone.setMaxAltitude(1);
+//drone.getCommandManager().takeOff().doFor(3000);
+//drone.getCommandManager().hover().doFor(2000);	
+//drone.getCommandManager().manualTrim(0, 0, 0);
+//try {
+//	Thread.sleep(2*sleeper);
+//} catch (InterruptedException e) {
+//}
+////System.out.println("test1");
+////drone.getCommandManager().setMaxVideoBitrate(4000).doFor(2000);
+////System.out.println("test2");
+////drone.getCommandManager().setVideoBitrate(4000).doFor(2000);
+////System.out.println("test3");
+////drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P).doFor(3000);
+////System.out.println("test4");
+////drone.getMovement().flyForward(10);
+////drone.getCommandManager().manualTrim(0, 0, 0);
+//System.out.println("Drone Manual trim done getting time...");
+//long startTime = date.getTime();
+//System.out.println("nuværende tidspunkt " + startTime);
+//
+//drone.getMovement().flyForward(400);
+//
+//long endTime = date.getTime();
+//System.out.println("slut tidspunkt " + endTime);
+//
+//Date time = new Date();
+//
+//time.setTime(endTime-startTime);
+//System.out.println("tid i sekunder " + time.getSeconds());
+
