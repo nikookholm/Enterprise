@@ -190,12 +190,13 @@ public class PanelQ2 extends JPanel{
 
 			im = qrfind.getQRFun();
 			for(int i= 0; i< im.size(); i++){
-				if(im.get(i).getCode() != null)
+				if(im.get(i).getCode() != null){
 
 					droneGui.getLog().add(im.get(i).getCode());
 					droneGui.getLog().add(im.get(i).getDistance() + "");
 
-				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance());
+				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
+				}
 			}
 
 
