@@ -12,7 +12,7 @@ public interface iDroneMovement {
 	public void flyForward();
 	public void flyForward(int cm);
 	public void flyHome();
-	public void flyBackwards();
+	public void flyBackward();
 	public void flyLeft();
 	public void flyRight();
 	public void spinLeft();

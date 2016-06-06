@@ -108,8 +108,8 @@ public class DroneVision implements iDroneVision {
 			case Forward:
 				drone.getMovement().flyForward();
 				break;
-			case Backwards:
-				drone.getMovement().flyBackwards();
+			case Backward:
+				drone.getMovement().flyBackward();
 				break;
 			case Left:
 				drone.getMovement().flyLeft();

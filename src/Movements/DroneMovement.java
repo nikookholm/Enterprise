@@ -114,7 +114,7 @@ public class DroneMovement implements iDroneMovement {
 		//mangler fly to coordinates
 	}
 	@Override
-	public void flyBackwards() {
+	public void flyBackward() {
 		drone.backward();
 	}
 
@@ -208,7 +208,7 @@ public class DroneMovement implements iDroneMovement {
 		
 	}
 	
-	public enum Movement { Forward, Backwards, Left, Right, SpinLeft, SpinRight };
+	public enum Movement { Forward, Backward, Left, Right, SpinLeft, SpinRight };
 
 	
 	
