@@ -1,10 +1,5 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.ScrollPane;
-import java.awt.Scrollbar;
-import java.awt.TextArea;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -14,22 +9,14 @@ import javax.swing.border.TitledBorder;
 
 public class PanelQ3 extends JPanel {
 	
-	//private Log log;
-	private String text;
-	private DroneGUI gui;
-	JTextArea textArea = new JTextArea(22, 30);
-	
-	
-	public PanelQ3() {
-		
+	private JTextArea textArea = new JTextArea(22, 30);
+
+	public PanelQ3()
+	{
 		initialize();
-		
-		
-		
 	}
 	
-	public void initialize(){
-		
+	private void initialize(){
 		
 		textArea = new JTextArea(22, 30);
 		textArea.setEditable(false);
@@ -40,15 +27,12 @@ public class PanelQ3 extends JPanel {
 
 	    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 	
-		this.add(scroll);
-		
+		this.add(scroll);	
 	}
 	
-	public JTextArea getTextArea(){
-		
+	public JTextArea getTextArea()
+	{
 		return textArea;
-		
 	}
 	
-
 }

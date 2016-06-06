@@ -15,9 +15,8 @@ import de.yadrone.base.video.ImageListener;
 
 public interface iDroneGUI {
 	
-	public AltitudeListener getAltitudeListener();
 	public void initialize(Enterprise enterprise);
-	public void updateCameraPanel(Image image);
+	public AltitudeListener getAltitudeListener();
 	public ImageListener    getImageListener();
 	public BatteryListener  getBatteryListener();
 	public AcceleroListener getAcceleroListener();

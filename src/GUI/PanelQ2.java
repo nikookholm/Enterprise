@@ -1,70 +1,50 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.color.CMMException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.security.acl.Owner;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-
 import Common.Drone;
-import Main.Enterprise;
 import Navigation.HoughCircles;
 import Navigation.QRPoi;
 import Navigation.QRfinder;
 import Vector.Vector3D;
 import de.yadrone.base.command.VideoCodec;
-import de.yadrone.base.video.ImageListener;
 
 public class PanelQ2 extends JPanel{
 
 	private CameraPanel cameraPanel;
 	private ImageIcon   img, img2;
 	private JButton     frontBtn, bottomBtn, imageBtn;
-	private BufferedImage image;
 
 	private GridBagLayout gbLayout;
-	GridBagConstraints c;
+	private GridBagConstraints c;
 	private DroneGUI droneGui;
 	private List<QRPoi> im;
 	private QRfinder qrfind = new QRfinder();
-	private boolean showImg = false;
-	private Drone dron;
 	private boolean camTjek = false;
 
-
 	public PanelQ2(DroneGUI owner){
-		//		initialize();
+
+		// Flyt alt dette ned i en initialize metode
 
 		droneGui = owner;
-		dron = owner.getMain().getDrone();
 		cameraPanel = new CameraPanel();
-
 
 		gbLayout = new GridBagLayout();
 		this.setLayout(gbLayout);
-
 
 		//         cameraPanel resizing
 		c 	= new GridBagConstraints();
@@ -84,13 +64,10 @@ public class PanelQ2 extends JPanel{
 
 	public class ToggelCamera implements ActionListener{
 
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-
 			if(e.getSource().equals(frontBtn) && camTjek == true){
-				showImg = false;
 				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = false;
 
@@ -99,7 +76,6 @@ public class PanelQ2 extends JPanel{
 				imageBtn.setIcon(img2);
 
 			} else if (e.getSource().equals(bottomBtn) && camTjek == false){
-				showImg = false;
 				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = true;
 				bottomBtn.setIcon(img);
@@ -108,12 +84,10 @@ public class PanelQ2 extends JPanel{
 				VideoCodec qual = VideoCodec.H264_720P;				
 			}
 			else if (e.getSource().equals(imageBtn)){
-				showImg = true;
 				imageBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				bottomBtn.setIcon(img2);
 			}
-
 
 		}
 	}
@@ -122,11 +96,7 @@ public class PanelQ2 extends JPanel{
 		private BufferedImage image;
 
 		public CameraPanel() {	
-
 			initialize();
-
-
-
 		}
 		private void initialize()
 		{
@@ -201,19 +171,10 @@ public class PanelQ2 extends JPanel{
 				}
 			}
 
-
-
-			//			if(showImg == true)
-			//				this.image = qrfind.getQRimg();
-
-			//this.image = qrfind.getQrdet();
-
 			cameraPanel.paint(getGraphics());
 			im.clear();
 
 		}
-
-
 
 	}
 }

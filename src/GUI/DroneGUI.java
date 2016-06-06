@@ -4,25 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.Panel;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.text.rtf.RTFEditorKit;
-
-import org.opencv.core.Core;
-
 import Main.Enterprise;
-import Navigation.QRfinder;
 import de.yadrone.base.navdata.AcceleroListener;
-import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
-import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.video.ImageListener;
 
 public class DroneGUI implements iDroneGUI {
@@ -34,18 +23,11 @@ public class DroneGUI implements iDroneGUI {
 	private PanelQ3 q3;
 	private PanelQ4 q4;
 	
-	private final int SCREEN_HEIGHT = 800;
-	private final int SCREEN_WIDTH  = 800;
+	private final int MIN_SCREEN_HEIGHT = 800;
+	private final int MIN_SCREEN_WIDTH  = 800;
 	private Log log;	
 	
-	public DroneGUI()
-	
-	{
-
-
-	}
-	
-	public  void initialize(Enterprise enterprise){
+	public void initialize(Enterprise enterprise){
 		
 		Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -58,22 +40,24 @@ public class DroneGUI implements iDroneGUI {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMaximumSize(DimMax);
-		frame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		frame.setSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT);
 		frame.setLayout(gbLayout);
 		
-		q1 = new PanelQ1(enterprise);
+		q1 = new PanelQ1(this);
 		q2 = new PanelQ2(this);
 		q3 = new PanelQ3();
 		q4 = new PanelQ4();
 
 		// design of PanelQ2.java class
-		c = new java.awt.GridBagConstraints();
+		c = new GridBagConstraints();
+		
 		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
 		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		c.weightx = 1.0;
 		c.gridx = 0;
 		c.gridy = 0;
-		q2.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+		
+		q2.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q2, c);
 		
@@ -84,7 +68,8 @@ public class DroneGUI implements iDroneGUI {
 		c.weightx = 1.0;
 		c.gridx = 1;
 		c.gridy = 0;
-		q1.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+		
+		q1.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q1, c);
 		
@@ -95,7 +80,8 @@ public class DroneGUI implements iDroneGUI {
 		c.weightx = 1.0;
 		c.gridx = 0;
 		c.gridy = 1;
-		q3.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+		
+		q3.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q3, c);
 	
@@ -106,7 +92,7 @@ public class DroneGUI implements iDroneGUI {
 		c.weightx = 1.0;
 		c.gridx = 1;
 		c.gridy = 1;
-		q4.setPreferredSize(new Dimension(SCREEN_WIDTH/2, SCREEN_HEIGHT/2));
+		q4.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 		q4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		frame.add(q4, c);
 
@@ -121,50 +107,38 @@ public class DroneGUI implements iDroneGUI {
 		return main;
 	}
 
-
-
-	@Override
-	public void updateCameraPanel(Image image) {
-		q2.updateCameraPanel(image);
-		
-	}
-
-	@Override
 	public ImageListener getImageListener() {
 		return new ImageListener() {
 			
 			@Override
 			public void imageUpdated(BufferedImage arg0) {
 				q2.updateCameraPanel(arg0);
-				
 			}
 		};
 	}
 	
-	
-	public Log getLog(){
-		
+	public Log getLog()
+	{
 		return log;
-		
 	}
 	
-	public BufferedImage getCode(){
-		return null;
-		
-		
+//	public BufferedImage getCode()
+//	{
+//		return null;
+//	}
+//	
+	public BatteryListener getBatteryListener()
+	{
+		return q1.new Battery();
 	}
 	
-	public BatteryListener getBatteryListener(){
-			return q1.new Battery();
-		
-	}
-	public AltitudeListener getAltitudeListener() {
-		
-		return  q1.new Altitude();
+	public AltitudeListener getAltitudeListener()
+	{	
+		return q1.new Altitude();
 	}
 	
-	public AcceleroListener getAcceleroListener(){
-
+	public AcceleroListener getAcceleroListener()
+	{
 		return q1.new Accelero();
 	}
 	
