@@ -21,6 +21,7 @@ public class vectorDistance {
 		alpha = Math.acos(dotAB / (Math.abs(magnitudeA) * Math.abs(magnitudeB)));
 		beta = Math.acos(dotBC / Math.abs(magnitudeB) * Math.abs(magnitudeC));
 
+		
 	}
 
 	/**
@@ -31,24 +32,16 @@ public class vectorDistance {
 			double alpha, double beta) {
 		System.out.println("WM1: " + wallmark1.getXCoord() + "," + wallmark1.getYCoord() + " WM2: " + wallmark2.getXCoord() + "," + wallmark2.getYCoord() + " WM3: " + wallmark3.getXCoord() + "," + wallmark3.getYCoord() + " Alpha: " + alpha + " Beta: "+ beta);
 
-
-		
-
-		
-		
 		Vector3D c1_c = calcCircleCoords(wallmark1, wallmark2, alpha);
 		Vector3D c2_c = calcCircleCoords(wallmark2, wallmark3, beta);
-
-		System.out.println("C1: " + c1_c.getXCoord() + ", " + c1_c.getYCoord() + " radius: " + c1_c.getZCoord());
-		System.out.println("C2: " + c2_c.getXCoord() + ", " + c2_c.getYCoord() + " radius: " + c2_c.getZCoord());
 		
 		ArrayList<Vector3D> PossiblePoints = calcCircleIntersects(c1_c, c2_c);
 		
-		int i = 0;
-			if((PossiblePoints.get(i).getXCoord() == wallmark2.getXCoord()) && (PossiblePoints.get(i).getYCoord() == wallmark2.getYCoord())){
-				return PossiblePoints.get((i+1));
+		
+			if((PossiblePoints.get(0).getXCoord() == wallmark2.getXCoord()) && (PossiblePoints.get(0).getYCoord() == wallmark2.getYCoord())){
+				return PossiblePoints.get((1));
 			}else{
-				return PossiblePoints.get(i);
+				return PossiblePoints.get(0);
 			}
 	}
 	
@@ -57,7 +50,6 @@ public class vectorDistance {
 		ArrayList<Vector3D> possiblePoints = new ArrayList<>();
 		
 		double pointDistance = magnitude(point1, point2);
-		System.out.println(pointDistance);
 		if(pointDistance < (point1.getZCoord() - point2.getZCoord())){
 			System.out.println("No possible points found");
 			return null;
@@ -81,8 +73,6 @@ public class vectorDistance {
 		double x2 = (l/d)*(point2.getXCoord() - point1.getXCoord()) - (h/d)*(point2.getYCoord() - point1.getYCoord()) + point1.getXCoord();
 		double y2 = (l/d)*(point2.getYCoord() - point1.getYCoord()) + (h/d)*(point2.getXCoord() - point1.getXCoord()) + point1.getYCoord();
 		
-		System.out.println("x1: " + x1 + " y1: " + y1);
-		System.out.println("x2: " + x2 + " y2: " + y2);
 		possiblePoints.add(new Vector3D(x1, y1, 0.0));
 		possiblePoints.add(new Vector3D(x2, y2, 0.0));
 		return possiblePoints;

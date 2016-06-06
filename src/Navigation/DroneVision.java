@@ -95,9 +95,6 @@ public class DroneVision implements iDroneVision {
 		
 	}
 
-	public void search() {
-				
-	}
 
 	private void scan(Movement movement, ScanListener listener) {
 		
