@@ -293,13 +293,10 @@ public class QRfinder {
 						Point[] o = jim.toArray();
 
 						List<Point> srcP = new ArrayList<Point>(src1.toList());
-						
-						double x1 = (220.9319/distance(o[0], n[1]));
-						
-						disToQR = Math.pow(x1, 1/0.9583);
-						
-						
-						
+
+						double x1 = (220.9319 / distance(o[0], n[1]));
+
+						disToQR = Math.pow(x1, 1 / 0.9583);
 
 						LastPoint(n[1], n[2], m[3], m[2]);
 
@@ -349,47 +346,52 @@ public class QRfinder {
 								QRFun.get(i).setQRimg(qrdet);
 								QRFun.get(i).setDistance(disToQR);
 							}
-							if(result == " "){
-							for(int lysloop = 0; lysloop<10; lysloop++){
-								double alpha = 0.15*lysloop;
-								double beta = 8*lysloop;
-								qr_gray.convertTo(qr_gray, -1, alpha, beta);
-								qr_gray.get(0, 0, data);
-								result = decode(qrdet);
-							if (result != " ") {
-								QRFun.get(i).setCode(result);
-								QRFun.get(i).setQRimg(qrdet);
-								QRFun.get(i).setDistance(disToQR);
-								lysloop = 15;
-							}
-							}
+							if (result == " ") {
+								for (int lysloop = 0; lysloop < 10; lysloop++) {
+									double alpha = 0.15 * lysloop;
+									double beta = 8 * lysloop;
+									qr_gray.convertTo(qr_gray, -1, alpha, beta);
+									qr_gray.get(0, 0, data);
+									result = decode(qrdet);
+									if (result != " ") {
+										QRFun.get(i).setCode(result);
+										QRFun.get(i).setQRimg(qrdet);
+										QRFun.get(i).setDistance(disToQR);
+										lysloop = 15;
+									}
+								}
 							}
 							ArrayList<Integer> rigtigeQR = new ArrayList<>();
 							int qrFuncount = 0;
-							for(int v = 0; v<QRFun.size();v++){
-								if(QRFun.get(v).getCode() != " "){
+							for (int v = 0; v < QRFun.size(); v++) {
+								if (QRFun.get(v).getCode() != " ") {
 									rigtigeQR.add(v);
 									qrFuncount++;
 								}
-							
-								if(qrFuncount > 1 && qrFuncount <3){
-									double linje0 = distance(QRFun.get(rigtigeQR.get(0)).getCentrum(), QRFun.get(rigtigeQR.get(1)).getCentrum());
-									double linje1 = QRFun.get(rigtigeQR.get(0)).getDistance()*QRFun.get(rigtigeQR.get(0)).getDistance();
-									double linje2 = QRFun.get(rigtigeQR.get(1)).getDistance()*QRFun.get(rigtigeQR.get(1)).getDistance();
-									double linje3 = linje0*linje0;
-									
-									double vinkel = ((linje1 + linje2)-linje3)/2*QRFun.get(rigtigeQR.get(1)).getDistance()*QRFun.get(rigtigeQR.get(1)).getDistance();
-									
+
+								if (qrFuncount > 1 && qrFuncount < 3) {
+									double linje0 = distance(QRFun.get(rigtigeQR.get(0)).getCentrum(),
+											QRFun.get(rigtigeQR.get(1)).getCentrum());
+									double linje1 = QRFun.get(rigtigeQR.get(0)).getDistance()
+											* QRFun.get(rigtigeQR.get(0)).getDistance();
+									double linje2 = QRFun.get(rigtigeQR.get(1)).getDistance()
+											* QRFun.get(rigtigeQR.get(1)).getDistance();
+									double linje3 = linje0 * linje0;
+
+									double vinkel = ((linje1 + linje2) - linje3) / 2
+											* QRFun.get(rigtigeQR.get(1)).getDistance()
+											* QRFun.get(rigtigeQR.get(1)).getDistance();
+
 									/*
-									 * TODO: ved ikke helt hvordan man tager cosinus^-1 af et tal i java, så vis nogen kan hæjlpe vil det være fedt :) 
-									 * det skal gøres til variablen "vinkel";
+									 * TODO: ved ikke helt hvordan man tager
+									 * cosinus^-1 af et tal i java, så vis nogen
+									 * kan hæjlpe vil det være fedt :) det skal
+									 * gøres til variablen "vinkel";
 									 * 
 									 */
 								}
-								
-								
+
 							}
-							
 
 						}
 
@@ -452,14 +454,15 @@ public class QRfinder {
 							traces.get(0, 0, data1);
 
 						}
-					ArrayList<POIWallPoint> QRFound = new ArrayList<>();
-					for(int j = 0; j < QRFun.size(); j++){
-						QRFound.add(new POIWallPoint((new Vector3D(0,0,0)), dronePos, QRFun.get(j).getCode(), angle));
-					}
-					return QRFound;
+						ArrayList<POIWallPoint> QRFound = new ArrayList<>();
+						for (int j = 0; j < QRFun.size(); j++) {
+							QRFound.add(
+									new POIWallPoint((new Vector3D(0, 0, 0)), dronePos, QRFun.get(j).getCode(), angle));
+						}
+						return QRFound;
 					}
 
-				}else{
+				} else {
 					throw new Exception("Kunne ikke fÃ¥ billeder fra kamera.");
 				}
 
@@ -765,42 +768,42 @@ public class QRfinder {
 	public BufferedImage getDebuImg() {
 		return debuImg;
 	}
+
 	public ArrayList<QRPoi> getQRFun() {
 		return QRFun;
 	}
-	
-	public Point currentDronePosition(QRPoi wallmark1, QRPoi wallmark2, QRPoi wallmark3){
+
+	public Point currentDronePosition(QRPoi wallmark1, QRPoi wallmark2, QRPoi wallmark3) {
 		Point postion;
-		
-		double x1 = wallmark1.getX();
-		double x2 = wallmark2.getX();
-		double x3 = wallmark3.getX();
-		double y1 = wallmark1.getY();
-		double y2 = wallmark2.getY();
-		double y3 = wallmark3.getY();
-		double dist1 = wallmark1.getDistance();
-		double dist2 = wallmark2.getDistance();
-		double dists3 = wallmark3.getDistance();
-		
-		Point tempPoint1 = new Point(wallmark1.getX(), wallmark1.getY());
-		
-		x1 = x1-tempPoint1.x;
-		x2 = x2-tempPoint1.x;
-		x3 = x3-tempPoint1.x;
-		y1 = y1-tempPoint1.y;
-		y2 = y2-tempPoint1.y;
-		y3 = y3-tempPoint1.y;
-		
-		
-		
-		
-		
-		
-		
-		 return null;//return postion;
-		
-		
+		double x, y;
+
+		double a1 = wallmark1.getX();
+		double b1 = wallmark2.getX();
+		double c1 = wallmark3.getX();
+		double a2 = wallmark1.getY();
+		double b2 = wallmark2.getY();
+		double c2 = wallmark3.getY();
+		double r1 = wallmark1.getDistance();
+		double r2 = wallmark2.getDistance();
+		double r3 = wallmark3.getDistance();
+
+		double an1 = a1 * a1, bn1 = b1 * b1, cn1 = c1 * c1, an2 = a2 * a2, bn2 = b2 * b2, cn2 = c2 * c2, rl1 = r1 * r1,
+				rl2 = r2 * r2, rl3 = r3 * r3;
+
+		double numeratorY = (b1 - a1) * (cn1 + cn2 - rl3) + (a1 - c1) * (bn1 + bn2 - rl2)
+				+ (c1 - b1) * (an1 + an2 - rl1);
+		double denumY = 2 * (c2 * (b1 - a1) + b2 * (a1 - c1) + a2 * (c1 - b1));
+
+		y = numeratorY / denumY;
+
+		double numeratorX = rl2 - rl1 + an1 - bn1 + an2 - bn2 - 2 * (a2 - b2) * y;
+		double denumX = 2 * (a1 - b1);
+		x = numeratorX / denumX;
+
+		postion = new Point(x, y);
+
+		return postion;
+
 	}
-	
 
 }
