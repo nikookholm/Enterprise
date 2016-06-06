@@ -42,10 +42,14 @@ public class vectorDistance {
 		System.out.println("C1: " + c1_c.getXCoord() + ", " + c1_c.getYCoord() + " radius: " + c1_c.getZCoord());
 		System.out.println("C2: " + c2_c.getXCoord() + ", " + c2_c.getYCoord() + " radius: " + c2_c.getZCoord());
 		
-		calcCircleIntersects(c1_c, c2_c);
+		ArrayList<Vector3D> PossiblePoints = calcCircleIntersects(c1_c, c2_c);
 		
-
-		return new Vector3D(-1, -1, -1);
+		int i = 0;
+			if((PossiblePoints.get(i).getXCoord() == wallmark2.getXCoord()) && (PossiblePoints.get(i).getYCoord() == wallmark2.getYCoord())){
+				return PossiblePoints.get((i+1));
+			}else{
+				return PossiblePoints.get(i);
+			}
 	}
 	
 	ArrayList<Vector3D> calcCircleIntersects(Vector3D point1, Vector3D point2){
