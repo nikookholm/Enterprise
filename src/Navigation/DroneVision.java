@@ -10,8 +10,10 @@ import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
 import Movements.DroneMovement.Movement;
+import Movements.DroneMovementThread;
 import Navigation.ScanListeners.ScanListener;
 import POI.POI;
+import POI.POICircle;
 import POI.POIWallPoint;
 
 import org.opencv.core.Point;
@@ -44,25 +46,51 @@ public class DroneVision implements iDroneVision {
 	}
 
 	@Override
-	public ArrayList<POI> scan() {
-
+	public ArrayList<POI> scan(Movement movement, Condition condition) {
 		ArrayList<POI> poi = new ArrayList<POI>();
-		for(int i = 0; i <360; i+=5){
-		//	drone.getMovement().rotateAngle(i);
-			Vector3D coordinates = new Vector3D(drone.getCoordX(), drone.getCoordY(), drone.getCoordZ());
+		
+		DroneMovementThread movementThread = new DroneMovementThread(movement);
+		movementThread.run();
 
-		//	tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
+		int i = 0;
+		int wallPoints;
+		int circlePoints = 0;
+		switch(condition){
+			case Initial:
+				while(poi.size()<3){
+					//TODO skal ændres til kun at finde wallPoint qr koder
+					tempPoI = CVOp.findObjects(null, null, 0); //check with PAWURHAUZ
+					tempPoI.removeAll(poi);
+					poi.addAll(tempPoI);
+				}
+				break;
+				
+			case CircleQR:
+				i = 0;
+				circlePoints = 0;
+				while(circlePoints<5){
+					tempPoI = CVOp.findObjects(null, null, 0); //check with PAWURHAUZ
+					tempPoI.removeAll(poi);
+					poi.addAll(tempPoI);
+					while(i<poi.size()){
+						if(poi.get(i) instanceof POICircle){
+							circlePoints++;
+						}
+						i++;
+					}
+				}
+				break;
+			default:
+				//should not be used
+				break;
 		}
-		poi = tempPoI;
-		
-		
 		return poi;
 	}
 	
 	public Vector3D calibrate(){
 		Vector3D dronepos;
 		
-		ArrayList<POI> poi = scan();
+		ArrayList<POI> poi = scan(Movement.Forward, Condition.Initial);
 		ArrayList<POI> Wallpoints = null;
 		int wallpointsFound = 0;
 		for(int i = 0; i < poi.size(); i++){
