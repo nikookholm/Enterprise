@@ -4,9 +4,9 @@ import Vector.Vector3D;
 
 public class POICircle extends POI {
 
-	int radius;
-	boolean QR;
-	String contains;
+	private int radius;
+	private boolean QR;
+	private String contains;
 	
 	public POICircle(Vector3D coordinates, Vector3D dronepos, int radius) {
 		super(coordinates, dronepos);

@@ -14,7 +14,7 @@ import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
 import de.yadrone.base.video.ImageListener;
 
-public class DroneGUI implements iDroneGUI {
+public class DroneGUI extends JFrame implements iDroneGUI {
 	
 	private Enterprise main;
 	
@@ -29,19 +29,16 @@ public class DroneGUI implements iDroneGUI {
 	
 	public void initialize(Enterprise enterprise){
 		
-		Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
-		
-		
 		main = enterprise;
 		
 		GridBagLayout	   gbLayout = new GridBagLayout();
 		GridBagConstraints c 		= new GridBagConstraints();
 		
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setMaximumSize(DimMax);
-		frame.setSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT);
-		frame.setLayout(gbLayout);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension(MIN_SCREEN_WIDTH+50, MIN_SCREEN_HEIGHT+50));
+		setMinimumSize(getPreferredSize());
+		setSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT);
+		setLayout(gbLayout);
 		
 		q1 = new PanelQ1(this);
 		q2 = new PanelQ2(this);
@@ -59,7 +56,7 @@ public class DroneGUI implements iDroneGUI {
 		
 		q2.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		frame.add(q2, c);
+		add(q2, c);
 		
 		// design of PanelQ1.java class
 		c = new java.awt.GridBagConstraints();
@@ -71,7 +68,7 @@ public class DroneGUI implements iDroneGUI {
 		
 		q1.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		frame.add(q1, c);
+		add(q1, c);
 		
 		// design of PanelQ3.java class
 		c = new java.awt.GridBagConstraints();
@@ -83,7 +80,7 @@ public class DroneGUI implements iDroneGUI {
 		
 		q3.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		frame.add(q3, c);
+		add(q3, c);
 	
 		// design of PanelQ4.java class
 		c = new java.awt.GridBagConstraints();
@@ -94,13 +91,13 @@ public class DroneGUI implements iDroneGUI {
 		c.gridy = 1;
 		q4.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 		q4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		frame.add(q4, c);
+		add(q4, c);
 
 		// attach Log.java class to PanalQ3.java class
 		log = new Log(q3.getTextArea());
 		
-		frame.pack();
-		frame.setVisible(true);
+		pack();
+		setVisible(true);
 	}
 	
 	public Enterprise getMain() {
@@ -111,8 +108,8 @@ public class DroneGUI implements iDroneGUI {
 		return new ImageListener() {
 			
 			@Override
-			public void imageUpdated(BufferedImage arg0) {
-				q2.updateCameraPanel(arg0);
+			public void imageUpdated(BufferedImage buffImg) {
+				q2.updateCameraPanel(buffImg);
 			}
 		};
 	}
