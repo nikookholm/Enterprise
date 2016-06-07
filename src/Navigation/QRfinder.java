@@ -369,27 +369,6 @@ public class QRfinder {
 									qrFuncount++;
 								}
 
-								if (qrFuncount > 1 && qrFuncount < 3) {
-									double linje0 = distance(QRFun.get(rigtigeQR.get(0)).getCentrum(),
-											QRFun.get(rigtigeQR.get(1)).getCentrum());
-									double linje1 = QRFun.get(rigtigeQR.get(0)).getDistance()
-											* QRFun.get(rigtigeQR.get(0)).getDistance();
-									double linje2 = QRFun.get(rigtigeQR.get(1)).getDistance()
-											* QRFun.get(rigtigeQR.get(1)).getDistance();
-									double linje3 = linje0 * linje0;
-
-									double vinkel = ((linje1 + linje2) - linje3) / 2
-											* QRFun.get(rigtigeQR.get(1)).getDistance()
-											* QRFun.get(rigtigeQR.get(1)).getDistance();
-
-									/*
-									 * TODO: ved ikke helt hvordan man tager
-									 * cosinus^-1 af et tal i java, så vis nogen
-									 * kan hæjlpe vil det være fedt :) det skal
-									 * gøres til variablen "vinkel";
-									 * 
-									 */
-								}
 
 							}
 
