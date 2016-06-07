@@ -1,38 +1,44 @@
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.image.ImageObserver;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 
 public class PanelQ3 extends JPanel {
 	
-	private JTextArea textArea = new JTextArea(22, 30);
+
+	private JTextArea 	textArea;
+	private JScrollPane scrollPane;
 
 	public PanelQ3()
 	{
-		initialize();
-	}
-	
-	private void initialize(){
+		textArea   = new JTextArea();
+		scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		textArea = new JTextArea(22, 30);
 		textArea.setEditable(false);
 		
-		this.setBorder(new TitledBorder ( new EtchedBorder (), "Log" ));
-
-	    JScrollPane scroll = new JScrollPane(textArea);
-
-	    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-	
-		this.add(scroll);	
+		
+		BorderLayout layout = new BorderLayout();
+		this.setLayout(layout);
+		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	
 	public JTextArea getTextArea()
 	{
 		return textArea;
 	}
+
+	@Override
+	public void repaint() {
+		// TODO Auto-generated method stub
+		super.repaint();
+		
+		//scrollPane.setSize(this.getWidth(), this.getHeight());
+	}
+	
+	
 	
 }
