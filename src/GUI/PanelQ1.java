@@ -1,75 +1,64 @@
 package GUI;
 
-
-
-import java.awt.Font;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.acl.Owner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import de.yadrone.base.navdata.AcceleroListener;
-import de.yadrone.base.navdata.AcceleroPhysData;
-import de.yadrone.base.navdata.AcceleroRawData;
-import de.yadrone.base.navdata.AltitudeListener;
-import de.yadrone.base.navdata.BatteryListener;
+
+import org.jfree.ui.HorizontalAlignment;
+
 import Main.DroneProgram;
 import Main.Enterprise;
 
 public class PanelQ1 extends JPanel{
 
-	private JButton start, cancel;
-	private JLabel accelero, altitud, battery;// batteryTest;
-	private JComboBox box = new JComboBox();
-	//private int count = 0;
+	private static final long serialVersionUID = 45366;
+	private JComboBox<String> box;
+	private JButton			  start, cancel;
+	private JPanel			  programPanel;
+	private JLabel 			  listenersLabel, coordinatesLabel;
+	private DroneGUI		  gui;
 
-	//private int batteryLevel = 100;
-	//private Font font = new Font("Helvetica", Font.PLAIN, 10);
-	//private int voltageLevel;
-	
-	private Enterprise main;
-
-	public  PanelQ1(DroneGUI owner)
+	protected PanelQ1(DroneGUI owner)
 	{
 		initialize(owner);
 	}
 
-	public  void initialize(DroneGUI owner){
+	private void initialize(DroneGUI owner){
 
-		main = owner.getMain();
-
-		box.addItem("select progarm!");
-		start = new JButton("START");
-		cancel = new JButton("ABORT");
-		altitud = new JLabel("Altitude: 0 ");
-		accelero = new JLabel("accelero:  0 m/s^2");
-		battery = new JLabel("Battery: %");
-		//batteryTest = new JLabel(" testB: ");
-				
-		GridBagLayout gbLayout = new GridBagLayout();
-		this.setLayout(gbLayout);
-		GridBagConstraints c = new  GridBagConstraints();
+		gui = owner;
 		
-		for( DroneProgram dp: main.getDronePrograms()){
-			box.addItem(dp.getProgramName());
-		}
+		// Creates program panel and sets its elements
+		start  = new JButton("START");
+		cancel = new JButton("ABORT");
 		
 		start.setEnabled(false);
 		cancel.setEnabled(false);
+		
+		box = new JComboBox<String>();
+		box.addItem("select progarm!");
+		
+		for(DroneProgram dp: owner.getMain().getDronePrograms()){
+			box.addItem(dp.getProgramName());
+		}
 
 		box.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (box.getSelectedIndex() != 0){
-
+				if (box.getSelectedIndex() != 0)
+				{
 					start.setEnabled(true);
-					cancel.setEnabled(true);
-				}else
+					cancel.setEnabled(false);
+				}
+				else
 				{
 					start.setEnabled(false);
 					cancel.setEnabled(false);
@@ -77,118 +66,80 @@ public class PanelQ1 extends JPanel{
 			}
 		});
 
-
-		start.addActionListener(new ActionListener() {
-
+		start.addActionListener(new ActionListener()
+		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				main.startProgram(main.getDronePrograms().get(box.getSelectedIndex() - 1));
+				owner.getMain().startProgram(owner.getMain().getDronePrograms().get(box.getSelectedIndex() - 1));
+				start.setEnabled(false);
+				cancel.setEnabled(true);
 			}
 		});
 
-		cancel.addActionListener(new ActionListener() {
-
+		cancel.addActionListener(new ActionListener()
+		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				main.stopProgram();
-
+			    owner.getMain().stopProgram();
+				cancel.setEnabled(false);
+				start.setEnabled(true);
 			}
 		});
-			
-		c.fill= GridBagConstraints.BOTH;
-		c.weightx =0.0;
-		c.weighty = 0.0;
 		
-		c.gridx = 0;
-		c.gridy = 0;
-		this.add(box,c );
+		programPanel = new JPanel();
 		
-		c.fill= GridBagConstraints.BOTH;
-		c.weightx =0.0;
-		c.weighty = 0.0;
-		c.gridx = 1;
-		c.gridy = 0;
-		this.add(start, c);
+		programPanel.add(box);
+		programPanel.add(start);
+		programPanel.add(cancel);
 		
-		c.fill= GridBagConstraints.BOTH;
-		c.weightx =0.0;
-		c.weighty = 0.0;
-		c.gridx = 2;
-		c.gridy = 0;
-		this.add(cancel,c);
+		// Creates and sets Listeners Label
+		listenersLabel = new JLabel();
+		updateListenersLabel();
 		
+		// Creates and sets Coordinates Label
+		coordinatesLabel = new JLabel();
+		updateCoordinatesLabel();
 		
-		c.fill= GridBagConstraints.BOTH;
-		c.weightx =1;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = 1;
-		this.add(altitud,c);
+		// Sets up layout for this panel
+		this.setLayout(new GridBagLayout());
 		
-		c.fill= GridBagConstraints.BOTH;
-		c.weightx =1;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = 2;
-		this.add(battery,c);
-
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		c.fill= GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = 3;
-		this.add(accelero, c);
-
-	}
-
-	public class Altitude implements AltitudeListener{
-
-		@Override
-		public void receivedAltitude(int arg0) {
-
-			altitud.setText("Altitud :" + arg0);
-
-		}
-
-		@Override
-		public void receivedExtendedAltitude(de.yadrone.base.navdata.Altitude arg0) {
-			// TODO Auto-generated method stub
-		}
-
-	}
-	
-	public class Battery implements BatteryListener{
-
-		@Override
-		public void batteryLevelChanged(int arg0) {
-			battery.setText("Battery: " + arg0 + " % ");			
-		}
-
-		@Override
-		public void voltageChanged(int arg0) {
-
-		}
+		gbc.gridwidth = 2;
+		gbc.weightx   = 1;
+		gbc.fill   = GridBagConstraints.HORIZONTAL;
 		
+		this.add(programPanel, gbc);
+
+		gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+		gbc.fill = GridBagConstraints.NONE;
+		gbc.weighty   = 1; 
+		gbc.gridwidth = 1;
+		gbc.gridy     = 1;
+		
+		this.add(listenersLabel, gbc);
+		
+		gbc.gridx = 1;
+		gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+		
+		this.add(coordinatesLabel, gbc);
 		
 	}
 	
-	public class Accelero implements AcceleroListener{
-
-		@Override
-		public void receivedPhysData(AcceleroPhysData arg0) {
-
-//				accelero.setText("acceler is :" + arg0);
-			
-		}
-
-		@Override
-		public void receivedRawData(AcceleroRawData arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		
+	private void updateListenersLabel()
+	{
+		listenersLabel.setText("Listeners");
 	}
-
+	
+	private void updateCoordinatesLabel()
+	{
+		coordinatesLabel.setText(
+				"<html>" +
+				"Coordinates:<br />" +
+				"X: 0<br />" +
+				"Y: 0<br />" +
+				"Z: 0<br />" +
+				"</html>"
+		);
+	}
 }

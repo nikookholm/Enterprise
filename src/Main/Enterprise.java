@@ -73,6 +73,7 @@ public class Enterprise {
 	{
 		activeProgram = program;
 		activeProgram.start(drone);		
+		activeProgram = null;
 	}
 	
 	public void stopProgram()
@@ -88,6 +89,11 @@ public class Enterprise {
 	public ArrayList<DroneProgram> getDronePrograms()
 	{
 		return programs;  
+	}
+	
+	public DroneProgram getActiveProgram()
+	{
+		return activeProgram;
 	}
 	
 }
