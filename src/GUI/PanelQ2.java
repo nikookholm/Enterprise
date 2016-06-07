@@ -58,7 +58,7 @@ public class PanelQ2 extends JPanel{
 		add(cameraPanel,c);	
 		
 		
-		JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
+//		JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
 		
 //		frontBtn  = new JButton("FRONT CAMERA");
 //		bottomBtn = new JButton("BOTTOM CAMERA");
@@ -140,9 +140,9 @@ public class PanelQ2 extends JPanel{
 			bottomBtn.setIcon(img2);
 			imageBtn.setIcon(img2);
 
-//			this.add(frontBtn);
-//			this.add(bottomBtn);
-//			this.add(imageBtn);
+			this.add(frontBtn);
+			this.add(bottomBtn);
+			this.add(imageBtn);
 
 		}
 
