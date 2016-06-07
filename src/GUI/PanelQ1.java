@@ -4,20 +4,16 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import de.yadrone.base.navdata.AcceleroListener;
 import de.yadrone.base.navdata.AcceleroPhysData;
 import de.yadrone.base.navdata.AcceleroRawData;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
-import de.yadrone.base.video.ImageListener;
 import Main.DroneProgram;
 
 public class PanelQ1 extends JPanel{
@@ -28,6 +24,10 @@ public class PanelQ1 extends JPanel{
 	private JPanel			  programPanel;
 	private JLabel 			  listenersLabel, coordinatesLabel;
 	private DroneGUI		  gui;
+	
+	private int batteryLvl = 0;
+	private int accelero   = 0;
+	private int altitude   = 0;
 
 	protected PanelQ1(DroneGUI owner)
 	{
@@ -131,7 +131,13 @@ public class PanelQ1 extends JPanel{
 	
 	private void updateListenersLabel()
 	{
-		listenersLabel.setText("Listeners");
+		listenersLabel.setText(
+				"<html>" +
+				"Battery: " + batteryLvl + "<br />" +
+				"Altitude: " + altitude + "<br />" +
+				"Accelero: " + accelero + "<br />" +
+				"</html>"
+		);
 	}
 	
 	private void updateCoordinatesLabel()
@@ -151,8 +157,7 @@ public class PanelQ1 extends JPanel{
 
 		@Override
 		public void receivedAltitude(int arg0) {
-			// TODO Auto-generated method stub
-			
+			altitude = arg0;			
 		}
 
 		@Override
@@ -161,8 +166,6 @@ public class PanelQ1 extends JPanel{
 			
 		}
 
-		
-		
 	}
 	
 	protected class Q1BatteryListener implements BatteryListener
@@ -170,8 +173,7 @@ public class PanelQ1 extends JPanel{
 
 		@Override
 		public void batteryLevelChanged(int arg0) {
-			// TODO Auto-generated method stub
-			
+			batteryLvl = arg0;
 		}
 
 		@Override
@@ -186,8 +188,7 @@ public class PanelQ1 extends JPanel{
 
 		@Override
 		public void receivedPhysData(AcceleroPhysData arg0) {
-			// TODO Auto-generated method stub
-			
+			accelero = (int)arg0.getAccsTemp();
 		}
 
 		@Override
