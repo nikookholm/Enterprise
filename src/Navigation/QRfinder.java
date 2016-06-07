@@ -46,7 +46,7 @@ public class QRfinder {
 
 	private static Point dj = new Point();
 
-	public ArrayList<POIWallPoint> findQR(Mat newImage, Vector3D dronePos, int angle) throws Exception {
+	public ArrayList<POIWallPoint> findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -436,7 +436,7 @@ public class QRfinder {
 						ArrayList<POIWallPoint> QRFound = new ArrayList<>();
 						for (int j = 0; j < QRFun.size(); j++) {
 							QRFound.add(
-									new POIWallPoint((new Vector3D(0, 0, 0)), dronePos, QRFun.get(j).getCode(), angle));
+									new POIWallPoint(QRFun.get(j).getCode(),QRFun.get(j).getDistance()));
 						}
 						return QRFound;
 					}

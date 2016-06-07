@@ -31,7 +31,7 @@ public class OpenCVOperations {
 		objectsFound.clear();
 
 		Mat ImageMat = bufferedImageToMat(arg0);
-		findQR(ImageMat, coordinates, angle);
+		findQR(ImageMat);
 	//	findCircles(ImageMat, coordinates, angle);
 		findBlocks(ImageMat, coordinates, angle);
 		findAirports(ImageMat, coordinates, angle);
@@ -89,12 +89,12 @@ public class OpenCVOperations {
 //		}
 		return interestsFound;
 	}
-	public void findQR(Mat image, Vector3D coordinates, int angle) {
+	public void findQR(Mat image) {
 
 		ArrayList<POIWallPoint> fundet = new ArrayList<>();
 		QRfinder findqr = new QRfinder();
 		try {
-			fundet = findqr.findQR(image, coordinates, angle);
+			fundet = findqr.findQR(image);
 			
 			for(int i = 0; i < fundet.size(); i++) interestsFound.add(fundet.get(i));
 		} catch (Exception e) {
