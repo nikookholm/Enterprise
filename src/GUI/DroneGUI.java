@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -32,10 +33,10 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		main = enterprise;
 		
 		GridBagLayout	   gbLayout = new GridBagLayout();
-		GridBagConstraints c 		= new GridBagConstraints();
+		GridBagConstraints gbc = new GridBagConstraints();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(MIN_SCREEN_WIDTH+50, MIN_SCREEN_HEIGHT+50));
+		setPreferredSize(new Dimension(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT));
 		setMinimumSize(getPreferredSize());
 		setSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT);
 		setLayout(gbLayout);
@@ -44,54 +45,45 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		q2 = new PanelQ2(this);
 		q3 = new PanelQ3();
 		q4 = new PanelQ4();
-
-		// design of PanelQ2.java class
-		c = new GridBagConstraints();
 		
-		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.gridx = 0;
-		c.gridy = 0;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
 		
 		q2.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(q2, c);
+		add(q2, gbc);
 		
-		// design of PanelQ1.java class
-		c = new java.awt.GridBagConstraints();
-		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.gridx = 1;
-		c.gridy = 0;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridx = 1;
+		gbc.gridy = 0;
 		
 		q1.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(q1, c);
+		add(q1, gbc);
 		
-		// design of PanelQ3.java class
-		c = new java.awt.GridBagConstraints();
-		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.gridx = 0;
-		c.gridy = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
 		
 		q3.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 	    q3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(q3, c);
+		add(q3, gbc);
 	
-		// design of PanelQ4.java class
-		c = new java.awt.GridBagConstraints();
-		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-		c.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.gridx = 1;
-		c.gridy = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.gridx = 1;
+		gbc.gridy = 1;
 		q4.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
 		q4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(q4, c);
+		add(q4, gbc);
 
 		// attach Log.java class to PanalQ3.java class
 		log = new Log(q3.getTextArea());

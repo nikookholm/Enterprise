@@ -141,7 +141,7 @@ public class PanelQ2 extends JPanel{
 			super.paint(g);
 			if (image != null)
 			{
-				g.drawImage(image, 0, 0, this.getWidth(), 50-this.getHeight(), null);
+				g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 			}
 		}
 
