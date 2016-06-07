@@ -60,13 +60,13 @@ public class PanelQ2 extends JPanel{
 		
 		JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
 		
-		frontBtn  = new JButton("FRONT CAMERA");
-		bottomBtn = new JButton("BOTTOM CAMERA");
-		imageBtn = new JButton("image");
-		c.fill = GridBagConstraints.NORTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		this.add(Q2Buttons);
+//		frontBtn  = new JButton("FRONT CAMERA");
+//		bottomBtn = new JButton("BOTTOM CAMERA");
+//		imageBtn = new JButton("image");
+//		c.fill = GridBagConstraints.NORTH;
+//		c.weightx = 1;
+//		c.weighty = 1;
+//		this.add(Q2Buttons);
 		
 	}
 
@@ -118,9 +118,9 @@ public class PanelQ2 extends JPanel{
 			gbLayout = new GridBagLayout();
 			c 	= new GridBagConstraints();
 
-//						frontBtn  = new JButton("FRONT CAMERA");
-//						bottomBtn = new JButton("BOTTOM CAMERA");
-//						imageBtn = new JButton("image");
+						frontBtn  = new JButton("FRONT CAMERA");
+						bottomBtn = new JButton("BOTTOM CAMERA");
+						imageBtn = new JButton("image");
 
 			try {
 				img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));

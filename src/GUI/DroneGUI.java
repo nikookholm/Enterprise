@@ -35,6 +35,7 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		GridBagLayout	   gbLayout = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		
+		this.setTitle("Enterprise Drone");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT));
 		setMinimumSize(getPreferredSize());
