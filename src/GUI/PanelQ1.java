@@ -1,21 +1,22 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.acl.Owner;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.jfree.ui.HorizontalAlignment;
-
+import de.yadrone.base.navdata.AcceleroListener;
+import de.yadrone.base.navdata.AcceleroPhysData;
+import de.yadrone.base.navdata.AcceleroRawData;
+import de.yadrone.base.navdata.BatteryListener;
+import de.yadrone.base.video.ImageListener;
 import Main.DroneProgram;
-import Main.Enterprise;
 
 public class PanelQ1 extends JPanel{
 
@@ -134,12 +135,56 @@ public class PanelQ1 extends JPanel{
 	private void updateCoordinatesLabel()
 	{
 		coordinatesLabel.setText(
-				"<html>" +
-				"Coordinates:<br />" +
-				"X: 0<br />" +
-				"Y: 0<br />" +
-				"Z: 0<br />" +
-				"</html>"
+				"<html><table>" +
+				"<tr><td colspan=\"2\">Coordinates:</td></tr>" +
+				"<tr><td>X:</td><td>0</td></tr>" +
+				"<tr><td>Y:</td><td>0</td></tr>" +
+				"<tr><td>Z:</td><td>0</td></tr>" +
+				"</table></html>"
 		);
+	}
+	
+	protected class Q1ImageListener implements ImageListener
+	{
+
+		@Override
+		public void imageUpdated(BufferedImage arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+	protected class Q1BatteryListener implements BatteryListener
+	{
+
+		@Override
+		public void batteryLevelChanged(int arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void voltageChanged(int arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	protected class Q1AcceleroListener implements AcceleroListener
+	{
+
+		@Override
+		public void receivedPhysData(AcceleroPhysData arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void receivedRawData(AcceleroRawData arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }
