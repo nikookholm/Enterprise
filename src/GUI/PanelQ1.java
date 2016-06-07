@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import de.yadrone.base.navdata.AcceleroListener;
 import de.yadrone.base.navdata.AcceleroPhysData;
 import de.yadrone.base.navdata.AcceleroRawData;
+import de.yadrone.base.navdata.Altitude;
+import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.BatteryListener;
 import de.yadrone.base.video.ImageListener;
 import Main.DroneProgram;
@@ -144,14 +146,22 @@ public class PanelQ1 extends JPanel{
 		);
 	}
 	
-	protected class Q1ImageListener implements ImageListener
+	protected class Q1AltitudeListener implements AltitudeListener
 	{
 
 		@Override
-		public void imageUpdated(BufferedImage arg0) {
+		public void receivedAltitude(int arg0) {
 			// TODO Auto-generated method stub
 			
 		}
+
+		@Override
+		public void receivedExtendedAltitude(Altitude arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		
 		
 	}
 	
