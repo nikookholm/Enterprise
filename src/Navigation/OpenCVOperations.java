@@ -89,7 +89,7 @@ public class OpenCVOperations {
 //		}
 		return interestsFound;
 	}
-	public void findQR(Mat image) {
+	public ArrayList<POI> findQR(Mat image) {
 
 		ArrayList<POIWallPoint> fundet = new ArrayList<>();
 		QRfinder findqr = new QRfinder();
@@ -102,7 +102,7 @@ public class OpenCVOperations {
 			e.printStackTrace();
 		}  // exceptions klare jeg senere.
 
-		
+		return interestsFound;
 	}
 
 	public void findCircles(Mat image, Vector3D coordinates, int angle) {

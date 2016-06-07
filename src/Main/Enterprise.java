@@ -10,6 +10,7 @@ import DronePrograms.RotationTestProgram;
 import DronePrograms.TestProgram;
 import GUI.DroneGUI;
 import GUI.iDroneGUI;
+import Navigation.iDroneVision;
 
 public class Enterprise {
 	
@@ -17,6 +18,7 @@ public class Enterprise {
 	private Drone	 	 			drone;
 	private DroneProgram 			activeProgram;
 	private ArrayList<DroneProgram> programs;
+	private iDroneVision			vision;
 	
 	public Enterprise()
 	{
@@ -49,7 +51,9 @@ public class Enterprise {
 		//drone.getNavDataManager().addBatteryListener (gui.getBatteryListener());
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addAcceleroListener(gui.getAcceleroListener());
-		
+		////////////////////////////////////////////////////
+		drone.getVideoManager().addImageListener(vision.getImageListener());
+		////////////////////////////////////////////////////
 		drone.getNavDataManager().addAttitudeListener(drone.getMovement().getAttitudeListener());
 		drone.getNavDataManager().addGyroListener(drone.getMovement().getGyroListener());
 	}

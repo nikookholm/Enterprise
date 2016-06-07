@@ -1,6 +1,7 @@
 package Navigation;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import POI.POICircle;
 import POI.POIWallPoint;
 
 import org.opencv.core.Point;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
@@ -32,7 +34,7 @@ public class DroneVision implements iDroneVision {
 	private Drone drone;
 	
 	BufferedImage lastImage;
-	BufferedImage newImage;
+	BufferedImage currImage;
 	
 
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
@@ -57,9 +59,10 @@ public class DroneVision implements iDroneVision {
 		int circlePoints = 0;
 		switch(condition){
 			case Initial:
+				//Find 3 QR codes
 				while(poi.size()<3){
-					//TODO skal ændres til kun at finde wallPoint qr koder
-					tempPoI = CVOp.findObjects(null, null, 0); //check with PAWURHAUZ
+					//ONLY finds QR codes
+					tempPoI = CVOp.findQR(bufferedImageToMat(currImage));
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
 				}
@@ -106,66 +109,31 @@ public class DroneVision implements iDroneVision {
 		}
 		return null;//return dronepos;
 		
-	}
-
-	private class ImageHandler implements ImageListener {
-
-		@Override
-		public void imageUpdated(BufferedImage arg0) {
-			if (newImage != null) {
-				lastImage = newImage;
-				newImage = arg0;
-			}else{
-				newImage = arg0;
-				
-			}
-		}
-		
-	}
-
-
-	private void scan(Movement movement, ScanListener listener) {
-		
-		VisionThread vt = new VisionThread();
-		
-		switch (movement)
-		{
-			case Forward:
-				drone.getMovement().flyForward();
-				break;
-			case Backward:
-				drone.getMovement().flyBackward();
-				break;
-			case Left:
-				drone.getMovement().flyLeft();
-				break;
-			case Right:
-				drone.getMovement().flyRight();
-				break;
-			case SpinLeft:
-				drone.getMovement().spinLeft();
-				break;
-			case SpinRight:
-				drone.getMovement().spinRight();
-				break;
-		}
-//		while (!listener.executed)
-//		{
-//			
-//			tempPoI = CVOp.compareImages(lastImage, newImage,coordinates, i);
-//			Thread.sleep();
-//			if (vt.POIFound != null)
-//			{
-//				
-//				listener.execute();
-//			}
-//			
-//		}	
-	}
-
+	}	
+	
 	@Override
 	public ImageListener getImageListener() {
 		// TODO Auto-generated method stub
-		return null;
+		return new ImageListener(){
+			
+			@Override
+			public void imageUpdated(BufferedImage arg0) {
+				if (currImage != null) {
+					lastImage = currImage;
+					currImage = arg0;
+				}else{
+					currImage = arg0;
+					
+				}
+			}
+		};
+	}
+	
+	//change bufferedImage to mat
+	private Mat bufferedImageToMat(BufferedImage bi){
+		Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
+		byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+		mat.put(0, 0, data);
+		return mat;
 	}
 }
