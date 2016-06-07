@@ -10,6 +10,7 @@ import DronePrograms.RotationTestProgram;
 import DronePrograms.TestProgram;
 import GUI.DroneGUI;
 import GUI.iDroneGUI;
+import Navigation.DroneVision;
 import Navigation.iDroneVision;
 
 public class Enterprise {
@@ -34,6 +35,8 @@ public class Enterprise {
 		 gui = new DroneGUI();
 		 gui.initialize(this);
 		 
+		 
+		 
 		 attachDroneHandlers();
 		 
 		 try {
@@ -52,7 +55,7 @@ public class Enterprise {
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addAcceleroListener(gui.getAcceleroListener());
 		////////////////////////////////////////////////////
-		drone.getVideoManager().addImageListener(vision.getImageListener());
+		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
 		////////////////////////////////////////////////////
 		drone.getNavDataManager().addAttitudeListener(drone.getMovement().getAttitudeListener());
 		drone.getNavDataManager().addGyroListener(drone.getMovement().getGyroListener());

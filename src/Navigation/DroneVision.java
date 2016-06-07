@@ -27,7 +27,6 @@ import org.opencv.imgproc.Imgproc;
 
 import Vector.Vector3D;
 
-import org.opencv.highgui.VideoCapture;
 
 public class DroneVision implements iDroneVision {
 
