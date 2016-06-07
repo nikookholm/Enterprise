@@ -118,17 +118,17 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 //	
 	public BatteryListener getBatteryListener()
 	{
-		return q1.new Battery();
+		return q1.new Q1BatteryListener();
 	}
 	
 	public AltitudeListener getAltitudeListener()
 	{	
-		return q1.new Altitude();
+		return q1.new Q1AltitudeListener();
 	}
 	
 	public AcceleroListener getAcceleroListener()
 	{
-		return q1.new Accelero();
+		return q1.new Q1AcceleroListener();
 	}
 	
 }
