@@ -61,7 +61,7 @@ public class DroneMovement implements iDroneMovement {
 		
 		long endTime = System.currentTimeMillis();
 		
-		System.out.println("Tid: "  + (endTime - startTime)/1000);
+		System.out.println("Tid: "  + (endTime - startTime) + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
 		
 	}
