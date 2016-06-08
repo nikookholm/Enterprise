@@ -16,13 +16,26 @@ public class TestProgram extends DroneProgram {
 	@Override
 	public void run() {
 		
-		//List<POI> pois = drone.scan();      -- Flyver op og ser alt hvad der kan genkende fra dens position.
-		//drone.calibrate();				  -- Kalibrerer i forhold til mærkerne på væggen
+		Drone d = getDrone();
 		
-		//drone.flyTo(pois[0]);				  -- Flyver til X,Y,Z position for den fundne POI
+		d.getCommandManager().setMaxAltitude(1);
+		d.getCommandManager().takeOff().doFor(5000);
 		
-		//drone.returnHome();				  -- Bruger sit interne koordinat system til at flyve tilbage til hvor den startede.
-
+		// Tricky part
+		
+		d.getCommandManager().hover().doFor(5000);
+		d.getCommandManager().manualTrim(0, 0, 0);
+		//d.getCommandManager().freeze();
+		
+		d.getMovement().flyForward(200);
+		
+		d.getCommandManager().hover().doFor(5000);
+		d.getCommandManager().manualTrim(0, 0, 0);
+		//d.getCommandManager().freeze()
+		
+		d.getCommandManager().landing();
+		d.getCommandManager().stop();
+		
 	}
 
 	@Override

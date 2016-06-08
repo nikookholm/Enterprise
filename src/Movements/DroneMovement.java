@@ -47,19 +47,22 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	public void flyForward(int cm){
-		int speed = 8;
-		System.out.println("Syg so 1");
-		drone.setSpeed(8);
-		drone.forward();
-		// omregnes til en mængde tid
-		System.out.println("syg so 2");
-		//mangler hastighed til at begrænse distancen
+		
+		long startTime = System.currentTimeMillis();
+		
+		drone.getCommandManager().forward(10);
+		
 		try {
-			Thread.sleep(cm*8);
+			Thread.sleep(10*cm);
 		} catch (InterruptedException e) {
-			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		//drone.setCoords(calculateNewCoords(cm));
+		
+		long endTime = System.currentTimeMillis();
+		
+		System.out.println("Tid: "  + (endTime - startTime)/1000);
+
 		
 	}
 	
