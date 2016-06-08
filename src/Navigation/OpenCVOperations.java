@@ -27,17 +27,6 @@ public class OpenCVOperations {
 
 	ArrayList<POI> interestsFound = new ArrayList<POI>();
 	
-	public ArrayList<POI> findObjects(BufferedImage arg0, Vector3D coordinates, int angle) {
-		objectsFound.clear();
-
-		Mat ImageMat = bufferedImageToMat(arg0);
-		findQR(ImageMat);
-	//	findCircles(ImageMat, coordinates, angle);
-		findBlocks(ImageMat, coordinates, angle);
-		findAirports(ImageMat, coordinates, angle);
-
-		return objectsFound;
-	}
 	/**
 	 * Returns a single ArrayList containing points of interest, that can be located on both images.
 	 * The function is used to reduce noise and possible only gather the true points of interest.
@@ -47,28 +36,7 @@ public class OpenCVOperations {
 	 * @param newImage the newest image stored
 	 * @return Points of Interests
 	 */
-//	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage, Vector3D coordinates, int angle) {
-//
-//		ArrayList<POI> li = findObjects(lastImage, coordinates, angle);
-//		ArrayList<POI> ni = findObjects(newImage, coordinates, angle);
-//
-//		for(POI liCheck : li){
-//			for(POI niCheck : ni){
-//				if(liCheck instanceof POICircle && niCheck instanceof POICircle){
-//					if(((POICircle)liCheck).getRadius() == ((POICircle)niCheck).getRadius() && ((POICircle)liCheck).getRadius() > 10){
-//					
-//					}
-//				}
-//				// elseif QR
-//				// elseif block
-//				// elseif airport
-//				
-//			}
-//		}
-//		return interestsFound;
-//	}
-
-	public ArrayList<POI> compareImages(BufferedImage lastImage, BufferedImage newImage){
+	public ArrayList<POI> findObjects(BufferedImage lastImage, BufferedImage newImage){
 		
 
 ////		ArrayList<POI> li = findObjects(lastImage, coordinates, angle);
@@ -89,7 +57,27 @@ public class OpenCVOperations {
 //		}
 		return interestsFound;
 	}
-	public ArrayList<POI> findQR(Mat image) {
+
+	public ArrayList<POI> findQR(BufferedImage image) {
+
+		return findQR(bufferedImageToMat(image));
+	}
+
+	/******************************private************************************/
+	
+	private ArrayList<POI> findObjects(BufferedImage arg0, Vector3D coordinates, int angle) {
+		objectsFound.clear();
+
+		Mat ImageMat = bufferedImageToMat(arg0);
+		findQR(ImageMat);
+	//	findCircles(ImageMat, coordinates, angle);
+		findBlocks(ImageMat, coordinates, angle);
+		findAirports(ImageMat, coordinates, angle);
+
+		return objectsFound;
+	}
+	
+	private ArrayList<POI> findQR(Mat image) {
 
 		ArrayList<POIWallPoint> fundet = new ArrayList<>();
 		QRfinder findqr = new QRfinder();
@@ -105,7 +93,7 @@ public class OpenCVOperations {
 		return interestsFound;
 	}
 
-	public void findCircles(Mat image, Vector3D coordinates, int angle) {
+	private void findCircles(Mat image, Vector3D coordinates, int angle) {
 
 		Mat image_gray = new Mat();
 		Mat circles = new Mat();
@@ -123,18 +111,21 @@ public class OpenCVOperations {
 
 	}
 
-	public void findBlocks(Mat image, Vector3D coordinates, int angle) {
+	private void findBlocks(Mat image, Vector3D coordinates, int angle) {
 		// Add code to find Blocks
 	}
 
-	public void findAirports(Mat image, Vector3D coordinates, int angle) {
+	private void findAirports(Mat image, Vector3D coordinates, int angle) {
 		// Add code to find Airports
 	}
 
-	public Mat bufferedImageToMat(BufferedImage bi) {
+	/*****************************buff_to_mat*****************************/
+	
+	private Mat bufferedImageToMat(BufferedImage bi) {
 		Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
 		byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
 		mat.put(0, 0, data);
 		return mat;
 	}
+
 }

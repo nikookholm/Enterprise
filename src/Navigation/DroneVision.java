@@ -32,6 +32,8 @@ public class DroneVision implements iDroneVision {
 
 	private Drone drone;
 	
+
+	ArrayList<POI> poi = new ArrayList<POI>();
 	BufferedImage lastImage;
 	BufferedImage currImage;
 	
@@ -48,22 +50,27 @@ public class DroneVision implements iDroneVision {
 
 	@Override
 	public ArrayList<POI> scan(Movement movement, Condition condition) {
-		ArrayList<POI> poi = new ArrayList<POI>();
 		
 		DroneMovementThread movementThread = new DroneMovementThread(movement);
 		movementThread.run();
 
 		int i = 0;
-		int wallPoints;
+		int wallPoints = 0;
 		int circlePoints = 0;
 		switch(condition){
 			case Initial:
 				//Find 3 QR codes
-				while(poi.size()<3){
+				while(wallPoints<3){
 					//ONLY finds QR codes
-					tempPoI = CVOp.findQR(bufferedImageToMat(currImage));
+					tempPoI = CVOp.findQR(currImage);
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
+					while(i<poi.size()){
+						if(poi.get(i) instanceof POIWallPoint){
+							wallPoints++;
+						}
+						i++;
+					}
 				}
 				break;
 				
@@ -71,7 +78,7 @@ public class DroneVision implements iDroneVision {
 				i = 0;
 				circlePoints = 0;
 				while(circlePoints<5){
-					tempPoI = CVOp.findObjects(null, null, 0); //check with PAWURHAUZ
+					tempPoI = CVOp.findObjects(null, null); //check with PAWURHAUZ
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
 					while(i<poi.size()){
