@@ -50,14 +50,7 @@ public class DroneMovement implements iDroneMovement {
 		
 		long startTime = System.currentTimeMillis();
 		
-		drone.getCommandManager().forward(10);
-		
-		try {
-			Thread.sleep(10*cm);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		drone.getCommandManager().forward(10).doFor(10*cm);
 		
 		long endTime = System.currentTimeMillis();
 		

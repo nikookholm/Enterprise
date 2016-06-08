@@ -1,5 +1,6 @@
 package DronePrograms;
 
+import de.yadrone.base.command.CommandManager;
 import Common.Drone;
 import Main.DroneProgram;
 
@@ -17,24 +18,22 @@ public class TestProgram extends DroneProgram {
 	public void run() {
 		
 		Drone d = getDrone();
+		CommandManager cmd = d.getCommandManager();
 		
-		d.getCommandManager().setMaxAltitude(1);
-		d.getCommandManager().takeOff().doFor(5000);
+		cmd.setMaxAltitude(3);
+		cmd.takeOff().doFor(7000);
 		
-		// Tricky part
-		
-		d.getCommandManager().hover().doFor(5000);
-		d.getCommandManager().manualTrim(0, 0, 0);
-		//d.getCommandManager().freeze();
-		
+		cmd.hover().doFor(3000);
+	
 		d.getMovement().flyForward(200);
 		
-		d.getCommandManager().hover().doFor(5000);
-		d.getCommandManager().manualTrim(0, 0, 0);
-		//d.getCommandManager().freeze()
+		cmd.hover().doFor(2000);
+		d.getMovement().rotateToAngle(180);
 		
-		d.getCommandManager().landing();
-		d.getCommandManager().stop();
+		d.getMovement().flyForward(200);
+
+		cmd.hover().doFor(2000);		
+		cmd.landing();
 		
 	}
 
