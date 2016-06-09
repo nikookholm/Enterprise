@@ -56,18 +56,42 @@ public class PanelQ2 extends JPanel{
 		c.weightx = 1;
 		c.weighty = 3;
 		add(cameraPanel,c);	
-		
-		
-//		JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
-		
-//		frontBtn  = new JButton("FRONT CAMERA");
-//		bottomBtn = new JButton("BOTTOM CAMERA");
-//		imageBtn = new JButton("image");
-//		c.fill = GridBagConstraints.NORTH;
-//		c.weightx = 1;
-//		c.weighty = 1;
-//		this.add(Q2Buttons);
-		
+
+
+				JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
+
+				frontBtn  = new JButton("FRONT CAMERA");
+				bottomBtn = new JButton("BOTTOM CAMERA");
+				imageBtn = new JButton("image");
+				c.fill = GridBagConstraints.NORTH;
+				c.weightx = 1;
+				c.weighty = 1;
+				this.add(Q2Buttons);
+				
+				Q2Buttons.add(frontBtn, BorderLayout.NORTH);
+				Q2Buttons.add(bottomBtn);
+				Q2Buttons.add(imageBtn, BorderLayout.SOUTH);
+				try {
+					img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
+					img2 = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/uncheck.png")));
+				} catch (IOException ex) {
+
+					ex.printStackTrace();
+				}
+
+				ToggelCamera tc = new ToggelCamera();
+
+				frontBtn.addActionListener(tc);
+				bottomBtn.addActionListener(tc);
+				imageBtn.addActionListener(tc);
+
+				frontBtn.setIcon(img);
+				bottomBtn.setIcon(img2);
+				imageBtn.setIcon(img2);
+//				this.add(frontBtn);
+//				this.add(bottomBtn);
+//				this.add(imageBtn);
+
 	}
 
 	public void updateCameraPanel(Image image)
@@ -114,35 +138,9 @@ public class PanelQ2 extends JPanel{
 		}
 		private void initialize()
 		{
-
-			gbLayout = new GridBagLayout();
-			c 	= new GridBagConstraints();
-
-						frontBtn  = new JButton("FRONT CAMERA");
-						bottomBtn = new JButton("BOTTOM CAMERA");
-						imageBtn = new JButton("image");
-
-			try {
-				img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
-				img2 = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/uncheck.png")));
-			} catch (IOException ex) {
-
-				ex.printStackTrace();
-			}
-
-			ToggelCamera tc = new ToggelCamera();
-
-			frontBtn.addActionListener(tc);
-			bottomBtn.addActionListener(tc);
-			imageBtn.addActionListener(tc);
-
-			frontBtn.setIcon(img);
-			bottomBtn.setIcon(img2);
-			imageBtn.setIcon(img2);
-
-			this.add(frontBtn);
-			this.add(bottomBtn);
-			this.add(imageBtn);
+//			frontBtn  = new JButton("FRONT CAMERA");
+//			bottomBtn = new JButton("BOTTOM CAMERA");
+//			imageBtn = new JButton("image");
 
 		}
 
