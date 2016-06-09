@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import Common.Drone;
 import DronePrograms.AmalProgram;
 //import DronePrograms.AmalProgram;
-import DronePrograms.LpogDollar;
+//import DronePrograms.LpogDollar;
 import DronePrograms.NikosDroneProgram;
 import DronePrograms.RotationTestProgram;
 import DronePrograms.TestProgram;
 import GUI.DroneGUI;
 import GUI.iDroneGUI;
-import Navigation.DroneVision;
-import Navigation.iDroneVision;
 
 public class Enterprise {
 	
@@ -20,7 +18,6 @@ public class Enterprise {
 	private Drone	 	 			drone;
 	private DroneProgram 			activeProgram;
 	private ArrayList<DroneProgram> programs;
-	private iDroneVision			vision;
 	
 	public Enterprise()
 	{
@@ -56,7 +53,9 @@ public class Enterprise {
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addAcceleroListener(gui.getAcceleroListener());
 		////////////////////////////////////////////////////
-		//drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
+		
+		//den her skal lige gennemgåes med Niko TODO LP
+		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
 		////////////////////////////////////////////////////
 		drone.getNavDataManager().addAttitudeListener(drone.getMovement().getAttitudeListener());
 		drone.getNavDataManager().addGyroListener(drone.getMovement().getGyroListener());

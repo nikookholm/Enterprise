@@ -1,11 +1,7 @@
 package Navigation;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.Marshaller.Listener;
 
 import de.yadrone.base.video.*;
 import Common.Drone;
@@ -14,18 +10,12 @@ import POI.POI;
 import POI.POICircle;
 import POI.POIWallPoint;
 
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-
-
 import Vector.Vector3D;
 
-
 public class DroneVision implements iDroneVision {
-
+	/******************global variables**************/
 	private Drone drone;
 	
-
 	ArrayList<POI> poi = new ArrayList<POI>();
 	BufferedImage lastImage;
 	BufferedImage currImage;
@@ -34,15 +24,22 @@ public class DroneVision implements iDroneVision {
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
 	OpenCVOperations CVOp;
 	vectorDistance VD;
-	
+
+	/********************constructor*****************/
 	public DroneVision(Drone drone) {
 		this.drone = drone;
 		CVOp = new OpenCVOperations();
 		VD = new vectorDistance();
 	}
+	
 
+	/************************************************/
+	/******************public methods****************/
+	/************************************************/
+	
+	/*********Scan qr-codes while moving*************/
 	@Override
-	public ArrayList<POI> scan(Movement movement, Condition condition) {
+	public ArrayList<POI> scanQR(Movement movement, Condition condition) {
 		
 		DroneMovementThread movementThread = new DroneMovementThread(movement, drone);
 		movementThread.run();
@@ -89,27 +86,31 @@ public class DroneVision implements iDroneVision {
 		}
 		return poi;
 	}
-	
+
+	/***********Calibrate the drone to a standard pos*********/
+	@SuppressWarnings("null")
 	public Vector3D calibrate(){
-		Vector3D dronepos;
 		
-		ArrayList<POI> poi = scan(Movement.Forward, Condition.Initial);
-		ArrayList<POI> Wallpoints = null;
-		int wallpointsFound = 0;
+		ArrayList<POI> poi = scanQR(Movement.Forward, Condition.Initial);
+		ArrayList<POI> wallPoints = null;
+		int wallPointsFound = 0;
 		for(int i = 0; i < poi.size(); i++){
 			if(poi.get(i) instanceof POIWallPoint){
-				if((((POIWallPoint)poi.get(i)).getQRString() == "W00.00") | (((POIWallPoint)poi.get(i)).getQRString() == "W00.01") | (((POIWallPoint)poi.get(i)).getQRString() == "W00.02")){
-					Wallpoints.add(poi.get(i));
-					wallpointsFound++;
-				}
+				wallPoints.add(poi.get(i));
+				wallPointsFound++;
 			}
 		}
-		if(wallpointsFound == 3){
-		//	VD.calcDronepos(Wallpoints.get(0).getCoordinates(), Wallpoints.get(1).getCoordinates(), Wallpoints.get(2).getCoordinates());
+		if(wallPointsFound == 2){
+		return VD.getDronePosTwoPoints(wallPoints.get(0).getCoordinates(), 0/*dist to 1. qr*/, wallPoints.get(1).getCoordinates(),0/*dist to 1. qr*/);
 		}
-		return null;//return dronepos;
+		return null;
 		
 	}	
+	
+
+	/************************************************/
+	/******************listeners*********************/
+	/************************************************/
 	
 	@Override
 	public ImageListener getImageListener() {
