@@ -22,7 +22,7 @@ public class DroneMovementThread implements Runnable{
 		switch(movement){
 		case Initial:
 			while(!abort){		
-				droneMovement.spinRight();
+				droneMovement.spinRight(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {
@@ -45,7 +45,7 @@ public class DroneMovementThread implements Runnable{
 			break;
 		case Backward:
 			while(!abort){		
-				droneMovement.flyBackward();
+				droneMovement.flyBackward(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {
@@ -56,7 +56,7 @@ public class DroneMovementThread implements Runnable{
 			break;
 		case Left:
 			while(!abort){		
-				droneMovement.flyLeft();
+				droneMovement.flyLeft(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {
@@ -67,7 +67,7 @@ public class DroneMovementThread implements Runnable{
 			break;
 		case Right:
 			while(!abort){		
-				droneMovement.flyRight();
+				droneMovement.flyRight(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {
@@ -78,7 +78,7 @@ public class DroneMovementThread implements Runnable{
 			break;
 		case SpinLeft:
 			while(!abort){		
-				droneMovement.spinLeft();
+				droneMovement.spinLeft(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {
@@ -89,7 +89,7 @@ public class DroneMovementThread implements Runnable{
 			break;
 		case SpinRight:
 			while(!abort){		
-				droneMovement.spinRight();
+				droneMovement.spinRight(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {
@@ -99,6 +99,7 @@ public class DroneMovementThread implements Runnable{
 			}
 			break;
 		default:
+			//should not be used
 			break;
 				
 		}

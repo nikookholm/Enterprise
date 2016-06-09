@@ -3,7 +3,6 @@ package Movements;
 
 import Common.Drone;
 import POI.POI;
-import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
@@ -36,24 +35,6 @@ public class DroneMovement implements iDroneMovement {
 	public void hoverTo(int height) {
 		drone.getCommandManager().setMaxAltitude(height);
 		drone.getCommandManager().up(30);
-	}
-	
-	
-	public void flyForward(double schedule)
-	{
-		int sch = (int) schedule;
-		try {
-			drone.getCommandManager().schedule(sch, new Runnable(){
-
-				@Override
-				public void run() {
-					drone.forward();
-				}
-			});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void flyForward(int cm){
@@ -108,50 +89,98 @@ public class DroneMovement implements iDroneMovement {
 		//mangler startcoordinates
 		//mangler flytoCoordinate
 	}
+	
+	//kører loop med scan ring, skal tage imod 
 	@Override
-	public void flyThroughRing(POI nextRing) {
+	public POI flyThroughRing(POI nextRing) {
+		return nextRing;
 		// TODO Auto-generated method stub
 		
 	}
 	
+	//skal ikke eksistere
 	@Override
-	public void flyToRing(POI nextRing){
+	public void flyToRing(POI currRing){
 		//mangler current coordinates
 		//mangler fly to coordinates
 	}
-	@Override
-	public void flyBackward() {
-		drone.backward();
+	
+	///////////////////////////
+	//Standard Flight Methods//
+	public void flyForward(double schedule){
+		int sch = (int) schedule;
+		
+		drone.getCommandManager().schedule(sch, new Runnable(){
+			@Override
+			public void run() {
+				drone.forward();
+			}
+		});
 	}
-
 	@Override
-	public void flyLeft() {
-		drone.goLeft();
+	public void flyBackward(double schedule){
+		int sch = (int) schedule;
+		
+		drone.getCommandManager().schedule(sch, new Runnable(){
+			@Override
+			public void run() {
+				drone.backward();
+			}
+		});
+	}
+	@Override
+	public void flyLeft(double schedule){
+		int sch = (int) schedule;
+		
+		drone.getCommandManager().schedule(sch, new Runnable(){
+			@Override
+			public void run() {
+				drone.goLeft();
+			}
+		});
 		
 	}
-
 	@Override
-	public void flyRight() {
-		drone.goRight();
+	public void flyRight(double schedule){
+		int sch = (int) schedule;
+		
+		drone.getCommandManager().schedule(sch, new Runnable(){
+			@Override
+			public void run() {
+				drone.goRight();
+			}
+		});
 	}
-
 	@Override
-	public void spinLeft() {
-		drone.spinLeft();
+	public void spinLeft(double schedule){
+		int sch = (int) schedule;
+		
+		drone.getCommandManager().schedule(sch, new Runnable(){
+			@Override
+			public void run() {
+				drone.spinLeft();
+			}
+		});
 	}
-
 	@Override
-	public void spinRight() {
-		drone.spinRight();
+	public void spinRight(double schedule){
+		int sch = (int) schedule;
+		
+		drone.getCommandManager().schedule(sch, new Runnable(){
+			@Override
+			public void run() {
+				drone.spinRight();
+			}
+		});
 	}
-	
 	@Override
-	public void hover() {
+	public void hover(){
 		drone.hover();
 	}
 	
 	/***********************************************************/
 	/*********************private*******************************/
+	/***********************************************************/
 	
 	private void spinRight(int degrees){
 		for(int i=0; i<degrees; i++){
@@ -165,7 +194,7 @@ public class DroneMovement implements iDroneMovement {
 					e.printStackTrace();
 				}
 			}
-			spinRight();
+			drone.spinRight();
 			try {
 				Thread.sleep(28);
 			} catch (InterruptedException e) {
@@ -182,7 +211,7 @@ public class DroneMovement implements iDroneMovement {
 	private void spinLeft(int degrees) {
 		for(int i=0; i<degrees; i++){
 			hover();
-			spinLeft();
+			drone.spinLeft();
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -190,33 +219,7 @@ public class DroneMovement implements iDroneMovement {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	/**
-	 * 
-	 */
-
-	private void internalHover(){
-		float[] pry = gyro.getPhysGyros();
-		int k = 0;
-		if((pry[0] + pry[1] + pry[2])> k){
-			hardRecover();
-		} else{
-			softRecover();
-		}
-	}
-	
-	private void hardRecover() {
-		
-	}
-	
-	private void softRecover() {
-		
-	}
-	
-	public enum Movement { Forward, Backward, Left, Right, SpinLeft, SpinRight };
-
-	
+	}	
 	
 	/*******************************/
 	/*****Listener to interface*****/
