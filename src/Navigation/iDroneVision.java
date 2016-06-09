@@ -10,7 +10,7 @@ public interface iDroneVision {
 	public List<POI> scan(Movement movement, Condition condition);
 	public ImageListener getImageListener();
 	
-	public enum Movement { Forward, Backward, Left, Right, SpinLeft, SpinRight };
+	public enum Movement { Initial, Forward, Backward, Left, Right, SpinLeft, SpinRight };
 	
 	public enum Condition { Initial, Flying, CircleQR };
 }

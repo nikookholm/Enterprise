@@ -37,14 +37,14 @@ public class DroneVision implements iDroneVision {
 	
 	public DroneVision(Drone drone) {
 		this.drone = drone;
-		OpenCVOperations CVOp = new OpenCVOperations();
-		vectorDistance VD = new vectorDistance();
+		CVOp = new OpenCVOperations();
+		VD = new vectorDistance();
 	}
 
 	@Override
 	public ArrayList<POI> scan(Movement movement, Condition condition) {
 		
-		DroneMovementThread movementThread = new DroneMovementThread(movement);
+		DroneMovementThread movementThread = new DroneMovementThread(movement, drone);
 		movementThread.run();
 
 		int i = 0;
@@ -65,6 +65,7 @@ public class DroneVision implements iDroneVision {
 						i++;
 					}
 				}
+				movementThread.abort();
 				break;
 				
 			case CircleQR:
