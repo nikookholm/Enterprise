@@ -7,22 +7,15 @@ import java.util.List;
 
 import javax.xml.bind.Marshaller.Listener;
 
-import de.yadrone.base.ARDrone;
 import de.yadrone.base.video.*;
 import Common.Drone;
-import Movements.DroneMovement.Movement;
 import Movements.DroneMovementThread;
-import Navigation.ScanListeners.ScanListener;
 import POI.POI;
 import POI.POICircle;
 import POI.POIWallPoint;
 
-import org.opencv.core.Point;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 
 
 import Vector.Vector3D;
@@ -133,13 +126,5 @@ public class DroneVision implements iDroneVision {
 				}
 			}
 		};
-	}
-	
-	//change bufferedImage to mat
-	private Mat bufferedImageToMat(BufferedImage bi){
-		Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
-		byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
-		mat.put(0, 0, data);
-		return mat;
 	}
 }
