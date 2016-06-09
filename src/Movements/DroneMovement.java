@@ -3,6 +3,7 @@ package Movements;
 
 import Common.Drone;
 import POI.POI;
+import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
@@ -20,6 +21,8 @@ public class DroneMovement implements iDroneMovement {
 	
 	public DroneMovement(Drone drone)
 	{
+		
+		
 		this.drone = drone;
 		
 	}

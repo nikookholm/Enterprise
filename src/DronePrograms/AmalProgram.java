@@ -3,6 +3,13 @@ package DronePrograms;
 import java.time.LocalTime;
 import java.util.Date;
 
+import de.yadrone.base.command.ATCommand;
+import de.yadrone.base.command.CalibrationCommand;
+import de.yadrone.base.command.CommandManager;
+import de.yadrone.base.command.Device;
+import de.yadrone.base.command.FlatTrimCommand;
+import de.yadrone.base.command.HoverCommand;
+import de.yadrone.base.command.TakeOffCommand;
 import Common.Drone;
 import Main.DroneProgram;
 
@@ -18,40 +25,44 @@ public class AmalProgram extends DroneProgram {
 
 	@Override
 	public String getProgramName() {
-		// TODO Auto-generated method stub
 		return "AmalPro";
 	}
 
 	@Override
 	public void run() {
 		
+		CommandManager cmd = getDrone().getCommandManager();
 		
-	
-		getDrone().getCommandManager().setMaxAltitude(1);
-		getDrone().getCommandManager().takeOff().doFor(2000);
+		cmd.setOutdoor(false, false);
 		
-		getDrone().getCommandManager().hover();
+		cmd.setMaxAltitude(1);
 		
-//		long startTime = System.currentTimeMillis();
+//		cmd.flatTrim().doFor(1000);
 		
-		getDrone().getCommandManager().manualTrim(0, 0, 0).doFor(3000);
+		cmd.setCommand(new FlatTrimCommand()).doFor(100);
 		
-//		long endTime = System.currentTimeMillis();
+		cmd.setCommand(new TakeOffCommand()).doFor(3000);
 		
+		cmd.setCommand(new HoverCommand()).doFor(1000);
 		
+//		cmd.takeOff().doFor(3000);
 		
-//		getDrone().getCommandManager().freeze().doFor(3000);
+//		cmd.hover().doFor(3000);
 		
-		long startTime = System.currentTimeMillis();
-//	
-//				
-		getDrone().getMovement().flyForward(300);
-//	
-		long endTime = System.currentTimeMillis();
-//		
-		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  " + (endTime - startTime) + "ms   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		cmd.setCommand(new CalibrationCommand(Device.MAGNETOMETER)).doFor(5000);
 		
-		getDrone().getCommandManager().landing();
+		cmd.setMaxAltitude(20000).doFor(500);
+		
+		cmd.up(10).doFor(700);
+
+		cmd.freeze().doFor(2000);
+		
+		cmd.spinLeft(50).doFor(1000);
+		
+//		getDrone().getMovement().flyForward(20);
+
+		cmd.landing();
+
 	
 	}
 
