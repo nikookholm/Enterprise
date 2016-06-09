@@ -1,6 +1,9 @@
 package DronePrograms;
 
+import de.yadrone.base.command.ATCommand;
+import de.yadrone.base.command.CalibrationCommand;
 import de.yadrone.base.command.CommandManager;
+import de.yadrone.base.command.Device;
 import Common.Drone;
 import Main.DroneProgram;
 
@@ -19,27 +22,61 @@ public class TestProgram extends DroneProgram {
 		
 		Drone d = getDrone();
 		CommandManager cmd = d.getCommandManager();
+		cmd.flatTrim();
 		
-		cmd.setMaxAltitude(3);
-		cmd.takeOff().doFor(7000);
 		
-		cmd.hover().doFor(3000);
-	
-		d.getMovement().flyForward(200);
 		
-		cmd.hover().doFor(2000);
-		d.getMovement().rotateToAngle(180);
+		cmd.setMaxAltitude(1);
+		cmd.takeOff();
+		try {
+			Thread.currentThread().sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		d.getMovement().flyForward(200);
+		System.out.println("hej!");
+		CalibrationCommand cal = new CalibrationCommand(Device.MAGNETOMETER);
+		cmd.setCommand(cal);
+		System.out.println("hej<<<<<<<<<<<<<<<<<!");
 
-		cmd.hover().doFor(2000);		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		cmd.landing();
+		try {
+			Thread.currentThread().sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+//		cmd.setMaxAltitude(3);
+//		cmd.takeOff().doFor(7000);
+//		
+//		cmd.hover().doFor(3000);
+//	
+//		d.getMovement().flyForward(200);
+//		
+//		cmd.hover().doFor(2000);
+//		d.getMovement().rotateToAngle(180);
+//		
+//		d.getMovement().flyForward(200);
+//
+//		cmd.hover().doFor(2000);		
+//		cmd.landing();
 		
 	}
 
 	@Override
 	public String getProgramName() {
-		return "Proof of Concept!";
+		return "Proof of Concepthva?!";
 	}
 
 }

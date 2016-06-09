@@ -378,36 +378,36 @@ public class QRfinder {
 
 						if (debuk == 1) {
 							if (slo > 5)
-								Core.circle(traces, new Point(10, 20), 5, new Scalar(150, 0, 50), -1, 8, 0);
+								Core.circle(newImage, new Point(10, 20), 5, new Scalar(150, 0, 50), -1, 8, 0);
 							else if (slo < -5)
-								Core.circle(traces, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
+								Core.circle(newImage, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
 
-							Imgproc.drawContours(traces, countersFundet, top1, new Scalar(100, 50, 255), 3, 8, heica, 0,
+							Imgproc.drawContours(newImage, countersFundet, top1, new Scalar(100, 50, 255), 3, 8, heica, 0,
 									new Point(-1, -1));
-							Imgproc.drawContours(traces, countersFundet, mid1, new Scalar(100, 50, 255), 3, 8, heica, 0,
+							Imgproc.drawContours(newImage, countersFundet, mid1, new Scalar(100, 50, 255), 3, 8, heica, 0,
 									new Point(-1, -1));
-							Imgproc.drawContours(traces, countersFundet, bot1, new Scalar(100, 50, 255), 3, 8, heica, 0,
+							Imgproc.drawContours(newImage, countersFundet, bot1, new Scalar(100, 50, 255), 3, 8, heica, 0,
 									new Point(-1, -1));
 
-							Core.circle(traces, o[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, o[1], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, o[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, o[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, o[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, o[1], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, o[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, o[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
 
-							Core.circle(traces, n[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, n[1], 10, new Scalar(0, 0, 0), 4, 8, 0);
-							Core.circle(traces, n[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, n[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, n[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, n[1], 10, new Scalar(0, 0, 0), 4, 8, 0);
+							Core.circle(newImage, n[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, n[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
 
-							Core.circle(traces, m[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, m[1], 10, new Scalar(0, 0, 255), 4, 8, 0);
-							Core.circle(traces, m[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
-							Core.circle(traces, m[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, m[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, m[1], 10, new Scalar(0, 0, 255), 4, 8, 0);
+							Core.circle(newImage, m[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
+							Core.circle(newImage, m[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
 
-							Core.circle(traces, dj, 20, new Scalar(255, 100, 0), 4, 8, 0);
+							Core.circle(newImage, dj, 20, new Scalar(255, 100, 0), 4, 8, 0);
 
-							Core.line(traces, m[3], dj, new Scalar(255, 100, 0), 10, 8, 0);
-							Core.line(traces, n[2], dj, new Scalar(255, 100, 0), 10, 8, 0);
+							Core.line(newImage, m[3], dj, new Scalar(255, 100, 0), 10, 8, 0);
+							Core.line(newImage, n[2], dj, new Scalar(255, 100, 0), 10, 8, 0);
 
 							if (polen == nord)
 								Core.putText(traces, "den er OP", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
@@ -430,7 +430,7 @@ public class QRfinder {
 
 							byte[] data1 = ((DataBufferByte) debuImg.getRaster().getDataBuffer()).getData();
 
-							traces.get(0, 0, data1);
+							newImage.get(0, 0, data1);
 
 						}
 						ArrayList<POIWallPoint> QRFound = new ArrayList<>();
