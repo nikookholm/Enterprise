@@ -78,7 +78,7 @@ public class DroneVision implements iDroneVision {
 				i = 0;
 				circlePoints = 0;
 				while(circlePoints<5){
-					tempPoI = CVOp.findObjects(null, null); //check with PAWURHAUZ
+					tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
 					while(i<poi.size()){

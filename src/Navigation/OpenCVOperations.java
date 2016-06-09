@@ -36,7 +36,7 @@ public class OpenCVOperations {
 	 * @param newImage the newest image stored
 	 * @return Points of Interests
 	 */
-	public ArrayList<POI> findObjects(BufferedImage lastImage, BufferedImage newImage){
+	public ArrayList<POI> findObjects(BufferedImage lastImage, BufferedImage newImage, Vector3D coordinates, int angle){
 		
 
 ////		ArrayList<POI> li = findObjects(lastImage, coordinates, angle);

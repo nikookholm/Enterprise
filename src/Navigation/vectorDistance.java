@@ -152,4 +152,47 @@ public class vectorDistance {
 	double degreeToRad(double value){
 		return (value * (Math.PI/(double)180));
 	}
+	
+	
+	/******************************************************************/
+	/*****************Calculate from 2 methods*************************/
+	/******************************************************************/
+	
+	
+	public Vector3D getDronePosTwoPoints(Vector3D wallPoint1, double distance1, Vector3D wallPoint2, double distance2){
+		double x0, y0, x1, y1, x2, y2, x3, y3;
+		x0 = wallPoint1.getXCoord();
+		y0 = wallPoint1.getYCoord();
+		x1 = wallPoint2.getXCoord();
+		y1 = wallPoint2.getYCoord();
+		
+		//Find the distance between the two points, the parallel point to what
+		//we are looking for and the height from this line to the desired point.
+		double d = Math.sqrt(Math.pow((x1 - x0), 2) + Math.pow((y1 - y0), 2));
+		double a = (Math.pow(distance1, 2) - Math.pow(distance2, 2) + Math.pow(d, 2))/(2*d);
+		double h = Math.sqrt(Math.pow(distance1,2) - Math.pow(a,2));
+		
+		//Find the coordinates to the parallel point
+		x2 = x0 + (a * (x1 - x0)) / d;
+		y2 = y0 + (a * (y1 - y0)) / d;
+		
+		
+		//Find the desired point and return the correct one
+		x3 = x2 + (h * (y1 - y0)) / d;
+		y3 = y2 - (h * (x1 - x0)) / d;
+		
+		if(x3>0 && x3<10.78 && y3>0 && y3<9.63){
+			return new Vector3D(x3, y3, 0);
+		}
+		
+		x3 = x2 - (h * (y1 - y0)) / d;
+		y3 = y2 + (h * (x1 - x0)) / d;
+		
+		return new Vector3D(x3,y3,0);
+	}
+	
+	
+	
+	
+	
 }
