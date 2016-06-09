@@ -28,15 +28,15 @@ public class Vector3D {
 		return z;
 	}
 	
-	public double incXCoord(double incX){
-		return x = incX;
+	public void setXCoord(double incX){
+		this.x = incX;
 	}
 	
-	public double incYCoord(double incY){
-		return y = incY;
+	public void setYCoord(double incY){
+		this.y = incY;
 	}
 	
-	public double incZCoord(double incZ){
-		return z = incZ;
+	public void setZCoord(double incZ){
+		this.z = incZ;
 	}
 }
