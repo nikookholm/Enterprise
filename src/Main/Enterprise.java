@@ -56,7 +56,7 @@ public class Enterprise {
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addAcceleroListener(gui.getAcceleroListener());
 		////////////////////////////////////////////////////
-		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
+		//drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
 		////////////////////////////////////////////////////
 		drone.getNavDataManager().addAttitudeListener(drone.getMovement().getAttitudeListener());
 		drone.getNavDataManager().addGyroListener(drone.getMovement().getGyroListener());

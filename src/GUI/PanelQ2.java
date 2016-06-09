@@ -38,6 +38,7 @@ public class PanelQ2 extends JPanel{
 	private List<QRPoi> im;
 	private QRfinder qrfind = new QRfinder();
 	private boolean camTjek = false;
+	private boolean imgTjek = false;
 
 	public PanelQ2(DroneGUI owner){
 
@@ -107,6 +108,7 @@ public class PanelQ2 extends JPanel{
 			if(e.getSource().equals(frontBtn) && camTjek == true){
 				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = false;
+				imgTjek = false;
 
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
@@ -115,12 +117,15 @@ public class PanelQ2 extends JPanel{
 			} else if (e.getSource().equals(bottomBtn) && camTjek == false){
 				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = true;
+				imgTjek = false;
+
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
 				VideoCodec qual = VideoCodec.H264_720P;				
 			}
 			else if (e.getSource().equals(imageBtn)){
+				imgTjek = true;
 				imageBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				bottomBtn.setIcon(img2);
@@ -182,6 +187,11 @@ public class PanelQ2 extends JPanel{
 					System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
 				}
 			}
+			if(imgTjek == true){
+				this.image = qrfind.getDebuImg();
+			}
+			
+			
 
 			cameraPanel.paint(getGraphics());
 			im.clear();
