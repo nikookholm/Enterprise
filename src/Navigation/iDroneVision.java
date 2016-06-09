@@ -11,9 +11,11 @@ import de.yadrone.base.video.ImageListener;
 public interface iDroneVision {
 
 	public List<POI> scanQR(Movement movement, Condition condition);
+	public Movement scanCircle();
 	public ImageListener getImageListener();
 	
-	public enum Movement { Initial, Forward, Backward, Left, Right, SpinLeft, SpinRight };
+	public enum Movement { Initial, Forward, Backward, Left, Right, SpinLeft, SpinRight, Up, Down };
 	
 	public enum Condition { Initial, Flying, CircleQR }
+
 }

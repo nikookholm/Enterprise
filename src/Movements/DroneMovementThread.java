@@ -32,8 +32,8 @@ public class DroneMovementThread implements Runnable{
 			}
 			break;
 		case Forward:
-			while(!abort){		
-				droneMovement.flyForward();
+			while(!abort){		//schedule er en fastsat tid.
+				droneMovement.flyForward(schedule);
 				try {
 					Thread.sleep(schedule);
 				} catch (InterruptedException e) {

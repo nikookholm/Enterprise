@@ -86,6 +86,14 @@ public class DroneVision implements iDroneVision {
 		}
 		return poi;
 	}
+	
+	/***********Calibrate the drone in front of circle********/
+	@Override
+	public Movement scanCircle() {
+		Movement up = Movement.Up;
+		
+		return up;
+	}	
 
 	/***********Calibrate the drone to a standard pos*********/
 	@SuppressWarnings("null")

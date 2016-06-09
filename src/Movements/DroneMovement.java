@@ -39,10 +39,17 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	
-	public void flyForward()
+	public void flyForward(double schedule)
 	{
+		int sch = (int) schedule;
 		try {
-			drone.forward();
+			drone.getCommandManager().schedule(sch, new Runnable(){
+
+				@Override
+				public void run() {
+					drone.forward();
+				}
+			});
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
