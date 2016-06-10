@@ -69,7 +69,7 @@ public class DroneVision implements iDroneVision {
 				i = 0;
 				circlePoints = 0;
 				while(circlePoints<1){
-					tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
+					tempPoI = CVOp.findQR(currImage); //check with PAWURHAUZ
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
 					while(i<poi.size()){

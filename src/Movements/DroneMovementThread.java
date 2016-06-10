@@ -6,6 +6,7 @@ import Navigation.iDroneVision.Movement;
 public class DroneMovementThread implements Runnable{
 	Movement movement;
 	boolean abort;
+	//schedule is milliseconds the standard methods do stuff
 	final int schedule = 500;
 	DroneMovement droneMovement;
 	
