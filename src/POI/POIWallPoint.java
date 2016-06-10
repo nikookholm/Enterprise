@@ -17,6 +17,10 @@ public class POIWallPoint extends POI {
 		this.distance = dist;
 	}
 	
+	public double getDistance() {
+		return distance;
+	}
+	
 	
 	public String getQRString(){
 		return QRcontains;

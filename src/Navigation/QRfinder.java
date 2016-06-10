@@ -1,5 +1,11 @@
 package Navigation;
 
+
+/*
+ * 
+ * ''''''''''''''IMPORTS'''''''''''''''''''
+ */
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.IOException;
@@ -30,10 +36,17 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
 import POI.POI;
+import POI.POICircle;
 import POI.POIWallPoint;
 import Vector.Vector3D;
 
 public class QRfinder {
+	
+	/*
+	 * 
+	 * ''''''''''''''GLOBALE VARIABLER'''''''''''''''''''
+	 */
+	
 	private final int nord = 0;
 	private final int eas = 1;
 	private final int syd = 2;
@@ -43,10 +56,21 @@ public class QRfinder {
 	private Mat traces;
 	private BufferedImage debuImg;
 	private double disToQR;
+	private ArrayList<POI> funderQR = new ArrayList<POI>();
 
 	private static Point dj = new Point();
+	
+	
+	/*
+	 * 
+	 * ''''''''''''''QRFINDEREN
+	 * INPUT : BILLEDE I MAT FORM.
+	 * 
+	 * OUTPUT: POI LISTE SOM INHOLDER ENTEN POICIRCLER ELLER POIWALLPOINTS
+	 * '''''''''''''''''''
+	 */
 
-	public ArrayList<POIWallPoint> findQR(Mat newImage) throws Exception {
+	public void findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -433,12 +457,18 @@ public class QRfinder {
 							qr_thres.get(0, 0, data1);
 
 						}
-						ArrayList<POIWallPoint> QRFound = new ArrayList<>();
+						
 						for (int j = 0; j < QRFun.size(); j++) {
-							QRFound.add(
+							if(QRFun.get(j).getCode().startsWith("W")){
+							funderQR.add(
 									new POIWallPoint(QRFun.get(j).getCode(),QRFun.get(j).getDistance()));
+							}
+							
+							else if(QRFun.get(j).getCode().startsWith("P")) {
+								funderQR.add(new POICircle(QRFun.get(i).getCode(), QRFun.get(i).getDistance()));
+							}
 						}
-						return QRFound;
+						
 					}
 
 				} else {
@@ -447,7 +477,11 @@ public class QRfinder {
 
 			}
 		}
-		return null;
+		
+	}
+	
+	public ArrayList<POI> getFunderQR() {
+		return funderQR;
 	}
 
 	private MatOfPoint2f corn(ArrayList<MatOfPoint> Dj, int punk1, double slop, MatOfPoint2f cd) {
