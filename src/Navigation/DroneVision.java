@@ -99,7 +99,7 @@ public class DroneVision implements iDroneVision {
 	/***********Get drone position from wallmarks*************/
 	public Vector3D dronePosition(boolean firstTime){
 		if(firstTime){
-			poiDrone = scanQR(null, Condition.Initial);
+			poiDrone = scanQR(Movement.DownRight, Condition.Initial);
 		} else {
 			poiDrone = scanQR(Movement.Left, Condition.Flying);
 		}

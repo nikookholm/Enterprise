@@ -491,8 +491,9 @@ public class QRfinder {
 	private void sortQR(){
 		for (int j = 0; j < QRFun.size(); j++) {
 			if(QRFun.get(j).getCode().startsWith("W")){
+				Point qrcord = QRFun.get(j).getCords();
 			funderQR.add(
-					new POIWallPoint(QRFun.get(j).getCode(),QRFun.get(j).getDistance()));
+					new POIWallPoint(QRFun.get(j).getCode(),QRFun.get(j).getDistance(),new Vector3D(qrcord.x, qrcord.y, 150)));
 			}
 			
 			else if(QRFun.get(j).getCode().startsWith("P")) {

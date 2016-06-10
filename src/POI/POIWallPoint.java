@@ -11,8 +11,8 @@ public class POIWallPoint extends POI {
 		super(coordinates, dronePos, angle);
 		this.QRcontains = QRcontains;
 	}
-	public POIWallPoint(String code, double dist){
-		super(null,null,0);
+	public POIWallPoint(String code, double dist,Vector3D cords){
+		super(cords,null,0);
 		this.QRcontains = code;
 		this.distance = dist;
 	}

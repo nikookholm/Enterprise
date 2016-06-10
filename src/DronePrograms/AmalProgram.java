@@ -18,6 +18,7 @@ public class AmalProgram extends DroneProgram {
 
 
 
+
 	@Override
 	public void abort() {
 		getDrone().getCommandManager().landing().doFor(2000);
@@ -33,35 +34,39 @@ public class AmalProgram extends DroneProgram {
 		
 		CommandManager cmd = getDrone().getCommandManager();
 		
-		cmd.setOutdoor(false, false);
-		
-		cmd.setMaxAltitude(1);
-		
-//		cmd.flatTrim().doFor(1000);
-		
-		cmd.setCommand(new FlatTrimCommand()).doFor(100);
-		
-		cmd.setCommand(new TakeOffCommand()).doFor(3000);
-		
-		cmd.setCommand(new HoverCommand()).doFor(1000);
-		
-//		cmd.takeOff().doFor(3000);
-		
-//		cmd.hover().doFor(3000);
-		
-		cmd.setCommand(new CalibrationCommand(Device.MAGNETOMETER)).doFor(5000);
-		
-		cmd.setMaxAltitude(20000).doFor(500);
-		
-		cmd.up(10).doFor(700);
+		getDrone().start();
+//		
+//		cmd.setOutdoor(false, false);
+//
+//		cmd.setMaxAltitude(1).doFor(1000);
+//		
+//		cmd.setCommand(new FlatTrimCommand()).doFor(100);
+//		
+//		cmd.setCommand(new TakeOffCommand()).doFor(3000);
+//		
+////		cmd.freeze().doFor(2000);
+//		cmd.setCommand(new HoverCommand()).doFor(1000);
+////		cmd.manualTrim(0, 0, 0);
+//		
+////		cmd.setCommand(new CalibrationCommand(Device.MAGNETOMETER)).doFor(3000);
 
+			
+//		cmd.forward(10).doFor(2000);
+//		getDrone().getMovement().flyForward(400);
+//		cmd.freeze().doFor(2000);
+//		cmd.hover();
+		
+		cmd.setMaxAltitude(1).doFor(20000);
+		
+		cmd.up(5);
+		
+		cmd.hover().doFor(1000);
 		cmd.freeze().doFor(2000);
-		
-		cmd.spinLeft(50).doFor(1000);
-		
-//		getDrone().getMovement().flyForward(20);
-
+		cmd.down(3);
 		cmd.landing();
+		
+		System.out.println("end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
 
 	
 	}

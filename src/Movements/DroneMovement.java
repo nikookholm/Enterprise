@@ -3,6 +3,10 @@ package Movements;
 
 import Common.Drone;
 import POI.POI;
+import de.yadrone.base.command.CommandManager;
+import de.yadrone.base.command.FlatTrimCommand;
+import de.yadrone.base.command.HoverCommand;
+import de.yadrone.base.command.TakeOffCommand;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
@@ -37,16 +41,27 @@ public class DroneMovement implements iDroneMovement {
 		drone.getCommandManager().up(30);
 	}
 	
+	
+	
+	
+		public void start() {
+			
+			drone.getCommandManager().setMaxAltitude(10000).doFor(1000);
+			
+			drone.getCommandManager().setCommand(new FlatTrimCommand()).doFor(100);
+			
+			drone.getCommandManager().setCommand(new TakeOffCommand()).doFor(3000);
+			
+			drone.getCommandManager().setCommand(new HoverCommand()).doFor(1000);			
+		}
+		
+	// Flyv frem i bestemme distance (cm) 
 	public void flyForward(int cm){
 		
-		long startTime = System.currentTimeMillis();
-		
-		drone.getCommandManager().forward(10).doFor(10*cm);
-		
-		long endTime = System.currentTimeMillis();
-		
-		System.out.println("Tid: "  + (endTime - startTime) + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+		drone.getCommandManager().forward(10).doFor(5*cm);
 
+		drone.getCommandManager().hover().doFor(500);
+		drone.getCommandManager().freeze().doFor(3000);
 		
 	}
 	
