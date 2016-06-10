@@ -49,8 +49,8 @@ public class DroneVision implements iDroneVision {
 		int circlePoints = 0;
 		switch(condition){
 			case Initial:
-				//Find 3 QR codes
-				while(wallPoints<3){
+				//Find 2 QR codes
+				while(wallPoints<2){
 					//ONLY finds QR codes
 					tempPoI = CVOp.findQR(currImage);
 					tempPoI.removeAll(poi);
@@ -62,13 +62,12 @@ public class DroneVision implements iDroneVision {
 						i++;
 					}
 				}
-				movementThread.abort();
 				break;
 				
 			case CircleQR:
 				i = 0;
 				circlePoints = 0;
-				while(circlePoints<5){
+				while(circlePoints<1){
 					tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
@@ -84,6 +83,7 @@ public class DroneVision implements iDroneVision {
 				//should not be used
 				break;
 		}
+		movementThread.abort();
 		return poi;
 	}
 	
@@ -95,25 +95,11 @@ public class DroneVision implements iDroneVision {
 		return up;
 	}	
 
-	/***********Calibrate the drone to a standard pos*********/
-	@SuppressWarnings("null")
-	public Vector3D calibrate(){
+	/***********Get drone position from wallmarks*************/
+	public Vector3D dronePosition(){
 		
-		ArrayList<POI> poi = scanQR(Movement.Forward, Condition.Initial);
-		ArrayList<POI> wallPoints = null;
-		int wallPointsFound = 0;
-		for(int i = 0; i < poi.size(); i++){
-			if(poi.get(i) instanceof POIWallPoint){
-				wallPoints.add(poi.get(i));
-				wallPointsFound++;
-				
-			}
-		}
-		if(wallPointsFound == 2){
-		return VD.getDronePosTwoPoints(wallPoints.get(0).getCoordinates(), 0/*dist to 1. qr*/, wallPoints.get(1).getCoordinates(),0/*dist to 1. qr*/);
-		}
-		return null;
-		
+		ArrayList<POI> poi = scanQR(Movement.SpinLeft, Condition.Initial);
+		return VD.getDronePosTwoPoints(poi.get(0).getCoordinates(), 0/*dist to 1. qr*/, poi.get(1).getCoordinates(),0/*dist to 1. qr*/);
 	}	
 	
 

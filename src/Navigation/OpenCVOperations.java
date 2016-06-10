@@ -106,11 +106,11 @@ public class OpenCVOperations {
 	
 	private ArrayList<POI> findQR(Mat image) {
 
-		ArrayList<POIWallPoint> fundet = new ArrayList<>();
+		ArrayList<POI> fundet = new ArrayList<>();
 		QRfinder findqr = new QRfinder();
 		try {
-			fundet = findqr.findQR(image);
-			
+			findqr.findQR(image);
+			fundet = findqr.getFunderQR();
 			for(int i = 0; i < fundet.size(); i++) interestsFound.add(fundet.get(i));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
