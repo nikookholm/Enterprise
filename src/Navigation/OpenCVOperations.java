@@ -71,20 +71,30 @@ public class OpenCVOperations {
 		return findQR(bufferedImageToMat(image));
 	}
 
-	public Vector3D findCircle(BufferedImage image, Vector3D dronePos){
-		POICircle circleCoordinates = findCircle(bufferedImageToMat(image), dronePos);
+	public Vector3D findCircle(BufferedImage image, BufferedImage image2, Vector3D dronePos){
+		ArrayList<POICircle> PotentialCircleCoordinates = findCircle(bufferedImageToMat(image), dronePos);
+		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
+		
+		ArrayList<POICircle> result = new ArrayList<>();
+		for(POICircle liCheck : PotentialCircleCoordinates){
+			for(POICircle niCheck : PotentialCircleCoordinates1){
+				if((liCheck.getRadius() == niCheck.getRadius()) && (liCheck.getCoordinates() == niCheck.getCoordinates())){
+					result.add(liCheck);
+				}
+			}
+		}
 		
 		Vector3D centerPoint = new Vector3D(400, 300, 0);
 		Vector3D distanceToPoint = new Vector3D(0,0,0);
-		if(circleCoordinates.getxPos() > 400){
-			distanceToPoint.setXCoord(circleCoordinates.getxPos() - centerPoint.getXCoord());
+		if(result.get(0).getxPos() > 400){
+			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
 		}else{
-			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - circleCoordinates.getxPos()));
+			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - result.get(0).getxPos()));
 		}
-		if(circleCoordinates.getzPos() > 300){
-			distanceToPoint.setZCoord(circleCoordinates.getyPos() - centerPoint.getYCoord());
+		if(result.get(0).getzPos() > 300){
+			distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
 		}else{
-			distanceToPoint.setZCoord(-(centerPoint.getYCoord() - circleCoordinates.getyPos()));
+			distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
 		}
 		
 		return distanceToPoint;
@@ -139,7 +149,7 @@ public class OpenCVOperations {
 //
 //	}
 
-	private POICircle findCircle(Mat image, Vector3D dronePos){
+	private ArrayList<POICircle> findCircle(Mat image, Vector3D dronePos){
 		Mat image_gray = new Mat();
 		Mat circles = new Mat();
 		
@@ -147,16 +157,17 @@ public class OpenCVOperations {
 		Imgproc.GaussianBlur(image_gray, image_gray, new Size(9, 9), 2, 2);
 		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 200, 100, 0, 0);
 
+		ArrayList<POICircle> results = new ArrayList<>();
 		for (int i = 0; i < circles.cols(); i++) {
 
 			double circle[] = circles.get(0, i);
 			int radius = (int) Math.round(circle[2]);
 			
 			if(radius < 1 && radius > 0.5)
-				return new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius);
+				results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius));
 			
 		}
-		return null;
+		return results;
 		
 	}
 	
