@@ -457,13 +457,15 @@ public class QRfinder {
 //				else if (polen == ves)
 //					Core.putText(traces, "den er VENSTER", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
 //							new Scalar(255, 100, 0));
-
-				debuImg = new BufferedImage(newImage.width(), newImage.height(),
-						BufferedImage.TYPE_BYTE_GRAY);
-
-				byte[] data1 = ((DataBufferByte) debuImg.getRaster().getDataBuffer()).getData();
-
-				newImage.get(0, 0, data1);
+				matToImg switcher = new matToImg();
+				debuImg = switcher.matToBufferedImage(newImage);
+				
+//				= new BufferedImage(newImage.width(), newImage.height(),
+//						BufferedImage.TYPE_BYTE_GRAY);
+//
+//				byte[] data1 = ((DataBufferByte) debuImg.getRaster().getDataBuffer()).getData();
+//
+//				newImage.get(0, 0, data1);
 
 			}
 		}
@@ -860,9 +862,9 @@ public class QRfinder {
 	/*
 	 * 
 	 */
-//	public ArrayList<QRPoi> getQRFun() {
-//		return QRFun;
-//	}
+	public ArrayList<QRPoi> getQRFun() {
+		return QRFun;
+	}
 
 	
 	/*

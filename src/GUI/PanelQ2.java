@@ -125,7 +125,7 @@ public class PanelQ2 extends JPanel{
 				VideoCodec qual = VideoCodec.H264_720P;				
 			}
 			else if (e.getSource().equals(imageBtn)){
-				imgTjek = true;
+				imgTjek = !imgTjek;
 				imageBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				bottomBtn.setIcon(img2);
