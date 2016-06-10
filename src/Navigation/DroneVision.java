@@ -15,8 +15,9 @@ import Vector.Vector3D;
 public class DroneVision implements iDroneVision {
 	/******************global variables**************/
 	private Drone drone;
-	
+
 	ArrayList<POI> poi = new ArrayList<POI>();
+	ArrayList<POI> poiDrone = new ArrayList<POI>();
 	BufferedImage lastImage;
 	BufferedImage currImage;
 	
@@ -68,7 +69,7 @@ public class DroneVision implements iDroneVision {
 				i = 0;
 				circlePoints = 0;
 				while(circlePoints<1){
-					tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
+					tempPoI = CVOp.findQR(currImage); //check with PAWURHAUZ
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
 					while(i<poi.size()){
@@ -78,6 +79,8 @@ public class DroneVision implements iDroneVision {
 						i++;
 					}
 				}
+				break;
+			case Flying:
 				break;
 			default:
 				//should not be used
@@ -89,17 +92,20 @@ public class DroneVision implements iDroneVision {
 	
 	/***********Calibrate the drone in front of circle********/
 	@Override
-	public Movement scanCircle() {
+	public Movement scanCircle(Vector3D dronepos) {
 		Movement up = Movement.Up;
 		
 		return up;
 	}	
 
 	/***********Get drone position from wallmarks*************/
-	public Vector3D dronePosition(){
-		
-		ArrayList<POI> poi = scanQR(Movement.SpinLeft, Condition.Initial);
-		return VD.getDronePosTwoPoints(poi.get(0).getCoordinates(), 0/*dist to 1. qr*/, poi.get(1).getCoordinates(),0/*dist to 1. qr*/);
+	public Vector3D dronePosition(boolean firstTime){
+		if(firstTime){
+			poiDrone = scanQR(Movement.SpinLeft, Condition.Initial);
+		} else {
+			poiDrone = scanQR(Movement.Left, Condition.Flying);
+		}
+		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance());
 	}	
 	
 
