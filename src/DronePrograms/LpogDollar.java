@@ -7,6 +7,7 @@ import Main.DroneProgram;
 import Movements.DroneMovement;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
+import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.VideoCodec;
 
 
@@ -45,39 +46,25 @@ public class LpogDollar extends DroneProgram {
 //	public String getProgramName() {
 //		return "LP og DOLLAR holder!";
 //	}
-	public void run() {
-		try{
-			DroneMovement dM = new DroneMovement(drone);
-				
-	    	drone.start();
-			drone.takeOff();
-			Thread.sleep(5000);
-			System.out.println("start hover");
-			//initial hover
-			dM.hover();
-			Thread.sleep(500);
-			//forward 0.5
-			System.out.println("start forward");
-			dM.flyForward();
-			Thread.sleep(1500);
-			//hover bf new command .5
-			System.out.println("start hover");
-			dM.hover();
-			Thread.sleep(500);
-			System.out.println("start spin");
-			dM.rotateToAngle(180);
-			System.out.println("hover");
-			dM.hover();
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println("end");
-		
-		drone.landing();
-	}
+//	public void run() {
+//		try{
+//			DroneMovement dM = new DroneMovement(drone);
+//			CommandManager cmd = drone.getCommandManager();
+//			drone.setMaxAltitude(1);
+//			
+//			cmd.takeOff();
+//			cmd.schedule(5000, new Runnable() {
+//			    public void run()
+//			    {
+//			       cmd.hover().doFor(5000);
+//			    }			
+//			});
+//		
+//
+//		System.out.println("end");
+//		
+//		drone.landing();
+//	}
 @Override
 public void abort() {
 	// TODO Auto-generated method stub
@@ -86,7 +73,12 @@ public void abort() {
 @Override
 public String getProgramName() {
 	// TODO Auto-generated method stub
-	return null;
+	return "Favad Test";
+}
+@Override
+public void run() {
+	// TODO Auto-generated method stub
+	
 }
 
 }

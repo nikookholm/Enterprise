@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -15,23 +14,17 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu.Separator;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import Common.Drone;
 import Navigation.HoughCircles;
 import Navigation.QRPoi;
 import Navigation.QRfinder;
-import Vector.Vector3D;
-import de.yadrone.base.command.VideoCodec;
 
 public class PanelQ2 extends JPanel{
 
 	private CameraPanel cameraPanel;
 	private ImageIcon   img, img2;
 	private JButton     frontBtn, bottomBtn, imageBtn;
-
 	private GridBagLayout gbLayout;
 	private GridBagConstraints c;
 	private DroneGUI droneGui;
@@ -50,52 +43,47 @@ public class PanelQ2 extends JPanel{
 		GridBagConstraints c = new GridBagConstraints();
 		gbLayout = new GridBagLayout();
 		this.setLayout(gbLayout);
-
+		
 		// cameraPanel resizing
 		//		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 3;
 		add(cameraPanel,c);	
+		
+		JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
 
+		frontBtn  = new JButton("FRONT CAMERA");
+		bottomBtn = new JButton("BOTTOM CAMERA");
+		imageBtn = new JButton("image");
+		c.fill = GridBagConstraints.NORTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		this.add(Q2Buttons);
 
-				JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
+		Q2Buttons.add(frontBtn, BorderLayout.NORTH);
+		Q2Buttons.add(bottomBtn);
+		Q2Buttons.add(imageBtn, BorderLayout.SOUTH);
+		try {
+			img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
+			img2 = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/uncheck.png")));
+		} catch (IOException ex) {
 
-				frontBtn  = new JButton("FRONT CAMERA");
-				bottomBtn = new JButton("BOTTOM CAMERA");
-				imageBtn = new JButton("image");
-				c.fill = GridBagConstraints.NORTH;
-				c.weightx = 1;
-				c.weighty = 1;
-				this.add(Q2Buttons);
-				
-				Q2Buttons.add(frontBtn, BorderLayout.NORTH);
-				Q2Buttons.add(bottomBtn);
-				Q2Buttons.add(imageBtn, BorderLayout.SOUTH);
-				try {
-					img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
-					img2 = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/uncheck.png")));
-				} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 
-					ex.printStackTrace();
-				}
+		ToggelCamera tc = new ToggelCamera();
 
-				ToggelCamera tc = new ToggelCamera();
+		frontBtn.addActionListener(tc);
+		bottomBtn.addActionListener(tc);
+		imageBtn.addActionListener(tc);
 
-				frontBtn.addActionListener(tc);
-				bottomBtn.addActionListener(tc);
-				imageBtn.addActionListener(tc);
-
-				frontBtn.setIcon(img);
-				bottomBtn.setIcon(img2);
-				imageBtn.setIcon(img2);
-//				this.add(frontBtn);
-//				this.add(bottomBtn);
-//				this.add(imageBtn);
-
+		frontBtn.setIcon(img);
+		bottomBtn.setIcon(img2);
+		imageBtn.setIcon(img2);
 	}
 
-	public void updateCameraPanel(Image image)
+	public void updateCameraPanel(BufferedImage image)
 	{
 		cameraPanel.updateCameraPanel(image);
 	}
@@ -122,7 +110,6 @@ public class PanelQ2 extends JPanel{
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
-				VideoCodec qual = VideoCodec.H264_720P;				
 			}
 			else if (e.getSource().equals(imageBtn)){
 				imgTjek = !imgTjek;
@@ -134,26 +121,16 @@ public class PanelQ2 extends JPanel{
 		}
 	}
 
-
 	public class CameraPanel extends JPanel{
 		private BufferedImage image;
 
 		public CameraPanel() {	
-			initialize();
+			
 		}
-		private void initialize()
-		{
-//			frontBtn  = new JButton("FRONT CAMERA");
-//			bottomBtn = new JButton("BOTTOM CAMERA");
-//			imageBtn = new JButton("image");
-
-		}
-
 
 		@Override
 		public void paint(Graphics g)
 		{
-
 			super.paint(g);
 			if (image != null)
 			{
@@ -161,16 +138,13 @@ public class PanelQ2 extends JPanel{
 			}
 		}
 
-		public void updateCameraPanel(Image image)
+		public void updateCameraPanel(BufferedImage image)
 		{
-
 			DecimalFormat numberFormat = new DecimalFormat("0.00");
 			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 			this.image = (BufferedImage)image;
 			Mat imageMat = new Mat();
 			imageMat = new HoughCircles().bufferedImageToMat(this.image);
-
-			Vector3D test = new Vector3D();
 
 			try {
 				qrfind.findQR(imageMat);
@@ -183,20 +157,15 @@ public class PanelQ2 extends JPanel{
 
 					droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
 					droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"m");
-
+					
 					System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
 				}
 			}
 			if(imgTjek == true){
 				this.image = qrfind.getDebuImg();
 			}
-			
-			
-
 			cameraPanel.paint(getGraphics());
 			im.clear();
-
 		}
-
 	}
 }
