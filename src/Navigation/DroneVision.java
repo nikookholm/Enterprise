@@ -15,8 +15,9 @@ import Vector.Vector3D;
 public class DroneVision implements iDroneVision {
 	/******************global variables**************/
 	private Drone drone;
-	
+
 	ArrayList<POI> poi = new ArrayList<POI>();
+	ArrayList<POI> poiDrone = new ArrayList<POI>();
 	BufferedImage lastImage;
 	BufferedImage currImage;
 	
@@ -89,35 +90,22 @@ public class DroneVision implements iDroneVision {
 	
 	/***********Calibrate the drone in front of circle********/
 	@Override
-<<<<<<< HEAD
 	public Movement calibrateToCircle(Vector3D dronepos) {
-=======
-	public Movement scanCircle() {
->>>>>>> branch 'master' of https://github.com/nikookholm/Enterprise.git
 		Movement up = Movement.Up;
 		
 		return up;
 	}	
 
 	/***********Get drone position from wallmarks*************/
-<<<<<<< HEAD
 	public Vector3D dronePosition(boolean firstTime){
 		if(firstTime){
-			poiDrone = scanQR(Movement.Initial, Condition.Initial);
+			poiDrone = scanQR(null, Condition.Initial);
 		} else {
 			poiDrone = scanQR(Movement.Left, Condition.Flying);
 		}
 		
 		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord() + ", " + VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getYCoord());
 		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance());
-=======
-	public Vector3D dronePosition(){
-		
-		ArrayList<POI> poi = scanQR(Movement.SpinLeft, Condition.Initial);
-		
-		
-		return VD.getDronePosTwoPoints(poi.get(0).getCoordinates(), 0/*dist to 1. qr*/, poi.get(1).getCoordinates(),0/*dist to 1. qr*/);
->>>>>>> branch 'master' of https://github.com/nikookholm/Enterprise.git
 	}	
 	
 
