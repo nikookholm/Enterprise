@@ -47,32 +47,11 @@ public class LpogDollar extends DroneProgram {
 //	public String getProgramName() {
 //		return "LP og DOLLAR holder!";
 //	}
-<<<<<<< HEAD
+
 	public void run() {
 		DroneVision a = new DroneVision(drone);
 		a.dronePosition(true);
 	}
-=======
-//	public void run() {
-//		try{
-//			DroneMovement dM = new DroneMovement(drone);
-//			CommandManager cmd = drone.getCommandManager();
-//			drone.setMaxAltitude(1);
-//			
-//			cmd.takeOff();
-//			cmd.schedule(5000, new Runnable() {
-//			    public void run()
-//			    {
-//			       cmd.hover().doFor(5000);
-//			    }			
-//			});
-//		
-//
-//		System.out.println("end");
-//		
-//		drone.landing();
-//	}
->>>>>>> branch 'master' of https://github.com/nikookholm/Enterprise.git
 @Override
 public void abort() {
 	// TODO Auto-generated method stub
@@ -83,12 +62,6 @@ public String getProgramName() {
 	// TODO Auto-generated method stub
 	return "Favad Test";
 }
-@Override
-public void run() {
-	// TODO Auto-generated method stub
-	
-}
-
 }
 
 // kode LP har flyttet for at teste
