@@ -2,16 +2,20 @@ package Navigation.CircleSequence;
 
 import java.util.ArrayList;
 
-import POI.POICircle;
-
 public class CircleSequence {
-	ArrayList<POICircle> circleSequence;
+	ArrayList<String> circleSequence;
 	
 	public CircleSequence(int amountOfCircles){
-		circleSequence = new ArrayList<POICircle>;
+		circleSequence = new ArrayList<String>();
+		for(int i = 0; i < amountOfCircles; i++){
+			if(i<10){
+				circleSequence.add("P.0" + i);
+			}
+			circleSequence.add("P." + i);
+		}
 	}
 	
-	public ArrayList<POICircle> getCircleSequence(){
+	public ArrayList<String> getCircleSequence(){
 		return circleSequence;
 	}
 }

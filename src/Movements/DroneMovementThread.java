@@ -64,6 +64,7 @@ public class DroneMovementThread implements Runnable{
 					e.printStackTrace();
 				}
 			}
+			abort = false;
 			break;
 		case Right:
 			while(!abort){		
