@@ -106,6 +106,7 @@ public class DroneVision implements iDroneVision {
 			if(poi.get(i) instanceof POIWallPoint){
 				wallPoints.add(poi.get(i));
 				wallPointsFound++;
+				
 			}
 		}
 		if(wallPointsFound == 2){

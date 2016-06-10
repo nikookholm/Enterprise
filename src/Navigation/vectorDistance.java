@@ -8,6 +8,7 @@ import Vector.Vector3D;
 
 public class vectorDistance {
 
+
 	public void calcCoordinates(Vector3D object1, Vector3D object2, Vector3D object3) {
 		double dotAB = dot(object1, object2);
 		double dotBC = dot(object2, object3);
@@ -25,9 +26,9 @@ public class vectorDistance {
 	}
 
 	/**
-	 * Method returns Vector -1,-1,-1 if it was unable to find Drone position.
+	 * @deprecated Use {@link #getDronePosTwoPoints(Vector3D, double, Vector3D, double) getDronePosTwoPoints instead}
 	 */
-
+	@Deprecated
 	public Vector3D calcDronePos(Vector3D wallmark1, Vector3D wallmark2, Vector3D wallmark3,
 			double alpha, double beta) {
 		System.out.println("WM1: " + wallmark1.getXCoord() + "," + wallmark1.getYCoord() + " WM2: " + wallmark2.getXCoord() + "," + wallmark2.getYCoord() + " WM3: " + wallmark3.getXCoord() + "," + wallmark3.getYCoord() + " Alpha: " + alpha + " Beta: "+ beta);
@@ -44,7 +45,10 @@ public class vectorDistance {
 				return PossiblePoints.get(0);
 			}
 	}
-	
+	/**
+	 * @deprecated Only used with {@link #calcDronePos(Vector3D, Vector3D, Vector3D, double, double)}
+	 */
+	@Deprecated
 	ArrayList<Vector3D> calcCircleIntersects(Vector3D point1, Vector3D point2){
 		
 		ArrayList<Vector3D> possiblePoints = new ArrayList<>();
@@ -78,7 +82,11 @@ public class vectorDistance {
 		return possiblePoints;
 		
 	}
-	
+	/**
+	 * 
+	 * @deprecated Only used with {@link #calcDronePos(Vector3D, Vector3D, Vector3D, double, double)}
+	 */
+	@Deprecated
 	Vector3D calcCircleCoords(Vector3D wallmark1, Vector3D wallmark2, double alpha){
 		Vector3D circle = new Vector3D(0,0,0);
 
@@ -109,24 +117,34 @@ public class vectorDistance {
 	
 		
 		
-		circle.incXCoord(-t8 / t15 * t7 / 2.0 + wallmark1.getXCoord() / 2.0 + wallmark2.getXCoord() / 2.0);
-		circle.incYCoord(t12 / t15 * t7 / 2.0 + wallmark1.getYCoord() / 2.0 + wallmark2.getYCoord() / 2.0);
+		circle.setXCoord(-t8 / t15 * t7 / 2.0 + wallmark1.getXCoord() / 2.0 + wallmark2.getXCoord() / 2.0);
+		circle.setYCoord(t12 / t15 * t7 / 2.0 + wallmark1.getYCoord() / 2.0 + wallmark2.getYCoord() / 2.0);
 	
 		double r = 0.5*a/Math.sin(alpha);
-		circle.incZCoord(r);
+		circle.setZCoord(r);
 		
 		return circle;
 	}
 	
-
+	/**
+	 * Is used to calculate the dot value of two vectors
+	 * 
+	 * @param Vector 1
+	 * @param Vector 2
+	 * @return The dot value of the two vectors
+	 */
 	double dot(Vector3D object1, Vector3D object2) {
 		double sum;
-
 		sum = object1.getXCoord() * object2.getXCoord() + object1.getYCoord() * object2.getYCoord();
 
 		return sum;
 	}
 
+	/**
+	 * Is used to calculate the magnitude of a 2D vector
+	 * @param Vector
+	 * @return double magnitude
+	 */
 	double magnitude(Vector3D object) {
 		double sum;
 
@@ -135,6 +153,12 @@ public class vectorDistance {
 		return sum;
 	}
 
+	/**
+	 * Is used to calculate the magnitude of two 2D vectors
+	 * @param Vector 1
+	 * @param Vector 2
+	 * @return double magnitude
+	 */
 	double magnitude(Vector3D object1, Vector3D object2) {
 		double sum;
 
@@ -145,10 +169,19 @@ public class vectorDistance {
 		return sum;
 	}
 
+	/**
+	 *  Converts a value in radians to a value in degrees
+	 * @param value in radians
+	 * @return value in degrees
+	 */
 	double radToDegree(double value) {
 		return (value * ((double)180/Math.PI));
 	}
-	
+	/**
+	 *  Converts a value in degrees to a value in radians
+	 * @param value in degrees
+	 * @return value in radians
+	 */
 	double degreeToRad(double value){
 		return (value * (Math.PI/(double)180));
 	}
