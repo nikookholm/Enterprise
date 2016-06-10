@@ -5,6 +5,7 @@ import java.util.Date;
 import Common.Drone;
 import Main.DroneProgram;
 import Movements.DroneMovement;
+import Navigation.DroneVision;
 import de.yadrone.base.ARDrone;
 import de.yadrone.base.IARDrone;
 import de.yadrone.base.command.VideoCodec;
@@ -46,37 +47,8 @@ public class LpogDollar extends DroneProgram {
 //		return "LP og DOLLAR holder!";
 //	}
 	public void run() {
-		try{
-			DroneMovement dM = new DroneMovement(drone);
-				
-	    	drone.start();
-			drone.takeOff();
-			Thread.sleep(5000);
-			System.out.println("start hover");
-			//initial hover
-			dM.hover();
-			Thread.sleep(500);
-			//forward 0.5
-			System.out.println("start forward");
-			dM.flyForward();
-			Thread.sleep(1500);
-			//hover bf new command .5
-			System.out.println("start hover");
-			dM.hover();
-			Thread.sleep(500);
-			System.out.println("start spin");
-			dM.rotateToAngle(180);
-			System.out.println("hover");
-			dM.hover();
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println("end");
-		
-		drone.landing();
+		DroneVision a = new DroneVision(drone);
+		a.dronePosition(true);
 	}
 @Override
 public void abort() {

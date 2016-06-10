@@ -92,7 +92,7 @@ public class DroneVision implements iDroneVision {
 	
 	/***********Calibrate the drone in front of circle********/
 	@Override
-	public Movement scanCircle(Vector3D dronepos) {
+	public Movement calibrateToCircle(Vector3D dronepos) {
 		Movement up = Movement.Up;
 		
 		return up;
@@ -101,10 +101,12 @@ public class DroneVision implements iDroneVision {
 	/***********Get drone position from wallmarks*************/
 	public Vector3D dronePosition(boolean firstTime){
 		if(firstTime){
-			poiDrone = scanQR(Movement.SpinLeft, Condition.Initial);
+			poiDrone = scanQR(Movement.Initial, Condition.Initial);
 		} else {
 			poiDrone = scanQR(Movement.Left, Condition.Flying);
 		}
+		
+		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord() + ", " + VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getYCoord());
 		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance());
 	}	
 	

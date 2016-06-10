@@ -9,7 +9,7 @@ import de.yadrone.base.video.ImageListener;
 public interface iDroneVision {
 
 	public List<POI> scanQR(Movement movement, Condition condition);
-	public Movement scanCircle(Vector3D dronepos);
+	public Movement calibrateToCircle(Vector3D dronepos);
 	public Vector3D dronePosition(boolean firstTime);
 	public ImageListener getImageListener();
 	
