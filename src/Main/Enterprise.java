@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Common.Drone;
 import DronePrograms.AmalProgram;
+import DronePrograms.LpogDollar;
 //import DronePrograms.AmalProgram;
 //import DronePrograms.LpogDollar;
 import DronePrograms.NikosDroneProgram;
@@ -67,7 +68,7 @@ public class Enterprise {
 		programs = new ArrayList<>();
 		programs.add(new NikosDroneProgram());
 		programs.add(new TestProgram());
-		//programs.add(new LpogDollar());
+		programs.add(new LpogDollar());
 		programs.add(new RotationTestProgram());
 		programs.add(new AmalProgram());
 	}

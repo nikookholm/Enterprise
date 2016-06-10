@@ -37,31 +37,21 @@ public class LpogDollar extends DroneProgram {
 			System.exit(0);
 		}
 	}
-//	@Override
-//	public void abort() {
-//		drone.landing();
-//		
-//	}
-//
-//	@Override
-//	public String getProgramName() {
-//		return "LP og DOLLAR holder!";
-//	}
 
 	public void run() {
 		DroneVision a = new DroneVision(drone);
 		a.dronePosition(true);
 	}
-@Override
-public void abort() {
-	// TODO Auto-generated method stub
-	
-}
-@Override
-public String getProgramName() {
-	// TODO Auto-generated method stub
-	return "Favad Test";
-}
+	@Override
+	public void abort() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getProgramName() {
+		// TODO Auto-generated method stub
+		return "Drone position";
+	}
 }
 
 // kode LP har flyttet for at teste
