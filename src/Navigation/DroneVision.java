@@ -69,7 +69,7 @@ public class DroneVision implements iDroneVision {
 				i = 0;
 				circlePoints = 0;
 				while(circlePoints<1){
-					tempPoI = CVOp.findQR(currImage); //check with PAWURHAUZ
+					tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
 					tempPoI.removeAll(poi);
 					poi.addAll(tempPoI);
 					while(i<poi.size()){
@@ -99,7 +99,7 @@ public class DroneVision implements iDroneVision {
 	/***********Get drone position from wallmarks*************/
 	public Vector3D dronePosition(boolean firstTime){
 		if(firstTime){
-			poiDrone = scanQR(Movement.DownRight, Condition.Initial);
+			poiDrone = scanQR(null, Condition.Initial);
 		} else {
 			poiDrone = scanQR(Movement.Left, Condition.Flying);
 		}
@@ -125,6 +125,7 @@ public class DroneVision implements iDroneVision {
 					currImage = arg0;
 				}else{
 					currImage = arg0;
+					
 					
 				}
 			}

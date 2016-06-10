@@ -121,6 +121,11 @@ public class OpenCVOperations {
 		try {
 			findqr.findQR(image);
 			fundet = findqr.getFunderQR();
+			
+			for(int i = 0; i < fundet.size(); i++){
+				
+			}
+			
 			for(int i = 0; i < fundet.size(); i++) interestsFound.add(fundet.get(i));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
