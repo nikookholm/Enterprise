@@ -18,7 +18,7 @@ public class RotationTestProgram extends DroneProgram {
 
 	@Override
 	public void run() {
-		
+	/*	
 		drone.setMaxAltitude(1);
 		drone.takeOf();
 		
@@ -34,7 +34,7 @@ public class RotationTestProgram extends DroneProgram {
 		System.out.println("Vinkel til slut: " + drone.getAngle());
 		
 		drone.landing();
-		
+		*/
 	}
 
 	

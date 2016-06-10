@@ -26,7 +26,7 @@ public class Opgave1 extends DroneProgram {
 	}
 	@Override
 	public void run() {
-
+/*
 		// Opgave 1 Beskrivelse:
 		// 
 		// For at kunne vurdere prstationen, bliver der talt portpassager (points). En
@@ -68,7 +68,7 @@ public class Opgave1 extends DroneProgram {
 		
 															// All good!
 				
-		
+	*/	
 	}
 	
 	private boolean nextRingIsInList() {
