@@ -4,6 +4,9 @@ import de.yadrone.base.command.ATCommand;
 import de.yadrone.base.command.CalibrationCommand;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.Device;
+import de.yadrone.base.command.FlatTrimCommand;
+import de.yadrone.base.command.LandCommand;
+import de.yadrone.base.command.VideoCodec;
 import Common.Drone;
 import Main.DroneProgram;
 
@@ -24,10 +27,12 @@ public class TestProgram extends DroneProgram {
 		CommandManager cmd = d.getCommandManager();
 		cmd.flatTrim();
 		
-		
+		cmd.setCommand(new FlatTrimCommand());
+		cmd.setCommand(new LandCommand());
 		
 		cmd.setMaxAltitude(1);
 		cmd.takeOff();
+		cmd.setOutdoor(true, true);
 		try {
 			Thread.currentThread().sleep(5000);
 		} catch (InterruptedException e1) {

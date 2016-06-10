@@ -74,7 +74,7 @@ public class QRfinder {
 			MatOfInt4 heica = new MatOfInt4();
 
 			Imgproc.cvtColor(newImage, grey, Imgproc.COLOR_BGR2GRAY);
-			Imgproc.Canny(newImage, edges, 100, 200, 3, false);
+			Imgproc.Canny(grey, edges, 100, 200, 3, false);
 			Imgproc.findContours(edges, countersFundet, heica, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 			mark = 0;
 
@@ -430,7 +430,7 @@ public class QRfinder {
 
 							byte[] data1 = ((DataBufferByte) debuImg.getRaster().getDataBuffer()).getData();
 
-							newImage.get(0, 0, data1);
+							qr_thres.get(0, 0, data1);
 
 						}
 						ArrayList<POIWallPoint> QRFound = new ArrayList<>();
