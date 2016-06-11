@@ -98,7 +98,7 @@ public class QRfinder {
 			MatOfInt4 heica = new MatOfInt4();
 
 			Imgproc.cvtColor(newImage, grey, Imgproc.COLOR_BGR2GRAY);
-			Imgproc.Canny(grey, edges, 100, 200, 3, false);
+			Imgproc.Canny(grey, edges, 145, 150, 3, false);
 			Imgproc.findContours(edges, countersFundet, heica, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
 			mark = 0;
 
@@ -109,15 +109,17 @@ public class QRfinder {
 
 			ArrayList<Integer> boxEs = new ArrayList<Integer>();
 
+			
 			for (int i = 0; i < heica.rows(); i++) {
 				for (int j = 0; j < heica.cols(); j++) {
 					double[] fun = heica.get(0, j);
-					if (fun[0] != -1) {
-						count = 0;
-					}
+//					if (fun[0] != -1) {
+//						count = 0;
+//					}
 					if (fun[1] != -1) {
 						count = 0;
 					}
+
 					count++;
 					if (count == 5) {
 						count = 0;
@@ -292,9 +294,9 @@ public class QRfinder {
 					}
 
 					if (top1 < countersFundet.size() && mid1 < countersFundet.size() && bot1 < countersFundet.size()
-							&& Imgproc.contourArea(countersFundet.get(top1)) > 10
-							&& Imgproc.contourArea(countersFundet.get(mid1)) > 10
-							&& Imgproc.contourArea(countersFundet.get(bot1)) > 10) {
+							&& Imgproc.contourArea(countersFundet.get(top1)) > 5
+							&& Imgproc.contourArea(countersFundet.get(mid1)) > 5
+							&& Imgproc.contourArea(countersFundet.get(bot1)) > 5) {
 						MatOfPoint2f jim = new MatOfPoint2f(), dim = new MatOfPoint2f(), tim = new MatOfPoint2f(),
 								jimTemp = new MatOfPoint2f(), dimTemp = new MatOfPoint2f(),
 								timTemp = new MatOfPoint2f();
@@ -370,20 +372,31 @@ public class QRfinder {
 								QRFun.get(i).setQRimg(qrdet);
 								QRFun.get(i).setDistance(disToQR);
 							}
+							
+							
 							if (result == " ") {
-								for (int lysloop = 0; lysloop < 10; lysloop++) {
-									double alpha = 0.15 * lysloop;
-									double beta = 8 * lysloop;
-									qr_gray.convertTo(qr_gray, -1, alpha, beta);
-									qr_gray.get(0, 0, data);
-									result = decode(qrdet);
-									if (result != " ") {
-										QRFun.get(i).setCode(result);
-										QRFun.get(i).setQRimg(qrdet);
-										QRFun.get(i).setDistance(disToQR);
-										lysloop = 15;
-									}
-								}
+								
+								
+								
+								
+								
+//								for (int lysloop = 0; lysloop < 10; lysloop++) {
+//									double alpha = 0.15 * lysloop;
+//									double beta = 8 * lysloop;
+//									qr_gray.convertTo(qr_gray, -1, alpha, beta);
+//									data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
+//
+//									qr_thres.get(0, 0, data);
+//									String result1 = decode(qrdet);
+//									result = decode(qrdet);
+//									if (result != " ") {
+//										System.out.println(lysloop);
+//										QRFun.get(i).setCode(result1);
+//										QRFun.get(i).setQRimg(qrdet);
+//										QRFun.get(i).setDistance(disToQR);
+//										lysloop = 15;
+//									}
+//								}
 							}
 
 						}
@@ -408,7 +421,7 @@ public class QRfinder {
 //				else if (slo < -5)
 //					Core.circle(newImage, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
 
-					
+					System.out.println(boxEs.size());
 				for(int i = 0; i<boxEs.size(); i++){
 					Imgproc.drawContours(newImage, countersFundet, boxEs.get(i), new Scalar(100, 50, 255), 3, 8, heica, 0,
 							new Point(-1, -1));

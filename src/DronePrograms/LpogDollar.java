@@ -16,31 +16,10 @@ public class LpogDollar extends DroneProgram {
 	private static int sleeper = 3000;
 	private static Date date;
 	boolean qrfin = false;
-	static Drone drone = new Drone();
-	
-	public static void main(String[] args)
-	{
-		IARDrone iDrone = null;
-	    try
-	    {
-	    	LpogDollar a = new LpogDollar();
-	    	a.run();
-	    }
-	    catch (Exception exc)
-		{
-			exc.printStackTrace();
-		}
-		finally
-		{
-			if (iDrone != null)
-				iDrone.stop();
-			System.exit(0);
-		}
-	}
 
+	@Override
 	public void run() {
-		DroneVision a = new DroneVision(drone);
-		a.dronePosition(true);
+		getDrone().getNavigation().getVision().dronePosition(true);
 	}
 	@Override
 	public void abort() {

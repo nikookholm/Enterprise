@@ -26,12 +26,12 @@ public class DroneNavigation implements iDroneNavigation {
 	@Override
 	public DroneSensors getSensors() {
 		// TODO Auto-generated method stub
-		return null;
+		return sensors;
 	}
 
 	@Override
 	public DroneVision getVision() {
-		return null;
+		return vision;
 	}
 	
 
