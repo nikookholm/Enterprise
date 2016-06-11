@@ -20,6 +20,8 @@ public class LpogDollar extends DroneProgram {
 	@Override
 	public void run() {
 		getDrone().getNavigation().getVision().dronePosition(true);
+
+		
 	}
 	@Override
 	public void abort() {
