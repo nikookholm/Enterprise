@@ -16,9 +16,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
+
+import Common.Drone;
 import Navigation.HoughCircles;
 import Navigation.QRPoi;
 import Navigation.QRfinder;
+import de.yadrone.base.command.VideoCodec;
 
 public class PanelQ2 extends JPanel{
 
@@ -105,9 +108,9 @@ public class PanelQ2 extends JPanel{
 	public class ToggelCamera implements ActionListener{
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent eventListener) {
 
-			if(e.getSource().equals(frontBtn) && camTjek == true){
+			if(eventListener.getSource().equals(frontBtn) && camTjek == true){
 				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = false;
 				imgTjek = false;
@@ -115,10 +118,14 @@ public class PanelQ2 extends JPanel{
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
+				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(4000);
+				droneGui.getMain().getDrone().getCommandManager().setVideoCodec(VideoCodec.H264_720P);
+				droneGui.getMain().getDrone().getCommandManager().setVideoCodecFps(30);
+				
 				
 				changeMe = "cam";
 
-			} else if (e.getSource().equals(bottomBtn) && camTjek == false){
+			} else if (eventListener.getSource().equals(bottomBtn) && camTjek == false){
 				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = true;
 				imgTjek = false;
@@ -129,7 +136,7 @@ public class PanelQ2 extends JPanel{
 				
 				changeMe = "cam";
 			}
-			else if (e.getSource().equals(imageBtn)){
+			else if (eventListener.getSource().equals(imageBtn)){
 				imgTjek = !imgTjek;
 				imageBtn.setIcon(img);
 				frontBtn.setIcon(img2);
