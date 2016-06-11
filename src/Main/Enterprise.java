@@ -49,7 +49,7 @@ public class Enterprise {
 	
 	private void attachDroneHandlers()
 	{
-		drone.getVideoManager().addImageListener(gui.getImageListener());
+		drone.getVideoManager().addImageListener(gui.getCameraImageListener());
 		//drone.getNavDataManager().addBatteryListener (gui.getBatteryListener());
 		drone.getNavDataManager().addAltitudeListener(gui.getAltitudeListener());
 		drone.getNavDataManager().addAcceleroListener(gui.getAcceleroListener());
