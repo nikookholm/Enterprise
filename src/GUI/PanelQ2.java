@@ -90,7 +90,7 @@ public class PanelQ2 extends JPanel{
 	{
 		BufferedImage image;
 		
-		if (changeMe.equals("cam"))
+		if (!changeMe.equals("image"))
 		{
 			image = camImage;
 		}
@@ -164,7 +164,7 @@ public class PanelQ2 extends JPanel{
 			
 //			DecimalFormat numberFormat = new DecimalFormat("0.00");
 //			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//			this.image = (BufferedImage)image;
+			this.image = (BufferedImage)image;
 //			Mat imageMat = new Mat();
 //			imageMat = new HoughCircles().bufferedImageToMat(this.image);
 //

@@ -6,6 +6,7 @@ import de.yadrone.base.navdata.NavDataManager;
 import de.yadrone.base.navdata.VideoListener;
 import de.yadrone.base.navdata.VideoStreamData;
 import de.yadrone.base.video.xuggler.XugglerDecoder;
+import Main.IDroneProgram;
 import Movements.DroneMovement;
 import Movements.iDroneMovement;
 import Navigation.DroneNavigation;
