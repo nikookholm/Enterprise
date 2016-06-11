@@ -10,7 +10,8 @@ public interface iDroneGUI {
 	
 	public void initialize(Enterprise enterprise);
 	public AltitudeListener getAltitudeListener();
-	public ImageListener    getImageListener();
+	public ImageListener    getCameraImageListener();
+	public ImageListener    getCorrectedImageListener();
 	public BatteryListener  getBatteryListener();
 	public AcceleroListener getAcceleroListener();
 

@@ -28,10 +28,13 @@ public class PanelQ2 extends JPanel{
 	private GridBagLayout gbLayout;
 	private GridBagConstraints c;
 	private DroneGUI droneGui;
-	private List<QRPoi> im;
-	private QRfinder qrfind = new QRfinder();
+	//private List<QRPoi> im;
+	//private QRfinder qrfind = new QRfinder();
 	private boolean camTjek = false;
 	private boolean imgTjek = false;
+	private String changeMe = "cam"; 
+	private BufferedImage camImage;
+	private BufferedImage correctedImage;
 
 	public PanelQ2(DroneGUI owner){
 
@@ -83,8 +86,19 @@ public class PanelQ2 extends JPanel{
 		imageBtn.setIcon(img2);
 	}
 
-	public void updateCameraPanel(BufferedImage image)
+	public void updateCameraPanel()
 	{
+		BufferedImage image;
+		
+		if (changeMe.equals("cam"))
+		{
+			image = camImage;
+		}
+		else
+		{
+			image = correctedImage;
+		}
+		
 		cameraPanel.updateCameraPanel(image);
 	}
 
@@ -101,6 +115,8 @@ public class PanelQ2 extends JPanel{
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
+				
+				changeMe = "cam";
 
 			} else if (e.getSource().equals(bottomBtn) && camTjek == false){
 				droneGui.getMain().getDrone().toggleCamera();
@@ -110,12 +126,16 @@ public class PanelQ2 extends JPanel{
 				bottomBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
+				
+				changeMe = "cam";
 			}
 			else if (e.getSource().equals(imageBtn)){
 				imgTjek = !imgTjek;
 				imageBtn.setIcon(img);
 				frontBtn.setIcon(img2);
 				bottomBtn.setIcon(img2);
+				
+				changeMe = "image";
 			}
 
 		}
@@ -140,32 +160,43 @@ public class PanelQ2 extends JPanel{
 
 		public void updateCameraPanel(BufferedImage image)
 		{
-			DecimalFormat numberFormat = new DecimalFormat("0.00");
-			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-			this.image = (BufferedImage)image;
-			Mat imageMat = new Mat();
-			imageMat = new HoughCircles().bufferedImageToMat(this.image);
-
-			try {
-				qrfind.findQR(imageMat);
-			} catch (Exception e) {				
-			}
-
-			im = qrfind.getQRFun();
-			for(int i= 0; i< im.size(); i++){
-				if(im.get(i).getCode() != null){
-
-					droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
-					droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"m");
-					
-					System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
-				}
-			}
-			if(imgTjek == true){
-				this.image = qrfind.getDebuImg();
-			}
 			cameraPanel.paint(getGraphics());
-			im.clear();
+			
+//			DecimalFormat numberFormat = new DecimalFormat("0.00");
+//			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//			this.image = (BufferedImage)image;
+//			Mat imageMat = new Mat();
+//			imageMat = new HoughCircles().bufferedImageToMat(this.image);
+//
+//			try {
+//				qrfind.findQR(imageMat);
+//			} catch (Exception e) {				
+//			}
+//
+//			im = qrfind.getQRFun();
+//			for(int i= 0; i< im.size(); i++){
+//				if(im.get(i).getCode() != null){
+//
+//					droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
+//					droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"m");
+//					
+//					System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
+//				}
+//			}
+//			if(imgTjek == true){
+//				this.image = qrfind.getDebuImg();
+//			}
+//			im.clear();
 		}
+	}
+
+	public void setCameraImage(BufferedImage buffImg) {
+		camImage = buffImg;
+		
+	}
+
+	public void setCorrected(BufferedImage buffImg) {
+		correctedImage = buffImg;
+		
 	}
 }

@@ -97,13 +97,27 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		return main;
 	}
 
-	public ImageListener getImageListener() {
+	public ImageListener getCameraImageListener() {
 		return new ImageListener() {
 			
 			@Override
 			public void imageUpdated(BufferedImage buffImg) {
-				q2.updateCameraPanel(buffImg);
+				q2.setCameraImage(buffImg);
+				q2.updateCameraPanel();
 			}
+			
+		};
+	}
+	
+	public ImageListener getCorrectedImageListener() {
+		return new ImageListener() {
+			
+			@Override
+			public void imageUpdated(BufferedImage buffImg) {
+				q2.setCorrected(buffImg);
+				q2.updateCameraPanel();
+			}
+			
 		};
 	}
 	
