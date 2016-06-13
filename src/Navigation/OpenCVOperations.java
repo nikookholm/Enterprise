@@ -189,20 +189,7 @@ public class OpenCVOperations {
 			
 		}
 		
-		Point center;
-		int radius;
-		for (int i = 0; i < circlesFound.size(); i++){
-			double foundCircles[] = circlesFound.get(i);
-			
-			if(!(foundCircles == null)){
-				center = new Point(Math.round(foundCircles[0]), Math.round(foundCircles[1]));
-				radius = (int) Math.round(foundCircles[2]);
-				Core.circle(img, center, radius, new Scalar(255,0,0));
-				Core.circle(img, center, 3, new Scalar(0,255,0));
-			}
-		}
-		
-		
+				
 		return results;
 		
 	}
