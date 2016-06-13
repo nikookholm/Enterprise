@@ -363,13 +363,13 @@ public class QRfinder {
 							warp = Imgproc.getPerspectiveTransform(srcT, finT);
 
 							Imgproc.warpPerspective(newImage, qr_raw, warp, new Size(qr.cols(), qr.rows()));
-							Imgproc.copyMakeBorder(qr_raw, qr, 10, 10, 10, 10, Imgproc.BORDER_CONSTANT,
-									new Scalar(255, 255, 255));
+//							Imgproc.copyMakeBorder(qr_raw, qr, 10, 10, 10, 10, Imgproc.BORDER_CONSTANT,
+//									new Scalar(255, 255, 255));
 
-							Imgproc.cvtColor(qr, qr_gray, Imgproc.COLOR_RGB2GRAY);
-							Imgproc.threshold(qr_gray, qr_thres, 127, 255, Imgproc.THRESH_BINARY);
+							Imgproc.cvtColor(qr_raw, qr_gray, Imgproc.COLOR_RGB2GRAY);
+							Imgproc.threshold(qr_gray, qr_thres, 25, 255, Imgproc.THRESH_BINARY);
 
-							qrdet = new BufferedImage(qr_gray.width(), qr_gray.height(), BufferedImage.TYPE_BYTE_GRAY);
+							qrdet = new BufferedImage(qr_thres.width(), qr_thres.height(), BufferedImage.TYPE_BYTE_GRAY);
 
 							byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
@@ -382,7 +382,7 @@ public class QRfinder {
 								QRFun.get(POIcounter).setQRimg(qrdet);
 								QRFun.get(POIcounter).setDistance(disToQR);
 								POIcounter++;
-								System.out.println(result );
+								System.out.println(result);
 							}
 							
 							
@@ -393,7 +393,7 @@ public class QRfinder {
 						
 
 						
-					}
+					
 
 				if(boxEs.size() != 0){
 
@@ -410,10 +410,9 @@ public class QRfinder {
 //				else if (slo < -5)
 //					Core.circle(newImage, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
 
-				for(int i = 0; i<boxEs.size(); i++){
-					Imgproc.drawContours(newImage, countersFundet, boxEs.get(i), new Scalar(100, 50, 255), 3, 8, heica, 0,
+					Imgproc.drawContours(newImage, countersFundet, boxEs.get(abs), new Scalar(100, 50, 255), 3, 8, heica, 0,
 							new Point(-1, -1));
-				}
+				
 					
 					
 //				Imgproc.drawContours(newImage, countersFundet, top1, new Scalar(100, 50, 255), 3, 8, heica, 0,
@@ -468,7 +467,7 @@ public class QRfinder {
 //
 //				newImage.get(0, 0, data1);
 
-			}
+			}}
 		} 
 		
 		else {
