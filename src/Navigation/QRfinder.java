@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -198,12 +199,15 @@ public class QRfinder {
 					String result = decode(qrdet);
 
 					if (result != " ") {
+						disToQR = (4.45*400*720)/(3.17*distance(cornerList.get(abs)[0], cornerList.get(abs)[3]));
 						QRFun.add(new QRPoi(0, 0, 0));
 						QRFun.get(POIcounter).setCode(result);
 						QRFun.get(POIcounter).setQRimg(qrdet);
 						QRFun.get(POIcounter).setDistance(disToQR);
 						POIcounter++;
 						System.out.println(result);
+						System.out.println(disToQR);
+
 					}
 
 				}
@@ -223,7 +227,7 @@ public class QRfinder {
 
 				}}
 				matToImg switcher = new matToImg();
-				debuImg = switcher.matToBufferedImage(qr_gray);
+				debuImg = switcher.matToBufferedImage(newImage);
 				imgListener.imageUpdated(debuImg);
 
 			
