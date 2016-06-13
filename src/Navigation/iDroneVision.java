@@ -17,5 +17,7 @@ public interface iDroneVision {
 							StopAndSpin, None};
 	
 	public enum Condition { Initial, Flying, CircleQR }
+	
+	
 
 }

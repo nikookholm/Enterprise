@@ -25,6 +25,7 @@ public class DroneVision implements iDroneVision {
 	ArrayList<POI> poiDrone = new ArrayList<POI>();
 	BufferedImage lastImage;
 	BufferedImage currImage;
+	public enum SearchFor { QR, Circle, Both };
 	
 
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
@@ -116,6 +117,29 @@ public class DroneVision implements iDroneVision {
 	}	
 	
 
+	
+	public void ShowOnImg(SearchFor item, BufferedImage bi){
+		
+		Mat procImage;
+		
+		switch(item)
+		{
+		case QR:
+		//	procImage = findQR(bi);
+			break;
+			
+		case Circle:
+		//	procImage = CVOp.drawCircles();
+			break;
+		
+		case Both:
+//			procImage = findQR(bi);
+//			procImage = CVOp.drawCircles();
+			break;
+		}
+		
+	}
+	
 	/************************************************/
 	/******************listeners*********************/
 	/************************************************/
