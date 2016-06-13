@@ -146,7 +146,26 @@ public class QRfinder {
 				cornerList.add(tempPoints.toArray());
 
 			}
+			List<Point[]> cornerListFinal = new ArrayList<>();
 
+			double tempAreal = 0;
+			double maksareal = 0;
+			for(int i = 0; i<cornerList.size();i++){
+				tempAreal = distance(cornerList.get(i)[0],cornerList.get(i)[1])*distance(cornerList.get(i)[0],cornerList.get(i)[3]);
+				
+				if(maksareal == 0){
+					maksareal = tempAreal;
+				}
+				
+				
+				else if(tempAreal > maksareal*2 || tempAreal > maksareal*0.8){
+					cornerListFinal.add(cornerList.get(i));
+				}
+				
+				
+			}
+			
+			
 			MatOfPoint2f fin1 = new MatOfPoint2f();
 			//
 			Mat warp = new Mat();
@@ -175,7 +194,7 @@ public class QRfinder {
 
 					byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
-					qr_thres.get(0, 0, data);
+					qr_gray.get(0, 0, data);
 					String result = decode(qrdet);
 
 					if (result != " ") {
@@ -202,12 +221,12 @@ public class QRfinder {
 					Imgproc.drawContours(newImage, countersFundet, boxEs.get(abs), new Scalar(100, 50, 255), 3, 8,
 							heica, 0, new Point(-1, -1));
 
-				}
+				}}
 				matToImg switcher = new matToImg();
-				debuImg = switcher.matToBufferedImage(newImage);
+				debuImg = switcher.matToBufferedImage(qr_gray);
 				imgListener.imageUpdated(debuImg);
 
-			}
+			
 		}
 
 		else {
