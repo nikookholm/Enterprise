@@ -173,7 +173,7 @@ public class DroneVision implements iDroneVision {
 		imageMat = new HoughCircles().bufferedImageToMat(image);
 
 		try {
-			qrfind.findQR(imageMat);
+			qrfind.findQR(imageMat, drone.getMain().getGUI().getCameraImageListener());
 		} catch (Exception e) {				
 		}
 

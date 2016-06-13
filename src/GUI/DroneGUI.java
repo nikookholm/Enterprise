@@ -17,6 +17,8 @@ import de.yadrone.base.video.ImageListener;
 
 public class DroneGUI extends JFrame implements iDroneGUI {
 	
+	
+
 	private Enterprise main;
 	
 	private PanelQ1 q1;
@@ -32,7 +34,6 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		
 		main = enterprise;
 		
-		GridBagLayout	   gbLayout = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		this.setTitle("Enterprise Drone");
@@ -40,7 +41,7 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		setPreferredSize(new Dimension(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT));
 		setMinimumSize(getPreferredSize());
 		setSize(MIN_SCREEN_WIDTH, MIN_SCREEN_HEIGHT);
-		setLayout(gbLayout);
+		setLayout(new GridBagLayout());
 		
 		q1 = new PanelQ1(this);
 		q2 = new PanelQ2(this);
@@ -52,39 +53,19 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		gbc.weighty = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		
-		q2.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
-	    q2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(q2, gbc);
-		
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
+
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		
-		q1.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
-	    q1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(q1, gbc);
 		
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		
-		q3.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
-	    q3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(q3, gbc);
-	
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 1;
-		gbc.weighty = 1;
+		add(q4, gbc);
+
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		q4.setPreferredSize(new Dimension(MIN_SCREEN_WIDTH/2, MIN_SCREEN_HEIGHT/2));
-		q4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(q4, gbc);
+		add(q3, gbc);
 
 		// attach Log.java class to PanalQ3.java class
 		log = new Log(q3.getTextArea());
@@ -109,6 +90,11 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		};
 	}
 	
+	public void updateCorrectedImage(BufferedImage img)
+	{
+		q2.setCorrected(img);
+	}
+	
 	public ImageListener getCorrectedImageListener() {
 		return new ImageListener() {
 			
@@ -126,11 +112,6 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		return log;
 	}
 	
-//	public BufferedImage getCode()
-//	{
-//		return null;
-//	}
-//	
 	public BatteryListener getBatteryListener()
 	{
 		return q1.new Q1BatteryListener();
@@ -145,5 +126,6 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 	{
 		return q1.new Q1AcceleroListener();
 	}
-	
+
+
 }

@@ -35,6 +35,7 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
+import de.yadrone.base.video.ImageListener;
 import POI.POI;
 import POI.POICircle;
 import POI.POIWallPoint;
@@ -69,7 +70,7 @@ public class QRfinder {
 	 * '''''''''''''''''''
 	 */
 
-	public void findQR(Mat newImage) throws Exception {
+	public void findQR(Mat newImage, ImageListener imgListener) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -459,6 +460,7 @@ public class QRfinder {
 //							new Scalar(255, 100, 0));
 				matToImg switcher = new matToImg();
 				debuImg = switcher.matToBufferedImage(newImage);
+				imgListener.imageUpdated(debuImg);
 				
 //				= new BufferedImage(newImage.width(), newImage.height(),
 //						BufferedImage.TYPE_BYTE_GRAY);
