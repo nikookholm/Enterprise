@@ -13,7 +13,7 @@ private JTextArea target;
 	public void add(String text)
 	{
 		String oldText = target.getText();
-		target.setText(oldText + "\n" + text);
+		target.setText(text + "\n" + oldText);
 	}
 	
 }
