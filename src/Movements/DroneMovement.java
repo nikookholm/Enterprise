@@ -39,26 +39,16 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	public void hoverTo(int height) {
 		drone.getCommandManager().setMaxAltitude(height);
-		drone.getCommandManager().up(30);
+		drone.getCommandManager().up(15);
 	}
 
 
 
 
-	public void start() {
-
-//		drone.getCommandManager().setCommand(new FlatTrimCommand()).doFor(100);
-		
-//		drone.getCommandManager().setCommand(new TakeOffCommand()).doFor(3000);
-
-//		drone.getCommandManager().setCommand(new HoverCommand()).doFor(1000);
-		
+	public void start() {		
 		drone.getCommandManager().flatTrim().doFor(100);
 		drone.getCommandManager().takeOff().doFor(2000);
 		drone.getCommandManager().hover().doFor(5000);
-		
-		
-	
 	}
 	
 	
@@ -69,12 +59,44 @@ public class DroneMovement implements iDroneMovement {
 	public void flyForwardConstant(int cm, int hoverTime){
 
 		drone.getCommandManager().forward(10).doFor(5*cm);
+		updatePositionForward(cm);
+		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+		
+	}
+
+	// Flyv tilbage i bestemme distance (cm) 
+	public void flyBackwardConstant(int cm, int hoverTime){
+
+		drone.getCommandManager().forward(10).doFor(5*cm);
+		updatePositionBackward(cm);
 		drone.getCommandManager().hover().doFor(1000 * hoverTime);
 		
 //		drone.getCommandManager().freeze().doFor(3000);
 
 	}
+	
+	// Flyv frem i bestemme distance (cm) 
+	public void flyLeftConstant(int cm, int hoverTime){
 
+		drone.getCommandManager().forward(10).doFor(5*cm);
+		updatePositionLeft(cm);
+		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+		
+//		drone.getCommandManager().freeze().doFor(3000);
+
+	}
+	
+	// Flyv frem i bestemme distance (cm) 
+	public void flyRightConstant(int cm, int hoverTime){
+
+		drone.getCommandManager().forward(10).doFor(5*cm);
+		updatePositionRight(cm);
+		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+		
+//		drone.getCommandManager().freeze().doFor(3000);
+
+	}
+	
 	/**
 	 * 
 	 */
@@ -123,80 +145,26 @@ public class DroneMovement implements iDroneMovement {
 
 	}
 
-	//skal ikke eksistere
-	@Override
-	public void flyToRing(POI currRing){
-		//mangler current coordinates
-		//mangler fly to coordinates
-	}
-
 	///////////////////////////
 	//Standard Flight Methods//
-	public void flyForward(double schedule){
-		int sch = (int) schedule;
-
-		drone.getCommandManager().schedule(sch, new Runnable(){
-			@Override
-			public void run() {
-				drone.forward();
-			}
-		});
+	public void flyForward(){
 	}
 	@Override
-	public void flyBackward(double schedule){
-		int sch = (int) schedule;
-
-		drone.getCommandManager().schedule(sch, new Runnable(){
-			@Override
-			public void run() {
-				drone.backward();
-			}
-		});
-	}
-	@Override
-	public void flyLeft(double schedule){
-		int sch = (int) schedule;
-
-		drone.getCommandManager().schedule(sch, new Runnable(){
-			@Override
-			public void run() {
-				drone.goLeft();
-			}
-		});
+	public void flyBackward(){
 
 	}
 	@Override
-	public void flyRight(double schedule){
-		int sch = (int) schedule;
+	public void flyLeft(){
 
-		drone.getCommandManager().schedule(sch, new Runnable(){
-			@Override
-			public void run() {
-				drone.goRight();
-			}
-		});
 	}
 	@Override
-	public void spinLeft(double schedule){
-		int sch = (int) schedule;
-
-		drone.getCommandManager().schedule(sch, new Runnable(){
-			@Override
-			public void run() {
-				drone.spinLeft();
-			}
-		});
+	public void flyRight(){
 	}
 	@Override
-	public void spinRight(double schedule){
-		int sch = (int) schedule;
-
-		drone.getCommandManager().schedule(sch, new Runnable(){
-			@Override
-			public void run() {
-				drone.spinRight();
-			}
-		});
+	public void spinLeft(){
+	}
+	@Override
+	public void spinRight(){
 	}
 	@Override
 	public void hover(){
@@ -253,11 +221,11 @@ public class DroneMovement implements iDroneMovement {
 			coordinates.setXCoord(0);
 			coordinates.setYCoord(distance);
 		} else if(angle == 90){
-			coordinates.setXCoord(distance);
+			coordinates.setXCoord(-(distance));
 			coordinates.setYCoord(0);
 		} else if(angle == 180){
 			coordinates.setXCoord(0);
-			coordinates.setYCoord(distance);
+			coordinates.setYCoord(-(distance));
 		} else if(angle == 270){
 			coordinates.setXCoord(distance);
 			coordinates.setYCoord(0);
