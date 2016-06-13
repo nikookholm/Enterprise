@@ -203,7 +203,6 @@ public class QRfinder {
 							heica, 0, new Point(-1, -1));
 
 				}
-				Mat completeImage = drawCircles(newImage);
 				matToImg switcher = new matToImg();
 				debuImg = switcher.matToBufferedImage(newImage);
 				imgListener.imageUpdated(debuImg);
@@ -224,29 +223,6 @@ public class QRfinder {
 		return funderQR;
 	}
 	
-	/*
-	 * Draw circles
-	 */
-	
-	private Mat drawCircles(Mat img){
-		
-		ArrayList<double[]> circlesFound = CV.getCircles();
-		Point center;
-		int radius;
-		for (int i = 0; i < circlesFound.size(); i++){
-			double foundCircles[] = circlesFound.get(i);
-			
-			if(!(foundCircles == null)){
-				center = new Point(Math.round(foundCircles[0]), Math.round(foundCircles[1]));
-				radius = (int) Math.round(foundCircles[2]);
-				Core.circle(img, center, radius, new Scalar(255,0,0));
-				Core.circle(img, center, 3, new Scalar(0,255,0));
-			}
-		}
-		
-		return img;
-		
-	}
 
 	/*
 	 * 
