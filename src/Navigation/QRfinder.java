@@ -368,7 +368,7 @@ public class QRfinder {
 //									new Scalar(255, 255, 255));
 
 							Imgproc.cvtColor(qr_raw, qr_gray, Imgproc.COLOR_RGB2GRAY);
-							Imgproc.threshold(qr_gray, qr_thres, 25, 255, Imgproc.THRESH_BINARY);
+							Imgproc.threshold(qr_gray, qr_thres, 127, 255, Imgproc.THRESH_BINARY);
 
 							qrdet = new BufferedImage(qr_thres.width(), qr_thres.height(), BufferedImage.TYPE_BYTE_GRAY);
 
@@ -398,7 +398,6 @@ public class QRfinder {
 
 				if(boxEs.size() != 0){
 
-			System.out.println(boxEs.size());
 				}
 			sortsQR();
 			
@@ -458,7 +457,7 @@ public class QRfinder {
 //				else if (polen == ves)
 //					Core.putText(traces, "den er VENSTER", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
 //							new Scalar(255, 100, 0));
-					System.out.println("Billede opdatere <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+			}
 				matToImg switcher = new matToImg();
 				debuImg = switcher.matToBufferedImage(newImage);
 				imgListener.imageUpdated(debuImg);
@@ -470,7 +469,7 @@ public class QRfinder {
 //
 //				newImage.get(0, 0, data1);
 
-			}}
+			}
 		} 
 		
 		else {
