@@ -97,4 +97,9 @@ public class Drone extends ARDrone {
 		return movement;
 	}
 	
+	public Enterprise getMain()
+	{
+		return main;
+	}
+	
 }
