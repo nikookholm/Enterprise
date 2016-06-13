@@ -140,214 +140,224 @@ public class QRfinder {
 
 			}
 
-			List<MatOfPoint2f> conn = new ArrayList<MatOfPoint2f>(boxEs.size());
+			List<Point[]> cornerList = new ArrayList<>();
+			MatOfPoint2f tempPoints = new MatOfPoint2f();
 
 			for (int i = 0; i < boxEs.size(); i++) {
-
-				MatOfPoint2f tempp = new MatOfPoint2f();
-
-				tempp = corn(countersFundet, boxEs.get(i), 1, tempp);
-
-				conn.add(tempp);
-			}
-
-			List<Point[]> punktCorn = new ArrayList<Point[]>(boxEs.size());
-			List<Integer> removeP = new ArrayList<Integer>(3);
-
-			for (int i = 0; i < boxEs.size(); i++) {
-
-				punktCorn.add(conn.get(i).toArray());
-			}
-
-			List<String> DecodeQR = new ArrayList<String>();
-
-			int check = 0;
-
-			List<Integer> taken = new ArrayList<>(3);
-			int tjek;
-
-			if (boxEs.size() > 2) {
-
-				for (tjek = 0; tjek < boxEs.size(); tjek++) {
-					if (boxEs.size() > 2) {
-						Point p1 = new Point();
-						Point p2 = new Point();
-						Point pn1 = new Point();
-						Point[] pjA;
-						Point[] pjB;
-						if (tjek + 1 < punktCorn.size()) {
-
-							pjA = punktCorn.get(tjek);
-							p1 = pjA[0];
-							p2 = pjA[1];
-							double dist1 = distance(p1, p2);
-							double maksV = (dist1 * 3) + (dist1 / 2);
-							double minV = (dist1 * 2) - (dist1 / 2);
-
-							for (int j = tjek + 1; j < boxEs.size(); j++) {
-
-								pjB = punktCorn.get(j);
-								pn1 = pjB[0];
-								double dist2p = distance(p1, pn1);
-								if (dist2p < maksV && dist2p > minV) {
-									if (check == 0) {
-										int deal = boxEs.get(tjek);
-										taken.add(deal);
-
-										removeP.add(tjek);
-										check++;
-									}
-									int real = boxEs.get(j);
-									taken.add(real);
-									removeP.add(j);
-									if (taken.size() == 3) {
-
-										QRFun.add(new QRPoi(taken.get(0), taken.get(1), taken.get(2)));
-										taken.clear();
-										;
-
-										int j1 = removeP.get(0);
-										int j2 = removeP.get(1);
-										int j3 = removeP.get(2);
-
-										boxEs.remove(j3);
-										boxEs.remove(j2);
-										boxEs.remove(j1);
-										punktCorn.remove(j3);
-										punktCorn.remove(j2);
-										punktCorn.remove(j1);
-
-										removeP.clear();
-										check = 0;
-										tjek = -1;
-
-										j = j + 10000;
-
-									}
-								}
-							}
-
-						}
-					}
-				}
+				tempPoints = corn(countersFundet, boxEs.get(i), 1, tempPoints);
+				cornerList.add(tempPoints.toArray());
 
 			}
-
-			for (int i = 0; i < QRFun.size(); i++) {
-				int top = 0, mid = 0, bot = 0;
-
-				if (mark >= 3) {
-					lin1 = distance(poinF[QRFun.get(i).getTop()], poinF[QRFun.get(i).getMid()]);
-					lin2 = distance(poinF[QRFun.get(i).getTop()], poinF[QRFun.get(i).getBot()]);
-					lin3 = distance(poinF[QRFun.get(i).getMid()], poinF[QRFun.get(i).getBot()]);
-
-					if (lin1 > lin2 && lin1 > lin3) {
-						top = QRFun.get(i).getBot();
-						mid = QRFun.get(i).getTop();
-						bot = QRFun.get(i).getMid();
-
-					}
-					if (lin2 > lin1 && lin2 > lin3) {
-						top = QRFun.get(i).getMid();
-						mid = QRFun.get(i).getTop();
-						bot = QRFun.get(i).getBot();
-					}
-					if (lin3 > lin2 && lin3 > lin1) {
-						top = QRFun.get(i).getTop();
-						mid = QRFun.get(i).getMid();
-						bot = QRFun.get(i).getBot();
-
-					}
-					int top1 = top;
-					int mid1 = 0;
-					int bot1 = 0;
-
-					double slo = slope(poinF[mid], poinF[bot]);
-
-					double dist = lineCalc(poinF[mid], poinF[bot], poinF[top]);
-
-					if (slo == 0) {
-						mid1 = mid;
-						bot1 = bot;
-
-					}
-
-					else if (slo < 0 && dist < 0) {
-						mid1 = mid;
-						bot1 = bot;
-						polen = nord;
-
-					}
-
-					else if (slo > 0 && dist < 0) {
-						mid1 = bot;
-						bot1 = mid;
-						polen = eas;
-					} else if (slo < 0 && dist > 0) {
-						mid1 = bot;
-						bot1 = mid;
-						polen = syd;
-					} else if (slo > 0 && dist > 0) {
-						mid1 = mid;
-						bot1 = bot;
-						polen = ves;
-					}
-
-					if (top1 < countersFundet.size() && mid1 < countersFundet.size() && bot1 < countersFundet.size()
-							&& Imgproc.contourArea(countersFundet.get(top1)) > 5
-							&& Imgproc.contourArea(countersFundet.get(mid1)) > 5
-							&& Imgproc.contourArea(countersFundet.get(bot1)) > 5) {
-						MatOfPoint2f jim = new MatOfPoint2f(), dim = new MatOfPoint2f(), tim = new MatOfPoint2f(),
-								jimTemp = new MatOfPoint2f(), dimTemp = new MatOfPoint2f(),
-								timTemp = new MatOfPoint2f();
-
-						MatOfPoint2f src1 = new MatOfPoint2f();
+//			
+//			
+//			List<MatOfPoint2f> conn = new ArrayList<MatOfPoint2f>(boxEs.size());
+//
+//			for (int i = 0; i < boxEs.size(); i++) {
+//
+//				MatOfPoint2f tempp = new MatOfPoint2f();
+//
+//				tempp = corn(countersFundet, boxEs.get(i), 1, tempp);
+//
+//				conn.add(tempp);
+//			}
+//
+//			List<Point[]> punktCorn = new ArrayList<Point[]>(boxEs.size());
+//			List<Integer> removeP = new ArrayList<Integer>(3);
+//
+//			for (int i = 0; i < boxEs.size(); i++) {
+//
+//				punktCorn.add(conn.get(i).toArray());
+//			}
+//
+//			List<String> DecodeQR = new ArrayList<String>();
+//
+//			int check = 0;
+//
+//			List<Integer> taken = new ArrayList<>(3);
+//			int tjek;
+//
+//			if (boxEs.size() > 2) {
+//
+//				for (tjek = 0; tjek < boxEs.size(); tjek++) {
+//					if (boxEs.size() > 2) {
+//						Point p1 = new Point();
+//						Point p2 = new Point();
+//						Point pn1 = new Point();
+//						Point[] pjA;
+//						Point[] pjB;
+//						if (tjek + 1 < punktCorn.size()) {
+//
+//							pjA = punktCorn.get(tjek);
+//							p1 = pjA[0];
+//							p2 = pjA[1];
+//							double dist1 = distance(p1, p2);
+//							double maksV = (dist1 * 3) + (dist1 / 2);
+//							double minV = (dist1 * 2) - (dist1 / 2);
+//
+//							for (int j = tjek + 1; j < boxEs.size(); j++) {
+//
+//								pjB = punktCorn.get(j);
+//								pn1 = pjB[0];
+//								double dist2p = distance(p1, pn1);
+//								if (dist2p < maksV && dist2p > minV) {
+//									if (check == 0) {
+//										int deal = boxEs.get(tjek);
+//										taken.add(deal);
+//
+//										removeP.add(tjek);
+//										check++;
+//									}
+//									int real = boxEs.get(j);
+//									taken.add(real);
+//									removeP.add(j);
+//									if (taken.size() == 3) {
+//
+//										QRFun.add(new QRPoi(taken.get(0), taken.get(1), taken.get(2)));
+//										taken.clear();
+//										;
+//
+//										int j1 = removeP.get(0);
+//										int j2 = removeP.get(1);
+//										int j3 = removeP.get(2);
+//
+//										boxEs.remove(j3);
+//										boxEs.remove(j2);
+//										boxEs.remove(j1);
+//										punktCorn.remove(j3);
+//										punktCorn.remove(j2);
+//										punktCorn.remove(j1);
+//
+//										removeP.clear();
+//										check = 0;
+//										tjek = -1;
+//
+//										j = j + 10000;
+//
+//									}
+//								}
+//							}
+//
+//						}
+//					}
+//				}
+//
+//			}
+//
+//			for (int i = 0; i < QRFun.size(); i++) {
+//				int top = 0, mid = 0, bot = 0;
+//
+//				if (mark >= 3) {
+//					lin1 = distance(poinF[QRFun.get(i).getTop()], poinF[QRFun.get(i).getMid()]);
+//					lin2 = distance(poinF[QRFun.get(i).getTop()], poinF[QRFun.get(i).getBot()]);
+//					lin3 = distance(poinF[QRFun.get(i).getMid()], poinF[QRFun.get(i).getBot()]);
+//
+//					if (lin1 > lin2 && lin1 > lin3) {
+//						top = QRFun.get(i).getBot();
+//						mid = QRFun.get(i).getTop();
+//						bot = QRFun.get(i).getMid();
+//
+//					}
+//					if (lin2 > lin1 && lin2 > lin3) {
+//						top = QRFun.get(i).getMid();
+//						mid = QRFun.get(i).getTop();
+//						bot = QRFun.get(i).getBot();
+//					}
+//					if (lin3 > lin2 && lin3 > lin1) {
+//						top = QRFun.get(i).getTop();
+//						mid = QRFun.get(i).getMid();
+//						bot = QRFun.get(i).getBot();
+//
+//					}
+//					int top1 = top;
+//					int mid1 = 0;
+//					int bot1 = 0;
+//
+//					double slo = slope(poinF[mid], poinF[bot]);
+//
+//					double dist = lineCalc(poinF[mid], poinF[bot], poinF[top]);
+//
+//					if (slo == 0) {
+//						mid1 = mid;
+//						bot1 = bot;
+//
+//					}
+//
+//					else if (slo < 0 && dist < 0) {
+//						mid1 = mid;
+//						bot1 = bot;
+//						polen = nord;
+//
+//					}
+//
+//					else if (slo > 0 && dist < 0) {
+//						mid1 = bot;
+//						bot1 = mid;
+//						polen = eas;
+//					} else if (slo < 0 && dist > 0) {
+//						mid1 = bot;
+//						bot1 = mid;
+//						polen = syd;
+//					} else if (slo > 0 && dist > 0) {
+//						mid1 = mid;
+//						bot1 = bot;
+//						polen = ves;
+//					}
+//
+//					if (top1 < countersFundet.size() && mid1 < countersFundet.size() && bot1 < countersFundet.size()
+//							&& Imgproc.contourArea(countersFundet.get(top1)) > 5
+//							&& Imgproc.contourArea(countersFundet.get(mid1)) > 5
+//							&& Imgproc.contourArea(countersFundet.get(bot1)) > 5) {
+//						MatOfPoint2f jim = new MatOfPoint2f(), dim = new MatOfPoint2f(), tim = new MatOfPoint2f(),
+//								jimTemp = new MatOfPoint2f(), dimTemp = new MatOfPoint2f(),
+//								timTemp = new MatOfPoint2f();
+//
+//						MatOfPoint2f src1 = new MatOfPoint2f();
 						MatOfPoint2f fin1 = new MatOfPoint2f();
-
+//
 						Mat warp = new Mat();
-
-						jimTemp = corn(countersFundet, top1, slo, jimTemp);
-						timTemp = corn(countersFundet, mid1, slo, timTemp);
-						dimTemp = corn(countersFundet, bot1, slo, dimTemp);
-
-						jim = update(polen, jimTemp, jim);
-						tim = update(polen, timTemp, tim);
-						dim = update(polen, dimTemp, dim);
-
-						Point[] m = tim.toArray();
-						Point[] n = dim.toArray();
-						Point[] o = jim.toArray();
-
-						List<Point> srcP = new ArrayList<Point>(src1.toList());
-
-						double x1 = (220.9319 / distance(o[0], n[1]));
-
-						disToQR = Math.pow(x1, 1 / 0.9583);
-
-						LastPoint(n[1], n[2], m[3], m[2]);
-
-						QRFun.get(i).setLP(dj);
-
-						Point cen = centrumPoint(o[0], n[1]);
-
-						QRFun.get(i).setCentrum(cen);
-
-						srcP.add(o[0]);
-						srcP.add(n[1]);
-						srcP.add(dj);
-						srcP.add(m[3]);
-
+//
+//						jimTemp = corn(countersFundet, top1, slo, jimTemp);
+//						timTemp = corn(countersFundet, mid1, slo, timTemp);
+//						dimTemp = corn(countersFundet, bot1, slo, dimTemp);
+//
+//						jim = update(polen, jimTemp, jim);
+//						tim = update(polen, timTemp, tim);
+//						dim = update(polen, dimTemp, dim);
+//
+//						Point[] m = tim.toArray();
+//						Point[] n = dim.toArray();
+//						Point[] o = jim.toArray();
+//
+//						List<Point> srcP = new ArrayList<Point>(src1.toList());
+//
+//						double x1 = (220.9319 / distance(o[0], n[1]));
+//
+//						disToQR = Math.pow(x1, 1 / 0.9583);
+//
+//						LastPoint(n[1], n[2], m[3], m[2]);
+//
+//						QRFun.get(i).setLP(dj);
+//
+//						Point cen = centrumPoint(o[0], n[1]);
+//
+//						QRFun.get(i).setCentrum(cen);
+//
+//						srcP.add(o[0]);
+//						srcP.add(n[1]);
+//						srcP.add(dj);
+//						srcP.add(m[3]);
+//
 						List<Point> finP = new ArrayList<Point>(fin1.toList());
-
+//
 						finP.add(new Point(0, 0));
 						finP.add(new Point(qr.cols(), 0));
 						finP.add(new Point(qr.cols(), qr.rows()));
 						finP.add(new Point(0, qr.rows()));
-
-						Point[] toArSrc = srcP.toArray(new Point[srcP.size()]);
+//
+//						Point[] toArSrc = srcP.toArray(new Point[srcP.size()]);
 						Point[] toArFin = finP.toArray(new Point[finP.size()]);
-
-						MatOfPoint2f srcT = new MatOfPoint2f(toArSrc);
+						for(int abs = 0; abs<cornerList.size();abs++){
+						MatOfPoint2f srcT = new MatOfPoint2f(cornerList.get(abs));
 						MatOfPoint2f finT = new MatOfPoint2f(toArFin);
 
 						if (srcT.total() == 4 && finT.total() == 4) {
@@ -421,7 +431,6 @@ public class QRfinder {
 //				else if (slo < -5)
 //					Core.circle(newImage, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
 
-					System.out.println(boxEs.size());
 				for(int i = 0; i<boxEs.size(); i++){
 					Imgproc.drawContours(newImage, countersFundet, boxEs.get(i), new Scalar(100, 50, 255), 3, 8, heica, 0,
 							new Point(-1, -1));
@@ -869,7 +878,7 @@ public class QRfinder {
 	 * 
 	 * '''''''''''''' BILLEDET HVOR DER ER TEGNET DE DETECTEDE QQRKODER  '''''''''''''''''''
 	 */
-	public BufferedImage getDebuImg() {
+	public BufferedImage getDebugImg() {
 		return debuImg;
 	}
 
