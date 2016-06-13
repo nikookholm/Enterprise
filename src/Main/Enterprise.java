@@ -100,4 +100,9 @@ public class Enterprise {
 		return activeProgram;
 	}
 	
+	public iDroneGUI getGUI()
+	{
+		return gui;
+	}
+	
 }
