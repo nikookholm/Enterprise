@@ -26,7 +26,7 @@ public class DronePosition extends DroneProgram {
 		DroneVision v = d.getNavigation().getVision();
 		
 		Vector3D dronePos = v.dronePosition(true);
-		System.out.println("x: " + dronePos.getXCoord() + " , y: " + dronePos.getYCoord());
+		
 	}
 
 	
