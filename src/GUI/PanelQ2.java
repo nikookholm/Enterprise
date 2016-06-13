@@ -204,6 +204,7 @@ public class PanelQ2 extends JPanel{
 
 	public void setCorrected(BufferedImage buffImg) {
 		correctedImage = buffImg;
+		updateCameraPanel();
 		
 	}
 }

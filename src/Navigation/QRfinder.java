@@ -458,6 +458,7 @@ public class QRfinder {
 //				else if (polen == ves)
 //					Core.putText(traces, "den er VENSTER", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
 //							new Scalar(255, 100, 0));
+					System.out.println("Billede opdatere <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 				matToImg switcher = new matToImg();
 				debuImg = switcher.matToBufferedImage(newImage);
 				imgListener.imageUpdated(debuImg);
