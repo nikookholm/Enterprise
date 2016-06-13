@@ -57,8 +57,7 @@ public class QRfinder {
 	private BufferedImage debuImg;
 	private double disToQR;
 	private ArrayList<POI> funderQR = new ArrayList<POI>();
-
-	private static Point dj = new Point();
+	private int POIcounter = 0;
 	
 	
 	/*
@@ -376,38 +375,16 @@ public class QRfinder {
 
 							qr_thres.get(0, 0, data);
 							String result = decode(qrdet);
-
+							
 							if (result != " ") {
-								QRFun.get(i).setCode(result);
-								QRFun.get(i).setQRimg(qrdet);
-								QRFun.get(i).setDistance(disToQR);
+								QRFun.add(new QRPoi(0, 0, 0));
+								QRFun.get(POIcounter).setCode(result);
+								QRFun.get(POIcounter).setQRimg(qrdet);
+								QRFun.get(POIcounter).setDistance(disToQR);
+								POIcounter++;
 							}
 							
 							
-							if (result == " ") {
-								
-								
-								
-								
-								
-//								for (int lysloop = 0; lysloop < 10; lysloop++) {
-//									double alpha = 0.15 * lysloop;
-//									double beta = 8 * lysloop;
-//									qr_gray.convertTo(qr_gray, -1, alpha, beta);
-//									data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
-//
-//									qr_thres.get(0, 0, data);
-//									String result1 = decode(qrdet);
-//									result = decode(qrdet);
-//									if (result != " ") {
-//										System.out.println(lysloop);
-//										QRFun.get(i).setCode(result1);
-//										QRFun.get(i).setQRimg(qrdet);
-//										QRFun.get(i).setDistance(disToQR);
-//										lysloop = 15;
-//									}
-//								}
-							}
 
 						}
 
@@ -417,10 +394,10 @@ public class QRfinder {
 						
 					}
 
-				} 
+				
 
-			}
-			sortQR();
+			
+			sortsQR();
 			
 			
 			int debuk = 1;
@@ -490,7 +467,8 @@ public class QRfinder {
 //				newImage.get(0, 0, data1);
 
 			}
-		}
+		} 
+		
 		else {
 			throw new Exception("Kunne ikke fÃ¥ billeder fra kamera.");
 		}
@@ -510,7 +488,7 @@ public class QRfinder {
 	 * ''''''''''''''  SORTer QR i POIWallpoints og POICircle '''''''''''''''''''
 	 */
 	
-	private void sortQR(){
+	private void sortsQR(){
 		for (int j = 0; j < QRFun.size(); j++) {
 			if(QRFun.get(j).getCode().startsWith("W")){
 				Point qrcord = QRFun.get(j).getCords();
@@ -755,7 +733,7 @@ public class QRfinder {
 
 		Point ds = new Point(p.x + sd.x, p.y + sd.y);
 
-		dj = ds;
+		//dj = ds;
 
 	}
 	
