@@ -13,21 +13,21 @@ import de.yadrone.base.navdata.GyroPhysData;
 import de.yadrone.base.navdata.GyroRawData;
 
 public class DroneMovement implements iDroneMovement {
-	
+
 	private Drone drone;
 	private int currentAngle = 0;
-	
+
 	GyroPhysData gyro; 
 	float pitch;
 	float roll;
 	float yaw;
-	
+
 	public DroneMovement(Drone drone)
 	{
-		
-		
+
+
 		this.drone = drone;
-		
+
 	}
 
 	/**
@@ -40,31 +40,40 @@ public class DroneMovement implements iDroneMovement {
 		drone.getCommandManager().setMaxAltitude(height);
 		drone.getCommandManager().up(30);
 	}
-	
-	
-	
-	
-		public void start() {
-			
-			drone.getCommandManager().setMaxAltitude(10000).doFor(1000);
-			
-			drone.getCommandManager().setCommand(new FlatTrimCommand()).doFor(100);
-			
-			drone.getCommandManager().setCommand(new TakeOffCommand()).doFor(3000);
-			
-			drone.getCommandManager().setCommand(new HoverCommand()).doFor(1000);			
-		}
-		
-	// Flyv frem i bestemme distance (cm) 
-	public void flyForward(int cm){
-		
-		drone.getCommandManager().forward(10).doFor(5*cm);
 
-		drone.getCommandManager().hover().doFor(500);
-		drone.getCommandManager().freeze().doFor(3000);
+
+
+
+	public void start() {
+
+//		drone.getCommandManager().setCommand(new FlatTrimCommand()).doFor(100);
 		
+//		drone.getCommandManager().setCommand(new TakeOffCommand()).doFor(3000);
+
+//		drone.getCommandManager().setCommand(new HoverCommand()).doFor(1000);
+		
+		drone.getCommandManager().flatTrim().doFor(100);
+		drone.getCommandManager().takeOff().doFor(2000);
+		drone.getCommandManager().hover().doFor(5000);
+		
+		
+	
 	}
 	
+	
+	
+	
+
+	// Flyv frem i bestemme distance (cm) 
+	public void flyForwardConstant(int cm, int hoverTime){
+
+		drone.getCommandManager().forward(10).doFor(5*cm);
+		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+		
+//		drone.getCommandManager().freeze().doFor(3000);
+
+	}
+
 	/**
 	 * 
 	 */
@@ -72,13 +81,13 @@ public class DroneMovement implements iDroneMovement {
 	public void flyTo(POI interest) {
 		//mangler current coordinates
 		//mangler fly to coordinates
-		
+
 	}
-	
+
 	/**
 	 * 
 	 */
-	
+
 	@Override
 	public void rotateToAngle(int angle) {
 		angle = angle%360;
@@ -87,7 +96,7 @@ public class DroneMovement implements iDroneMovement {
 		if(aod < -180){
 			aod += 360;
 		}
-		
+
 		if(aod < 0){
 			spinRight(Math.abs(aod));
 		}else if(aod > 0){
@@ -96,35 +105,35 @@ public class DroneMovement implements iDroneMovement {
 			System.out.println("You are already there");
 		}
 		currentAngle = angle;
-		
+
 	}
-	
+
 	@Override
 	public void flyHome() {
 		//mangler startcoordinates
 		//mangler flytoCoordinate
 	}
-	
+
 	//kører loop med scan ring, skal tage imod 
 	@Override
 	public POI flyThroughRing(POI nextRing) {
 		return nextRing;
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	//skal ikke eksistere
 	@Override
 	public void flyToRing(POI currRing){
 		//mangler current coordinates
 		//mangler fly to coordinates
 	}
-	
+
 	///////////////////////////
 	//Standard Flight Methods//
 	public void flyForward(double schedule){
 		int sch = (int) schedule;
-		
+
 		drone.getCommandManager().schedule(sch, new Runnable(){
 			@Override
 			public void run() {
@@ -135,7 +144,7 @@ public class DroneMovement implements iDroneMovement {
 	@Override
 	public void flyBackward(double schedule){
 		int sch = (int) schedule;
-		
+
 		drone.getCommandManager().schedule(sch, new Runnable(){
 			@Override
 			public void run() {
@@ -146,19 +155,19 @@ public class DroneMovement implements iDroneMovement {
 	@Override
 	public void flyLeft(double schedule){
 		int sch = (int) schedule;
-		
+
 		drone.getCommandManager().schedule(sch, new Runnable(){
 			@Override
 			public void run() {
 				drone.goLeft();
 			}
 		});
-		
+
 	}
 	@Override
 	public void flyRight(double schedule){
 		int sch = (int) schedule;
-		
+
 		drone.getCommandManager().schedule(sch, new Runnable(){
 			@Override
 			public void run() {
@@ -169,7 +178,7 @@ public class DroneMovement implements iDroneMovement {
 	@Override
 	public void spinLeft(double schedule){
 		int sch = (int) schedule;
-		
+
 		drone.getCommandManager().schedule(sch, new Runnable(){
 			@Override
 			public void run() {
@@ -180,7 +189,7 @@ public class DroneMovement implements iDroneMovement {
 	@Override
 	public void spinRight(double schedule){
 		int sch = (int) schedule;
-		
+
 		drone.getCommandManager().schedule(sch, new Runnable(){
 			@Override
 			public void run() {
@@ -192,11 +201,11 @@ public class DroneMovement implements iDroneMovement {
 	public void hover(){
 		drone.hover();
 	}
-	
+
 	/***********************************************************/
 	/*********************private*******************************/
 	/***********************************************************/
-	
+
 	private void spinRight(int degrees){
 		for(int i=0; i<degrees; i++){
 			hover();
@@ -218,11 +227,11 @@ public class DroneMovement implements iDroneMovement {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
-	
+
 	private void spinLeft(int degrees) {
 		for(int i=0; i<degrees; i++){
 			hover();
@@ -235,11 +244,11 @@ public class DroneMovement implements iDroneMovement {
 			}
 		}
 	}	
-	
+
 	/*******************************/
 	/*****Listener to interface*****/
 	/*******************************/
-	
+
 	@Override
 	public GyroListener getGyroListener() {
 		return new Gyro();
@@ -249,17 +258,17 @@ public class DroneMovement implements iDroneMovement {
 	public AttitudeListener getAttitudeListener() {
 		return new Attitude();
 	}
-	
+
 	/**********************************/
 	/**********class listener**********/
 	/**********************************/
-	
+
 	public class Attitude implements AttitudeListener{
 
 		@Override
 		public void attitudeUpdated(float arg0, float arg1) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -267,23 +276,23 @@ public class DroneMovement implements iDroneMovement {
 			pitch = arg0;
 			roll = arg1;
 			yaw = arg2;
-			
+
 		}
 
 		@Override
 		public void windCompensation(float arg0, float arg1) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 	}
-	
+
 	public class Gyro implements GyroListener{
 
 		@Override
 		public void receivedOffsets(float[] arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
@@ -294,8 +303,8 @@ public class DroneMovement implements iDroneMovement {
 		@Override
 		public void receivedRawData(GyroRawData arg0) {
 			// TODO Auto-generated method stub
-			
+
 		}
-	
+
 	}
 }
