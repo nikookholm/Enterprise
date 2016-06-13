@@ -9,6 +9,8 @@ import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
@@ -28,8 +30,13 @@ public class OpenCVOperations {
 
 	ArrayList<POI> interestsFound = new ArrayList<POI>();
 
+	QRfinder findqr;
+	ArrayList<double[]> circlesFound = new ArrayList<>();
+	
 	public OpenCVOperations(){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		findqr = new QRfinder();
+		circlesFound = new ArrayList<>();
 	}
 	/**
 	 * Returns a single ArrayList containing points of interest, that can be located on both images.
@@ -121,7 +128,7 @@ public class OpenCVOperations {
 	private ArrayList<POI> findQR(Mat image) {
 
 		ArrayList<POI> fundet = new ArrayList<>();
-		QRfinder findqr = new QRfinder();
+		
 		try {
 			findqr.findQR(image);
 			fundet = findqr.getFunderQR();
@@ -168,15 +175,33 @@ public class OpenCVOperations {
 		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 200, 100, 0, 0);
 
 		ArrayList<POICircle> results = new ArrayList<>();
+	
+		
 		for (int i = 0; i < circles.cols(); i++) {
 
 			double circle[] = circles.get(0, i);
+			circlesFound.add(circle);
 			int radius = (int) Math.round(circle[2]);
 			
 			if(radius < 1 && radius > 0.5)
 				results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius));
 			
 		}
+		
+		Point center;
+		int radius;
+		for (int i = 0; i < circles.cols(); i++){
+			double foundCircles[] = circles.get(0, i);
+			
+			if(!(foundCircles == null)){
+				center = new Point(Math.round(foundCircles[0]), Math.round(foundCircles[1]));
+				radius = (int) Math.round(foundCircles[2]);
+				Core.circle(img, center, radius, new Scalar(255,0,0));
+				Core.circle(img, center, 3, new Scalar(0,255,0));
+			}
+		}
+		
+		
 		return results;
 		
 	}
@@ -190,6 +215,9 @@ public class OpenCVOperations {
 		// Add code to find Airports
 	}
 
+	public ArrayList<double[]> getCircles(){
+		return circlesFound;
+	}
 	/*****************************buff_to_mat*****************************/
 	
 	private Mat bufferedImageToMat(BufferedImage bi) {

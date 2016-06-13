@@ -36,6 +36,7 @@ public class DroneVision implements iDroneVision {
 		this.drone = drone;
 		CVOp = new OpenCVOperations();
 		VD = new vectorDistance();
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 	
 
@@ -167,7 +168,7 @@ public class DroneVision implements iDroneVision {
 	     List<QRPoi> im;
 		QRfinder qrfind = new QRfinder();
 		DecimalFormat numberFormat = new DecimalFormat("0.00");
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		
 		Mat imageMat = new Mat();
 		imageMat = new HoughCircles().bufferedImageToMat(image);
 
