@@ -14,5 +14,6 @@ public interface iDroneGUI {
 	public ImageListener    getCorrectedImageListener();
 	public BatteryListener  getBatteryListener();
 	public AcceleroListener getAcceleroListener();
+	public Log				getLog();
 
 }
