@@ -286,20 +286,23 @@ public class DroneMovement implements iDroneMovement {
 		drone.incCoordX(coordinates.getXCoord());
 		drone.incCoordY(coordinates.getYCoord());
 	}
+	
 	private void updatePositionBackward(int distance){
 		Vector3D coordinates = updateXY(distance);
 		drone.incCoordX(-(coordinates.getXCoord()));
 		drone.incCoordY(-(coordinates.getYCoord()));		
 	}
+	
 	private void updatePositionLeft(int distance){
-		Vector3D coordinates = updateXY(distance);
-		drone.incCoordX(coordinates.getYCoord());
-		drone.incCoordY(coordinates.getXCoord());		
-	}
-	private void updatePositionRight(int distance){
 		Vector3D coordinates = updateXY(distance);
 		drone.incCoordX(-(coordinates.getYCoord()));
 		drone.incCoordY(-(coordinates.getXCoord()));		
+	}
+	
+	private void updatePositionRight(int distance){	
+		Vector3D coordinates = updateXY(distance);
+		drone.incCoordX(coordinates.getYCoord());
+		drone.incCoordY(coordinates.getXCoord());	
 	}
 	/*******************************/
 	/*****Listener to interface*****/
