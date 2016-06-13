@@ -1,6 +1,5 @@
 package Navigation;
 
-
 /*
  * 
  * ''''''''''''''IMPORTS'''''''''''''''''''
@@ -42,12 +41,12 @@ import POI.POIWallPoint;
 import Vector.Vector3D;
 
 public class QRfinder {
-	
+
 	/*
 	 * 
 	 * ''''''''''''''GLOBALE VARIABLER'''''''''''''''''''
 	 */
-	
+
 	private final int nord = 0;
 	private final int eas = 1;
 	private final int syd = 2;
@@ -59,12 +58,11 @@ public class QRfinder {
 	private double disToQR;
 	private ArrayList<POI> funderQR = new ArrayList<POI>();
 	private int POIcounter = 0;
-	
-	
+
 	/*
 	 * 
-	 * ''''''''''''''QRFINDEREN**********************
-	 * INPUT : BILLEDE I MAT FORM.
+	 * ''''''''''''''QRFINDEREN********************** INPUT : BILLEDE I MAT
+	 * FORM.
 	 * 
 	 * OUTPUT: POI LISTE SOM INHOLDER ENTEN POICIRCLER ELLER POIWALLPOINTS
 	 * '''''''''''''''''''
@@ -109,13 +107,12 @@ public class QRfinder {
 
 			ArrayList<Integer> boxEs = new ArrayList<Integer>();
 
-			
 			for (int i = 0; i < heica.rows(); i++) {
 				for (int j = 0; j < heica.cols(); j++) {
 					double[] fun = heica.get(0, j);
-//					if (fun[0] != -1) {
-//						count = 0;
-//					}
+					// if (fun[0] != -1) {
+					// count = 0;
+					// }
 					if (fun[1] != -1) {
 						count = 0;
 					}
@@ -148,367 +145,107 @@ public class QRfinder {
 				cornerList.add(tempPoints.toArray());
 
 			}
-//			
-//			
-//			List<MatOfPoint2f> conn = new ArrayList<MatOfPoint2f>(boxEs.size());
-//
-//			for (int i = 0; i < boxEs.size(); i++) {
-//
-//				MatOfPoint2f tempp = new MatOfPoint2f();
-//
-//				tempp = corn(countersFundet, boxEs.get(i), 1, tempp);
-//
-//				conn.add(tempp);
-//			}
-//
-//			List<Point[]> punktCorn = new ArrayList<Point[]>(boxEs.size());
-//			List<Integer> removeP = new ArrayList<Integer>(3);
-//
-//			for (int i = 0; i < boxEs.size(); i++) {
-//
-//				punktCorn.add(conn.get(i).toArray());
-//			}
-//
-//			List<String> DecodeQR = new ArrayList<String>();
-//
-//			int check = 0;
-//
-//			List<Integer> taken = new ArrayList<>(3);
-//			int tjek;
-//
-//			if (boxEs.size() > 2) {
-//
-//				for (tjek = 0; tjek < boxEs.size(); tjek++) {
-//					if (boxEs.size() > 2) {
-//						Point p1 = new Point();
-//						Point p2 = new Point();
-//						Point pn1 = new Point();
-//						Point[] pjA;
-//						Point[] pjB;
-//						if (tjek + 1 < punktCorn.size()) {
-//
-//							pjA = punktCorn.get(tjek);
-//							p1 = pjA[0];
-//							p2 = pjA[1];
-//							double dist1 = distance(p1, p2);
-//							double maksV = (dist1 * 3) + (dist1 / 2);
-//							double minV = (dist1 * 2) - (dist1 / 2);
-//
-//							for (int j = tjek + 1; j < boxEs.size(); j++) {
-//
-//								pjB = punktCorn.get(j);
-//								pn1 = pjB[0];
-//								double dist2p = distance(p1, pn1);
-//								if (dist2p < maksV && dist2p > minV) {
-//									if (check == 0) {
-//										int deal = boxEs.get(tjek);
-//										taken.add(deal);
-//
-//										removeP.add(tjek);
-//										check++;
-//									}
-//									int real = boxEs.get(j);
-//									taken.add(real);
-//									removeP.add(j);
-//									if (taken.size() == 3) {
-//
-//										QRFun.add(new QRPoi(taken.get(0), taken.get(1), taken.get(2)));
-//										taken.clear();
-//										;
-//
-//										int j1 = removeP.get(0);
-//										int j2 = removeP.get(1);
-//										int j3 = removeP.get(2);
-//
-//										boxEs.remove(j3);
-//										boxEs.remove(j2);
-//										boxEs.remove(j1);
-//										punktCorn.remove(j3);
-//										punktCorn.remove(j2);
-//										punktCorn.remove(j1);
-//
-//										removeP.clear();
-//										check = 0;
-//										tjek = -1;
-//
-//										j = j + 10000;
-//
-//									}
-//								}
-//							}
-//
-//						}
-//					}
-//				}
-//
-//			}
-//
-//			for (int i = 0; i < QRFun.size(); i++) {
-//				int top = 0, mid = 0, bot = 0;
-//
-//				if (mark >= 3) {
-//					lin1 = distance(poinF[QRFun.get(i).getTop()], poinF[QRFun.get(i).getMid()]);
-//					lin2 = distance(poinF[QRFun.get(i).getTop()], poinF[QRFun.get(i).getBot()]);
-//					lin3 = distance(poinF[QRFun.get(i).getMid()], poinF[QRFun.get(i).getBot()]);
-//
-//					if (lin1 > lin2 && lin1 > lin3) {
-//						top = QRFun.get(i).getBot();
-//						mid = QRFun.get(i).getTop();
-//						bot = QRFun.get(i).getMid();
-//
-//					}
-//					if (lin2 > lin1 && lin2 > lin3) {
-//						top = QRFun.get(i).getMid();
-//						mid = QRFun.get(i).getTop();
-//						bot = QRFun.get(i).getBot();
-//					}
-//					if (lin3 > lin2 && lin3 > lin1) {
-//						top = QRFun.get(i).getTop();
-//						mid = QRFun.get(i).getMid();
-//						bot = QRFun.get(i).getBot();
-//
-//					}
-//					int top1 = top;
-//					int mid1 = 0;
-//					int bot1 = 0;
-//
-//					double slo = slope(poinF[mid], poinF[bot]);
-//
-//					double dist = lineCalc(poinF[mid], poinF[bot], poinF[top]);
-//
-//					if (slo == 0) {
-//						mid1 = mid;
-//						bot1 = bot;
-//
-//					}
-//
-//					else if (slo < 0 && dist < 0) {
-//						mid1 = mid;
-//						bot1 = bot;
-//						polen = nord;
-//
-//					}
-//
-//					else if (slo > 0 && dist < 0) {
-//						mid1 = bot;
-//						bot1 = mid;
-//						polen = eas;
-//					} else if (slo < 0 && dist > 0) {
-//						mid1 = bot;
-//						bot1 = mid;
-//						polen = syd;
-//					} else if (slo > 0 && dist > 0) {
-//						mid1 = mid;
-//						bot1 = bot;
-//						polen = ves;
-//					}
-//
-//					if (top1 < countersFundet.size() && mid1 < countersFundet.size() && bot1 < countersFundet.size()
-//							&& Imgproc.contourArea(countersFundet.get(top1)) > 5
-//							&& Imgproc.contourArea(countersFundet.get(mid1)) > 5
-//							&& Imgproc.contourArea(countersFundet.get(bot1)) > 5) {
-//						MatOfPoint2f jim = new MatOfPoint2f(), dim = new MatOfPoint2f(), tim = new MatOfPoint2f(),
-//								jimTemp = new MatOfPoint2f(), dimTemp = new MatOfPoint2f(),
-//								timTemp = new MatOfPoint2f();
-//
-//						MatOfPoint2f src1 = new MatOfPoint2f();
-						MatOfPoint2f fin1 = new MatOfPoint2f();
-//
-						Mat warp = new Mat();
-//
-//						jimTemp = corn(countersFundet, top1, slo, jimTemp);
-//						timTemp = corn(countersFundet, mid1, slo, timTemp);
-//						dimTemp = corn(countersFundet, bot1, slo, dimTemp);
-//
-//						jim = update(polen, jimTemp, jim);
-//						tim = update(polen, timTemp, tim);
-//						dim = update(polen, dimTemp, dim);
-//
-//						Point[] m = tim.toArray();
-//						Point[] n = dim.toArray();
-//						Point[] o = jim.toArray();
-//
-//						List<Point> srcP = new ArrayList<Point>(src1.toList());
-//
-//						double x1 = (220.9319 / distance(o[0], n[1]));
-//
-//						disToQR = Math.pow(x1, 1 / 0.9583);
-//
-//						LastPoint(n[1], n[2], m[3], m[2]);
-//
-//						QRFun.get(i).setLP(dj);
-//
-//						Point cen = centrumPoint(o[0], n[1]);
-//
-//						QRFun.get(i).setCentrum(cen);
-//
-//						srcP.add(o[0]);
-//						srcP.add(n[1]);
-//						srcP.add(dj);
-//						srcP.add(m[3]);
-//
-						List<Point> finP = new ArrayList<Point>(fin1.toList());
-//
-						finP.add(new Point(0, 0));
-						finP.add(new Point(qr.cols(), 0));
-						finP.add(new Point(qr.cols(), qr.rows()));
-						finP.add(new Point(0, qr.rows()));
-//
-//						Point[] toArSrc = srcP.toArray(new Point[srcP.size()]);
-						Point[] toArFin = finP.toArray(new Point[finP.size()]);
-						for(int abs = 0; abs<cornerList.size();abs++){
-						MatOfPoint2f srcT = new MatOfPoint2f(cornerList.get(abs));
-						MatOfPoint2f finT = new MatOfPoint2f(toArFin);
 
-						if (srcT.total() == 4 && finT.total() == 4) {
-							warp = Imgproc.getPerspectiveTransform(srcT, finT);
+			MatOfPoint2f fin1 = new MatOfPoint2f();
+			//
+			Mat warp = new Mat();
 
-							Imgproc.warpPerspective(newImage, qr_raw, warp, new Size(qr.cols(), qr.rows()));
-//							Imgproc.copyMakeBorder(qr_raw, qr, 10, 10, 10, 10, Imgproc.BORDER_CONSTANT,
-//									new Scalar(255, 255, 255));
+			List<Point> finP = new ArrayList<Point>(fin1.toList());
+			//
+			finP.add(new Point(0, 0));
+			finP.add(new Point(qr.cols(), 0));
+			finP.add(new Point(qr.cols(), qr.rows()));
+			finP.add(new Point(0, qr.rows()));
+			//
+			Point[] toArFin = finP.toArray(new Point[finP.size()]);
+			for (int abs = 0; abs < cornerList.size(); abs++) {
+				MatOfPoint2f srcT = new MatOfPoint2f(cornerList.get(abs));
+				MatOfPoint2f finT = new MatOfPoint2f(toArFin);
 
-							Imgproc.cvtColor(qr_raw, qr_gray, Imgproc.COLOR_RGB2GRAY);
-							Imgproc.threshold(qr_gray, qr_thres, 127, 255, Imgproc.THRESH_BINARY);
+				if (srcT.total() == 4 && finT.total() == 4) {
+					warp = Imgproc.getPerspectiveTransform(srcT, finT);
 
-							qrdet = new BufferedImage(qr_thres.width(), qr_thres.height(), BufferedImage.TYPE_BYTE_GRAY);
+					Imgproc.warpPerspective(newImage, qr_raw, warp, new Size(qr.cols(), qr.rows()));
 
-							byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
+					Imgproc.cvtColor(qr_raw, qr_gray, Imgproc.COLOR_RGB2GRAY);
+					Imgproc.threshold(qr_gray, qr_thres, 127, 255, Imgproc.THRESH_BINARY);
 
-							qr_thres.get(0, 0, data);
-							String result = decode(qrdet);
-							
-							if (result != " ") {
-								QRFun.add(new QRPoi(0, 0, 0));
-								QRFun.get(POIcounter).setCode(result);
-								QRFun.get(POIcounter).setQRimg(qrdet);
-								QRFun.get(POIcounter).setDistance(disToQR);
-								POIcounter++;
-								System.out.println(result);
-							}
-							
-							
+					qrdet = new BufferedImage(qr_thres.width(), qr_thres.height(), BufferedImage.TYPE_BYTE_GRAY);
 
-						}
+					byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
+					qr_thres.get(0, 0, data);
+					String result = decode(qrdet);
 
-						
-
-						
-					
-
-				if(boxEs.size() != 0){
+					if (result != " ") {
+						QRFun.add(new QRPoi(0, 0, 0));
+						QRFun.get(POIcounter).setCode(result);
+						QRFun.get(POIcounter).setQRimg(qrdet);
+						QRFun.get(POIcounter).setDistance(disToQR);
+						POIcounter++;
+						System.out.println(result);
+					}
 
 				}
-			sortsQR();
-			
-			
-			int debuk = 1;
 
-			if (debuk == 1) {
-//				if (slo > 5)
-//					Core.circle(newImage, new Point(10, 20), 5, new Scalar(150, 0, 50), -1, 8, 0);
-//				else if (slo < -5)
-//					Core.circle(newImage, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
+				if (boxEs.size() != 0) {
 
-					Imgproc.drawContours(newImage, countersFundet, boxEs.get(abs), new Scalar(100, 50, 255), 3, 8, heica, 0,
-							new Point(-1, -1));
-				
-					
-					
-//				Imgproc.drawContours(newImage, countersFundet, top1, new Scalar(100, 50, 255), 3, 8, heica, 0,
-//						new Point(-1, -1));
-//				Imgproc.drawContours(newImage, countersFundet, mid1, new Scalar(100, 50, 255), 3, 8, heica, 0,
-//						new Point(-1, -1));
-//				Imgproc.drawContours(newImage, countersFundet, bot1, new Scalar(100, 50, 255), 3, 8, heica, 0,
-//						new Point(-1, -1));
+				}
+				sortsQR();
 
-//				Core.circle(newImage, o[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, o[1], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, o[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, o[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//
-//				Core.circle(newImage, n[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, n[1], 10, new Scalar(0, 0, 0), 4, 8, 0);
-//				Core.circle(newImage, n[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, n[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//
-//				Core.circle(newImage, m[0], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, m[1], 10, new Scalar(0, 0, 255), 4, 8, 0);
-//				Core.circle(newImage, m[2], 10, new Scalar(0, 100, 0), 4, 8, 0);
-//				Core.circle(newImage, m[3], 10, new Scalar(0, 100, 0), 4, 8, 0);
+				int debuk = 1;
 
-//				Core.circle(newImage, dj, 20, new Scalar(255, 100, 0), 4, 8, 0);
-//
-//				Core.line(newImage, m[3], dj, new Scalar(255, 100, 0), 10, 8, 0);
-//				Core.line(newImage, n[2], dj, new Scalar(255, 100, 0), 10, 8, 0);
+				if (debuk == 1) {
+					Core.circle(newImage, new Point(10, 20), 5, new Scalar(50, 100, 50), -1, 8, 0);
 
-//				if (polen == nord)
-//					Core.putText(traces, "den er OP", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
-//							new Scalar(255, 100, 0));
-//
-//				else if (polen == eas)
-//					Core.putText(traces, "den er HØJRE", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
-//							new Scalar(255, 100, 0));
-//
-//				else if (polen == syd)
-//					Core.putText(traces, "den er NED", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
-//							new Scalar(255, 100, 0));
-//
-//				else if (polen == ves)
-//					Core.putText(traces, "den er VENSTER", new Point(50, 50), Core.FONT_HERSHEY_PLAIN, 4,
-//							new Scalar(255, 100, 0));
-			}
+					Imgproc.drawContours(newImage, countersFundet, boxEs.get(abs), new Scalar(100, 50, 255), 3, 8,
+							heica, 0, new Point(-1, -1));
+
+				}
 				matToImg switcher = new matToImg();
 				debuImg = switcher.matToBufferedImage(newImage);
 				imgListener.imageUpdated(debuImg);
-				
-//				= new BufferedImage(newImage.width(), newImage.height(),
-//						BufferedImage.TYPE_BYTE_GRAY);
-//
-//				byte[] data1 = ((DataBufferByte) debuImg.getRaster().getDataBuffer()).getData();
-//
-//				newImage.get(0, 0, data1);
 
 			}
-		} 
-		
+		}
+
 		else {
 			throw new Exception("Kunne ikke fÃ¥ billeder fra kamera.");
 		}
 	}
-	
-	
+
 	/*
 	 * 
-	 * '''''''''''''' Get metode til listen af POI  '''''''''''''''''''
+	 * '''''''''''''' Get metode til listen af POI '''''''''''''''''''
 	 */
 	public ArrayList<POI> getFunderQR() {
 		return funderQR;
 	}
-	
+
 	/*
 	 * 
-	 * ''''''''''''''  SORTer QR i POIWallpoints og POICircle '''''''''''''''''''
+	 * '''''''''''''' SORTer QR i POIWallpoints og POICircle '''''''''''''''''''
 	 */
-	
-	private void sortsQR(){
+
+	private void sortsQR() {
 		for (int j = 0; j < QRFun.size(); j++) {
-			if(QRFun.get(j).getCode().startsWith("W")){
+			if (QRFun.get(j).getCode().startsWith("W")) {
 				Point qrcord = QRFun.get(j).getCords();
-			funderQR.add(
-					new POIWallPoint(QRFun.get(j).getCode(),QRFun.get(j).getDistance(),new Vector3D(qrcord.x, qrcord.y, 150)));
+				funderQR.add(new POIWallPoint(QRFun.get(j).getCode(), QRFun.get(j).getDistance(),
+						new Vector3D(qrcord.x, qrcord.y, 150)));
 			}
-			
-			else if(QRFun.get(j).getCode().startsWith("P")) {
+
+			else if (QRFun.get(j).getCode().startsWith("P")) {
 				funderQR.add(new POICircle(QRFun.get(j).getCode(), QRFun.get(j).getDistance()));
 			}
 		}
 	}
-	
+
 	/*
 	 * 
-	 * ''''''''''''''Metode til at finde hjørnernes punkter af de 3 black boxes til QR koden
-	 * output er liste af hjørne punkternes x/y.    '''''''''''''''''''
+	 * ''''''''''''''Metode til at finde hjørnernes punkter af de 3 black boxes
+	 * til QR koden output er liste af hjørne punkternes x/y.
+	 * '''''''''''''''''''
 	 */
 
 	private MatOfPoint2f corn(ArrayList<MatOfPoint> Dj, int punk1, double slop, MatOfPoint2f cd) {
@@ -659,11 +396,11 @@ public class QRfinder {
 
 		return cd;
 	}
-	
-	
+
 	/*
 	 * 
-	 * '''''''''''''' Metode der tjekker QRkodens vinkel, og rette den "op" så den kan læses.  '''''''''''''''''''
+	 * '''''''''''''' Metode der tjekker QRkodens vinkel, og rette den "op" så
+	 * den kan læses. '''''''''''''''''''
 	 */
 
 	private MatOfPoint2f update(int nordpolen, MatOfPoint2f inp, MatOfPoint2f outp) {
@@ -711,10 +448,11 @@ public class QRfinder {
 
 		return outp;
 	}
-	
+
 	/*
 	 * 
-	 * '''''''''''''' Metode der finder det sidste punkt på QR koden, altså punktet i højre nedre hjørne  '''''''''''''''''''
+	 * '''''''''''''' Metode der finder det sidste punkt på QR koden, altså
+	 * punktet i højre nedre hjørne '''''''''''''''''''
 	 */
 
 	private void LastPoint(Point a1, Point a2, Point b1, Point b2) {
@@ -736,23 +474,25 @@ public class QRfinder {
 
 		Point ds = new Point(p.x + sd.x, p.y + sd.y);
 
-		//dj = ds;
+		// dj = ds;
 
 	}
-	
+
 	/*
 	 * 
-	 * ''''''''''''''Matematik der bruges til at dinde hjørnerne  '''''''''''''''''''
+	 * ''''''''''''''Matematik der bruges til at dinde hjørnerne
+	 * '''''''''''''''''''
 	 */
 
 	private double cross(Point d, Point s) {
 
 		return d.x * s.y - d.y * s.x;
 	}
-	
+
 	/*
 	 * 
-	 * '''''''''''''' Matematik. bruges til at finde retningen af QR koden  '''''''''''''''''''
+	 * '''''''''''''' Matematik. bruges til at finde retningen af QR koden
+	 * '''''''''''''''''''
 	 */
 
 	private double slope(Point L, Point D) {
@@ -768,10 +508,10 @@ public class QRfinder {
 			return 0;
 	}
 
-	
 	/*
 	 * 
-	 * '''''''''''''' funktion der finder længden mellem 3 punkter. Også kaldt Pythagoras :) '''''''''''''''''''
+	 * '''''''''''''' funktion der finder længden mellem 3 punkter. Også kaldt
+	 * Pythagoras :) '''''''''''''''''''
 	 */
 	private double lineCalc(Point d, Point s, Point t) {
 		double a, b, c, pdist;
@@ -785,10 +525,11 @@ public class QRfinder {
 		return pdist;
 
 	}
-	
+
 	/*
 	 * 
-	 * '''''''''''''' METODER der finde distance mellem 2 punkter i et billede OBS. DET I PIXELS  '''''''''''''''''''
+	 * '''''''''''''' METODER der finde distance mellem 2 punkter i et billede
+	 * OBS. DET I PIXELS '''''''''''''''''''
 	 */
 
 	private double distance(Point punkt1, Point punkt2) {
@@ -796,14 +537,11 @@ public class QRfinder {
 		return Math.sqrt(Math.pow(Math.abs(punkt1.x - punkt2.x), 2) + Math.pow(Math.abs(punkt1.y - punkt2.y), 2));
 	}
 
-	
 	/*
 	 * 
-	 * ''''''''''''''   QR kode læseren.
-	 * input QRkode i buffered image form.
+	 * '''''''''''''' QR kode læseren. input QRkode i buffered image form.
 	 * 
-	 * output String af kodens tekst.
-	 * '''''''''''''''''''
+	 * output String af kodens tekst. '''''''''''''''''''
 	 */
 	private String decode(BufferedImage image) throws IOException {
 
@@ -832,18 +570,16 @@ public class QRfinder {
 	// public List<QRPoi> getQRFun() {
 	// return QRFun;
 	// }
-	
-//	
-//	public BufferedImage getQrdet() {
-//		return qrdet;
-//	}
 
-	
-	
+	//
+	// public BufferedImage getQrdet() {
+	// return qrdet;
+	// }
+
 	/*
 	 * 
-	 * ''''''''''''''Metode til at finde centrum af QR koderne. 
-	 * DE LIGGER INDE I QRPOI VIS MAN SKAL BRUGE DEM.   '''''''''''''''''''
+	 * ''''''''''''''Metode til at finde centrum af QR koderne. DE LIGGER INDE I
+	 * QRPOI VIS MAN SKAL BRUGE DEM. '''''''''''''''''''
 	 */
 	private Point centrumPoint(Point corn1, Point lastCorn) {
 		Point cen;
@@ -854,10 +590,10 @@ public class QRfinder {
 		return cen;
 	}
 
-	
 	/*
 	 * 
-	 * '''''''''''''' BILLEDET HVOR DER ER TEGNET DE DETECTEDE QQRKODER  '''''''''''''''''''
+	 * '''''''''''''' BILLEDET HVOR DER ER TEGNET DE DETECTEDE QQRKODER
+	 * '''''''''''''''''''
 	 */
 	public BufferedImage getDebugImg() {
 		return debuImg;
@@ -870,14 +606,12 @@ public class QRfinder {
 		return QRFun;
 	}
 
-	
 	/*
 	 * 
-	 * ''''''''''''''  METODE TIL AT UDREGNE DRONENS POSITION UD FRA 3 VÆGMÆRKER.
-	 * INPUT 3 VÆKMÆRKER
-	 * OUTPUT POSITION I X/Y '''''''''''''''''''
+	 * '''''''''''''' METODE TIL AT UDREGNE DRONENS POSITION UD FRA 3 VÆGMÆRKER.
+	 * INPUT 3 VÆKMÆRKER OUTPUT POSITION I X/Y '''''''''''''''''''
 	 */
-	
+
 	public Point currentDronePosition(QRPoi wallmark1, QRPoi wallmark2, QRPoi wallmark3) {
 		Point postion;
 		double x, y;
