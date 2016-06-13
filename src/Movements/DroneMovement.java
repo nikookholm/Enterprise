@@ -3,6 +3,7 @@ package Movements;
 
 import Common.Drone;
 import POI.POI;
+import Vector.Vector3D;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.command.FlatTrimCommand;
 import de.yadrone.base.command.HoverCommand;
@@ -244,7 +245,62 @@ public class DroneMovement implements iDroneMovement {
 			}
 		}
 	}	
-
+	
+	private Vector3D updateXY(int distance){
+		Vector3D coordinates = new Vector3D(0,0,0);
+		int angle = currentAngle;
+		if(angle == 0){
+			coordinates.setXCoord(0);
+			coordinates.setYCoord(distance);
+		} else if(angle == 90){
+			coordinates.setXCoord(distance);
+			coordinates.setYCoord(0);
+		} else if(angle == 180){
+			coordinates.setXCoord(0);
+			coordinates.setYCoord(distance);
+		} else if(angle == 270){
+			coordinates.setXCoord(distance);
+			coordinates.setYCoord(0);
+		} else if(angle < 90){
+			coordinates.setXCoord(-(Math.cos(angle)*distance));
+			coordinates.setYCoord(Math.sin(angle)*distance);
+		} else if(angle < 180){
+			angle -= 90; 
+			coordinates.setXCoord(-(Math.cos(angle)*distance));
+			coordinates.setYCoord(-(Math.sin(angle)*distance));
+			return coordinates;
+		} else if(angle < 270) {
+			angle -= 180;
+			coordinates.setXCoord(Math.cos(angle)*distance);
+			coordinates.setYCoord(-(Math.sin(angle)*distance));
+		} else {
+			angle -= 270;
+			coordinates.setXCoord(Math.cos(angle)*distance);
+			coordinates.setYCoord(Math.sin(angle)*distance);
+		}
+		return coordinates;
+	}
+	
+	private void updatePositionForward(int distance){
+		Vector3D coordinates = updateXY(distance);
+		drone.incCoordX(coordinates.getXCoord());
+		drone.incCoordY(coordinates.getYCoord());
+	}
+	private void updatePositionBackward(int distance){
+		Vector3D coordinates = updateXY(distance);
+		drone.incCoordX(-(coordinates.getXCoord()));
+		drone.incCoordY(-(coordinates.getYCoord()));		
+	}
+	private void updatePositionLeft(int distance){
+		Vector3D coordinates = updateXY(distance);
+		drone.incCoordX(coordinates.getYCoord());
+		drone.incCoordY(coordinates.getXCoord());		
+	}
+	private void updatePositionRight(int distance){
+		Vector3D coordinates = updateXY(distance);
+		drone.incCoordX(-(coordinates.getYCoord()));
+		drone.incCoordY(-(coordinates.getXCoord()));		
+	}
 	/*******************************/
 	/*****Listener to interface*****/
 	/*******************************/
