@@ -176,6 +176,7 @@ public class OpenCVOperations {
 
 		ArrayList<POICircle> results = new ArrayList<>();
 	
+		circlesFound.clear();
 		
 		for (int i = 0; i < circles.cols(); i++) {
 
@@ -183,15 +184,15 @@ public class OpenCVOperations {
 			circlesFound.add(circle);
 			int radius = (int) Math.round(circle[2]);
 			
-			if(radius < 1 && radius > 0.5)
-				results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius));
+			
+			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius));
 			
 		}
 		
 		Point center;
 		int radius;
-		for (int i = 0; i < circles.cols(); i++){
-			double foundCircles[] = circles.get(0, i);
+		for (int i = 0; i < circlesFound.size(); i++){
+			double foundCircles[] = circlesFound.get(i);
 			
 			if(!(foundCircles == null)){
 				center = new Point(Math.round(foundCircles[0]), Math.round(foundCircles[1]));
