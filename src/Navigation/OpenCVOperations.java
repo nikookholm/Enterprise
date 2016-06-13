@@ -6,6 +6,7 @@ import java.awt.image.DataBufferByte;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
@@ -26,7 +27,10 @@ public class OpenCVOperations {
 	ArrayList<POI> objectsFound = new ArrayList<POI>();
 
 	ArrayList<POI> interestsFound = new ArrayList<POI>();
-	
+
+	public OpenCVOperations(){
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	}
 	/**
 	 * Returns a single ArrayList containing points of interest, that can be located on both images.
 	 * The function is used to reduce noise and possible only gather the true points of interest.
@@ -189,6 +193,7 @@ public class OpenCVOperations {
 	/*****************************buff_to_mat*****************************/
 	
 	private Mat bufferedImageToMat(BufferedImage bi) {
+		System.out.println("height: " + bi.getHeight()+ " width: " + bi.getWidth());
 		Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
 		byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
 		mat.put(0, 0, data);

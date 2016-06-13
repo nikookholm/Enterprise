@@ -14,7 +14,7 @@ public interface iDroneVision {
 	public ImageListener getImageListener();
 	
 	public enum Movement { 	Initial, Forward, Backward, Left, Right, SpinLeft, SpinRight, Up, Down, UpLeft, UpRight, DownLeft, DownRight,
-							StopAndSpin};
+							StopAndSpin, None};
 	
 	public enum Condition { Initial, Flying, CircleQR }
 

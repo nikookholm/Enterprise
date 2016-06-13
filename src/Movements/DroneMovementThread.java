@@ -100,6 +100,9 @@ public class DroneMovementThread implements Runnable{
 				}
 			}
 			break;
+			
+		case None:
+			break;
 		default:
 			//should not be used
 			break;

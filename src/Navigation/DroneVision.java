@@ -101,11 +101,12 @@ public class DroneVision implements iDroneVision {
 	public Vector3D dronePosition(boolean firstTime){
 		
 		if(firstTime){
-			poiDrone = scanQR(Movement.SpinRight, Condition.Initial);
+			poiDrone = scanQR(Movement.None, Condition.Initial);
+			//poiDrone = scanQR(Movement.SpinRight, Condition.Initial);
 		} else {
 			poiDrone = scanQR(Movement.Left, Condition.Flying);
 		}
-		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord() + ", " + VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getYCoord());
+		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord());
 		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance());
 	}	
 	
