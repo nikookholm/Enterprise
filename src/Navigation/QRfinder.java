@@ -382,6 +382,7 @@ public class QRfinder {
 								QRFun.get(POIcounter).setQRimg(qrdet);
 								QRFun.get(POIcounter).setDistance(disToQR);
 								POIcounter++;
+								System.out.println(result );
 							}
 							
 							
@@ -394,9 +395,10 @@ public class QRfinder {
 						
 					}
 
-				
+				if(boxEs.size() != 0){
 
-			
+			System.out.println(boxEs.size());
+				}
 			sortsQR();
 			
 			

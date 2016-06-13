@@ -182,13 +182,14 @@ public class DroneVision implements iDroneVision {
 
 				
 				droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
-				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"m");
+				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()/2) +"m");
+				
 				
 				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
 			}
 		}
 		if(imgTjek == true){
-			image = qrfind.getDebuImg();
+			image = qrfind.getDebugImg();
 		}
 		im.clear();
 	}
