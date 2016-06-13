@@ -27,7 +27,7 @@ public class Enterprise {
 	
 	private void initialize()
 	{
-		 drone = new Drone();
+		 drone = new Drone(this);
 		 
 		 loadDronePrograms();
 		 
