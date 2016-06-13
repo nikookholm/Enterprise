@@ -129,6 +129,15 @@ public class DroneVision implements iDroneVision {
 			public void imageUpdated(BufferedImage arg0) {
 				
 				findQR(arg0);
+				// if circles || QRS || (circles + QRS) - condition(enum ~ circle, qr or both)
+				/*
+				 * findQR, show on image
+				 * ----
+				 * find circles, show on image
+				 * ----
+				 * find both, show on image
+				 * 
+				 */
 			}
 		};
 	}
