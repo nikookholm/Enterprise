@@ -25,11 +25,8 @@ public class DroneMovement implements iDroneMovement {
 
 	public DroneMovement(Drone drone)
 	{
-
-
 		this.drone = drone;
 		cmd = drone.getCommandManager();
-
 	}
 
 	/**
@@ -43,17 +40,11 @@ public class DroneMovement implements iDroneMovement {
 		cmd.up(15);
 	}
 
-
-
-
 	public void start() {		
-		cmd.flatTrim().doFor(100).takeOff().doFor(2000).hover();
+		
+		cmd.flatTrim().doFor(100).takeOff().doFor(5000).hover().doFor(1000);
 	}
 	
-	
-	
-	
-
 	// Flyv frem i bestemme distance (cm) 
 	public void flyForwardConstant(int cm, int hoverTime){
 
@@ -152,10 +143,11 @@ public class DroneMovement implements iDroneMovement {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				cmd.forward(10);
-				while(id==threadID){
-					
-				}
+				cmd.forward(5).doFor(5000);
+				System.out.println(" Vi done med forward fasen!");
+//				while(id==threadID){
+//					
+//				}
 				System.out.println("Forward died");
 			}
 		});
@@ -164,15 +156,19 @@ public class DroneMovement implements iDroneMovement {
 	@Override
 	public void flyBackward(){
 		int id = newThreadID();
+		
+		drone.getMain().getGUI().getLog().add("Backward >>>>>>>>>>>>>>>>>>>>>");
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				cmd.backward(10);
-				while(id==threadID){
-					
-				}
-				System.out.println("backward died");
+				drone.getMain().getGUI().getLog().add(" vi er inde i run (backward");
+				System.out.println(" drone movement run kører");
+				cmd.backward(5).doFor(5000);
+//				while(id==threadID){
+//					
+//				}
+				drone.getMain().getGUI().getLog().add("backward died");
 			}
 		});
 	}
@@ -191,7 +187,9 @@ public class DroneMovement implements iDroneMovement {
 	}
 	@Override
 	public void hover(){
-		cmd.hover();
+		for (int i = 0 ; i<=150 ; i++){
+			cmd.hover().doFor(30);
+		}
 	}
 
 	@Override
@@ -330,7 +328,6 @@ public class DroneMovement implements iDroneMovement {
 
 		@Override
 		public void attitudeUpdated(float arg0, float arg1) {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -344,7 +341,6 @@ public class DroneMovement implements iDroneMovement {
 
 		@Override
 		public void windCompensation(float arg0, float arg1) {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -354,8 +350,7 @@ public class DroneMovement implements iDroneMovement {
 
 		@Override
 		public void receivedOffsets(float[] arg0) {
-			// TODO Auto-generated method stub
-
+	
 		}
 
 		@Override
@@ -365,8 +360,7 @@ public class DroneMovement implements iDroneMovement {
 
 		@Override
 		public void receivedRawData(GyroRawData arg0) {
-			// TODO Auto-generated method stub
-
+			
 		}
 
 	}

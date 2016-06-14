@@ -34,7 +34,51 @@ public class AmalProgram extends DroneProgram {
 		
 		CommandManager cmd = getDrone().getCommandManager();
 		
-		getDrone().start();
+		cmd.setOutdoor(false, false);
+		
+		cmd.takeOff();
+		
+		cmd.schedule(3000, new Runnable() {
+			
+			@Override
+			public void run() {
+				cmd.hover();
+			}
+		});
+		
+		cmd.schedule(7000, new Runnable() {
+			public void run() {
+				cmd.up(5);
+			}
+		});
+		
+		cmd.schedule(5000, new Runnable() {
+			public void run() {
+				cmd.forward(6);
+			}
+		});
+		
+		cmd.schedule(4000, new Runnable() {
+			public void run() {
+				cmd.down(3);
+			}
+		});
+		
+		cmd.landing();
+		
+		
+		
+//		cmd.setMaxAltitude(2000);
+//		cmd.manualTrim(0, 0, 0);
+//		cmd.takeOff();
+//		cmd.setCommand(new CalibrationCommand(Device.MAGNETOMETER)).doFor(3000);
+//		cmd.freeze().doFor(5000);
+//		cmd.hover().waitFor(10000);
+//		cmd.down(3);
+		cmd.landing();
+	
+		
+//		getDrone().start();
 //		
 //		cmd.setOutdoor(false, false);
 //
@@ -48,7 +92,7 @@ public class AmalProgram extends DroneProgram {
 //		cmd.setCommand(new HoverCommand()).doFor(1000);
 ////		cmd.manualTrim(0, 0, 0);
 //		
-////		cmd.setCommand(new CalibrationCommand(Device.MAGNETOMETER)).doFor(3000);
+//		cmd.setCommand(new CalibrationCommand(Device.MAGNETOMETER)).doFor(3000);
 
 			
 //		cmd.forward(10).doFor(2000);
@@ -56,16 +100,16 @@ public class AmalProgram extends DroneProgram {
 //		cmd.freeze().doFor(2000);
 //		cmd.hover();
 		
-		cmd.setMaxAltitude(1).doFor(20000);
-		
-		cmd.up(5);
-		
-		cmd.hover().doFor(1000);
-		cmd.freeze().doFor(2000);
-		cmd.down(3);
-		cmd.landing();
-		
-		System.out.println("end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+//		cmd.setMaxAltitude(1).doFor(20000);
+//		
+//		cmd.up(5);
+//		
+//		cmd.hover().doFor(1000);
+//		cmd.freeze().doFor(2000);
+//		cmd.down(3);
+//		cmd.landing();
+//		
+//		System.out.println("end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
 
 	

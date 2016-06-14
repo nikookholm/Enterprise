@@ -7,22 +7,28 @@ public class LpogDollar extends DroneProgram {
 
 	@Override
 	public void run() {
-
+		
+		System.out.println(" Starter staaaet ><");
 		getDrone().getMovement().start();
+		System.out.println(" Kalder fly forward");
 		getDrone().getMovement().flyForward();
 		try {
-			Thread.sleep(1000);
+			System.out.println("starter sleep til forward");
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(" parat til fly backward");
 		getDrone().getMovement().flyBackward();
 		try {
-			Thread.sleep(1000);
+			System.out.println("starter sleep til backwards");
+			Thread.sleep(5000);
+		
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
+		System.out.println(" parat til fly backward");
 		getDrone().getMovement().landing();
 	}
 	@Override
