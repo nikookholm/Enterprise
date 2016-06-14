@@ -137,6 +137,12 @@ public class DroneMovement implements iDroneMovement {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void stopAndDecent() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	///////////////////////////
 	//Standard Flight Methods//
@@ -185,7 +191,14 @@ public class DroneMovement implements iDroneMovement {
 	}
 	@Override
 	public void hover(){
-		drone.hover();
+		cmd.hover();
+	}
+
+	@Override
+	public void landing() {
+		cmd.hover().doFor(500);
+		cmd.landing();
+		
 	}
 
 	/***********************************************************/

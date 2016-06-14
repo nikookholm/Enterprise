@@ -14,8 +14,10 @@ public interface iDroneMovement {
 	public void flyForwardConstant(int cm, int hoverTime);// fly destination manual
 	public void flyHome();
 	public POI flyThroughRing(POI nextRing);
-
+	public void stopAndDecent();
+	
 	//Standard Methods
+	public void landing();
 	public void flyForward();
 	public void flyBackward();
 	public void flyLeft();

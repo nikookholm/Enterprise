@@ -11,13 +11,19 @@ public class LpogDollar extends DroneProgram {
 		getDrone().getMovement().start();
 		getDrone().getMovement().flyForward();
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		getDrone().getMovement().flyBackward();
-		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getDrone().getMovement().landing();
 	}
 	@Override
 	public void abort() {
