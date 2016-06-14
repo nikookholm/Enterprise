@@ -1,14 +1,13 @@
 package Navigation;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import POI.*;
 import Vector.Vector3D;
 
 public class VectorDistance {
 
 
+	@SuppressWarnings("unused")
 	public void calcCoordinates(Vector3D object1, Vector3D object2, Vector3D object3) {
 		double dotAB = dot(object1, object2);
 		double dotBC = dot(object2, object3);
@@ -117,8 +116,8 @@ public class VectorDistance {
 	
 		
 		
-		circle.setXCoord(-t8 / t15 * t7 / 2.0 + wallmark1.getXCoord() / 2.0 + wallmark2.getXCoord() / 2.0);
-		circle.setYCoord(t12 / t15 * t7 / 2.0 + wallmark1.getYCoord() / 2.0 + wallmark2.getYCoord() / 2.0);
+		circle.setXCoord(c_x);
+		circle.setYCoord(c_y);
 	
 		double r = 0.5*a/Math.sin(alpha);
 		circle.setZCoord(r);
