@@ -42,43 +42,60 @@ public class DroneMovement implements iDroneMovement {
 
 	public void start() {		
 		
-		cmd.flatTrim().doFor(100).takeOff().doFor(5000).hover().doFor(1000);
+		cmd.flatTrim().doFor(100).takeOff().doFor(5000);
+		hover();
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
-	public void flyForwardConstant(int cm, int hoverTime){
-
-		drone.getCommandManager().forward(10).doFor(5*cm);
-		updatePositionForward(cm);
-		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+	public void flyForwardConstant(int cm){
 		
+		for(int i = 0 ; i<cm ; i++){
+			cmd.forward(20).doFor(2);
+			updatePositionForward(1);
+			if(i%100==0 && i!=0){
+				cmd.hover().doFor(500);
+			}
+		}
 	}
 
 	// Flyv tilbage i bestemme distance (cm) 
-	public void flyBackwardConstant(int cm, int hoverTime){
-
-		drone.getCommandManager().forward(10).doFor(5*cm);
-		updatePositionBackward(cm);
-		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+	public void flyBackwardConstant(int cm){
+		
+		for(int i = 0 ; i<cm ; i++){
+			cmd.backward(20).doFor(2);
+			updatePositionBackward(1);
+			if(i%100==0 && i!=0){
+				cmd.hover().doFor(500);
+			}
+		}
 
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
 	public void flyLeftConstant(int cm, int hoverTime){
 
-		drone.getCommandManager().forward(10).doFor(5*cm);
-		updatePositionLeft(cm);
-		drone.getCommandManager().hover().doFor(1000 * hoverTime);
+		/** Mangler at finde konstant hastigheden for flyLeft**/
+//		for(int i = 0 ; i<cm ; i++){
+//			cmd.forward(20).doFor(2);
+//			updatePositionForward(1);
+//			if(i%100==0 && i!=0){
+//				cmd.hover().doFor(500);
+//			}
+//		}
 
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
 	public void flyRightConstant(int cm, int hoverTime){
 
-		drone.getCommandManager().forward(10).doFor(5*cm);
-		updatePositionRight(cm);
-		drone.getCommandManager().hover().doFor(1000 * hoverTime);
-
+		/** Mangler at finde konstant hastigheden for flyRight**/
+//		for(int i = 0 ; i<cm ; i++){
+//			cmd.forward(20).doFor(2);
+//			updatePositionForward(1);
+//			if(i%100==0 && i!=0){
+//				cmd.hover().doFor(500);
+//			}
+//		}
 	}
 	
 	/**
