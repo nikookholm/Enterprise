@@ -120,7 +120,7 @@ public class DroneVision implements iDroneVision {
 	
 	public void ShowOnImg(SearchFor item, BufferedImage bi){
 		
-		Mat procImage;
+//		Mat procImage;
 		
 		switch(item)
 		{

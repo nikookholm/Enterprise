@@ -5,9 +5,6 @@ import Common.Drone;
 import POI.POI;
 import Vector.Vector3D;
 import de.yadrone.base.command.CommandManager;
-import de.yadrone.base.command.FlatTrimCommand;
-import de.yadrone.base.command.HoverCommand;
-import de.yadrone.base.command.TakeOffCommand;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
@@ -17,6 +14,7 @@ public class DroneMovement implements iDroneMovement {
 
 	private Drone drone;
 	private int currentAngle = 0;
+	private CommandManager cmd;
 
 	GyroPhysData gyro; 
 	float pitch;
@@ -28,6 +26,7 @@ public class DroneMovement implements iDroneMovement {
 
 
 		this.drone = drone;
+		cmd = drone.getCommandManager();
 
 	}
 
@@ -38,17 +37,15 @@ public class DroneMovement implements iDroneMovement {
 	 * @return void
 	 */
 	public void hoverTo(int height) {
-		drone.getCommandManager().setMaxAltitude(height);
-		drone.getCommandManager().up(15);
+		cmd.setMaxAltitude(height);
+		cmd.up(15);
 	}
 
 
 
 
 	public void start() {		
-		drone.getCommandManager().flatTrim().doFor(100);
-		drone.getCommandManager().takeOff().doFor(2000);
-		drone.getCommandManager().hover().doFor(5000);
+		cmd.flatTrim().doFor(100).takeOff().doFor(2000).hover();
 	}
 	
 	
@@ -70,8 +67,6 @@ public class DroneMovement implements iDroneMovement {
 		drone.getCommandManager().forward(10).doFor(5*cm);
 		updatePositionBackward(cm);
 		drone.getCommandManager().hover().doFor(1000 * hoverTime);
-		
-//		drone.getCommandManager().freeze().doFor(3000);
 
 	}
 	
@@ -81,8 +76,6 @@ public class DroneMovement implements iDroneMovement {
 		drone.getCommandManager().forward(10).doFor(5*cm);
 		updatePositionLeft(cm);
 		drone.getCommandManager().hover().doFor(1000 * hoverTime);
-		
-//		drone.getCommandManager().freeze().doFor(3000);
 
 	}
 	
@@ -92,8 +85,6 @@ public class DroneMovement implements iDroneMovement {
 		drone.getCommandManager().forward(10).doFor(5*cm);
 		updatePositionRight(cm);
 		drone.getCommandManager().hover().doFor(1000 * hoverTime);
-		
-//		drone.getCommandManager().freeze().doFor(3000);
 
 	}
 	

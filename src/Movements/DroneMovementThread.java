@@ -6,8 +6,6 @@ import Navigation.iDroneVision.Movement;
 public class DroneMovementThread implements Runnable{
 	Movement movement;
 	boolean abort;
-	//schedule is milliseconds the standard methods do stuff
-	final int schedule = 500;
 	DroneMovement droneMovement;
 	
 	public DroneMovementThread(Movement movement, Drone drone) {
@@ -23,84 +21,42 @@ public class DroneMovementThread implements Runnable{
 		switch(movement){
 		case Initial:
 			while(!abort){		
-				droneMovement.spinRight(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.spinRight();
 			}
 			break;
 		case Forward:
 			while(!abort){		//schedule er en fastsat tid.
-				droneMovement.flyForward(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.flyForward();
 			}
 			
 			break;
 		case Backward:
 			while(!abort){		
-				droneMovement.flyBackward(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.flyBackward();
 			}
 			break;
 		case Left:
 			while(!abort){		
-				droneMovement.flyLeft(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.flyLeft();
 			}
 			abort = false;
 			break;
 		case Right:
 			while(!abort){		
-				droneMovement.flyRight(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.flyRight();
 			}
 			break;
 		case SpinLeft:
 			while(!abort){		
-				droneMovement.spinLeft(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.spinLeft();
 			}
 			break;
 		case SpinRight:
 			while(!abort){		
-				droneMovement.spinRight(schedule);
-				try {
-					Thread.sleep(schedule);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				droneMovement.spinRight();
+				
 			}
 			break;
-			
 		case None:
 			break;
 		default:
