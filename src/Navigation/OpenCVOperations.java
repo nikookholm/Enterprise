@@ -170,10 +170,7 @@ public class OpenCVOperations {
 		Mat circles = new Mat();
 		
 		Imgproc.cvtColor(image, image_gray, Imgproc.COLOR_BGR2GRAY);
-		Imgproc.GaussianBlur(image_gray, image_gray, new Size(9, 9), 2, 2);
-		Imgproc.Canny(image_gray, image_gray, 50, 150);
-		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 200, 100, 0, 0);
-
+		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 225, 100, 35, 190);
 		ArrayList<POICircle> results = new ArrayList<>();
 	
 		circlesFound.clear();
