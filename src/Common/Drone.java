@@ -35,6 +35,7 @@ public class Drone extends ARDrone {
 	public void setCoords(Vector3D newCoords)
 	{
 		coords = newCoords;
+		main.getGUI().updateCoordsPanel();
 	}
 	
 	public double getCoordX()
@@ -44,7 +45,9 @@ public class Drone extends ARDrone {
 	
 	public double incCoordX(double inc)
 	{
-		return coords.getXCoord() + inc;
+		coords.setXCoord(coords.getXCoord() + inc);
+		main.getGUI().updateCoordsPanel();
+		return coords.getXCoord();
 	}
 	
 	public double getCoordY()
@@ -54,7 +57,9 @@ public class Drone extends ARDrone {
 	
 	public double incCoordY(double inc)
 	{
-		return coords.getYCoord() + inc;
+		coords.setYCoord(coords.getYCoord() + inc);
+		main.getGUI().updateCoordsPanel();
+		return coords.getYCoord();
 	}
 	
 	public double getCoordZ()
@@ -64,7 +69,9 @@ public class Drone extends ARDrone {
 	
 	public double incCoordZ(double inc)
 	{
-		return coords.getZCoord() + inc;
+		coords.setZCoord(coords.getZCoord() + inc);
+		main.getGUI().updateCoordsPanel();
+		return coords.getZCoord();
 	}
 	
 	public double getAngle()
@@ -74,7 +81,9 @@ public class Drone extends ARDrone {
 	
 	public double incAngle(double inc)
 	{
-		return angle + inc;
+		angle = angle + inc;
+		main.getGUI().updateCoordsPanel();
+		return angle;
 	}
 	
 	private void initialize(Enterprise main)

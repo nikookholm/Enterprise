@@ -101,7 +101,7 @@ public class PanelQ1 extends JPanel{
 		
 		// Creates and sets Coordinates Label
 		coordinatesLabel = new JLabel();
-		updateCoordinatesLabel();
+		updateCoordinatesLabel(0, 0, 0);
 		
 		// Sets up layout for this panel
 		this.setLayout(new GridBagLayout());
@@ -140,14 +140,14 @@ public class PanelQ1 extends JPanel{
 		);
 	}
 	
-	private void updateCoordinatesLabel()
+	protected void updateCoordinatesLabel(int x, int y, int z)
 	{
 		coordinatesLabel.setText(
 				"<html><table>" +
 				"<tr><td colspan=\"2\">Coordinates:</td></tr>" +
-				"<tr><td>X:</td><td>0</td></tr>" +
-				"<tr><td>Y:</td><td>0</td></tr>" +
-				"<tr><td>Z:</td><td>0</td></tr>" +
+				"<tr><td>X:</td><td>" + x + "</td></tr>" +
+				"<tr><td>Y:</td><td>" + y + "</td></tr>" +
+				"<tr><td>Z:</td><td>" + z + "</td></tr>" +
 				"</table></html>"
 		);
 	}

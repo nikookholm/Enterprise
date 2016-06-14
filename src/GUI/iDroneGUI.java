@@ -18,5 +18,6 @@ public interface iDroneGUI {
 	public AcceleroListener getAcceleroListener();
 	public Log				getLog();
 	public void 			updateCorrectedImage(BufferedImage img);
+	public void 			updateCoordsPanel();
 
 }

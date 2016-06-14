@@ -4,7 +4,10 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
+
+import Common.Drone;
 import GUI.TopDown.TopDown;
 import Main.Enterprise;
 import de.yadrone.base.navdata.AcceleroListener;
@@ -58,11 +61,11 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		add(q4, gbc);
+		add(q3, gbc);
 
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		add(q3, gbc);
+		add(q4, gbc);
 		map = new TopDown(q4, main.getDrone());
 
 		// attach Log.java class to PanalQ3.java class
@@ -125,5 +128,10 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		return q1.new Q1AcceleroListener();
 	}
 
+	public void updateCoordsPanel()
+	{
+		Drone d = getMain().getDrone();
+		q1.updateCoordinatesLabel((int)d.getCoordX(), (int)d.getCoordY(), (int)d.getCoordZ());
+	}
 
 }
