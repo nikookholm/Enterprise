@@ -214,7 +214,7 @@ public class vectorDistance {
 		x3 = x2 + (h * (y1 - y0)) / d;
 		y3 = y2 - (h * (x1 - x0)) / d;
 		
-		if(x3>0 && x3<10.78 && y3>0 && y3<9.63){
+		if(x3>0 && x3<1078 && y3>0 && y3<963){
 			return new Vector3D(x3, y3, 0);
 		}
 		

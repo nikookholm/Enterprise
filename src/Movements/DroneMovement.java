@@ -14,6 +14,8 @@ public class DroneMovement implements iDroneMovement {
 
 	private Drone drone;
 	private int currentAngle = 0;
+	private int threadID = 0;
+	private int amountOfThreads = 0;
 	private CommandManager cmd;
 
 	GyroPhysData gyro; 
@@ -139,10 +141,34 @@ public class DroneMovement implements iDroneMovement {
 	///////////////////////////
 	//Standard Flight Methods//
 	public void flyForward(){
+		int id = newThreadID();
+		cmd.schedule(0, new Runnable(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				cmd.forward(10);
+				while(id==threadID){
+					
+				}
+				System.out.println("Forward died");
+			}
+		});
+		
 	}
 	@Override
 	public void flyBackward(){
-
+		int id = newThreadID();
+		cmd.schedule(0, new Runnable(){
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				cmd.backward(10);
+				while(id==threadID){
+					
+				}
+				System.out.println("backward died");
+			}
+		});
 	}
 	@Override
 	public void flyLeft(){
@@ -188,10 +214,6 @@ public class DroneMovement implements iDroneMovement {
 		}
 	}
 
-	/**
-	 * 
-	 */
-
 	private void spinLeft(int degrees) {
 		for(int i=0; i<degrees; i++){
 			hover();
@@ -204,6 +226,16 @@ public class DroneMovement implements iDroneMovement {
 			}
 		}
 	}	
+	
+	//ThreadControl
+	private int newThreadID(){
+		threadID++;
+		amountOfThreads++;
+		return threadID;
+	}
+	
+	
+	//Update position
 	
 	private Vector3D updateXY(int distance){
 		Vector3D coordinates = new Vector3D(0,0,0);
