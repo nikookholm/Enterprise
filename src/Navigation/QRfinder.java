@@ -111,10 +111,10 @@ public class QRfinder {
 
 			for (int i = 0; i < heica.rows(); i++) {
 				for (int j = 0; j < heica.cols(); j++) {
-					double[] fun = heica.get(0, j);
-					// if (fun[0] != -1) {
-					// count = 0;
-					// }
+					double[] fun = heica.get(i, j);
+//					 if (fun[0] != -1) {
+//					 count = 0;
+//					 }
 					if (fun[1] != -1) {
 						count = 0;
 					}
@@ -147,25 +147,7 @@ public class QRfinder {
 				cornerList.add(tempPoints.toArray());
 
 			}
-			List<Point[]> cornerListFinal = new ArrayList<>();
 
-			double tempAreal = 0;
-			double maksareal = 0;
-			for(int i = 0; i<cornerList.size();i++){
-				tempAreal = distance(cornerList.get(i)[0],cornerList.get(i)[1])*distance(cornerList.get(i)[0],cornerList.get(i)[3]);
-				
-				if(maksareal == 0){
-					maksareal = tempAreal;
-				}
-				
-				
-				else if(tempAreal > maksareal*2 || tempAreal > maksareal*0.8){
-					cornerListFinal.add(cornerList.get(i));
-				}
-				
-				
-			}
-			
 			
 			MatOfPoint2f fin1 = new MatOfPoint2f();
 			//
@@ -191,19 +173,19 @@ public class QRfinder {
 					Imgproc.cvtColor(qr_raw, qr_gray, Imgproc.COLOR_RGB2GRAY);
 					Imgproc.threshold(qr_gray, qr_thres, 127, 255, Imgproc.THRESH_BINARY);
 
-					qrdet = new BufferedImage(qr_thres.width(), qr_thres.height(), BufferedImage.TYPE_BYTE_GRAY);
+					qrdet = new BufferedImage(qr_gray.width(), qr_gray.height(), BufferedImage.TYPE_BYTE_GRAY);
 
 					byte[] data = ((DataBufferByte) qrdet.getRaster().getDataBuffer()).getData();
 
 					qr_gray.get(0, 0, data);
 					String result = decode(qrdet);
-
 					if (result != " ") {
+
 						disToQR = (4.45*400*720)/(3.17*distance(cornerList.get(abs)[0], cornerList.get(abs)[3]));
 						QRFun.add(new QRPoi(0, 0, 0));
 						QRFun.get(POIcounter).setCode(result);
 						QRFun.get(POIcounter).setQRimg(qrdet);
-						QRFun.get(POIcounter).setDistance(disToQR);
+						QRFun.get(POIcounter).setDistance(disToQR/10);
 						POIcounter++;
 						System.out.println(result);
 						System.out.println(disToQR);
@@ -227,7 +209,7 @@ public class QRfinder {
 
 				}}
 				matToImg switcher = new matToImg();
-				debuImg = switcher.matToBufferedImage(newImage);
+				debuImg = switcher.matToBufferedImage(qr_gray);
 				imgListener.imageUpdated(debuImg);
 
 			

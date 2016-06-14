@@ -8,6 +8,7 @@ import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
+import de.yadrone.base.command.VideoCodec;
 import de.yadrone.base.video.*;
 import Common.Drone;
 import GUI.iDroneGUI;
@@ -25,6 +26,7 @@ public class DroneVision implements iDroneVision {
 	ArrayList<POI> poiDrone = new ArrayList<POI>();
 	BufferedImage lastImage;
 	BufferedImage currImage;
+	QRfinder qrfind;
 	public enum SearchFor { QR, Circle, Both };
 	
 
@@ -35,8 +37,10 @@ public class DroneVision implements iDroneVision {
 	/********************constructor*****************/
 	public DroneVision(Drone drone) {
 		this.drone = drone;
+		qrfind = new QRfinder();
 		CVOp = new OpenCVOperations();
 		VD = new VectorDistance();
+		drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P).doFor(200);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 	
@@ -199,11 +203,12 @@ public class DroneVision implements iDroneVision {
 		
 		iDroneGUI droneGui = drone.getMain().getGUI();
 	     List<QRPoi> im;
-		QRfinder qrfind = new QRfinder();
+		
 		DecimalFormat numberFormat = new DecimalFormat("0.00");
 		
 		Mat imageMat = new Mat();
 		imageMat = new HoughCircles().bufferedImageToMat(image);
+		qrfind = new QRfinder();
 
 		try {
 			qrfind.findQR(imageMat, drone.getMain().getGUI().getCorrectedImageListener());
@@ -226,5 +231,10 @@ public class DroneVision implements iDroneVision {
 			image = qrfind.getDebugImg();
 		}
 		im.clear();
+	}
+	
+	
+	public QRfinder getQrfind() {
+		return qrfind;
 	}
 }
