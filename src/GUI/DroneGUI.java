@@ -1,14 +1,11 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import GUI.TopDown.TopDown;
 import Main.Enterprise;
 import de.yadrone.base.navdata.AcceleroListener;
 import de.yadrone.base.navdata.AltitudeListener;
@@ -16,8 +13,6 @@ import de.yadrone.base.navdata.BatteryListener;
 import de.yadrone.base.video.ImageListener;
 
 public class DroneGUI extends JFrame implements iDroneGUI {
-	
-	
 
 	private Enterprise main;
 	
@@ -28,7 +23,9 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 	
 	private final int MIN_SCREEN_HEIGHT = 800;
 	private final int MIN_SCREEN_WIDTH  = 800;
-	private Log log;	
+	private Log log;
+	
+	private TopDown map;
 	
 	public void initialize(Enterprise enterprise){
 		
@@ -66,6 +63,7 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		add(q3, gbc);
+		map = new TopDown(q4, main.getDrone());
 
 		// attach Log.java class to PanalQ3.java class
 		log = new Log(q3.getTextArea());

@@ -4,8 +4,12 @@ import javax.swing.JPanel;
 
 public class PanelQ4 extends JPanel{
 	
-//	private JTextArea codeArea; 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public PanelQ4()
 	{
 		initialize();
