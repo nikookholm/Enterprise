@@ -1,12 +1,12 @@
 package Tests;
 
-import Navigation.vectorDistance;
+import Navigation.VectorDistance;
 import Vector.Vector3D;
 
 public class testDronePosCalc {
 
 	public static void main(String[] args) {
-		vectorDistance VD = new vectorDistance();
+		VectorDistance VD = new VectorDistance();
 		
 		Vector3D wallmark1 = new Vector3D(0.0,0.0,0);
 		Vector3D wallmark2 = new Vector3D(1.0,2.0,0);

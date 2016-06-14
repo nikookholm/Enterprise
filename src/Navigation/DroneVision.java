@@ -30,13 +30,13 @@ public class DroneVision implements iDroneVision {
 
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
 	OpenCVOperations CVOp;
-	vectorDistance VD;
+	VectorDistance VD;
 
 	/********************constructor*****************/
 	public DroneVision(Drone drone) {
 		this.drone = drone;
 		CVOp = new OpenCVOperations();
-		VD = new vectorDistance();
+		VD = new VectorDistance();
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 	

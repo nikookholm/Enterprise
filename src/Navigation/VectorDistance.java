@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import POI.*;
 import Vector.Vector3D;
 
-public class vectorDistance {
+public class VectorDistance {
 
 
 	public void calcCoordinates(Vector3D object1, Vector3D object2, Vector3D object3) {
