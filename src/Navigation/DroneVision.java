@@ -167,18 +167,17 @@ public class DroneVision implements iDroneVision {
 		};
 	}
 
-	BufferedImage oldImage = null;
+
 
 	public void updateGUIImage(BufferedImage img){
-		if(oldImage == null){
-			BufferedImage procImage = findQR(img);
-			oldImage = procImage;
-			drone.getMain().getGUI().updateCorrectedImage(procImage);
+		if(lastImage == null){
+			currImage = findQR(img);
+			lastImage = currImage;
+			drone.getMain().getGUI().updateCorrectedImage(currImage);
 		}else{
-			BufferedImage procImage = findQR(img);
-			oldImage = procImage;
-			BufferedImage completeProcImage = CVOp.drawCircles(procImage);
-			drone.getMain().getGUI().updateCorrectedImage(completeProcImage);	
+			currImage = findQR(img);
+			lastImage = CVOp.drawCircles(currImage);
+			drone.getMain().getGUI().updateCorrectedImage(lastImage);	
 		}
 	}
 
