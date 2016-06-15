@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Common.Drone;
 import DronePrograms.AmalProgram;
+import DronePrograms.DronePosition;
 import DronePrograms.LpogDollar;
 //import DronePrograms.AmalProgram;
 //import DronePrograms.LpogDollar;
@@ -71,6 +72,7 @@ public class Enterprise {
 		programs.add(new LpogDollar());
 		programs.add(new RotationTestProgram());
 		programs.add(new AmalProgram());
+		programs.add(new DronePosition());
 	}
 	
 	public void startProgram(DroneProgram program)

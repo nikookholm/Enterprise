@@ -12,7 +12,6 @@ import de.yadrone.base.command.VideoCodec;
 import de.yadrone.base.video.*;
 import Common.Drone;
 import GUI.iDroneGUI;
-import Movements.DroneMovementThread;
 import POI.POI;
 import POI.POICircle;
 import POI.POIWallPoint;
@@ -27,9 +26,6 @@ public class DroneVision implements iDroneVision {
 	BufferedImage lastImage;
 	BufferedImage currImage;
 	QRfinder qrfind;
-	//public enum SearchFor { QR, Circle, Both };
-	
-
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
 	OpenCVOperations CVOp;
 	VectorDistance VD;
@@ -43,103 +39,136 @@ public class DroneVision implements iDroneVision {
 		drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P).doFor(200);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
-	
+
 
 	/************************************************/
 	/******************public methods****************/
 	/************************************************/
-	
+
 	/*********Scan qr-codes while moving*************/
 	@Override
-	public ArrayList<POI> scanQR(Movement movement, Condition condition) {
-		
-		DroneMovementThread movementThread = new DroneMovementThread(movement, drone);
-		movementThread.run();
+	public ArrayList<POI> scanQR( Condition condition) {
 
 		int i = 0;
 		int wallPoints = 0;
 		int circlePoints = 0;
 		switch(condition){
-			case Initial:
-				//Find 2 QR codes
-				while(wallPoints<2){
-					System.out.println("sker der");
-					//ONLY finds QR codes
-					tempPoI = CVOp.findQR(currImage);
-					tempPoI.removeAll(poi);
-					poi.addAll(tempPoI);
-					while(i<poi.size()){
-						if(poi.get(i) instanceof POIWallPoint){
-							wallPoints++;
-						}
-						i++;
+		case Initial:
+			//Find 2 QR codes
+			System.out.println("<<<<<<<<<<<< 2");
+			while(wallPoints<2){
+				System.out.println("<<<<<<<<< 3 , sker der");
+				//ONLY finds QR codes
+				tempPoI = CVOp.findQR(currImage);
+				tempPoI.removeAll(poi);
+				poi.addAll(tempPoI);
+				while(i<poi.size()){
+					if(poi.get(i) instanceof POIWallPoint){
+						wallPoints++;
 					}
+					i++;
 				}
-				break;
-				
-			case CircleQR:
-				i = 0;
-				circlePoints = 0;
-				while(circlePoints<1){
-					tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
-					tempPoI.removeAll(poi);
-					poi.addAll(tempPoI);
-					while(i<poi.size()){
-						if(poi.get(i) instanceof POICircle){
-							circlePoints++;
-						}
-						i++;
+			}
+			break;
+
+		case CircleQR:
+			i = 0;
+			circlePoints = 0;
+			while(circlePoints<1){
+				tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
+				tempPoI.removeAll(poi);
+				poi.addAll(tempPoI);
+				while(i<poi.size()){
+					if(poi.get(i) instanceof POICircle){
+						circlePoints++;
 					}
+					i++;
 				}
-				break;
-			default:
-				//should not be used
-				break;
+			}
+			break;
+		default:
+			//should not be used
+			break;
 		}
-		movementThread.abort();
 		return poi;
 	}
-	
+
 	/***********Calibrate the drone in front of circle********/
 	@Override
 	public Movement calibrateToCircle(Vector3D dronepos) {
-		Movement up = Movement.Up;
-		
-		return up;
+		Movement action = null ;
+
+		if(dronepos.getXCoord() == 0 && dronepos.getYCoord() < 0){
+			action = Movement.Up;
+		} else 
+			if(dronepos.getXCoord() < 0 && dronepos.getYCoord() < 0){
+				action = Movement.RightUp;
+			} else
+				if(dronepos.getXCoord() < 0 && dronepos.getYCoord() == 0){
+					action = Movement.Right;
+				} else 
+					if(dronepos.getXCoord() < 0 && dronepos.getYCoord() > 0){
+						action = Movement.RightDown;
+					} else
+						if(dronepos.getXCoord() == 0 && dronepos.getYCoord() > 0){
+							action = Movement.Down;
+						} else 
+							if (dronepos.getXCoord() > 0 && dronepos.getYCoord() > 0) {
+								action = Movement.LeftDown;					
+							} else 
+								if(dronepos.getXCoord() > 0 && dronepos.getYCoord() == 0){
+									action = Movement.Left;
+								} else 
+									if(dronepos.getXCoord() > 0 && dronepos.getYCoord() < 0){
+										action = Movement.LeftUp;
+									} 
+
+
+
+		return action;
 	}	
 
 	/***********Get drone position from wallmarks*************/
 	public Vector3D dronePosition(boolean firstTime){
-		
+
 		if(firstTime){
-			poiDrone = scanQR(Movement.SpinRight, Condition.Initial);
+			System.out.println("<<<<<< 1");
+			poiDrone = scanQR(Condition.Initial);
 		} else {
-			poiDrone = scanQR(Movement.Left, Condition.Flying);
+			poiDrone = scanQR(Condition.Flying);
 		}
-		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord() + ", " + VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance()).getYCoord());
-		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance());
+
+		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(),
+				((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 
+				((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord() + ", " + VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(),
+						((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 
+						((POIWallPoint)poiDrone.get(1)).getDistance()).getYCoord());
+
+		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), 
+				((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 
+				((POIWallPoint)poiDrone.get(1)).getDistance());
 	}	
-	
+
 	/************************************************/
 	/******************listeners*********************/
 	/************************************************/
-	
+
 	@Override
 	public ImageListener getImageListener() {
 		// TODO Auto-generated method stub
 		return new ImageListener(){
-			
+
 			@Override
 			public void imageUpdated(BufferedImage arg0) {
-				
+
 				updateGUIImage(arg0);
-				
+
 			}
 		};
 	}
-	
+
 	BufferedImage oldImage = null;
-	
+
 	public void updateGUIImage(BufferedImage img){
 		if(oldImage == null){
 			BufferedImage procImage = findQR(img);
@@ -152,16 +181,16 @@ public class DroneVision implements iDroneVision {
 			drone.getMain().getGUI().updateCorrectedImage(completeProcImage);	
 		}
 	}
-	
+
 	private BufferedImage findQR(BufferedImage image) {
-		
+
 		boolean imgTjek = false;
-		
+
 		iDroneGUI droneGui = drone.getMain().getGUI();
-	     List<QRPoi> im;
-		
+		List<QRPoi> im;
+
 		DecimalFormat numberFormat = new DecimalFormat("0.00");
-		
+
 		Mat imageMat = new Mat();
 		imageMat = new HoughCircles().bufferedImageToMat(image);
 		qrfind = new QRfinder();
@@ -175,11 +204,11 @@ public class DroneVision implements iDroneVision {
 		for(int i= 0; i< im.size(); i++){
 			if(im.get(i).getCode() != null){
 
-				
+
 				droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
-				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()/2) +"m");
-				
-				
+				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()/2) +"mm");
+
+
 				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
 			}
 		}
@@ -187,12 +216,12 @@ public class DroneVision implements iDroneVision {
 			image = qrfind.getDebugImg();
 		}
 		im.clear();
-		
+
 		return image;
-		
+
 	}
-	
-	
+
+
 	public QRfinder getQrfind() {
 		return qrfind;
 	}

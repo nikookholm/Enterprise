@@ -8,8 +8,9 @@ public class DroneMovementThread implements Runnable{
 	boolean abort;
 	DroneMovement droneMovement;
 	
-	public DroneMovementThread(Movement movement, Drone drone) {
-		this.movement = movement;
+	public DroneMovementThread(Drone drone) {
+//		this.movement = movement;  <<<<<<<<<<<<<<<<<<< skal slettes <<<<<<<<<<<<<<<<<<<<<<<<<
+
 		droneMovement = new DroneMovement(drone);
 		abort = false;
 		
@@ -46,6 +47,11 @@ public class DroneMovementThread implements Runnable{
 				droneMovement.flyRight();
 			}
 			break;
+		case RightDown:
+			while (!abort) {
+				
+				
+			}
 		case SpinLeft:
 			while(!abort){		
 				droneMovement.spinLeft();

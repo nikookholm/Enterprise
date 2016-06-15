@@ -187,8 +187,6 @@ public class QRfinder {
 						QRFun.get(POIcounter).setQRimg(qrdet);
 						QRFun.get(POIcounter).setDistance(disToQR/10);
 						POIcounter++;
-						System.out.println(result);
-						System.out.println(disToQR);
 
 					}
 
