@@ -114,9 +114,38 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	@Override
 	public void flyTo(POI interest) {
-		//mangler current coordinates
-		//mangler fly to coordinates
-
+		int currX = (int) drone.getCoordX();
+		int currY = (int) drone.getCoordY();
+		int flyToX = (int) interest.getxPos();
+		int flyToY = (int) interest.getyPos();
+		int flyXDir = flyToX-currX;
+		int flyYDir = flyToY-currY;
+		cmd.schedule(0, new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(flyXDir==0 && flyYDir>0){
+					rotateToAngle(0);
+					flyForwardConstant(flyYDir);
+				} else if(flyXDir==0 && flyYDir>0){
+					
+				} else if(flyXDir>0 && flyYDir==0){
+					
+				} else if(flyXDir<0 && flyYDir==0){
+					
+				} else if(flyXDir<0 && flyYDir<0){
+					
+				} else if(flyXDir<0 && flyYDir>0){
+					
+				} else if(flyXDir>0 && flyYDir<0){
+					
+				} else if(flyXDir>0 && flyYDir>0){
+					
+				} 
+			}
+		});
+		
 	}
 
 	/**
@@ -225,6 +254,19 @@ public class DroneMovement implements iDroneMovement {
 	/*********************private*******************************/
 	/***********************************************************/
 
+	private void forward(int doFor){
+		cmd.forward(20).doFor(doFor);
+	}
+	private void backward(int doFor){
+		cmd.backward(20).doFor(doFor);
+	}
+	private void left(int doFor){
+		cmd.goLeft(20).doFor(doFor);
+	}
+	private void right(int doFor){
+		cmd.goRight(20).doFor(doFor);
+	}
+	
 	private void spinRight(int degrees){
 		for(int i=0; i<degrees; i++){
 			hover();
@@ -237,7 +279,7 @@ public class DroneMovement implements iDroneMovement {
 					e.printStackTrace();
 				}
 			}
-			drone.spinRight();
+			cmd.spinRight(20);
 			try {
 				Thread.sleep(28);
 			} catch (InterruptedException e) {

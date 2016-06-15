@@ -21,12 +21,12 @@ public class DroneVision implements iDroneVision {
 	/******************global variables**************/
 	private Drone drone;
 
-	ArrayList<POI> poi = new ArrayList<POI>();
-	ArrayList<POI> poiDrone = new ArrayList<POI>();
+	ArrayList<POI> poi;
+	ArrayList<POI> poiDrone;
 	BufferedImage lastImage;
 	BufferedImage currImage;
 	QRfinder qrfind;
-	ArrayList<POI> tempPoI = new ArrayList<POI>();
+	ArrayList<POI> tempPoI;
 	OpenCVOperations CVOp;
 	VectorDistance VD;
 
@@ -36,6 +36,9 @@ public class DroneVision implements iDroneVision {
 		qrfind = new QRfinder();
 		CVOp = new OpenCVOperations();
 		VD = new VectorDistance();
+		tempPoI = new ArrayList<POI>();
+		poiDrone = new ArrayList<POI>();
+		poi = new ArrayList<POI>();
 		drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P).doFor(200);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
@@ -55,13 +58,15 @@ public class DroneVision implements iDroneVision {
 		switch(condition){
 		case Initial:
 			//Find 2 QR codes
-			System.out.println("<<<<<<<<<<<< 2");
 			while(wallPoints<2){
-				System.out.println("<<<<<<<<< 3 , sker der");
+				System.out.println("wallPoints: " + wallPoints + ", size of poi: " + poi.size());
 				//ONLY finds QR codes
 				tempPoI = CVOp.findQR(currImage);
+				System.out.println("temp: " + tempPoI);
 				tempPoI.removeAll(poi);
+				System.out.println("temp: " + tempPoI);
 				poi.addAll(tempPoI);
+				System.out.println("poi: " + poi);
 				while(i<poi.size()){
 					if(poi.get(i) instanceof POIWallPoint){
 						wallPoints++;
