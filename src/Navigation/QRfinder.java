@@ -70,7 +70,7 @@ public class QRfinder {
 	 * '''''''''''''''''''
 	 */
 
-	public void findQR(Mat newImage, ImageListener imgListener) throws Exception {
+	public void findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
 		double lin1, lin2, lin3;
@@ -210,7 +210,7 @@ public class QRfinder {
 				}}
 				matToImg switcher = new matToImg();
 				debuImg = switcher.matToBufferedImage(qr_gray);
-				imgListener.imageUpdated(debuImg);
+				
 
 			
 		}

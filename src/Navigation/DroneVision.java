@@ -27,7 +27,7 @@ public class DroneVision implements iDroneVision {
 	BufferedImage lastImage;
 	BufferedImage currImage;
 	QRfinder qrfind;
-	public enum SearchFor { QR, Circle, Both };
+	//public enum SearchFor { QR, Circle, Both };
 	
 
 	ArrayList<POI> tempPoI = new ArrayList<POI>();
@@ -120,30 +120,6 @@ public class DroneVision implements iDroneVision {
 		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), ((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), ((POIWallPoint)poiDrone.get(1)).getDistance());
 	}	
 	
-
-	
-	public void ShowOnImg(SearchFor item, BufferedImage bi){
-		
-//		Mat procImage;
-		
-		switch(item)
-		{
-		case QR:
-		//	procImage = findQR(bi);
-			break;
-			
-		case Circle:
-		//	procImage = CVOp.drawCircles();
-			break;
-		
-		case Both:
-//			procImage = findQR(bi);
-//			procImage = CVOp.drawCircles();
-			break;
-		}
-		
-	}
-	
 	/************************************************/
 	/******************listeners*********************/
 	/************************************************/
@@ -156,48 +132,28 @@ public class DroneVision implements iDroneVision {
 			@Override
 			public void imageUpdated(BufferedImage arg0) {
 				
-				findQR(arg0);
-				// if circles || QRS || (circles + QRS) - condition(enum ~ circle, qr or both)
-				/*
-				 * findQR, show on image
-				 * ----
-				 * find circles, show on image
-				 * ----
-				 * find both, show on image
-				 * 
-				 */
+				updateGUIImage(arg0);
+				
 			}
 		};
 	}
 	
+	BufferedImage oldImage = null;
 	
-	/*
-	 * hvis ingen protestere fjernes dette den 15-06
-	 * 
-	 */
+	public void updateGUIImage(BufferedImage img){
+		if(oldImage == null){
+			BufferedImage procImage = findQR(img);
+			oldImage = procImage;
+			drone.getMain().getGUI().updateCorrectedImage(procImage);
+		}else{
+			BufferedImage procImage = findQR(img);
+			oldImage = procImage;
+			BufferedImage completeProcImage = CVOp.drawCircles(procImage);
+			drone.getMain().getGUI().updateCorrectedImage(completeProcImage);	
+		}
+	}
 	
-//	public ImageListener getImageListener2() {
-//		// TODO Auto-generated method stub
-//		return new ImageListener(){
-//			
-//			@Override
-//			public void imageUpdated(BufferedImage arg0) {
-//				
-//				
-//				if (currImage != null) {
-//					lastImage = currImage;
-//					currImage = arg0;
-//				}else{
-//					currImage = arg0;
-//					
-//					
-//				}
-//			}
-//		};
-//	}
-	
-	
-	private void findQR(BufferedImage image) {
+	private BufferedImage findQR(BufferedImage image) {
 		
 		boolean imgTjek = false;
 		
@@ -211,7 +167,7 @@ public class DroneVision implements iDroneVision {
 		qrfind = new QRfinder();
 
 		try {
-			qrfind.findQR(imageMat, drone.getMain().getGUI().getCorrectedImageListener());
+			qrfind.findQR(imageMat);
 		} catch (Exception e) {				
 		}
 
@@ -231,6 +187,9 @@ public class DroneVision implements iDroneVision {
 			image = qrfind.getDebugImg();
 		}
 		im.clear();
+		
+		return image;
+		
 	}
 	
 	

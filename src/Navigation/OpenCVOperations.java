@@ -199,6 +199,13 @@ public class OpenCVOperations {
 	private void findAirports(Mat image, Vector3D coordinates, int angle) {
 		// Add code to find Airports
 	}
+	
+	public BufferedImage drawCircles(BufferedImage arg0){
+		BufferedImage img = null;
+		
+		
+		return img;
+	}
 
 	public ArrayList<double[]> getCircles(){
 		return circlesFound;
