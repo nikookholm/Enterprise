@@ -132,10 +132,7 @@ public class OpenCVOperations {
 		try {
 			findqr.findQR(image);
 			fundet = findqr.getFunderQR();
-			
-			for(int i = 0; i < fundet.size(); i++){
-				
-			}
+			System.out.println(fundet.size());
 			
 			for(int i = 0; i < fundet.size(); i++) interestsFound.add(fundet.get(i));
 		} catch (Exception e) {

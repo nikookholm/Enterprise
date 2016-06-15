@@ -70,6 +70,8 @@ public class DroneVision implements iDroneVision {
 				while(i<poi.size()){
 					if(poi.get(i) instanceof POIWallPoint){
 						wallPoints++;
+						System.out.println("wallPoints: " + wallPoints + ", size of poi: " + poi.size());
+						
 					}
 					i++;
 				}

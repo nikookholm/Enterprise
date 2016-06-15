@@ -195,7 +195,6 @@ public class QRfinder {
 				if (boxEs.size() != 0) {
 
 				}
-				sortsQR();
 
 				int debuk = 1;
 
@@ -207,6 +206,8 @@ public class QRfinder {
 
 				}}
 				matToImg switcher = new matToImg();
+				sortsQR();
+
 				debuImg = switcher.matToBufferedImage(qr_gray);
 				
 
@@ -233,6 +234,7 @@ public class QRfinder {
 	 */
 
 	private void sortsQR() {
+		funderQR.clear();
 		for (int j = 0; j < QRFun.size(); j++) {
 			if (QRFun.get(j).getCode().startsWith("W")) {
 				Point qrcord = QRFun.get(j).getCords();
