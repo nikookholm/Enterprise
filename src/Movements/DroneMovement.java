@@ -188,20 +188,19 @@ public class DroneMovement implements iDroneMovement {
 			cmd.schedule(startTime, new Runnable() {	
 				@Override
 				public void run() {
-					spinRight(Math.abs(aodFix));	
+					turnRight(Math.abs(aodFix));	
 				}
 			});
 		}else if(aod > 0){
 			cmd.schedule(startTime, new Runnable() {
 				@Override
 				public void run() {
-					spinLeft(Math.abs(aodFix));
+					turnLeft(Math.abs(aodFix));
 				}
 			});
 		}else {
 			System.out.println("You are already there");
 		}
-		currentAngle = angle;
 
 	}
 
@@ -282,6 +281,10 @@ public class DroneMovement implements iDroneMovement {
 		cmd.landing();
 		
 	}
+	
+	public int getCurrentAngle(){
+		return currentAngle;
+	}
 
 	/***********************************************************/
 	/*********************private*******************************/
@@ -300,7 +303,7 @@ public class DroneMovement implements iDroneMovement {
 		cmd.goRight(20).doFor(doFor);
 	}
 	
-	private void spinRight(int degrees){
+	private void turnRight(int degrees){
 		for(int i=0; i<degrees; i++){
 			hover();
 			if(i!=0 && i%10 == 0){
@@ -308,10 +311,14 @@ public class DroneMovement implements iDroneMovement {
 				
 			}
 			cmd.spinRight(20).doFor(20);
+			currentAngle -= 1;
+			if(currentAngle<0){
+				currentAngle += 360;
+			}
 		}
 	}
 
-	private void spinLeft(int degrees) {
+	private void turnLeft(int degrees) {
 		for(int i=0; i<degrees; i++){
 			hover();
 			if(i!=0 && i%10 == 0){
@@ -319,6 +326,10 @@ public class DroneMovement implements iDroneMovement {
 				
 			}
 			cmd.spinLeft(20).doFor(20);
+			currentAngle += 1;
+			if(currentAngle>359){
+				currentAngle -= 360;
+			}
 		}
 	}	
 	
