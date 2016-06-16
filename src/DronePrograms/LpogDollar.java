@@ -14,7 +14,7 @@ public class LpogDollar extends DroneProgram {
 		
 		getDrone().getMovement().rotateToAngle(90, 100);
 		while(getDrone().getMovement().getCurrentAngle()!=270){
-			System.out.println(getDrone().getMovement().getCurrentAngle());
+			getDrone().getMain().getGUI().getLog().add("" + getDrone().getMovement().getCurrentAngle());
 		}
 
 		getDrone().getMovement().landing();

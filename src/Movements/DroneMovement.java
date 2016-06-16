@@ -188,14 +188,14 @@ public class DroneMovement implements iDroneMovement {
 			cmd.schedule(startTime, new Runnable() {	
 				@Override
 				public void run() {
-					turnRight(Math.abs(aodFix));	
+					turnLeft(Math.abs(aodFix));	
 				}
 			});
 		}else if(aod > 0){
 			cmd.schedule(startTime, new Runnable() {
 				@Override
 				public void run() {
-					turnLeft(Math.abs(aodFix));
+					turnRight(Math.abs(aodFix));
 				}
 			});
 		}else {
@@ -310,7 +310,7 @@ public class DroneMovement implements iDroneMovement {
 				
 			}
 			cmd.spinRight(20).doFor(20);
-			currentAngle -= 1;
+			currentAngle += 1;
 			if(currentAngle<0){
 				currentAngle += 360;
 			}
@@ -324,7 +324,7 @@ public class DroneMovement implements iDroneMovement {
 				
 			}
 			cmd.spinLeft(20).doFor(20);
-			currentAngle += 1;
+			currentAngle -= 1;
 			if(currentAngle>359){
 				currentAngle -= 360;
 			}
