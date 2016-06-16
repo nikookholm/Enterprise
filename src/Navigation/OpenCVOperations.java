@@ -56,12 +56,12 @@ public class OpenCVOperations {
 		for(POI liCheck : li){
 			for(POI niCheck : ni){
 				if(liCheck instanceof POICircle && niCheck instanceof POICircle){
-					if(((POICircle)liCheck).getQRValue() == ((POICircle)niCheck).getQRValue()){
+					if(((POICircle)liCheck).getCode() == ((POICircle)niCheck).getCode()){
 						if(!objectsFound.contains(liCheck)) objectsFound.add(liCheck);
 					
 					}
 				}else if(liCheck instanceof POIWallPoint && niCheck instanceof POIWallPoint){
-					if(((POIWallPoint)liCheck).getQRString() == ((POIWallPoint)niCheck).getQRString()){
+					if(((POIWallPoint)liCheck).getCode() == ((POIWallPoint)niCheck).getCode()){
 						if(!objectsFound.contains(liCheck)) objectsFound.add(liCheck);
 					}
 				}
@@ -124,6 +124,23 @@ public class OpenCVOperations {
 
 		return objectsFound;
 	}
+	public void checkForOld(ArrayList<POI> qrFun, ArrayList<POI> interestFound){
+		String tempCode;
+		int counter = 0;
+		for(int i = 0; i<qrFun.size();i++){
+			tempCode = qrFun.get(i).getCode();
+			
+			for(int j = 0; j<interestFound.size(); j++){
+				if(!tempCode.equals(interestFound.get(j).getCode())){
+					counter++;
+				}
+			}
+				if(counter == interestFound.size()){
+					interestFound.add(qrFun.get(i));
+				}
+			counter = 0;
+		}
+	}
 	
 	private ArrayList<POI> findQR(Mat image) {
 
@@ -132,9 +149,8 @@ public class OpenCVOperations {
 		try {
 			findqr.findQR(image);
 			fundet = findqr.getFunderQR();
-			System.out.println(fundet.size());
+			checkForOld(fundet, interestsFound);
 			
-			interestsFound.addAll(fundet);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
