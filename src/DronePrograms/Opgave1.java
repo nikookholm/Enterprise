@@ -22,11 +22,11 @@ public class Opgave1 extends DroneProgram {
 	}
 	@Override
 	public String getProgramName() {
-		return "Opgave 1 er the shit!";
+		return "Opgave1 ";
 	}
 	@Override
 	public void run() {
-/*
+
 		// Opgave 1 Beskrivelse:
 		// 
 		// For at kunne vurdere prstationen, bliver der talt portpassager (points). En
@@ -43,9 +43,9 @@ public class Opgave1 extends DroneProgram {
 		iDroneMovement   m = getDrone().getMovement();
 		iDroneNavigation n = getDrone().getNavigation();
 		
-		m.hoverTo(1);										// Flyver op til 1 meter
+		m.start();										// Flyver op til 1 meter
 		
-		while (!hasFound3WallPOIs())						// Så længe at den ikke har fundet sine tre WallPOI's
+		while (!hasFound3WallPOIs())						// Så længe at den ikke har fundet sine to WallPOI's
 		{
 			n.getVision().search();							// Afsøg rum
 		}
@@ -68,7 +68,7 @@ public class Opgave1 extends DroneProgram {
 		
 															// All good!
 				
-	*/	
+	
 	}
 	
 	private boolean nextRingIsInList() {
@@ -101,7 +101,7 @@ public class Opgave1 extends DroneProgram {
 			}
 		}
 		
-		return (wallPoisFound >= 3);
+		return (wallPoisFound >= 2);
 	}
 
 
