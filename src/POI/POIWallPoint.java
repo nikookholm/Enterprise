@@ -4,16 +4,13 @@ import Vector.Vector3D;
 
 public class POIWallPoint extends POI {
 	
-	private String QRcontains;
 	private double distance;
 	
 	public POIWallPoint(Vector3D coordinates, Vector3D dronePos,String QRcontains, int angle) {
-		super(coordinates, dronePos, angle);
-		this.QRcontains = QRcontains;
+		super(coordinates, dronePos, angle,QRcontains);
 	}
 	public POIWallPoint(String code, double dist,Vector3D cords){
-		super(cords,null,0);
-		this.QRcontains = code;
+		super(cords,null,0,code);
 		this.distance = dist;
 	}
 	
@@ -22,8 +19,6 @@ public class POIWallPoint extends POI {
 	}
 	
 	
-	public String getQRString(){
-		return QRcontains;
-	}
+
 	
 }

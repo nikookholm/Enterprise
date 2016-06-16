@@ -8,13 +8,14 @@ public class POI {
 
 	private Vector3D coordinates;
 	private Vector3D dronePos;
+	private String code;
 	
 	private int angle;
 	
-	public POI(Vector3D coordinates, Vector3D dronepos, int angle)
+	public POI(Vector3D coordinates, Vector3D dronepos, int angle,String code)
 	{
 		
-		
+		this.code = code;
 		this.coordinates = coordinates;
 		this.dronePos = dronepos;
 		this.angle = angle;
@@ -46,6 +47,9 @@ public class POI {
 	
 	public double getzPos(){
 		return coordinates.getZCoord();
+	}
+	public String getCode() {
+		return code;
 	}
 	
 	
