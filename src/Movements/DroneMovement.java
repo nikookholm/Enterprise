@@ -305,7 +305,6 @@ public class DroneMovement implements iDroneMovement {
 	
 	private void turnRight(int degrees){
 		for(int i=0; i<degrees; i++){
-			hover();
 			if(i!=0 && i%10 == 0){
 				cmd.hover().doFor(30);
 				
@@ -320,7 +319,6 @@ public class DroneMovement implements iDroneMovement {
 
 	private void turnLeft(int degrees) {
 		for(int i=0; i<degrees; i++){
-			hover();
 			if(i!=0 && i%10 == 0){
 				cmd.hover().doFor(30);
 				
