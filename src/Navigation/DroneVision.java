@@ -62,11 +62,15 @@ public class DroneVision implements iDroneVision {
 				System.out.println("wallPoints: " + wallPoints + ", size of poi: " + poi.size());
 				//ONLY finds QR codes
 				tempPoI = CVOp.findQR(currImage);
-				System.out.println("temp: " + tempPoI);
+				for(int j =0 ; i<tempPoI.size();j++){
+				System.out.println("temp: " + tempPoI.get(j).getCode());
+				}
 				tempPoI.removeAll(poi);
 				System.out.println("temp: " + tempPoI);
 				poi.addAll(tempPoI);
-				System.out.println("poi: " + poi);
+				for(int j =0 ; i<tempPoI.size();j++){
+					System.out.println("poi: " + poi.get(j).getCode());
+				}
 				while(i<poi.size()){
 					if(poi.get(i) instanceof POIWallPoint){
 						wallPoints++;
