@@ -8,27 +8,15 @@ public class LpogDollar extends DroneProgram {
 	@Override
 	public void run() {
 		
-		System.out.println(" Starter staaaet ><");
+		System.out.println(" Starter start ><");
 		getDrone().getMovement().start();
-		System.out.println(" Kalder fly forward");
-		getDrone().getMovement().flyForward();
-		try {
-			System.out.println("starter sleep til forward");
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		System.out.println(" parat til fly backward");
-		getDrone().getMovement().flyBackward();
-		try {
-			System.out.println("starter sleep til backwards");
-			Thread.sleep(5000);
-		
-		} catch (InterruptedException e) {
-
-			e.printStackTrace();
-		}
-		System.out.println(" parat til fly backward");
+		System.out.println("Kalder rotate(90)");
+		getDrone().getMovement().rotateToAngle(90, 0);
+		System.out.println("Kalder rotate(270)");
+		getDrone().getMovement().rotateToAngle(270, 0);
+		System.out.println("Kalder rotate(0)");
+		getDrone().getMovement().rotateToAngle(0, 0);
+		System.out.println("bør være på start pos");
 		getDrone().getMovement().landing();
 	}
 	@Override
@@ -38,7 +26,7 @@ public class LpogDollar extends DroneProgram {
 	@Override
 	public String getProgramName() {
 		// TODO Auto-generated method stub
-		return "schedule thread test";
+		return "rotate test";
 	}
 }
 

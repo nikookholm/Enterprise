@@ -47,8 +47,9 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
-	public void flyForwardConstant(int cm){
-		cmd.schedule(0, new Runnable() {
+	public void flyForwardConstant(int cm, int startTime){
+		
+		cmd.schedule(startTime, new Runnable() {
 			
 			@Override
 			public void run() {
@@ -65,9 +66,9 @@ public class DroneMovement implements iDroneMovement {
 	}
 
 	// Flyv tilbage i bestemme distance (cm) 
-	public void flyBackwardConstant(int cm){
+	public void flyBackwardConstant(int cm, int startTime){
 		
-		cmd.schedule(0, new Runnable() {
+		cmd.schedule(startTime, new Runnable() {
 			
 			@Override
 			public void run() {
@@ -83,8 +84,17 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
-	public void flyLeftConstant(int cm, int hoverTime){
-		updatePositionLeft(cm);
+	public void flyLeftConstant(int cm, int startTime){
+		
+		cmd.schedule(startTime, new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+			updatePositionLeft(cm);
 		/** Mangler at finde konstant hastigheden for flyLeft**/
 //		for(int i = 0 ; i<cm ; i++){
 //			cmd.forward(20).doFor(2);
@@ -97,8 +107,17 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
-	public void flyRightConstant(int cm, int hoverTime){
-		updatePositionRight(cm);
+	public void flyRightConstant(int cm, int startTime){
+		
+		cmd.schedule(startTime, new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+			updatePositionLeft(cm);
 		/** Mangler at finde konstant hastigheden for flyRight**/
 //		for(int i = 0 ; i<cm ; i++){
 //			cmd.forward(20).doFor(2);
@@ -126,14 +145,17 @@ public class DroneMovement implements iDroneMovement {
 			public void run() {
 				// TODO Auto-generated method stub
 				if(flyXDir==0 && flyYDir>0){
-					rotateToAngle(0);
-					flyForwardConstant(flyYDir);
-				} else if(flyXDir==0 && flyYDir>0){
-					
+					rotateToAngle(0,0);
+					flyForwardConstant(flyYDir, 0);
+				} else if(flyXDir==0 && flyYDir<0){
+					rotateToAngle(180,0);
+					flyForwardConstant(flyYDir, 0);
 				} else if(flyXDir>0 && flyYDir==0){
-					
+					rotateToAngle(270,0);
+					flyForwardConstant(flyXDir, 0);
 				} else if(flyXDir<0 && flyYDir==0){
-					
+					rotateToAngle(90,0);
+					flyForwardConstant(flyXDir, 0);
 				} else if(flyXDir<0 && flyYDir<0){
 					
 				} else if(flyXDir<0 && flyYDir>0){
@@ -153,18 +175,29 @@ public class DroneMovement implements iDroneMovement {
 	 */
 
 	@Override
-	public void rotateToAngle(int angle) {
+	public void rotateToAngle(int angle, int startTime) {
 		angle = angle%360;
 		int aod; //amount of degrees
 		aod = ((currentAngle-angle)+180)%360-180;
 		if(aod < -180){
 			aod += 360;
 		}
+		final int aodFix = aod;
 
 		if(aod < 0){
-			spinRight(Math.abs(aod));
+			cmd.schedule(startTime, new Runnable() {	
+				@Override
+				public void run() {
+					spinRight(Math.abs(aodFix));	
+				}
+			});
 		}else if(aod > 0){
-			spinLeft(Math.abs(aod));
+			cmd.schedule(startTime, new Runnable() {
+				@Override
+				public void run() {
+					spinLeft(Math.abs(aodFix));
+				}
+			});
 		}else {
 			System.out.println("You are already there");
 		}
@@ -271,34 +304,21 @@ public class DroneMovement implements iDroneMovement {
 		for(int i=0; i<degrees; i++){
 			hover();
 			if(i!=0 && i%10 == 0){
-				hover();
-				try {
-					Thread.sleep(30);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				cmd.hover().doFor(30);
+				
 			}
-			cmd.spinRight(20);
-			try {
-				Thread.sleep(28);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			cmd.spinRight(20).doFor(20);
 		}
 	}
 
 	private void spinLeft(int degrees) {
 		for(int i=0; i<degrees; i++){
 			hover();
-			drone.spinLeft();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(i!=0 && i%10 == 0){
+				cmd.hover().doFor(30);
+				
 			}
+			cmd.spinLeft(20).doFor(20);
 		}
 	}	
 	

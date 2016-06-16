@@ -10,8 +10,11 @@ public interface iDroneMovement {
 	public void start();
 	public void hoverTo(int height);      // Fly to the height and stay there.
 	public void flyTo(POI interest);      // Align it self to the POI.
-	public void rotateToAngle(int angle); 
-	public void flyForwardConstant(int cm);// fly destination manual
+	public void rotateToAngle(int angle, int startTime); 
+	public void flyForwardConstant(int cm, int startTime);// fly destination manual
+	public void flyBackwardConstant(int cm, int startTime);
+	public void flyRightConstant(int cm, int startTime);
+	public void flyLeftConstant(int cm, int startTime);
 	public void flyHome();
 	public POI flyThroughRing(POI nextRing);
 	public void stopAndDecent();
