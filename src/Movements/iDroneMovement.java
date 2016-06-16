@@ -30,6 +30,7 @@ public interface iDroneMovement {
 	//hover does not use schedule
 	public void hover();
 	
+	public int getCurrentAngle();
 	public GyroListener getGyroListener();
 	public AttitudeListener getAttitudeListener();
 
