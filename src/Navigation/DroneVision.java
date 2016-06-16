@@ -50,7 +50,7 @@ public class DroneVision implements iDroneVision {
 
 	/*********Scan qr-codes while moving*************/
 	@Override
-	public ArrayList<POI> scanQR( Condition condition) {
+	public ArrayList<POI> scanQR(Condition condition) {
 
 		int i = 0;
 		int wallPoints = 0;

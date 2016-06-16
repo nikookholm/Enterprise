@@ -2,6 +2,7 @@ package Movements;
 
 
 import Common.Drone;
+import Navigation.iDroneVision.Condition;
 import POI.POI;
 import Vector.Vector3D;
 import de.yadrone.base.command.CommandManager;
@@ -144,12 +145,20 @@ public class DroneMovement implements iDroneMovement {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				if(flyXDir==0 && flyYDir>0){
+				if(flyXDir==0 && flyYDir>0){		
+					
 					rotateToAngle(0,0);
+					tempFlight();
 					flyForwardConstant(flyYDir, 0);
+					tempFlight();
+				
 				} else if(flyXDir==0 && flyYDir<0){
+					
 					rotateToAngle(180,0);
+					tempFlight();
 					flyForwardConstant(flyYDir, 0);
+					tempFlight();
+					
 				} else if(flyXDir>0 && flyYDir==0){
 					rotateToAngle(270,0);
 					flyForwardConstant(flyXDir, 0);
@@ -176,6 +185,7 @@ public class DroneMovement implements iDroneMovement {
 
 	@Override
 	public void rotateToAngle(int angle, int startTime) {
+		newThreadID();
 		angle = angle%360;
 		int aod; //amount of degrees
 		aod = ((currentAngle-angle)+180)%360-180;
@@ -202,6 +212,7 @@ public class DroneMovement implements iDroneMovement {
 			System.out.println("You are already there");
 		}
 
+		threadID--;
 	}
 
 	@Override
@@ -398,6 +409,13 @@ public class DroneMovement implements iDroneMovement {
 		Vector3D coordinates = updateXY(distance);
 		drone.incCoordX(coordinates.getYCoord());
 		drone.incCoordY(coordinates.getXCoord());	
+	}
+	
+	private void tempFlight(){
+		int tempThreadID = threadID;
+		while(tempThreadID == threadID){
+			drone.getNavigation().getVision().scanQR(Condition.CircleQR);
+		}
 	}
 	/*******************************/
 	/*****Listener to interface*****/
