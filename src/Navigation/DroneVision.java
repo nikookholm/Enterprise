@@ -72,9 +72,10 @@ public class DroneVision implements iDroneVision {
 						}
 					}
 					if(isThere){
+						isThere =false;
+					} else {
 						poi.add(tempPoI.get(j));
 					}
-					isThere =false;
 				}
 				
 				while(i<poi.size()){
