@@ -52,6 +52,7 @@ public class DroneVision implements iDroneVision {
 	@Override
 	public ArrayList<POI> scanQR(Condition condition) {
 
+		boolean isThere = false;
 		int i = 0;
 		int wallPoints = 0;
 		int circlePoints = 0;
@@ -62,15 +63,21 @@ public class DroneVision implements iDroneVision {
 				System.out.println("wallPoints: " + wallPoints + ", size of poi: " + poi.size());
 				//ONLY finds QR codes
 				tempPoI = CVOp.findQR(currImage);
-				for(int j =0 ; i<tempPoI.size();j++){
-				System.out.println("temp: " + tempPoI.get(j).getCode());
-				}
-				tempPoI.removeAll(poi);
-				System.out.println("temp: " + tempPoI);
+				for(int j =0 ; j<tempPoI.size();j++){
+					String tempPoICode = tempPoI.get(j).getCode();
+					for(int k =0 ; k<tempPoI.size();k++){
+						String poiCode = poi.get(k).getCode();
+						if(tempPoICode.equals(poiCode)){
+							isThere = true;
+						}
+					}
+					if(isThere){
+						poi.add(tempPoI.get(j));
+					}
+					isThere =false;
+					}
 				poi.addAll(tempPoI);
-				for(int j =0 ; i<tempPoI.size();j++){
-					System.out.println("poi: " + poi.get(j).getCode());
-				}
+				
 				while(i<poi.size()){
 					if(poi.get(i) instanceof POIWallPoint){
 						wallPoints++;
