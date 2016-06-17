@@ -7,4 +7,5 @@ public interface iDroneNavigation {
 	public DroneSensors getSensors();
 	public DroneVision  getVision();
 	
+	
 }

@@ -33,5 +33,6 @@ public interface iDroneMovement {
 	public int getCurrentAngle();
 	public GyroListener getGyroListener();
 	public AttitudeListener getAttitudeListener();
+	public void search();
 
 }

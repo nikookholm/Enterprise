@@ -107,6 +107,7 @@ public class DroneMovement implements iDroneMovement {
 
 	}
 	
+	
 	// Flyv frem i bestemme distance (cm) 
 	public void flyRightConstant(int cm, int startTime){
 		
@@ -114,11 +115,15 @@ public class DroneMovement implements iDroneMovement {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
+				for(int i=0; i<cm; i++){
+					cmd.goLeft(20).doFor(20);
+					updatePositionBackward(1);
+				}
 				
 			}
 		});
 			updatePositionLeft(cm);
+			
 		/** Mangler at finde konstant hastigheden for flyRight**/
 //		for(int i = 0 ; i<cm ; i++){
 //			cmd.forward(20).doFor(2);
@@ -474,5 +479,13 @@ public class DroneMovement implements iDroneMovement {
 			
 		}
 
+	}
+
+	@Override
+	public void search() {
+		
+		rotateToAngle(90, 0);
+		flyForwardConstant(100, 100);
+		
 	}
 }

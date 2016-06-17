@@ -65,7 +65,7 @@ public class DroneVision implements iDroneVision {
 				tempPoI = CVOp.findQR(currImage);
 				for(int j =0 ; j<tempPoI.size();j++){
 					String tempPoICode = tempPoI.get(j).getCode();
-					for(int k =0 ; k<tempPoI.size();k++){
+					for(int k =0 ; k<poi.size();k++){
 						String poiCode = poi.get(k).getCode();
 						if(tempPoICode.equals(poiCode)){
 							isThere = true;
@@ -75,8 +75,7 @@ public class DroneVision implements iDroneVision {
 						poi.add(tempPoI.get(j));
 					}
 					isThere =false;
-					}
-				poi.addAll(tempPoI);
+				}
 				
 				while(i<poi.size()){
 					if(poi.get(i) instanceof POIWallPoint){
@@ -87,6 +86,7 @@ public class DroneVision implements iDroneVision {
 					i++;
 				}
 			}
+			tempPoI.clear();
 			break;
 
 		case CircleQR:
