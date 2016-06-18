@@ -71,6 +71,31 @@ public class DroneMovement implements iDroneMovement {
 		});
 		
 	}
+	
+	public void spinRight(int cm, int startTime){
+		cmd.schedule(startTime,new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i = 0; i<cm; i++){
+					cmd.spinRight(30).doFor(30);
+				}
+				cmd.spinLeft(30).doFor(50);
+			}
+		});
+	}
+	public void spinLeft(int cm, int startTime){
+		cmd.schedule(startTime,new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i = 0; i<cm; i++){
+					cmd.spinLeft(30).doFor(30);
+				}
+				cmd.spinRight(30).doFor(50);
+			}
+		});
+	}
 
 	// Flyv tilbage i bestemme distance (cm) 
 	public void flyBackwardConstant(int cm, int startTime){

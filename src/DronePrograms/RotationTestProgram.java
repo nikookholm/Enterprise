@@ -11,6 +11,7 @@ import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.ControlState;
 import de.yadrone.base.navdata.DroneState;
 import de.yadrone.base.navdata.StateListener;
+import Navigation.DroneVision;
 import Navigation.QRPoi;;
 
 public class RotationTestProgram extends DroneProgram {
@@ -30,12 +31,10 @@ public class RotationTestProgram extends DroneProgram {
 	@Override
 	public void run() {
 		getDrone().getMovement().start();
-		
-		getDrone().getMovement().flyForwardConstant(150, 2000);
-		
-		getDrone().getMovement().hover();
-		
-		getDrone().getMovement().landing();
+		int Width;
+		int Height;
+		getDrone().getNavigation().getVision().
+
 		
 	}
 

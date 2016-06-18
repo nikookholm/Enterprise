@@ -234,6 +234,9 @@ public class DroneVision implements iDroneVision {
 	public QRfinder getQrfind() {
 		return qrfind;
 	}
+	public BufferedImage getCurrImage() {
+		return currImage;
+	}
 
 
 	public void search() {
