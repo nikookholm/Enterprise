@@ -184,6 +184,8 @@ public class QRfinder {
 
 						disToQR = (4.45*400*720)/(3.17*distance(cornerList.get(abs)[0], cornerList.get(abs)[3]));
 						QRFun.add(new QRPoi(0, 0, 0));
+						System.out.println(disToQR + " BEFORE");
+						System.out.println(disToQR/10 + " AFTER");
 						QRFun.get(POIcounter).setCode(result);
 						QRFun.get(POIcounter).setQRimg(qrdet);
 						QRFun.get(POIcounter).setDistance(disToQR/10);
