@@ -21,10 +21,10 @@ public class DroneMovement implements iDroneMovement {
 	private CommandManager cmd;
 
 	GyroPhysData gyro; 
-	float pitch;
-	float roll;
-	float yaw;
-	int altitude;
+	private float pitch;
+	private float roll;
+	private float yaw;
+	private int altitude;
 
 	public DroneMovement(Drone drone)
 	{
@@ -535,5 +535,17 @@ public class DroneMovement implements iDroneMovement {
 		rotateToAngle(90, 0);
 		flyForwardConstant(100, 100);
 		
+	}
+	public int getAltitude() {
+		return altitude;
+	}
+	public float getPitch() {
+		return pitch;
+	}
+	public float getRoll() {
+		return roll;
+	}
+	public float getYaw() {
+		return yaw;
 	}
 }

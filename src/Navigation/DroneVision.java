@@ -29,6 +29,8 @@ public class DroneVision implements iDroneVision {
 	ArrayList<POI> tempPoI;
 	OpenCVOperations CVOp;
 	VectorDistance VD;
+	List<QRPoi> im;
+	ArrayList<POICircle> circlesFound;
 
 	/********************constructor*****************/
 	public DroneVision(Drone drone) {
@@ -196,7 +198,7 @@ public class DroneVision implements iDroneVision {
 		boolean imgTjek = false;
 
 		iDroneGUI droneGui = drone.getMain().getGUI();
-		List<QRPoi> im;
+
 
 		DecimalFormat numberFormat = new DecimalFormat("0.00");
 
@@ -206,6 +208,9 @@ public class DroneVision implements iDroneVision {
 
 		try {
 			qrfind.findQR(imageMat);
+			circlesFound = CVOp.findCircle(imageMat,new Vector3D(0, 0,0));
+			
+			
 		} catch (Exception e) {				
 		}
 
@@ -228,6 +233,12 @@ public class DroneVision implements iDroneVision {
 
 		return image;
 
+	}
+	public ArrayList<POICircle> getCirclesFound() {
+		return circlesFound;
+	}
+	public List<QRPoi> getIm() {
+		return im;
 	}
 
 

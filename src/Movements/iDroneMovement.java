@@ -19,6 +19,7 @@ public interface iDroneMovement {
 	public POI flyThroughRing(POI nextRing);
 	public void stopAndDecent();
 	
+	
 	//Standard Methods
 	public void landing();
 	public void flyForward();

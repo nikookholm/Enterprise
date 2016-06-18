@@ -178,7 +178,7 @@ public class OpenCVOperations {
 //
 //	}
 
-	private ArrayList<POICircle> findCircle(Mat image, Vector3D dronePos){
+	public ArrayList<POICircle> findCircle(Mat image, Vector3D dronePos){
 		Mat image_gray = new Mat();
 		Mat circles = new Mat();
 		
@@ -194,8 +194,8 @@ public class OpenCVOperations {
 			circlesFound.add(circle);
 			int radius = (int) Math.round(circle[2]);
 			
-			
-			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius));
+			double dist = ((4.45*500*720)/(3.17*radius))/10;
+			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius,dist));
 			
 		}
 		
