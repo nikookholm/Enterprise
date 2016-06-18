@@ -41,7 +41,6 @@ public class DroneMovement implements iDroneMovement {
 	 * @return void
 	 */
 	public void hoverTo(int height) {
-		cmd.setMaxAltitude(height);
 		cmd.up(30).doFor(50);
 		cmd.hover();
 	}
