@@ -34,6 +34,8 @@ public class RotationTestProgram extends DroneProgram {
 		getDrone().getMovement().start();
 		int Width;
 		int Height;
+		int farMargin = 50;
+		int closeMargin = 30;
 		Height = getDrone().getNavigation().getVision().getCurrImage().getHeight();
 		Width = getDrone().getNavigation().getVision().getCurrImage().getWidth();
 		int CenterX = Width/2;
@@ -42,17 +44,27 @@ public class RotationTestProgram extends DroneProgram {
 		POICircle currentPoit;
 		boolean flyForward = false;
 		while(run){
-			boolean QRCircleFound = false;
+			while(!flyForward){
 			for(int i = 0; i<getDrone().getNavigation().getVision().getIm().size(); i++){
 				if(getDrone().getNavigation().getVision().getIm().get(i).getCode().contains("P")){
-					QRCircleFound = true;
-					while(getDrone().getMovement().sp
-					getDrone().getMovement().hoverTo(20000);
+					while(getDrone().getMovement().getAltitude() < 1700){
+						getDrone().getMovement().hoverTo(1700);
+						
+					}
+					
+					if(getDrone().getMovement().getAltitude() > 1600){
+						flyForward = true;
+					}
+					
 					
 				}
 			}
+			}
 		if(flyForward){
-			System.out.println("Circle QR Found. Distance =" + );
+			System.out.println("Circle QR Found. Distance =" + getDrone().getNavigation().getVision().getCirclesFound().get(0).getDistance());
+			if(getDrone().getNavigation().getVision().getCirclesFound().get(0) != null){
+				
+			}
 			
 		}
 

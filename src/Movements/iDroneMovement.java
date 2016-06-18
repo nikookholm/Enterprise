@@ -16,6 +16,8 @@ public interface iDroneMovement {
 	public void flyRightConstant(int cm, int startTime);
 	public void flyLeftConstant(int cm, int startTime);
 	public void flyHome();
+	public void spinLeft(int cm, int startTime);
+	public void spinRight(int cm, int startTime);
 	public POI flyThroughRing(POI nextRing);
 	public void stopAndDecent();
 	
@@ -32,6 +34,10 @@ public interface iDroneMovement {
 	public void hover();
 	
 	public int getCurrentAngle();
+	public int getAltitude();
+	public float getPitch();
+	public float getRoll();
+	public float getYaw();
 	public GyroListener getGyroListener();
 	public AttitudeListener getAttitudeListener();
 	public void search();
