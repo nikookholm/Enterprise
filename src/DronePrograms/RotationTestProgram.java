@@ -63,7 +63,7 @@ public class RotationTestProgram extends DroneProgram {
 		if(flyForward){
 			System.out.println("Circle QR Found. Distance =" + getDrone().getNavigation().getVision().getCirclesFound().get(0).getDistance());
 			if(getDrone().getNavigation().getVision().getCirclesFound().get(0) != null){
-				
+				getDrone().getMovement().ca
 			}
 			
 		}

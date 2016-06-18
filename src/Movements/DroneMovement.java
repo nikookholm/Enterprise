@@ -45,10 +45,31 @@ public class DroneMovement implements iDroneMovement {
 		cmd.hover();
 	}
 	
-	public void calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin){
-		if(cenX + farMargin < cenX
+	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance){
+		if(distance >3000){
+		if(cenX + farMargin < CircleX){
+			flyRightConstant(20, 500);
+		}
+		if(cenX + farMargin > CircleX){
+			flyLeftConstant(20, 500);
+		}
+		}
+		else if(distance<3000){
+			if(cenX + closeMargin < CircleX){
+				flyRightConstant(20, 500);
+			}
+			if(cenX + closeMargin > CircleX){
+				flyLeftConstant(20, 500);
+			}
+			if(cenX > CircleX-closeMargin && cenX < CircleX+closeMargin){
+				return true;
+			}
+		}
 		
+
+		return false;
 	}
+	
 
 	public void start() {		
 		

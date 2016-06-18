@@ -20,7 +20,7 @@ public interface iDroneMovement {
 	public void spinRight(int cm, int startTime);
 	public POI flyThroughRing(POI nextRing);
 	public void stopAndDecent();
-	
+	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance);
 	
 	//Standard Methods
 	public void landing();
