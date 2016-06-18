@@ -6,6 +6,7 @@ import Navigation.iDroneVision.Condition;
 import POI.POI;
 import Vector.Vector3D;
 import de.yadrone.base.command.CommandManager;
+import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
@@ -23,12 +24,15 @@ public class DroneMovement implements iDroneMovement {
 	float pitch;
 	float roll;
 	float yaw;
+	int altitude;
 
 	public DroneMovement(Drone drone)
 	{
 		this.drone = drone;
 		cmd = drone.getCommandManager();
 	}
+	
+	
 
 	/**
 	 * The hoverTo method sets the max height, to be sure how high it is allowed to flight.
@@ -38,12 +42,14 @@ public class DroneMovement implements iDroneMovement {
 	 */
 	public void hoverTo(int height) {
 		cmd.setMaxAltitude(height);
-		cmd.up(15);
+		cmd.up(30);
 	}
+	
+	
 
 	public void start() {		
 		
-		cmd.flatTrim().doFor(100).takeOff().doFor(5000);
+		cmd.takeOff().doFor(3800);
 		hover();
 	}
 	
@@ -55,7 +61,7 @@ public class DroneMovement implements iDroneMovement {
 			@Override
 			public void run() {
 				for(int i = 0 ; i<cm ; i++){
-					cmd.forward(20).doFor(2);
+					cmd.forward(20).doFor(20);
 					updatePositionForward(1);
 					if(i%100==0 && i!=0){
 						cmd.hover().doFor(500);
@@ -91,8 +97,10 @@ public class DroneMovement implements iDroneMovement {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				
+				for(int i=0; i<cm; i++){
+					cmd.goLeft(20).doFor(20);
+					updatePositionBackward(1);
+				}
 			}
 		});
 			updatePositionLeft(cm);
@@ -116,7 +124,7 @@ public class DroneMovement implements iDroneMovement {
 			@Override
 			public void run() {
 				for(int i=0; i<cm; i++){
-					cmd.goLeft(20).doFor(20);
+					cmd.goRight(20).doFor(20);
 					updatePositionBackward(1);
 				}
 				
@@ -460,6 +468,21 @@ public class DroneMovement implements iDroneMovement {
 
 		}
 
+	}
+	
+	public class Altitude implements AltitudeListener{
+
+		@Override
+		public void receivedAltitude(int arg0) {
+			altitude = arg0;
+		}
+
+		@Override
+		public void receivedExtendedAltitude(de.yadrone.base.navdata.Altitude arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 	public class Gyro implements GyroListener{
