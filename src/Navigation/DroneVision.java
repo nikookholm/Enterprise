@@ -141,9 +141,6 @@ public class DroneVision implements iDroneVision {
 									if(dronepos.getXCoord() > 0 && dronepos.getYCoord() < 0){
 										action = Movement.LeftUp;
 									} 
-
-
-
 		return action;
 	}	
 
@@ -156,12 +153,6 @@ public class DroneVision implements iDroneVision {
 		} else {
 			poiDrone = scanQR(Condition.Flying);
 		}
-
-		System.out.println(VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(),
-				((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 
-				((POIWallPoint)poiDrone.get(1)).getDistance()).getXCoord() + ", " + VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(),
-						((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 
-						((POIWallPoint)poiDrone.get(1)).getDistance()).getYCoord());
 
 		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), 
 				((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 
@@ -224,10 +215,10 @@ public class DroneVision implements iDroneVision {
 
 
 				droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
-				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()/2) +"mm");
+				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"mm");
 
 
-				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
+				System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance());
 			}
 		}
 		if(imgTjek == true){

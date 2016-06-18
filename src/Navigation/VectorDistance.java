@@ -197,7 +197,6 @@ public class VectorDistance {
 		y0 = wallPoint1.getYCoord();
 		x1 = wallPoint2.getXCoord();
 		y1 = wallPoint2.getYCoord();
-		System.out.println(y0 + ", " +x0+ ", " +y1+ ", " +x1);
 		
 		//Find the distance between the two points, the parallel point to what
 		//we are looking for and the height from this line to the desired point.
@@ -209,13 +208,9 @@ public class VectorDistance {
 		x2 = x0 + (a * (x1 - x0)) / d;
 		y2 = y0 + (a * (y1 - y0)) / d;
 		
-
-		System.out.println(y2+ ", " +x2);
 		//Find the desired point and return the correct one
 		x3 = x2 + (h * (y1 - y0)) / d;
 		y3 = y2 - (h * (x1 - x0)) / d;
-		
-		System.out.println(y3+ ", " +x3);
 		
 		if(x3>0 && x3<1078 && y3>0 && y3<963){
 			return new Vector3D(x3, y3, 0);
@@ -223,8 +218,6 @@ public class VectorDistance {
 		
 		x3 = x2 - (h * (y1 - y0)) / d;
 		y3 = y2 + (h * (x1 - x0)) / d;
-
-		System.out.println(y3+ ", " +x3);
 		
 		return new Vector3D(x3,y3,0);
 	}
