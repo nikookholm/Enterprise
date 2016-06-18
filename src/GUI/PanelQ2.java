@@ -119,10 +119,7 @@ public class PanelQ2 extends JPanel{
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
-				droneGui.getMain().getDrone().getCommandManager().setMaxVideoBitrate(4000);
-//				droneGui.getMain().getDrone().getCommandManager().setVideoBitrate(4000);
-				droneGui.getMain().getDrone().getCommandManager().setVideoCodec(VideoCodec.H264_720P);
-				droneGui.getMain().getDrone().getCommandManager().setVideoCodecFps(30);
+
 //				droneGui.getMain().getDrone().getCommandManager().setVideoChannel(VideoChannel.LARGE_HORI_SMALL_VERT);
 				changeMe = "cam";
 

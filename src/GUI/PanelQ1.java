@@ -43,7 +43,7 @@ public class PanelQ1 extends JPanel{
 		cancel = new JButton("ABORT");
 		
 		start.setEnabled(false);
-		cancel.setEnabled(false);
+		cancel.setEnabled(true);
 		
 		box = new JComboBox<String>();
 		box.addItem("select progarm!");
@@ -59,12 +59,12 @@ public class PanelQ1 extends JPanel{
 				if (box.getSelectedIndex() != 0)
 				{
 					start.setEnabled(true);
-					cancel.setEnabled(false);
+					cancel.setEnabled(true);
 				}
 				else
 				{
 					start.setEnabled(false);
-					cancel.setEnabled(false);
+					cancel.setEnabled(true);
 				}
 			}
 		});
@@ -83,8 +83,8 @@ public class PanelQ1 extends JPanel{
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			    owner.getMain().stopProgram();
-				cancel.setEnabled(false);
+			    //owner.getMain().stopProgram();
+				cancel.setEnabled(true);
 				start.setEnabled(true);
 			}
 		});

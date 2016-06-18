@@ -41,7 +41,7 @@ public class DroneMovement implements iDroneMovement {
 	 * @return void
 	 */
 	public void hoverTo(int height) {
-		cmd.up(30).doFor(50);
+		cmd.up(10).doFor(20);
 		cmd.hover();
 	}
 	
@@ -49,19 +49,24 @@ public class DroneMovement implements iDroneMovement {
 		if(distance >3000){
 		if(cenX + farMargin < CircleX){
 			flyRightConstant(20, 500);
+			System.out.println("RIGHT RIGHT RIGHT!!!");
 		}
 		if(cenX + farMargin > CircleX){
+			System.out.println("LEFT LEFT LEFT!!!");
 			flyLeftConstant(20, 500);
 		}
 		}
 		else if(distance<3000){
 			if(cenX + closeMargin < CircleX){
 				flyRightConstant(20, 500);
+				System.out.println("CLOSE RIGHT RIGHT RIGHT");
 			}
 			if(cenX + closeMargin > CircleX){
 				flyLeftConstant(20, 500);
+				System.out.println("CLOSE LEFT LEFT LEFT");
 			}
 			if(cenX > CircleX-closeMargin && cenX < CircleX+closeMargin){
+				System.out.println("JACKPOT! GO!!!");
 				return true;
 			}
 		}
@@ -73,7 +78,7 @@ public class DroneMovement implements iDroneMovement {
 
 	public void start() {		
 		
-		cmd.takeOff().doFor(3800);
+		cmd.takeOff();
 		hover();
 	}
 	

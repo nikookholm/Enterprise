@@ -183,17 +183,17 @@ public class OpenCVOperations {
 		Mat circles = new Mat();
 		
 		Imgproc.cvtColor(image, image_gray, Imgproc.COLOR_BGR2GRAY);
-		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 225, 100, 35, 190);
+		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 225, 100, 0, 0);
 		ArrayList<POICircle> results = new ArrayList<>();
 	
 		circlesFound.clear();
-		
 		for (int i = 0; i < circles.cols(); i++) {
-
+			System.out.println("CIRCLEFOUND");
+			
 			double circle[] = circles.get(0, i);
 			circlesFound.add(circle);
 			int radius = (int) Math.round(circle[2]);
-			
+
 			double dist = ((4.45*500*720)/(3.17*radius))/10;
 			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius,dist));
 			
