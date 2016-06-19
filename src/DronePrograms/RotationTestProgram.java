@@ -95,7 +95,7 @@ public class RotationTestProgram extends DroneProgram {
 				double distToCircle = getDrone().getNavigation().getVision().getCirclesFound().get(0).getDistance();
 				System.out.println(distToCircle + " <<<<<<<<<<-------DIIST ");
 
-				boolean ready =getDrone().getMovement().calibrateToCircle(CenterX, circleX, closeMargin, farMargin, distToCircle);
+				boolean ready = getDrone().getMovement().calibrateToCircle(CenterX, circleX, closeMargin, farMargin, distToCircle);
 				System.out.println(ready);
 				if(ready){
 					getDrone().getMovement().flyForwardConstant(300, 200);
