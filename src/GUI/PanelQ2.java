@@ -13,8 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import de.yadrone.base.command.VideoCodec;
-
 public class PanelQ2 extends JPanel{
 
 	private CameraPanel cameraPanel;
@@ -23,8 +21,6 @@ public class PanelQ2 extends JPanel{
 	private GridBagLayout gbLayout;
 	private GridBagConstraints c;
 	private DroneGUI droneGui;
-	//private List<QRPoi> im;
-	//private QRfinder qrfind = new QRfinder();
 	private boolean camTjek = false;
 	private boolean imgTjek = false;
 	private String changeMe = "cam"; 
