@@ -63,6 +63,7 @@ public class DroneVision implements iDroneVision {
 		int circlePoints = 0;
 		switch(condition){
 		case Initial:
+			poi.clear();
 			//Find 2 QR codes
 			while(wallPoints<2){
 				System.out.println("wallPoints: " + wallPoints + ", size of poi: " + poi.size());
@@ -99,14 +100,42 @@ public class DroneVision implements iDroneVision {
 			i = 0;
 			circlePoints = 0;
 			while(circlePoints<1){
-				tempPoI = CVOp.findObjects(null, null, null, 0); //check with PAWURHAUZ
-				tempPoI.removeAll(poi);
-				poi.addAll(tempPoI);
-				while(i<poi.size()){
+				tempPoI = CVOp.findQR(currImage);
+				for(int j =0 ; j<tempPoI.size();j++){
+					String tempPoICode = tempPoI.get(j).getCode();
+					for(int k =0 ; k<poi.size();k++){
+						String poiCode = poi.get(k).getCode();
+						if(tempPoICode.equals(poiCode)){
+							isThere = true;
+						}
+					}
+					if(isThere){
+						isThere =false;
+					} else {
+						poi.add(tempPoI.get(j));
+					}
+				}	while(i<poi.size()){
 					if(poi.get(i) instanceof POICircle){
 						circlePoints++;
 					}
 					i++;
+				}
+			}
+			break;
+		case Flying:
+			tempPoI = CVOp.findQR(currImage);
+			for(int j =0 ; j<tempPoI.size();j++){
+				String tempPoICode = tempPoI.get(j).getCode();
+				for(int k =0 ; k<poi.size();k++){
+					String poiCode = poi.get(k).getCode();
+					if(tempPoICode.equals(poiCode)){
+						isThere = true;
+					}
+				}
+				if(isThere){
+					isThere =false;
+				} else {
+					poi.add(tempPoI.get(j));
 				}
 			}
 			break;

@@ -252,7 +252,6 @@ public class DroneMovement implements iDroneMovement {
 
 	@Override
 	public void rotateToAngle(int angle, int startTime) {
-		newThreadID();
 		angle = angle%360;
 		int aod; //amount of degrees
 		aod = ((currentAngle-angle)+180)%360-180;
@@ -278,8 +277,6 @@ public class DroneMovement implements iDroneMovement {
 		}else {
 			System.out.println("You are already there");
 		}
-
-		threadID--;
 	}
 
 	@Override
@@ -388,6 +385,7 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	private void turnRight(int degrees){
+		newThreadID();
 		for(int i=0; i<degrees; i++){
 			if(i!=0 && i%10 == 0){
 				cmd.hover().doFor(30);
@@ -399,9 +397,11 @@ public class DroneMovement implements iDroneMovement {
 				currentAngle += 360;
 			}
 		}
+		threadID--;
 	}
 
 	private void turnLeft(int degrees) {
+		newThreadID();
 		for(int i=0; i<degrees; i++){
 			if(i!=0 && i%10 == 0){
 				cmd.hover().doFor(30);
@@ -413,6 +413,7 @@ public class DroneMovement implements iDroneMovement {
 				currentAngle -= 360;
 			}
 		}
+		threadID--;
 	}	
 	
 	//ThreadControl
@@ -487,7 +488,7 @@ public class DroneMovement implements iDroneMovement {
 	private void tempFlight(){
 		int tempThreadID = threadID;
 		while(tempThreadID == threadID){
-			drone.getNavigation().getVision().scanQR(Condition.CircleQR);
+			drone.getNavigation().getVision().scanQR(Condition.Flying);
 		}
 	}
 	/*******************************/

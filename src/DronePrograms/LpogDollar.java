@@ -12,9 +12,13 @@ public class LpogDollar extends DroneProgram {
 		getDrone().getMovement().start();
 		System.out.println("Kalder rotate(90)");
 		
-		getDrone().getMovement().rotateToAngle(90, 100);
-		while(getDrone().getMovement().getCurrentAngle()!=270){
+		getDrone().getMovement().rotateToAngle(90, 0);
+		while(getDrone().getMovement().getCurrentAngle()!=90){
 			getDrone().getMain().getGUI().getLog().add("" + getDrone().getMovement().getCurrentAngle());
+		}
+		getDrone().getMovement().flyForwardConstant(50, 0);
+		while(getDrone().getCoordY()<50){
+			getDrone().getMain().getGUI().getLog().add("+1");
 		}
 
 		getDrone().getMovement().landing();
@@ -27,7 +31,7 @@ public class LpogDollar extends DroneProgram {
 	@Override
 	public String getProgramName() {
 		// TODO Auto-generated method stub
-		return "rotate test";
+		return "rotate fly test";
 	}
 }
 
