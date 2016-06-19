@@ -391,7 +391,7 @@ public class DroneMovement implements iDroneMovement {
 				cmd.hover().doFor(30);
 				
 			}
-			cmd.spinRight(20).doFor(20);
+			cmd.spinRight(20).doFor(30);
 			currentAngle -= 1;
 			if(currentAngle<0){
 				currentAngle += 360;
@@ -408,7 +408,7 @@ public class DroneMovement implements iDroneMovement {
 				cmd.hover().doFor(30);
 				
 			}
-			cmd.spinLeft(20).doFor(20);
+			cmd.spinLeft(20).doFor(30);
 			currentAngle += 1;
 			if(currentAngle>359){
 				currentAngle -= 360;
