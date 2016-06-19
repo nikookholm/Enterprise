@@ -16,10 +16,9 @@ import javax.swing.JPanel;
 public class PanelQ2 extends JPanel{
 
 	private CameraPanel cameraPanel;
+	private JPanel		buttonsPanel;
 	private ImageIcon   img, img2;
 	private JButton     frontBtn, bottomBtn, imageBtn;
-	private GridBagLayout gbLayout;
-	private GridBagConstraints c;
 	private DroneGUI droneGui;
 	private boolean camTjek = false;
 	private boolean imgTjek = false;
@@ -29,40 +28,28 @@ public class PanelQ2 extends JPanel{
 
 	public PanelQ2(DroneGUI owner){
 
-		// Flyt alt dette ned i en initialize metode
-
-		droneGui = owner;
-		cameraPanel = new CameraPanel();
+		droneGui 	 = owner;
+		cameraPanel  = new CameraPanel();
+		buttonsPanel = new JPanel();
 
 		GridBagConstraints c = new GridBagConstraints();
-		gbLayout = new GridBagLayout();
-		this.setLayout(gbLayout);
+		this.setLayout(new BorderLayout());
 		
-		// cameraPanel resizing
-		//		c.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 3;
-		add(cameraPanel,c);	
-		
-		JPanel Q2Buttons = new JPanel(new BorderLayout(0,5));
-
 		frontBtn  = new JButton("FRONT CAMERA");
 		bottomBtn = new JButton("BOTTOM CAMERA");
-		imageBtn = new JButton("image");
-		c.fill = GridBagConstraints.NORTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		this.add(Q2Buttons);
+		imageBtn  = new JButton("image");
 
-		Q2Buttons.add(frontBtn, BorderLayout.NORTH);
-		Q2Buttons.add(bottomBtn);
-		Q2Buttons.add(imageBtn, BorderLayout.SOUTH);
+		buttonsPanel.add(frontBtn);
+		buttonsPanel.add(bottomBtn);
+		buttonsPanel.add(imageBtn);
+		
+		this.add(buttonsPanel, BorderLayout.NORTH);
+		this.add(cameraPanel, BorderLayout.CENTER);
+		
 		try {
-			img = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
+			img  = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
 			img2 = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/uncheck.png")));
 		} catch (IOException ex) {
-
 			ex.printStackTrace();
 		}
 
@@ -138,10 +125,6 @@ public class PanelQ2 extends JPanel{
 	public class CameraPanel extends JPanel{
 		private BufferedImage image;
 
-		public CameraPanel() {	
-			
-		}
-
 		@Override
 		public void paint(Graphics g)
 		{
@@ -155,43 +138,16 @@ public class PanelQ2 extends JPanel{
 		public void updateCameraPanel(BufferedImage image)
 		{
 			cameraPanel.paint(getGraphics());
-			
-//			DecimalFormat numberFormat = new DecimalFormat("0.00");
-//			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 			this.image = (BufferedImage)image;
-//			Mat imageMat = new Mat();
-//			imageMat = new HoughCircles().bufferedImageToMat(this.image);
-//
-//			try {
-//				qrfind.findQR(imageMat);
-//			} catch (Exception e) {				
-//			}
-//
-//			im = qrfind.getQRFun();
-//			for(int i= 0; i< im.size(); i++){
-//				if(im.get(i).getCode() != null){
-//
-//					droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
-//					droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) +"m");
-//					
-//					System.out.println("new qr " +  im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance()/2);
-//				}
-//			}
-//			if(imgTjek == true){
-//				this.image = qrfind.getDebuImg();
-//			}
-//			im.clear();
 		}
 	}
 
 	public void setCameraImage(BufferedImage buffImg) {
 		camImage = buffImg;
-		
 	}
 
 	public void setCorrected(BufferedImage buffImg) {
 		correctedImage = buffImg;
 		updateCameraPanel();
-		
 	}
 }
