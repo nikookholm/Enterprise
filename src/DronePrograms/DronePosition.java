@@ -4,7 +4,6 @@ import Common.Drone;
 import Main.DroneProgram;
 import Navigation.DroneVision;
 import Vector.Vector3D;
-import de.yadrone.base.command.CommandManager;
 
 public class DronePosition extends DroneProgram {
 
@@ -25,6 +24,8 @@ public class DronePosition extends DroneProgram {
 		Drone d = getDrone();
 		DroneVision v = d.getNavigation().getVision();
 		
+		d.getMovement().start();
+		d.getMovement().spinRight();
 		Vector3D dronePos = v.dronePosition(true);
 		System.out.println(dronePos.getXCoord() +"<<<---- X . Y---->>>"+ dronePos.getYCoord() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 	}

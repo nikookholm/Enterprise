@@ -344,6 +344,12 @@ public class DroneMovement implements iDroneMovement {
 	}
 	@Override
 	public void spinRight(){
+		cmd.schedule(0, new Runnable(){
+		@Override
+			public void run() {
+					cmd.spinRight(20).doFor(10);
+			}
+		});
 	}
 	@Override
 	public void hover(){
