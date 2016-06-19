@@ -3,7 +3,6 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -32,7 +31,6 @@ public class PanelQ2 extends JPanel{
 		cameraPanel  = new CameraPanel();
 		buttonsPanel = new JPanel();
 
-		GridBagConstraints c = new GridBagConstraints();
 		this.setLayout(new BorderLayout());
 		
 		frontBtn  = new JButton("FRONT CAMERA");
@@ -44,7 +42,7 @@ public class PanelQ2 extends JPanel{
 		buttonsPanel.add(imageBtn);
 		
 		this.add(buttonsPanel, BorderLayout.NORTH);
-		this.add(cameraPanel, BorderLayout.CENTER);
+		this.add(cameraPanel,  BorderLayout.CENTER);
 		
 		try {
 			img  = new ImageIcon( ImageIO.read(this.getClass().getResource("/Images/circle-check.png")));
