@@ -388,10 +388,10 @@ public class DroneMovement implements iDroneMovement {
 		newThreadID();
 		for(int i=0; i<degrees; i++){
 			if(i!=0 && i%10 == 0){
-				cmd.hover().doFor(30);
+				cmd.hover().doFor(20);
 				
 			}
-			cmd.spinRight(20).doFor(30);
+			cmd.spinRight(20).doFor(35);
 			currentAngle -= 1;
 			if(currentAngle<0){
 				currentAngle += 360;
@@ -405,10 +405,10 @@ public class DroneMovement implements iDroneMovement {
 		newThreadID();
 		for(int i=0; i<degrees; i++){
 			if(i!=0 && i%10 == 0){
-				cmd.hover().doFor(30);
+				cmd.hover().doFor(20);
 				
 			}
-			cmd.spinLeft(20).doFor(30);
+			cmd.spinLeft(20).doFor(35);
 			currentAngle += 1;
 			if(currentAngle>359){
 				currentAngle -= 360;
