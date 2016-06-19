@@ -182,7 +182,7 @@ public class QRfinder {
 					String result = decode(qrdet);
 					if (result != " ") {
 
-						disToQR = (4.45*400*360)/(3.17*distance(cornerList.get(abs)[0], cornerList.get(abs)[3]));
+						disToQR = (4.45*400*360)/(3.17*distance(cornerList.get(abs)[1], cornerList.get(abs)[2]));
 						QRFun.add(new QRPoi(0, 0, 0));
 						System.out.println(disToQR + " BEFORE");
 						System.out.println(disToQR/10 + " AFTER");
