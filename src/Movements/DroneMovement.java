@@ -41,7 +41,8 @@ public class DroneMovement implements iDroneMovement {
 	 * @return void
 	 */
 	public void hoverTo(int height) {
-		cmd.up(30).doFor(50);
+		cmd.setMaxAltitude(height);
+		cmd.up(30).doFor(1600);
 	}
 	
 	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance){

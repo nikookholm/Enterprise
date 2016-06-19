@@ -41,10 +41,10 @@ public class DroneVision implements iDroneVision {
 		tempPoI = new ArrayList<POI>();
 		poiDrone = new ArrayList<POI>();
 		poi = new ArrayList<POI>();
-		drone.getCommandManager().setMaxVideoBitrate(2500);
-		drone.getCommandManager().setVideoBitrate(2500);
+		drone.getCommandManager().setMaxVideoBitrate(3000);
+		drone.getCommandManager().setVideoBitrate(3000);
 		drone.getCommandManager().setVideoCodec(VideoCodec.H264_360P);
-		drone.getCommandManager().setVideoCodecFps(30);
+		drone.getCommandManager().setVideoCodecFps(20);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 

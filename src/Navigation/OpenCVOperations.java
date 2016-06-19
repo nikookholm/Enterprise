@@ -193,9 +193,12 @@ public class OpenCVOperations {
 			double circle[] = circles.get(0, i);
 			circlesFound.add(circle);
 			int radius = (int) Math.round(circle[2]);
+			double cenX = Math.round(circle[0]);
+			double cenY = Math.round(circle[1]);
+
 
 			double dist = ((4.45*500*720)/(3.17*radius))/10;
-			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius,dist));
+			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius,dist,cenX,cenY));
 			
 		}
 		

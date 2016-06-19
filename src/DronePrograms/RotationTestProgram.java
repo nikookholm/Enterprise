@@ -11,6 +11,9 @@ import de.yadrone.base.navdata.AltitudeListener;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.ControlState;
 import de.yadrone.base.navdata.DroneState;
+import de.yadrone.base.navdata.KalmanPressureData;
+import de.yadrone.base.navdata.Pressure;
+import de.yadrone.base.navdata.PressureListener;
 import de.yadrone.base.navdata.StateListener;
 import Navigation.DroneVision;
 import Navigation.QRPoi;
@@ -38,6 +41,7 @@ public class RotationTestProgram extends DroneProgram {
 		getDrone().getMovement().start();
 		int Width;
 		int Height;
+		
 		getDrone().getNavDataManager().addAltitudeListener(new AltitudeListener() {
 			
 			@Override
@@ -62,22 +66,20 @@ public class RotationTestProgram extends DroneProgram {
 		while(run){
 
 			while(!flyForward){
-				System.out.println("FINDING QR");
 				getDrone().getCommandManager().hover();
 				if(getDrone().getNavigation().getVision().getIm().size() > 0){
 			for(int i = 0; i<getDrone().getNavigation().getVision().getIm().size(); i++){
 				if(getDrone().getNavigation().getVision().getIm().get(i).getCode().contains("P")){
-
+					System.out.println("FOUND QR, GOING UP");
 					getDrone().getCommandManager().setMinAltitude(1450);
 					while(altitude < 1500){
-						System.out.println("FOUND QR, ON WAY UP");
 						getDrone().getCommandManager().up(20).doFor(50);
+						System.out.println(altitude);
 						
 					}
 					getDrone().hover();
 					
 					if(altitude > 1400){
-						System.out.println("TRYING TO FIND CIRCLE");
 						flyForward = true;
 					}
 					
@@ -86,11 +88,12 @@ public class RotationTestProgram extends DroneProgram {
 			}
 			}
 			}
+			System.out.println("TRYING TO FIND CIRCLE");
 		if(flyForward){
-			System.out.println("LUL");
+			System.out.println("hej");
 			if(getDrone().getNavigation().getVision().getCirclesFound().size() > 0){
 				System.out.println("ONMYWAY");
-				int circleX =(int) getDrone().getNavigation().getVision().getCirclesFound().get(0).getxPos();
+				int circleX =(int) getDrone().getNavigation().getVision().getCirclesFound().get(0).getCentrumX();
 				System.out.println(circleX + " <<<<<<<<<<-------CIRCLE x");
 				double distToCircle = getDrone().getNavigation().getVision().getCirclesFound().get(0).getDistance();
 				System.out.println(distToCircle + " <<<<<<<<<<-------DIIST ");
