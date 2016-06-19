@@ -8,20 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
 
-import Common.Drone;
-import Navigation.HoughCircles;
-import Navigation.QRPoi;
-import Navigation.QRfinder;
-import de.yadrone.base.command.VideoChannel;
 import de.yadrone.base.command.VideoCodec;
 
 public class PanelQ2 extends JPanel{
