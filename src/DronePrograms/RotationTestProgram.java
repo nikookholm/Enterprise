@@ -34,7 +34,7 @@ public class RotationTestProgram extends DroneProgram {
 
 
 	@Override
-	public void run() {
+	public void run() {		
 		getDrone().getMovement().start();
 		int Width;
 		int Height;
@@ -60,28 +60,24 @@ public class RotationTestProgram extends DroneProgram {
 		POICircle currentPoit;
 		boolean flyForward = false;
 		while(run){
-			//getDrone().getMain().getGUI().getLog().add("hejmeddig");
 
-			//getDrone().getMain().getGUI().getLog().add(altitude + "<<<<<<<<<<<<<<<ALTITUDE");
 			while(!flyForward){
-//				getDrone().getMain().getGUI().getLog().add(altitude + "<<<<<<<<<<<<<<<ALTITUDE");
-				System.out.println("sssssssssssssssssssssssss");
-				System.out.println(altitude + " <<<<<<<<<<<<<<<<<<<<<<<");
-				System.out.println("ssssssssssssssssss333333333sssssss");
+				System.out.println("FINDING QR");
 				getDrone().getCommandManager().hover();
 				if(getDrone().getNavigation().getVision().getIm().size() > 0){
 			for(int i = 0; i<getDrone().getNavigation().getVision().getIm().size(); i++){
 				if(getDrone().getNavigation().getVision().getIm().get(i).getCode().contains("P")){
-					if(getDrone().getNavigation().getVision().getIm().get(i).getDistance() > 3000){
-						getDrone().getMovement().flyForwardConstant(30, 500);
-					}
+
 					getDrone().getCommandManager().setMinAltitude(1450);
 					while(altitude < 1500){
-						getDrone().getMovement().hoverTo(500);
+						System.out.println("FOUND QR, ON WAY UP");
+						getDrone().getCommandManager().up(20).doFor(50);
 						
 					}
+					getDrone().hover();
 					
 					if(altitude > 1400){
+						System.out.println("TRYING TO FIND CIRCLE");
 						flyForward = true;
 					}
 					
@@ -103,7 +99,13 @@ public class RotationTestProgram extends DroneProgram {
 				System.out.println(ready);
 				if(ready){
 					getDrone().getMovement().flyForwardConstant(300, 200);
-					getDrone().getMovement().landing();
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					getDrone().landing();
 					run = false;
 				}
 			}
