@@ -84,7 +84,7 @@ public class PanelQ2 extends JPanel{
 		public void actionPerformed(ActionEvent eventListener) {
 
 			if(eventListener.getSource().equals(frontBtn) && camTjek == true){
-				//droneGui.getMain().getDrone().toggleCamera();
+				droneGui.getMain().getDrone().toggleCamera();
 				camTjek = false;
 				imgTjek = false;
 
