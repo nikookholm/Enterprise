@@ -8,7 +8,16 @@ import Vector.Vector3D;
 
 public class SearchHelper {
 	
-	RoomSquare[][] room;
+	int roomSquaresWidth  = 6;
+	int roomSquaresHeight = 7;
+	
+	int interval   = 150;
+	int margin     = 75;
+	
+	boolean squaresLeftToSearch = true;
+	boolean POIFound 		    = false;
+	
+	RoomSquare[][] rooms;
 	Drone 		   drone;
 	ArrayList<POI> poiList;
 
@@ -26,29 +35,84 @@ public class SearchHelper {
 
 	public void search(POI lookFor)
 	{
-		// flyv til en "plads" vi ikke har skannet endnu
-		// Returner hvad den finder, og marker som afsøgt
-		
+		do
+		{
+			// flyv til en "plads" vi ikke har skannet endnu
+			flyToClosestUnsearchedSquare();
+			// Returner hvad den finder, og marker som afsøgt
+			searchSquare();
+			// Gør dette indtil alle firkanter, er søgt eller POI er fundet
+			
+		} while (POINotFoundOrNoMoreSquares(lookFor)); 
 		
 	}
 	
+	private boolean POINotFoundOrNoMoreSquares(POI lookFor) {
+
+		// Check if POI is in POIList
+		boolean POIIsInList = false;
+		
+		for (POI p : poiList)
+		{
+			if (p.getCode().equals(lookFor.getCode()))
+			{
+				POIIsInList = true;
+			}
+		}
+		
+		return (POIIsInList || !squaresLeftToSearch);
+		
+	}
+	
+	private void searchSquare() {
+
+		// Spin 360
+		// scan for QR
+		
+	}
+
+	private void flyToClosestUnsearchedSquare() {
+		
+		RoomSquare room;
+		RoomSquare flyToRoom = null;
+		int distanceToClosestSquare = 10000000;
+		int newDistance;	
+		
+		for (int x = 0; x < roomSquaresWidth; x++)
+		{
+			for (int y = 0; y < roomSquaresHeight; y++)
+			{
+				room = rooms[x][y];
+				newDistance = (int) Math.sqrt( Math.pow((Math.abs(drone.getCoordX()-room.getCenter().getXCoord())), 2) + Math.pow((Math.abs(drone.getCoordY()-room.getCenter().getYCoord())),2)); 
+				if (newDistance < distanceToClosestSquare)
+				{
+					distanceToClosestSquare = newDistance;
+					flyToRoom = room;
+				}
+				
+				if (!room.isSearch())
+				{
+					squaresLeftToSearch = true;
+				}
+				
+			}	
+		}
+		
+		drone.getMovement().flyTo(new POI(flyToRoom.getCenter(), 0));
+	}
+
 	private void setupRoom()
 	{
-		int roomWidth  = 6;
-		int roomHeight = 7;
+
+		rooms = new RoomSquare[roomSquaresWidth][roomSquaresHeight];
 		
-		int interval   = 150;
-		int margin     = 75;
-		
-		room = new RoomSquare[roomWidth][roomHeight];
-		
-		for (int i = 0; i < roomHeight; i++)
+		for (int i = 0; i < roomSquaresHeight; i++)
 		{
-			for (int j = 0; j < roomWidth; j++)
+			for (int j = 0; j < roomSquaresWidth; j++)
 			{
 				
-				room[j][i] = new RoomSquare((j*150) + margin, (i*150) + margin);
-				System.out.println("room[" + j + "][" + i + "] har center i (" + room[j][i].getCenter().getXCoord() + "," + room[j][i].getCenter().getYCoord() + ")");
+				rooms[j][i] = new RoomSquare((j*150) + margin, (i*150) + margin);
+				System.out.println("room[" + j + "][" + i + "] har center i (" + rooms[j][i].getCenter().getXCoord() + "," + rooms[j][i].getCenter().getYCoord() + ")");
 			}
 		}
 	}
@@ -67,6 +131,11 @@ public class SearchHelper {
 		public Vector3D getCenter()
 		{
 			return center;
+		}
+		
+		public boolean isSearch()
+		{
+			return searched;
 		}
 	}
 
