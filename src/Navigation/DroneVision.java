@@ -152,7 +152,7 @@ public class DroneVision implements iDroneVision {
 		System.out.println("calibrate<<<<<<<<<<<<<<<<");
 		Movement action = null;
 		
-		if(dronepos.getYCoord() < 10){
+//		if(dronepos.getZCoord() < 10){
 		if (dronepos.getXCoord() == 0 && dronepos.getZCoord() < 0) {
 			action = Movement.Up;
 		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() < 0) {
@@ -170,14 +170,15 @@ public class DroneVision implements iDroneVision {
 		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() < 0) {
 			action = Movement.LeftUp;
 		} else if (dronepos.getXCoord() == 0 && dronepos.getZCoord() == 0) {
+			
 			action = Movement.Forward;
 		}
 		System.out.println(action +"NORMAL ||||| TOSTRING " +  action.toString());
 		return action;
-		}
-		else{
-			return action = Movement.None;
-		}
+//		}
+//		else{
+//			return action = Movement.None;
+//		}
 	}
 
 	/*********** Get drone position from wallmarks *************/

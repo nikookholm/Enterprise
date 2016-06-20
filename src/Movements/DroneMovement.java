@@ -403,8 +403,12 @@ public class DroneMovement implements iDroneMovement {
 		
 		
 		Vector3D differen = opCV.findCircle(currentImage);
-		
-		Movement move = drone.getNavigation().getVision().calibrateToCircle(differen); // 
+		Movement move = null;
+		if(!(differen == null)){
+		 move = drone.getNavigation().getVision().calibrateToCircle(differen);
+		}else{
+			System.out.println("Differen is null!") ;// 
+		}
 		int distanceToFly = 5; // in cm
 		int millis = 0;
 		System.out.println(move);
@@ -412,12 +416,14 @@ public class DroneMovement implements iDroneMovement {
 			
 			case Up :
 				goUp(distanceToFly, millis);
+				System.out.println("Going directly up!");
 				tempFlight();
 				
 				break;
 			
 			case RightUp:
 				flyRightConstant(distanceToFly, millis);
+				System.out.println("Going RightUp!");
 				tempFlight();
 				goUp(distanceToFly, millis);
 				tempFlight();
@@ -425,11 +431,13 @@ public class DroneMovement implements iDroneMovement {
 			
 			case Right:
 				flyRightConstant(distanceToFly, millis);
+				System.out.println("Going right!");
 				tempFlight();
 				break;
 			
 			case RightDown:
 				flyRightConstant(distanceToFly, millis);
+				System.out.println("Going RightDown!");
 				tempFlight();
 				goDown(distanceToFly, millis);
 				tempFlight();
@@ -437,12 +445,14 @@ public class DroneMovement implements iDroneMovement {
 				
 			case Down:
 				goDown(distanceToFly, millis);
+				System.out.println("Going down!");
 				tempFlight();
 				break;
 				
 			case LeftDown:
 				
 				flyLeftConstant(distanceToFly, millis);
+				System.out.println("Going LeftDown!");
 				tempFlight();
 				goDown(distanceToFly, millis);
 				tempFlight();
@@ -451,20 +461,24 @@ public class DroneMovement implements iDroneMovement {
 				
 			case Left:
 				flyLeftConstant(distanceToFly, millis);
+				System.out.println("Going left!");
 				tempFlight();
 				break;
 	
 			case LeftUp:
 				flyLeftConstant(distanceToFly, millis);
+				System.out.println("Going LeftUp!");
 				tempFlight();
 				break;
 				
 			case Forward:
 				flyForwardConstant(300, millis);
+				System.out.println("Going forward!");
 				tempFlight();
 				break;
 			case None:
 				hover();
+				System.out.println("Might aswell hover..");
 				break;
 						
 			default:
@@ -524,15 +538,23 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				for (int i = 0; i < 170; i++){
-					if(i!=0 && i%10==0){
-						cmd.hover().doFor(50);
+				float a = yaw;
+				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				cmd.spinLeft(20).doFor(10);
+
+				int i = 0;
+
+				while(a!=yaw){
+					if(i!=0 && i%100 == 0){
+						cmd.hover().doFor(20);
 					}
-					cmd.spinLeft(100).doFor(15);
+					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+					cmd.spinLeft(10).doFor(10);
 				}
-				threadID--;
 			}
 		});
+		threadID--;
 	}
 	@Override
 	public void spinRight(){
@@ -540,15 +562,23 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				for (int i = 0; i < 170; i++){
-					if(i!=0 && i%10==0){
-						cmd.hover().doFor(50);
+				float a = yaw;
+				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				cmd.spinRight(20).doFor(10);
+
+				int i = 0;
+
+				while(a!=yaw){
+					if(i!=0 && i%100 == 0){
+						cmd.hover().doFor(20);
 					}
-					cmd.spinRight(100).doFor(15);
+					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+					cmd.spinRight(10).doFor(10);
 				}
-				threadID--;
 			}
 		});
+		threadID--;
 	}
 	@Override
 	public void hover(){

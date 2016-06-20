@@ -47,8 +47,8 @@ public class RotationTestProgram extends DroneProgram {
 		DM.start();
 		DM.goUp(50, 0);
 		while(true){
-			getDrone().getMain().getGUI().getLog().add("<<<<<<<<<<<");
-			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+			//getDrone().getMain().getGUI().getLog().add("<<<<<<<<<<<");
+			//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		DM.flyThroughRing();
 		}
 	}
