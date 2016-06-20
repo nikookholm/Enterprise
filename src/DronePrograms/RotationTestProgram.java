@@ -43,7 +43,7 @@ public class RotationTestProgram extends DroneProgram {
 		
 		DM.start();
 		DM.goUp(50, 0);
-		DM.flyThroughRing(nextRing);
+		DM.flyThroughRing();
 	}
 	
 
