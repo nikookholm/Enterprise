@@ -33,7 +33,6 @@ public class DroneGUI extends JFrame implements iDroneGUI {
 	public void initialize(Enterprise enterprise){
 		
 		main = enterprise;
-		
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		this.setTitle("Enterprise Drone");
