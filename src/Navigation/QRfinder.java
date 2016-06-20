@@ -181,11 +181,20 @@ public class QRfinder {
 					qr_gray.get(0, 0, data);
 					String result = decode(qrdet);
 					if (result != " ") {
-
+						
+						
+//						System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[3] ) + "<<<<<<<<<OP NED VENSTRE");
+//						System.out.println(distance(cornerList.get(abs)[1],cornerList.get(abs)[2] ) + "<<<<<<<<<<<<<<<<<<OP NED HØJRE");
+//						System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[1] ) + "<<<<<<<<<<<<<<< VENSTRE HØJRE OP");
+//						System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[2] ) + "<<<<<<<<<<<<<<<<<<<VENSTREOP HØJRENED SKRÅT");
+//						System.out.println(distance(cornerList.get(abs)[3],cornerList.get(abs)[1] ) + "<<<<<<<<<<<<<<<<<CENSTRENED HØJREOP SKRÅT");
+						
+						double cenX = cornerList.get(abs)[0].x - (distance(cornerList.get(abs)[0],cornerList.get(abs)[1])/2);
 						disToQR = (4.45*400*360)/(3.17*distance(cornerList.get(abs)[1], cornerList.get(abs)[2]));
 						QRFun.add(new QRPoi(0, 0, 0));
 						System.out.println(disToQR + " BEFORE");
 						System.out.println(disToQR/10 + " AFTER");
+						QRFun.get(POIcounter).setCentrum(new Point(cenX,0));
 						QRFun.get(POIcounter).setCode(result);
 						QRFun.get(POIcounter).setQRimg(qrdet);
 						QRFun.get(POIcounter).setDistance(disToQR/10);
@@ -246,7 +255,7 @@ public class QRfinder {
 			}
 
 			else if (QRFun.get(j).getCode().startsWith("P")) {
-				funderQR.add(new POICircle(QRFun.get(j).getCode(), QRFun.get(j).getDistance()));
+				funderQR.add(new POICircle(QRFun.get(j).getCode(), QRFun.get(j).getDistance(),QRFun.get(j).getCentrum().x));
 			}
 		}
 	}
