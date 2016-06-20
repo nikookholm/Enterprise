@@ -21,6 +21,8 @@ public interface iDroneMovement {
 	public void flyLeftConstant(int cm, int startTime);
 	public void flyHome();
 	public void spinLeft(int cm, int startTime);
+	public void goUp(int cm, int startTime);
+	public void goDown(int cm, int startTime);
 	public void spinRight(int cm, int startTime);
 	public void flyThroughRing(POI nextRing);
 	public void stopAndDecent();
