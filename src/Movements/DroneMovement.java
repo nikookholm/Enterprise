@@ -465,7 +465,7 @@ public class DroneMovement implements iDroneMovement {
 				break;
 			case None:
 				hover();
-				break
+				break;
 						
 			default:
 				
@@ -524,23 +524,15 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				float a = yaw;
-				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-				cmd.spinLeft(20).doFor(10);
-
-				int i = 0;
-
-				while(a!=yaw){
-					if(i!=0 && i%100 == 0){
-						cmd.hover().doFor(20);
+				for (int i = 0; i < 170; i++){
+					if(i!=0 && i%10==0){
+						cmd.hover().doFor(50);
 					}
-					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
-					cmd.spinLeft(10).doFor(10);
+					cmd.spinLeft(100).doFor(15);
 				}
+				threadID--;
 			}
 		});
-		threadID--;
 	}
 	@Override
 	public void spinRight(){
@@ -548,23 +540,15 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				float a = yaw;
-				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-				cmd.spinRight(20).doFor(10);
-
-				int i = 0;
-
-				while(a!=yaw){
-					if(i!=0 && i%100 == 0){
-						cmd.hover().doFor(20);
+				for (int i = 0; i < 170; i++){
+					if(i!=0 && i%10==0){
+						cmd.hover().doFor(50);
 					}
-					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
-					cmd.spinRight(10).doFor(10);
+					cmd.spinRight(100).doFor(15);
 				}
+				threadID--;
 			}
 		});
-		threadID--;
 	}
 	@Override
 	public void hover(){
