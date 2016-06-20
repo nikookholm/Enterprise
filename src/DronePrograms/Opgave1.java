@@ -47,12 +47,14 @@ public class Opgave1 extends DroneProgram {
 		m.start();											// Take of
 		m.hoverTo(1500); // Er i milimeter					// Op i højde til at læse QR-koder
 		
-		while (m.onAQuestForCoordinates() == null)
+		Vector3D v;
+		do
 		{
-			
+			v = m.onAQuestForCoordinates();					//  
 		}
+		while (v == null);
 		
-		getDrone().setCoords(m.initialSearch(pois));		// Drejer på stedet og finder sin position
+		getDrone().setCoords(v);		
 		
 		while (!finished())
 		{
