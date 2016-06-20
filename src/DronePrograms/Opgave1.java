@@ -93,6 +93,7 @@ public class Opgave1 extends DroneProgram {
 
 	private boolean finished()
 	{
-		return false;
+		return (ringsPassed >= numberOfRings) ? true : false;
+		
 	}
 }
