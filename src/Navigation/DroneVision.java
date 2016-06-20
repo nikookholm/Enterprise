@@ -185,14 +185,15 @@ public class DroneVision implements iDroneVision {
 
 	
 	/***********Get drone position from wallmarks*************/
-	public Vector3D dronePosition(boolean firstTime){
-
+	public Vector3D dronePosition(boolean firstTime, ArrayList<POI> poi){
+		
 		if(firstTime){
 			System.out.println("<<<<<< 1");
 			poiDrone = scanQR(Condition.Initial);
 		} else {
 			poiDrone = scanQR(Condition.Flying);
 		}
+		poi.addAll(poiDrone);
 
 		return VD.getDronePosTwoPoints(((POIWallPoint)poiDrone.get(0)).getCoordinates(), 
 				((POIWallPoint)poiDrone.get(0)).getDistance(), ((POIWallPoint)poiDrone.get(1)).getCoordinates(), 

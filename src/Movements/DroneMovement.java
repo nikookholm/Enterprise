@@ -88,7 +88,8 @@ public class DroneMovement implements iDroneMovement {
 	drone.getMovement().start();
 	drone.getMovement().hoverTo(1500);
 	drone.getMovement().spinRight();
-	Vector3D dronePos = dV.dronePosition(true);
+	Vector3D dronePos = dV.dronePosition(true, poi);
+	
 	System.out.println(dronePos.getXCoord() +"<<<---- X . Y---->>>"+ dronePos.getYCoord() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 	drone.getMovement().landing();
 	
