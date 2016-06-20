@@ -18,7 +18,7 @@ public class LpogDollar extends DroneProgram {
 		}
 		getDrone().getMovement().flyForwardConstant(5, 0);
 		while(getDrone().getCoordY()>-5){
-			getDrone().getMain().getGUI().getLog().add("+1");
+			System.out.println(getDrone().getCoordY() + ": Y , " + getDrone().getCoordX() + ": X ");
 		}
 
 		getDrone().getMovement().landing();
