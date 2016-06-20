@@ -37,25 +37,29 @@ public class Opgave1 extends DroneProgram {
 		new CircleSequence(numberOfRings);
 		// Opgave 1 Beskrivelse:
 		// 
-		// For at kunne vurdere prstationen, bliver der talt portpassager (points). En
-		// passage er afsluttet, nar en drone helt krydser hulahopringen i den rigtige retning.
-		// Ringerne skal passeres i fastlagt cyklisk rkkeflge. Dronen starter fra et markeret
-		// landingsplads og returnere dertil. Hvert sammenstd mellem en drone og et andet
-		// objekt tller minus 2 points. Hvert portpassager i den forkerte retning eller rk-
-		// keflge tller minus 1 point. At ikke returnere til landingspladsen, tller minus 2
+		// For at kunne vurdere præstationen, bliver der talt portpassager (points). En
+		// passage er afsluttet, når en drone helt krydser hulahopringen i den rigtige retning.
+		// Ringerne skal passeres i fastlagt cyklisk rækkeflge. Dronen starter fra et markeret
+		// landingsplads og returnere dertil. Hvert sammenstød mellem en drone og et andet
+		// objekt tæller minus 2 points. Hvert portpassager i den forkerte retning eller ræk-
+		// keflge tæller minus 1 point. At ikke returnere til landingspladsen, tæller minus 2
 		// points. Tiden er 5 minutter.
 
 
 		iDroneMovement   m = getDrone().getMovement();
 		iDroneNavigation n = getDrone().getNavigation();
-		OpenCVOperations o = new OpenCVOperations();
+		//OpenCVOperations o = new OpenCVOperations();
 
+		
+		m.hoverTo(1500); // Er i milimeter
+		
+		// (næsten) Oprindelig opgave 1 herunder.
 
-		m.start();																// Flyver op til 1 meter
+		m.start();											 // Flyver op til 2 meter
 		
 		m.rotateToAngle(90, 100);
 		
-		Vector3D crd =  n.getVision().dronePosition(true); 		// Afsøg rum
+		Vector3D crd =  n.getVision().dronePosition(true); 	 // Afsøg rum
 
 		getDrone().setCoords(crd);	  						 // Når de er fundet og loop-et stopper, bruges calibrate()
 		
