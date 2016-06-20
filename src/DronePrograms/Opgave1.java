@@ -19,22 +19,23 @@ public class Opgave1 extends DroneProgram {
 
 	private ArrayList<POI> pois;
 	private POI			   nextRing = null;	
-	private final int numberOfRings = 0;
-	private DroneVision vision;
+	private final int 	   numberOfRings = 3;
+	private DroneVision    vision;
 
 	@Override
 	public void abort() {
 		getDrone().landing();
 
 	}
+	
 	@Override
 	public String getProgramName() {
-		return "Opgave1 ";
+		return "Opgave1";
 	}
+	
 	@Override
 	public void run() {
 
-		new CircleSequence(numberOfRings);
 		// Opgave 1 Beskrivelse:
 		// 
 		// For at kunne vurdere præstationen, bliver der talt portpassager (points). En
@@ -50,8 +51,27 @@ public class Opgave1 extends DroneProgram {
 		iDroneNavigation n = getDrone().getNavigation();
 		//OpenCVOperations o = new OpenCVOperations();
 
-		
+		m.start();
 		m.hoverTo(1500); // Er i milimeter
+		
+		n.getVision().initialSearch(pois);
+		
+		while (!finished())
+		{
+			
+			if (nextRingIsInList())
+			{
+				
+			}
+			else
+			{
+				n.getVision().search();
+			}
+			
+		}
+		
+		m.landing();
+		
 		
 		// (næsten) Oprindelig opgave 1 herunder.
 
