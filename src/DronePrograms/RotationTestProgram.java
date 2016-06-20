@@ -42,7 +42,8 @@ public class RotationTestProgram extends DroneProgram {
 		DroneVision DV = getDrone().getNavigation().getVision();
 		
 		DM.start();
-		
+		DM.goUp(50, 0);
+		DM.flyThroughRing(nextRing);
 	}
 	
 

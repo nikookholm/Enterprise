@@ -24,7 +24,7 @@ public interface iDroneMovement {
 	public void goUp(int cm, int startTime);
 	public void goDown(int cm, int startTime);
 	public void spinRight(int cm, int startTime);
-	public void flyThroughRing(POI nextRing);
+	public void flyThroughRing();
 	public void stopAndDecent();
 	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance);
 	public Vector3D initialSearch(ArrayList<POI> poi);

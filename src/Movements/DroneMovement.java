@@ -389,7 +389,7 @@ public class DroneMovement implements iDroneMovement {
 	//kører loop med scan ring, skal tage imod 
 	// metoderne blev ikke testet.
 	@Override
-	public void flyThroughRing(POI nextRing) {
+	public void flyThroughRing() {
 		
 		
 		OpenCVOperations opCV = new OpenCVOperations();
