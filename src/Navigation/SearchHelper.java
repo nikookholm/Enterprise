@@ -66,8 +66,8 @@ public class SearchHelper {
 	
 	private void searchSquare() {
 
-		// Spin 360
-		// scan for QR
+		drone.getMovement().spinLeft();
+		drone.getNavigation().getVision().dronePosition(true, poiList);
 		
 	}
 
