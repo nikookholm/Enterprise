@@ -12,12 +12,12 @@ public class LpogDollar extends DroneProgram {
 		getDrone().getMovement().start();
 		System.out.println("Kalder rotate(90)");
 		
-		getDrone().getMovement().rotateToAngle(180, 0);
-		while(getDrone().getMovement().getCurrentAngle()!= 180){
+		getDrone().getMovement().rotateToAngle(90, 0);
+		while(getDrone().getMovement().getCurrentAngle()!= 90){
 			getDrone().getMain().getGUI().getLog().add("" + getDrone().getMovement().getCurrentAngle());
 		}
 		getDrone().getMovement().flyForwardConstant(5, 0);
-		while(getDrone().getCoordY()>-5){
+		while(getDrone().getCoordX()>-5){
 			System.out.println(getDrone().getCoordY() + ": Y , " + getDrone().getCoordX() + ": X ");
 		}
 

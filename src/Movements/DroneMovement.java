@@ -2,7 +2,9 @@ package Movements;
 
 
 import Common.Drone;
+import Navigation.iDroneVision;
 import Navigation.iDroneVision.Condition;
+import Navigation.iDroneVision.Movement;
 import POI.POI;
 import Vector.Vector3D;
 import de.yadrone.base.command.CommandManager;
@@ -285,9 +287,66 @@ public class DroneMovement implements iDroneMovement {
 		//mangler flytoCoordinate
 	}
 
+	
 	//kører loop med scan ring, skal tage imod 
+	// metoderne blev ikke testet.
 	@Override
 	public POI flyThroughRing(POI nextRing) {
+		
+		
+		Movement move = drone.getNavigation().getVision().calibrateToCircle(null); // 
+		
+		while (move != Movement.Forward) {
+			
+			switch (move) {
+			
+			case Up :
+				cmd.up(10).doFor(1000);
+				break;
+			
+			case RightUp:
+				cmd.goRight(10).doFor(1000);
+				cmd.up(10).doFor(500);
+				break;
+			
+			case Right:
+				cmd.goRight(10).doFor(1000);
+				break;
+			
+			case RightDown:
+			cmd.goRight(10).doFor(1000);
+			cmd.down(10).doFor(1000);
+				break;
+				
+			case Down:
+				cmd.down(10).doFor(1000);
+				break;
+				
+			case LeftDown:
+				cmd.goLeft(10).doFor(1000);
+				cmd.down(10).doFor(1000);
+				break;
+				
+			case Left:
+				cmd.goLeft(10).doFor(1000);
+				break;
+	
+			case LeftUp:
+				cmd.goLeft(10).doFor(1000);
+				cmd.up(10).doFor(1000);
+				break;
+				
+			case Forward:
+				flyForward();
+				break;
+						
+			default:
+				
+				break;
+			}
+			
+		}
+		
 		return nextRing;
 		// TODO Auto-generated method stub
 

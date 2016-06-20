@@ -175,6 +175,11 @@ public class DroneVision implements iDroneVision {
 									if(dronepos.getXCoord() > 0 && dronepos.getYCoord() < 0){
 										action = Movement.LeftUp;
 									} 
+									else 
+										if(dronepos.getXCoord() == 0 && dronepos.getYCoord() == 0 ){
+											
+											action = Movement.Forward;
+										}
 		return action;
 	}	
 
