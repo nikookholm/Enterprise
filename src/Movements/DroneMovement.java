@@ -98,6 +98,7 @@ public class DroneMovement implements iDroneMovement {
 						cmd.hover().doFor(500);
 					}
 				}
+				cmd.hover();
 			}
 		});
 		

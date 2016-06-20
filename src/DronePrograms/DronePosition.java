@@ -4,6 +4,7 @@ import Common.Drone;
 import Main.DroneProgram;
 import Navigation.DroneVision;
 import Vector.Vector3D;
+import de.yadrone.apps.controlcenter.plugins.keyboard.KeyboardCommandManager;
 
 public class DronePosition extends DroneProgram {
 
@@ -21,6 +22,7 @@ public class DronePosition extends DroneProgram {
 	public void run() {
 		
 		Drone d = getDrone();
+		KeyboardCommandManager keys = new KeyboardCommandManager(d);
 		d.getCommandManager().setMinAltitude(1450);
 		DroneVision v = d.getNavigation().getVision();
 		
