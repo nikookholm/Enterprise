@@ -18,14 +18,12 @@ import Vector.Vector3D;
 public class Opgave1 extends DroneProgram {
 
 	private ArrayList<POI> pois;
-	private POI			   nextRing = null;	
+	private POI			   nextRing 	 = null;	
 	private final int 	   numberOfRings = 3;
-	private DroneVision    vision;
 
 	@Override
 	public void abort() {
 		getDrone().landing();
-
 	}
 	
 	@Override
@@ -49,7 +47,6 @@ public class Opgave1 extends DroneProgram {
 
 		iDroneMovement   m = getDrone().getMovement();
 		iDroneNavigation n = getDrone().getNavigation();
-		//OpenCVOperations o = new OpenCVOperations();
 
 		m.start();
 		m.hoverTo(1500); // Er i milimeter
@@ -59,59 +56,23 @@ public class Opgave1 extends DroneProgram {
 		while (!finished())
 		{
 			
-			if (nextRingIsInList())
+			if (nextRingIsInList())							// Kigger om den næste ring er i listen
 			{
-				
+				m.flyTo(nextRing);							// flyv til den næste ring
+				m.flyThroughRing(nextRing);					// ... og igennem den
 			}
 			else
 			{
-				n.getVision().search();
+				m.search();									// Afsøg rum efter flere ringe
 			}
 			
 		}
 		
-		m.landing();
-		
-		
-		// (næsten) Oprindelig opgave 1 herunder.
-
-		m.start();											 // Flyver op til 2 meter
-		
-		m.rotateToAngle(90, 100);
-		
-		Vector3D crd =  n.getVision().dronePosition(true); 	 // Afsøg rum
-
-		getDrone().setCoords(crd);	  						 // Når de er fundet og loop-et stopper, bruges calibrate()
-		
-		if(crd != null){
-			int nrOfRingFound = 0;
-			
-			while(nrOfRingFound < 7){
-				
-				
-			}
-		}
-		
-//		getDrone().getMovement().search();
-//															// til at fastsætte dronens position
-//
-//		while (!finished())									// Så længe opgaven ikke er færdig ....							
-//		{
-//			while(nextRingIsInList())						// ... og den næste ring vi skal finde er på listen
-//			{
-//				m.flyTo(nextRing);							// flyv til den næste ring
-//				m.flyThroughRing(nextRing);					// ... og igennem den
-//			}
-//
-//		}
-//
-//		m.flyHome();										// Og flyv hjem
-
-		// All good!
-
-		
-
+		m.flyHome();										// Flyv tilbage til start pos
 	}
+		
+		
+
 
 	private boolean nextRingIsInList() {
 		// TODO Auto-generated method stub
@@ -131,20 +92,4 @@ public class Opgave1 extends DroneProgram {
 
 
 	}
-	private boolean hasFound2WallPOIs() {
-
-		int wallPoisFound = 0;
-
-		for (POI poi : pois )
-		{
-			if (poi instanceof POIWallPoint)
-			{
-				wallPoisFound++;
-			}
-		}
-
-		return (wallPoisFound >= 2);
-	}
-
-
 }
