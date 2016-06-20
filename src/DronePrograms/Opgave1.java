@@ -50,11 +50,11 @@ public class Opgave1 extends DroneProgram {
 		Vector3D v;
 		do
 		{
-			v = m.onAQuestForCoordinates();					//  
+			v = m.onAQuestForCoordinates();					// Algorithme der flyver i blinde til den finder vægmærker at finde position fra. 
 		}
 		while (v == null);
 		
-		getDrone().setCoords(v);		
+		getDrone().setCoords(v);							// Koordinator findes, og dronen får disse
 		
 		while (!finished())
 		{
