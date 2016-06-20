@@ -3,21 +3,13 @@ package DronePrograms;
 import java.util.ArrayList;
 
 import Main.DroneProgram;
-import Movements.DroneMovement;
 import Movements.iDroneMovement;
-import Navigation.DroneVision;
-import Navigation.OpenCVOperations;
-import Navigation.QRfinder;
 import Navigation.iDroneNavigation;
-import Navigation.CircleSequence.CircleSequence;
 import POI.POI;
-import POI.POICircle;
-import POI.POIWallPoint;
-import Vector.Vector3D;
 
 public class Opgave1 extends DroneProgram {
 
-	private ArrayList<POI> pois;
+	private ArrayList<POI> pois			 = new ArrayList<>();
 	private POI			   nextRing 	 = null;	
 	private final int 	   numberOfRings = 3;
 
@@ -51,7 +43,7 @@ public class Opgave1 extends DroneProgram {
 		m.start();
 		m.hoverTo(1500); // Er i milimeter
 		
-		n.getVision().initialSearch(pois);
+		m.initialSearch(pois);
 		
 		while (!finished())
 		{
@@ -71,14 +63,10 @@ public class Opgave1 extends DroneProgram {
 		m.flyHome();										// Flyv tilbage til start pos
 	}
 		
-		
-
-
 	private boolean nextRingIsInList() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	private boolean finished() {
 
@@ -89,7 +77,5 @@ public class Opgave1 extends DroneProgram {
 		// Success! 
 
 		return false;
-
-
 	}
 }
