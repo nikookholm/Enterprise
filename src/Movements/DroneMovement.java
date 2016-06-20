@@ -763,6 +763,46 @@ public class DroneMovement implements iDroneMovement {
 	
 	public Vector3D onAQuestForCoordinates()
 	{
-		return null;
+		int i;
+		int j;
+
+		if(drone.getNavigation().getVision().dronePosition(true, null)!=null){
+			flyLeftConstant(50, 0);
+			spinRight();
+			System.out.println("Looking for Position!!! test1");
+			if(drone.getNavigation().getVision().dronePosition(true, null)!=null){
+				flyRightConstant(200, 0);
+				spinRight();
+				System.out.println("Looking for Position!!! test2");
+				if(drone.getNavigation().getVision().dronePosition(true, null)!=null){
+					for(j = 0 ; j<4 ; j++){
+						if(drone.getNavigation().getVision().dronePosition(true, null) != null){
+							flyForwardConstant(200, 0);
+							spinRight();
+							System.out.println("Looking for Position!!! testForloop Kørt:" + j);
+						}
+					}
+				}
+				//			
+				//			for(i = 0 ; i<3 ; i++){
+				//				if(drone.getNavigation().getVision().dronePosition(true, null)!=null){
+				////					flyForwardConstant(200, startTime);
+				////					flyLeftConstant(200, startTime);
+				////		 			rotate 360%
+				//				}if(i<3){
+				//					for(j = 0 ; j<4 ; j++){
+				//						if(drone.getNavigation().getVision().dronePosition(true, null) != null){
+				////							flyForwardConstant(200, startTime);
+				//							//rotate 360%
+				//						}
+				//					}
+				//				}
+				//			}
+
+			}else{
+				System.out.println("position found");
+			}
 	}
+		return drone.getNavigation().getVision().dronePosition(true, null);
+}
 }
