@@ -7,6 +7,8 @@ import Common.Drone;
 import Main.DroneProgram;
 import Movements.DroneMovement;
 import Movements.iDroneMovement;
+import de.yadrone.apps.controlcenter.plugins.keyboard.KeyboardCommandManager;
+import de.yadrone.apps.paperchase.controller.PaperChaseKeyboardController;
 import de.yadrone.base.command.CommandManager;
 import de.yadrone.base.navdata.Altitude;
 import de.yadrone.base.navdata.AltitudeListener;
@@ -38,12 +40,16 @@ public class RotationTestProgram extends DroneProgram {
 
 	@Override
 	public void run() {
+		PaperChaseKeyboardController keys = new PaperChaseKeyboardController(getDrone());
+		keys.start();
 		iDroneMovement DM = getDrone().getMovement();
 		DroneVision DV = getDrone().getNavigation().getVision();
 		
 		DM.start();
-		DM.goUp(50, 0);
+		DM.goUp(80, 0);
+		while(true){
 		DM.flyThroughRing();
+		}
 	}
 	
 

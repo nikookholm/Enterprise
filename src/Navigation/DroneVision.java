@@ -150,7 +150,8 @@ public class DroneVision implements iDroneVision {
 	@Override
 	public Movement calibrateToCircle(Vector3D dronepos) {
 		Movement action = null;
-
+		
+		if(dronepos.getYCoord() != 10){
 		if (dronepos.getXCoord() == 0 && dronepos.getZCoord() < 0) {
 			action = Movement.Up;
 		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() < 0) {
@@ -172,6 +173,10 @@ public class DroneVision implements iDroneVision {
 			action = Movement.Forward;
 		}
 		return action;
+		}
+		else{
+			return action = Movement.None;
+		}
 	}
 
 	/*********** Get drone position from wallmarks *************/
