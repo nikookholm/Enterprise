@@ -149,15 +149,16 @@ public class DroneVision implements iDroneVision {
 	/*********** Calibrate the drone in front of circle ********/
 	@Override
 	public Movement calibrateToCircle(Vector3D dronepos) {
+		System.out.println("calibrate<<<<<<<<<<<<<<<<");
 		Movement action = null;
 		
-		if(dronepos.getYCoord() != 10){
+		if(dronepos.getYCoord() < 10){
 		if (dronepos.getXCoord() == 0 && dronepos.getZCoord() < 0) {
 			action = Movement.Up;
 		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() < 0) {
 			action = Movement.RightUp;
 		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() == 0) {
-			action = Movement.Right;
+			action = Movement.Left;
 		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() > 0) {
 			action = Movement.RightDown;
 		} else if (dronepos.getXCoord() == 0 && dronepos.getZCoord() > 0) {
@@ -165,13 +166,13 @@ public class DroneVision implements iDroneVision {
 		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() > 0) {
 			action = Movement.LeftDown;
 		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() == 0) {
-			action = Movement.Left;
+			action = Movement.Right;
 		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() < 0) {
 			action = Movement.LeftUp;
 		} else if (dronepos.getXCoord() == 0 && dronepos.getZCoord() == 0) {
-
 			action = Movement.Forward;
 		}
+		System.out.println(action +"NORMAL ||||| TOSTRING " +  action.toString());
 		return action;
 		}
 		else{
@@ -252,7 +253,6 @@ public class DroneVision implements iDroneVision {
 				droneGui.getLog().add("QRcode:  " + im.get(i).getCode());
 				droneGui.getLog().add("Distance:  " + numberFormat.format(im.get(i).getDistance()) + "mm");
 
-				System.out.println("new qr " + im.get(i).getCode() + " Distance er i M: " + im.get(i).getDistance());
 			}
 		}
 		if (imgTjek == true) {

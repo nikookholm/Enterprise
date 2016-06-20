@@ -40,14 +40,15 @@ public class RotationTestProgram extends DroneProgram {
 
 	@Override
 	public void run() {
-		PaperChaseKeyboardController keys = new PaperChaseKeyboardController(getDrone());
-		keys.start();
+
 		iDroneMovement DM = getDrone().getMovement();
 		DroneVision DV = getDrone().getNavigation().getVision();
 		
 		DM.start();
-		DM.goUp(80, 0);
+		DM.goUp(50, 0);
 		while(true){
+			getDrone().getMain().getGUI().getLog().add("<<<<<<<<<<<");
+			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		DM.flyThroughRing();
 		}
 	}

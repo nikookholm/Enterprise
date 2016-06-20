@@ -175,7 +175,7 @@ public class DroneMovement implements iDroneMovement {
 			@Override
 			public void run() {
 				for(int i = 0 ; i<cm ; i++){
-					cmd.forward(20).doFor(20);
+					cmd.forward(5).doFor(20);
 					updatePositionForward(1);
 					if(i%100==0 && i!=0){
 						cmd.hover().doFor(500);
@@ -397,15 +397,15 @@ public class DroneMovement implements iDroneMovement {
 	// metoderne blev ikke testet.
 	@Override
 	public void flyThroughRing() {
-		
+		System.out.println("thoughtringr1");
 		
 		OpenCVOperations opCV = new OpenCVOperations();
 		Vector3D differen = opCV.findCircle(currentImage);
 		
 		Movement move = drone.getNavigation().getVision().calibrateToCircle(differen); // 
-		int w = 30;
+		int w = 5;
 		int millis = 0;
-
+		System.out.println(move);
 			switch (move) {
 			
 			case Up :
@@ -448,6 +448,8 @@ public class DroneMovement implements iDroneMovement {
 			case Forward:
 				flyForwardConstant(300, millis);
 				break;
+			case None:
+				hover();
 						
 			default:
 				
@@ -550,9 +552,17 @@ public class DroneMovement implements iDroneMovement {
 	}
 	@Override
 	public void hover(){
-		for (int i = 0 ; i<=150 ; i++){
-			cmd.hover().doFor(30);
-		}
+		cmd.schedule(0, new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				for (int i = 0 ; i<=10 ; i++){
+					cmd.hover().doFor(30);
+				}		
+			}
+		});
+		
 	}
 
 	@Override

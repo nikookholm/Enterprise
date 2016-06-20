@@ -82,7 +82,8 @@ public class OpenCVOperations {
 		return findQR(bufferedImageToMat(image));
 	}
 
-	public Vector3D findCircle(BufferedImage image/* BufferedImage image2 Vector3D dronePos*/){
+	public Vector3D findCircle(BufferedImage image){
+		System.out.println("findimage");
 		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image)/*, dronePos*/);
 		int margin = 35;
 		Vector3D distanceToPoint = new Vector3D(0,10,0);
@@ -98,7 +99,7 @@ public class OpenCVOperations {
 //			}
 //		}
 		if(result.size()>0){
-			
+			System.out.println("BEREGNER FORSKEL");
 		Vector3D centerPoint = new Vector3D(image.getWidth()/2, image.getHeight(), 0);
 		if(result.get(0).getxPos() > centerPoint.getXCoord()+margin){
 			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
@@ -109,15 +110,16 @@ public class OpenCVOperations {
 
 		}
 		if(result.get(0).getzPos() > centerPoint.getXCoord()+margin){
-			distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
-			distanceToPoint.setYCoord(0);
+			//distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
+			//distanceToPoint.setYCoord(0);
 
 		}else if(result.get(0).getzPos() < centerPoint.getXCoord()-margin){
-			distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
-			distanceToPoint.setYCoord(0);
+			//distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
+			//distanceToPoint.setYCoord(0);
 
 		}
 		}
+		System.out.println(distanceToPoint.getXCoord()  +"<-<<<<<---- XXXX YYYYY---->>>>> " + distanceToPoint.getYCoord() + " ------------>>>>>>>>> Z" + distanceToPoint.getZCoord());
 		return distanceToPoint;
 	}
 	
