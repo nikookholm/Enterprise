@@ -184,7 +184,7 @@ public class DroneVision implements iDroneVision {
 	}	
 
 	
-	public Vector3D initialSearch(ArrayList<POI> POI)
+	public Vector3D initialSearch(ArrayList<POI> poi)
 	{
 
 	drone.getCommandManager().setMinAltitude(1450);
@@ -259,7 +259,8 @@ public class DroneVision implements iDroneVision {
 
 		try {
 			qrfind.findQR(imageMat);
-			circlesFound = CVOp.findCircle(imageMat,new Vector3D(0, 0,0));
+			circlesFound = CVOp.findCircle(imageMat);
+					//new Vector3D(0, 0,0));
 			
 			
 		} catch (Exception e) {				
