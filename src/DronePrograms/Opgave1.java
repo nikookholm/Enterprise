@@ -1,17 +1,19 @@
 package DronePrograms;
 
 import java.util.ArrayList;
-
+import Common.Drone;
 import Main.DroneProgram;
 import Movements.iDroneMovement;
 import Navigation.iDroneNavigation;
 import POI.POI;
+import POI.POICircle;
 
 public class Opgave1 extends DroneProgram {
 
 	private ArrayList<POI> pois			 = new ArrayList<>();
-	private POI			   nextRing 	 = null;	
 	private final int 	   numberOfRings = 3;
+	private int			   ringsPassed   = 0;
+	private POICircle	   nextRing 	 = null;
 
 	@Override
 	public void abort() {
@@ -37,13 +39,14 @@ public class Opgave1 extends DroneProgram {
 		// points. Tiden er 5 minutter.
 
 
-		iDroneMovement   m = getDrone().getMovement();
-		iDroneNavigation n = getDrone().getNavigation();
+		Drone			 d = getDrone();
+		iDroneMovement   m = d.getMovement();
+		iDroneNavigation n = d.getNavigation();
 
-		m.start();
-		m.hoverTo(1500); // Er i milimeter
+		m.start();											// Take of
+		m.hoverTo(1500); // Er i milimeter					// Op i højde til at læse QR-koder
 		
-		m.initialSearch(pois);
+		m.initialSearch(pois);								// Drejer på stedet og finder sin position
 		
 		while (!finished())
 		{
@@ -52,6 +55,7 @@ public class Opgave1 extends DroneProgram {
 			{
 				m.flyTo(nextRing);							// flyv til den næste ring
 				m.flyThroughRing(nextRing);					// ... og igennem den
+				countUpRings();
 			}
 			else
 			{
@@ -63,19 +67,32 @@ public class Opgave1 extends DroneProgram {
 		m.flyHome();										// Flyv tilbage til start pos
 	}
 		
+	private void countUpRings()
+	{
+		ringsPassed++;				
+	}
+
 	private boolean nextRingIsInList() {
-		// TODO Auto-generated method stub
+		
+		boolean nextCircleFound = false;
+		
+		for (POI p : pois)
+		{
+			if (p instanceof POICircle)
+			{
+				if (((POICircle)p).getCode().equals("P.0" + (ringsPassed+1)))
+				{
+					nextRing = (POICircle)p;
+					nextCircleFound = true;
+				}
+			}
+		}
+		
 		return false;
 	}
 
-	private boolean finished() {
-
-		// Været igennem alle ringe?
-
-		// Returneret hjem ?
-
-		// Success! 
-
+	private boolean finished()
+	{
 		return false;
 	}
 }
