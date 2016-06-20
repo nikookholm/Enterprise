@@ -17,6 +17,8 @@ public class QRPoi {
 	private Point centrum;
 	private double distance;
 	private Point cords;
+	private double distVenstre;
+	private double distHøjre;
 
 	public void setX(double k){
 		xpos = k;
@@ -56,6 +58,18 @@ public class QRPoi {
 	}
 	public void setLP(Point p){
 		lastPoint = p;
+	}
+	public void setDistHøjre(double distHøjre) {
+		this.distHøjre = distHøjre;
+	}
+	public void setDistVenstre(double distVenstre) {
+		this.distVenstre = distVenstre;
+	}
+	public double getDistHøjre() {
+		return distHøjre;
+	}
+	public double getDistVenstre() {
+		return distVenstre;
 	}
 	
 	public int getTop(){
