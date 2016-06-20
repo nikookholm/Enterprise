@@ -116,7 +116,7 @@ public class DroneMovement implements iDroneMovement {
 					cmd.spinRight(30).doFor(30);
 					System.out.println("LKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLK");
 				}
-				cmd.spinLeft(30).doFor(50);
+				threadID--;
 			}
 		});
 	}
@@ -128,10 +128,37 @@ public class DroneMovement implements iDroneMovement {
 				for(int i = 0; i<cm; i++){
 					cmd.spinLeft(30).doFor(30);
 				}
-				cmd.spinRight(30).doFor(50);
+				threadID--;
 			}
 		});
 	}
+	
+	
+	public void goUp(int cm, int startTime){
+		cmd.schedule(startTime,new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i = 0; i<cm; i++){
+					cmd.up(30).doFor(30);
+				}
+				threadID--;
+			}
+		});
+	}
+	public void goDown(int cm, int startTime){
+		cmd.schedule(startTime,new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i = 0; i<cm; i++){
+					cmd.down(30).doFor(30);
+				}
+				threadID--;
+			}
+		});
+	}
+	
 	
 	// Flyv frem i bestemme distance (cm) 
 	public void flyForwardConstant(int cm, int startTime){
@@ -369,111 +396,50 @@ public class DroneMovement implements iDroneMovement {
 		Vector3D differen = opCV.findCircle(currentImage);
 		
 		Movement move = drone.getNavigation().getVision().calibrateToCircle(differen); // 
-		int w = 50;
+		int w = 30;
 		int millis = 0;
-		while (move != Movement.Forward) {
-			
+
 			switch (move) {
 			
 			case Up :
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.up(20).doFor(w);
-					}
-				});
+				goUp(w, millis);
 				
 				break;
 			
 			case RightUp:
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.goRight(20).doFor(w);
-						cmd.up(20).doFor(w);
-					}
-				});
+				flyRightConstant(w, millis);
+				goUp(w, millis);
 
 				break;
 			
 			case Right:
-				
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.goRight(20).doFor(w);
-					}
-				});
+				flyRightConstant(w, millis);
 				break;
 			
 			case RightDown:
-				cmd.schedule(millis, new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					cmd.goRight(10).doFor(1000);
-					cmd.down(10).doFor(1000);
-				}
-			});
+				flyRightConstant(w, millis);
+				goDown(w, millis);
 				break;
 				
 			case Down:
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.down(10).doFor(1000);
-					}
-				});
+				goDown(w, millis);
 				break;
 				
 			case LeftDown:
 				
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.goLeft(10).doFor(1000);
-						cmd.down(10).doFor(1000);
-					}
-				});
+				flyLeftConstant(w, millis);
+				goDown(w, millis);
 			
 				break;
 				
 			case Left:
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.goLeft(20).doFor(w);
-					}
-				});
-				break;
+				flyLeftConstant(w, millis);
 	
 			case LeftUp:
-				cmd.schedule(millis, new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						cmd.goLeft(20).doFor(w);
-						cmd.up(20).doFor(w);
-					}
-				});
-				break;
+				flyLeftConstant(w, millis);
 				
 			case Forward:
-				flyForward();
+				flyForwardConstant(300, millis);
 				break;
 						
 			default:
@@ -481,7 +447,7 @@ public class DroneMovement implements iDroneMovement {
 				break;
 			}
 			
-		}
+		
 		
 
 	}
