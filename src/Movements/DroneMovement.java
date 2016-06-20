@@ -468,7 +468,7 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				cmd.spinRight(20).doFor(10);
+				cmd.spinRight(20);
 			}
 		});
 		threadID--;
