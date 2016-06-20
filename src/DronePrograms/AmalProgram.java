@@ -2,6 +2,9 @@ package DronePrograms;
 
 import Main.DroneProgram;
 import Movements.iDroneMovement;
+import Navigation.iDroneVision;
+import Navigation.iDroneVision.Condition;
+import POI.POI;
 import Vector.Vector3D;
 
 public class AmalProgram extends DroneProgram {
@@ -25,22 +28,29 @@ public class AmalProgram extends DroneProgram {
 	@Override
 	public void run() {
 		
-		iDroneMovement dcmd = getDrone().getMovement();
-	
-		dcmd.start();
+		iDroneMovement mcmd = getDrone().getMovement();
+		iDroneVision   vcmd = getDrone().getNavigation().getVision();
 		
-		dcmd.hoverTo(1500);
-//		
-//		do
-//		{
-//			test = getDrone().getNavigation().getVision().dronePosition(true);
-//			dcmd.rotateToAngle(angle, 0);
-//			angle += 5;
-//		} while (test == null && angle < 90);
+		mcmd.start();
 		
-		//dcmd.flyRightConstant(100, 0);
+		mcmd.hover();
 		
-		dcmd.landing();
+		if(vcmd.scanQR(Condition.CircleQR) == null){
+			
+			mcmd.spinLeft();
+		
+		} else {
+			
+			Vector3D v = vcmd.dronePosition(true, super.getPOIList());
+			
+			
+			mcmd.flyForwardConstant(cm, startTime);
+		}
+		
+		
+		mcmd.hoverTo(1500);
+		
+		mcmd.landing();
 		
 	}
 

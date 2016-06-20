@@ -28,6 +28,11 @@ public abstract class DroneProgram implements IDroneProgram {
 		}
 	}
 	
+	public ArrayList<POI> getPOIList()
+	{
+		return poiList;
+	}
+	
 	public Drone getDrone()
 	{
 		return drone;
