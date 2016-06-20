@@ -151,23 +151,23 @@ public class DroneVision implements iDroneVision {
 	public Movement calibrateToCircle(Vector3D dronepos) {
 		Movement action = null;
 
-		if (dronepos.getXCoord() == 0 && dronepos.getYCoord() < 0) {
+		if (dronepos.getXCoord() == 0 && dronepos.getZCoord() < 0) {
 			action = Movement.Up;
-		} else if (dronepos.getXCoord() < 0 && dronepos.getYCoord() < 0) {
+		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() < 0) {
 			action = Movement.RightUp;
-		} else if (dronepos.getXCoord() < 0 && dronepos.getYCoord() == 0) {
+		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() == 0) {
 			action = Movement.Right;
-		} else if (dronepos.getXCoord() < 0 && dronepos.getYCoord() > 0) {
+		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() > 0) {
 			action = Movement.RightDown;
-		} else if (dronepos.getXCoord() == 0 && dronepos.getYCoord() > 0) {
+		} else if (dronepos.getXCoord() == 0 && dronepos.getZCoord() > 0) {
 			action = Movement.Down;
-		} else if (dronepos.getXCoord() > 0 && dronepos.getYCoord() > 0) {
+		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() > 0) {
 			action = Movement.LeftDown;
-		} else if (dronepos.getXCoord() > 0 && dronepos.getYCoord() == 0) {
+		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() == 0) {
 			action = Movement.Left;
-		} else if (dronepos.getXCoord() > 0 && dronepos.getYCoord() < 0) {
+		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() < 0) {
 			action = Movement.LeftUp;
-		} else if (dronepos.getXCoord() == 0 && dronepos.getYCoord() == 0) {
+		} else if (dronepos.getXCoord() == 0 && dronepos.getZCoord() == 0) {
 
 			action = Movement.Forward;
 		}
@@ -284,16 +284,15 @@ public class DroneVision implements iDroneVision {
 	 * @return Vector3D, only use x, if x>0 move right, if x<0 move left.
 	 */
 	public Vector3D calibrateToQR(POICircle circleQR) {
-		Vector3D diff;
 		double leftDist = circleQR.getQrLeftDist();
 		double rightDist = circleQR.getQrRigtDist();
 		int margin = 5;
 		double rest = leftDist - rightDist;
 
 		if (rest > margin || rest < margin) {
-			return diff = new Vector3D(rest, 0, 0);
+			return new Vector3D(rest, 0, 0);
 		} else {
-			return diff = new Vector3D(0, 0, 0);
+			return new Vector3D(0, 0, 0);
 		}
 
 	}

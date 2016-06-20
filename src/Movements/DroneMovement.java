@@ -1,10 +1,12 @@
 package Movements;
 
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Common.Drone;
 import Navigation.DroneVision;
+import Navigation.OpenCVOperations;
 import Navigation.iDroneVision;
 import Navigation.iDroneVision.Condition;
 import Navigation.iDroneVision.Movement;
@@ -16,6 +18,7 @@ import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 import de.yadrone.base.navdata.GyroPhysData;
 import de.yadrone.base.navdata.GyroRawData;
+import de.yadrone.base.video.ImageListener;
 
 public class DroneMovement implements iDroneMovement {
 
@@ -30,6 +33,7 @@ public class DroneMovement implements iDroneMovement {
 	private float roll;
 	private float yaw;
 	private int altitude;
+	private BufferedImage currentImage;
 
 	public DroneMovement(Drone drone)
 	{
@@ -358,10 +362,13 @@ public class DroneMovement implements iDroneMovement {
 	//kører loop med scan ring, skal tage imod 
 	// metoderne blev ikke testet.
 	@Override
-	public POI flyThroughRing(POI nextRing) {
+	public void flyThroughRing(POI nextRing) {
 		
 		
-		Movement move = drone.getNavigation().getVision().calibrateToCircle(null); // 
+		OpenCVOperations opCV = new OpenCVOperations();
+		Vector3D differen = opCV.findCircle(image);
+		
+		Movement move = drone.getNavigation().getVision().calibrateToCircle(differen); // 
 		
 		while (move != Movement.Forward) {
 			
@@ -414,8 +421,6 @@ public class DroneMovement implements iDroneMovement {
 			
 		}
 		
-		return nextRing;
-		// TODO Auto-generated method stub
 
 	}
 	
@@ -629,10 +634,23 @@ public class DroneMovement implements iDroneMovement {
 	public GyroListener getGyroListener() {
 		return new Gyro();
 	}
+	@Override
+	public ImageListener getImage(){
+		return new imageList();
+	}
 
 	@Override
 	public AttitudeListener getAttitudeListener() {
 		return new Attitude();
+	}
+	
+	private class imageList implements ImageListener{
+
+		@Override
+		public void imageUpdated(BufferedImage arg0) {
+			currentImage = arg0;
+		}
+		
 	}
 
 	/**********************************/

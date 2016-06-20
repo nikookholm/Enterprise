@@ -55,6 +55,7 @@ public class Enterprise {
 		drone.getVideoManager().addImageListener(drone.getNavigation().getVision().getImageListener());
 		drone.getNavDataManager().addAttitudeListener(drone.getMovement().getAttitudeListener());
 		drone.getNavDataManager().addGyroListener(drone.getMovement().getGyroListener());
+		drone.getVideoManager().addImageListener(drone.getMovement().getImage());
 	}
 	
 	

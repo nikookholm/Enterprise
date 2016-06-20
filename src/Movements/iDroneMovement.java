@@ -6,6 +6,7 @@ import POI.POI;
 import Vector.Vector3D;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
+import de.yadrone.base.video.ImageListener;
 
 public interface iDroneMovement {
 	
@@ -21,7 +22,7 @@ public interface iDroneMovement {
 	public void flyHome();
 	public void spinLeft(int cm, int startTime);
 	public void spinRight(int cm, int startTime);
-	public POI flyThroughRing(POI nextRing);
+	public void flyThroughRing(POI nextRing);
 	public void stopAndDecent();
 	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance);
 	public Vector3D initialSearch(ArrayList<POI> poi);
@@ -46,5 +47,6 @@ public interface iDroneMovement {
 	public AttitudeListener getAttitudeListener();
 	public void search();
 	public Vector3D onAQuestForCoordinates();
+	ImageListener getImage();
 
 }

@@ -84,7 +84,8 @@ public class OpenCVOperations {
 
 	public Vector3D findCircle(BufferedImage image/* BufferedImage image2 Vector3D dronePos*/){
 		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image)/*, dronePos*/);
-//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
+		int margin = 35;
+		//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
 		
 //		ArrayList<POICircle> result = new ArrayList<>();
 //		for(POICircle liCheck : PotentialCircleCoordinates){
@@ -97,14 +98,14 @@ public class OpenCVOperations {
 		
 		Vector3D centerPoint = new Vector3D(image.getWidth(), image.getHeight(), 0);
 		Vector3D distanceToPoint = new Vector3D(0,0,0);
-		if(result.get(0).getxPos() > image.getWidth()){
+		if(result.get(0).getxPos() > (image.getWidth()/2)+margin){
 			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
-		}else{
+		}else if(result.get(0).getxPos() < (image.getWidth()/2)-margin){
 			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - result.get(0).getxPos()));
 		}
-		if(result.get(0).getzPos() > image.getHeight()){
+		if(result.get(0).getzPos() > image.getHeight()/2+margin){
 			distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
-		}else{
+		}else if(result.get(0).getzPos() < image.getHeight()/2-margin){
 			distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
 		}
 		
