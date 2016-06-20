@@ -62,7 +62,7 @@ public class Opgave1 extends DroneProgram {
 			if (nextRingIsInList())							// Kigger om den næste ring er i listen
 			{
 				m.flyTo(nextRing);							// flyv til den næste ring
-				m.flyThroughRing(nextRing);					// ... og igennem den
+				m.flyThroughRing();							// ... og igennem den
 				countUpRings();
 			}
 			else
