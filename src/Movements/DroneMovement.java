@@ -83,12 +83,13 @@ public class DroneMovement implements iDroneMovement {
 
 	public Vector3D initialSearch(ArrayList<POI> poi)
 	{
-		DroneVision dV = new DroneVision(drone);
+		
 	drone.getCommandManager().setMinAltitude(1450);
 	drone.getMovement().start();
 	drone.getMovement().hoverTo(1500);
 	drone.getMovement().spinRight();
-	Vector3D dronePos = dV.dronePosition(true, poi);
+	System.out.println(">>>>>>>>>> <<<<<<<<<<<<");
+	Vector3D dronePos = drone.getNavigation().getVision().dronePosition(true, poi);
 	
 	System.out.println(dronePos.getXCoord() +"<<<---- X . Y---->>>"+ dronePos.getYCoord() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 	drone.getMovement().landing();

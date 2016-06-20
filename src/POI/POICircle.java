@@ -15,21 +15,22 @@ public class POICircle extends POI {
 	private double qrCentrum;
 
 	
-	public POICircle(Vector3D coordinates/*, Vector3D dronepos*/, int radius, double distancee, double cenX, double cenY, double distVenstre, double distHøjre) {
+	public POICircle(Vector3D coordinates/*, Vector3D dronepos*/, int radius, double distancee, double cenX, double cenY) {
 		super(coordinates, null);
 		this.radius = radius;
 		this.distance = distancee;
 		this.centrumX = cenX;
 		this.centrumY = cenY;
-		this.QrLeftDist = distVenstre;
-		this.QrRigtDist = distHøjre;
+
 		
 	}
 	
-	public POICircle(String Code, double distance,double qrcenX){
+	public POICircle(String Code, double distance,double qrcenX,double distVenstre, double distHøjre){
 		super(null,null,0,Code);
 		this.QRDistance = distance;
 		this.qrCentrum = qrcenX;
+		this.QrLeftDist = distVenstre;
+		this.QrRigtDist = distHøjre;
 
 	}
 	
