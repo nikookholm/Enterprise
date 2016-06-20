@@ -108,6 +108,8 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	public void spinRight(int cm, int startTime){
+		newThreadID();
+
 		cmd.schedule(startTime,new Runnable() {
 			
 			@Override
@@ -121,6 +123,8 @@ public class DroneMovement implements iDroneMovement {
 		});
 	}
 	public void spinLeft(int cm, int startTime){
+		newThreadID();
+
 		cmd.schedule(startTime,new Runnable() {
 			
 			@Override
@@ -135,6 +139,8 @@ public class DroneMovement implements iDroneMovement {
 	
 	
 	public void goUp(int cm, int startTime){
+		newThreadID();
+
 		cmd.schedule(startTime,new Runnable() {
 			
 			@Override
@@ -147,6 +153,8 @@ public class DroneMovement implements iDroneMovement {
 		});
 	}
 	public void goDown(int cm, int startTime){
+		newThreadID();
+
 		cmd.schedule(startTime,new Runnable() {
 			
 			@Override
