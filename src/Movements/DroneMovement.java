@@ -116,7 +116,6 @@ public class DroneMovement implements iDroneMovement {
 			public void run() {
 				for(int i = 0; i<cm; i++){
 					cmd.spinRight(30).doFor(30);
-					System.out.println("LKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLK");
 				}
 				threadID--;
 			}
