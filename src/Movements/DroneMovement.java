@@ -714,4 +714,9 @@ public class DroneMovement implements iDroneMovement {
 	public float getYaw() {
 		return yaw;
 	}
+	
+	public Vector3D onAQuestForCoordinates()
+	{
+		return null;
+	}
 }

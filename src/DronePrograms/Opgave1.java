@@ -7,6 +7,7 @@ import Movements.iDroneMovement;
 import Navigation.iDroneNavigation;
 import POI.POI;
 import POI.POICircle;
+import Vector.Vector3D;
 
 public class Opgave1 extends DroneProgram {
 
@@ -46,7 +47,12 @@ public class Opgave1 extends DroneProgram {
 		m.start();											// Take of
 		m.hoverTo(1500); // Er i milimeter					// Op i højde til at læse QR-koder
 		
-		m.initialSearch(pois);								// Drejer på stedet og finder sin position
+		while (m.onAQuestForCoordinates() == null)
+		{
+			
+		}
+		
+		getDrone().setCoords(m.initialSearch(pois));		// Drejer på stedet og finder sin position
 		
 		while (!finished())
 		{
@@ -88,7 +94,7 @@ public class Opgave1 extends DroneProgram {
 			}
 		}
 		
-		return false;
+		return nextCircleFound;
 	}
 
 	private boolean finished()

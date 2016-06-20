@@ -45,5 +45,6 @@ public interface iDroneMovement {
 	public GyroListener getGyroListener();
 	public AttitudeListener getAttitudeListener();
 	public void search();
+	public Vector3D onAQuestForCoordinates();
 
 }
