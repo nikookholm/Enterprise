@@ -62,12 +62,12 @@ public class Enterprise {
 	private void loadDronePrograms()
 	{
 		programs = new ArrayList<>();
-		programs.add(new NikosDroneProgram());
-		programs.add(new TestProgram());
+		//programs.add(new NikosDroneProgram());
+		//programs.add(new TestProgram());
 		programs.add(new LpogDollar());
 		programs.add(new RotationTestProgram());
-		programs.add(new AmalProgram());
-		programs.add(new DronePosition());
+		//programs.add(new AmalProgram());
+		//programs.add(new DronePosition());
 	}
 	
 	public void startProgram(DroneProgram program)

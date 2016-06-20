@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Common.Drone;
 import Navigation.DroneVision;
 import Navigation.OpenCVOperations;
+import Navigation.SearchHelper;
 import Navigation.iDroneVision;
 import Navigation.iDroneVision.Condition;
 import Navigation.iDroneVision.Movement;
@@ -35,12 +36,14 @@ public class DroneMovement implements iDroneMovement {
 	private int altitude;
 	private BufferedImage currentImage;
 	OpenCVOperations opCV;
+	private SearchHelper searchHelper;
 
 	public DroneMovement(Drone drone)
 	{
 		this.drone = drone;
 		cmd = drone.getCommandManager();
 		opCV = new OpenCVOperations();
+		SearchHelper searchHelper = new SearchHelper(drone.getMain().getActiveProgram().getPOIList(), drone);
 	}
 	
 	
@@ -822,8 +825,7 @@ public class DroneMovement implements iDroneMovement {
 	@Override
 	public void search() {
 		
-		rotateToAngle(90, 0);
-		flyForwardConstant(100, 100);
+		
 		
 	}
 	public int getAltitude() {
