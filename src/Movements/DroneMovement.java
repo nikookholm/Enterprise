@@ -84,10 +84,10 @@ public class DroneMovement implements iDroneMovement {
 	public Vector3D initialSearch(ArrayList<POI> poi)
 	{
 		
-	drone.getCommandManager().setMinAltitude(1450);
-	drone.getMovement().start();
-	drone.getMovement().hoverTo(1500);
-	drone.getMovement().spinRight();
+	cmd.setMinAltitude(1450);
+	start();
+	hoverTo(1500);
+	spinRight();
 	System.out.println(">>>>>>>>>> <<<<<<<<<<<<");
 	Vector3D dronePos = drone.getNavigation().getVision().dronePosition(true, poi);
 	
@@ -110,6 +110,7 @@ public class DroneMovement implements iDroneMovement {
 			public void run() {
 				for(int i = 0; i<cm; i++){
 					cmd.spinRight(30).doFor(30);
+					System.out.println("LKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLKLK");
 				}
 				cmd.spinLeft(30).doFor(50);
 			}
@@ -468,7 +469,10 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				cmd.spinRight(20);
+				for (int i = 0 ; i<=150 ; i++){
+					System.out.println("Dollar er en moder bollar <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+					cmd.spinRight(25).doFor(30);
+				}		
 			}
 		});
 		threadID--;

@@ -289,22 +289,22 @@ public class DroneVision implements iDroneVision {
 		return currImage;
 	}
 	
-	private Vector3D calibrateToQR(BufferedImage currentImage,POICircle circleQR){
+	private Vector3D calibrateToQR(POICircle circleQR){
 		Vector3D diff; 
-		int imgCenX = currentImage.getWidth()/2;
 		double leftDist = circleQR.getQrLeftDist();
 		double rightDist = circleQR.getQrRigtDist();
 		int margin = 5;
 		double rest = leftDist - rightDist;
 		
-		if(leftDist-rightDist >margin){
+		if(leftDist-rightDist >margin || leftDist-rightDist < margin){
 			diff = new Vector3D(leftDist-rightDist, 0, 0);
 		}
-		if()
+		else{
+			return diff = new Vector3D(0,0,0);
+		}
 		
 		
-		
-		return diff;
+		return diff = new Vector3D(0,0,0);
 	}
 
 
