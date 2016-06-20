@@ -495,6 +495,27 @@ public class DroneMovement implements iDroneMovement {
 	}
 	@Override
 	public void spinLeft(){
+		newThreadID();
+		cmd.schedule(0, new Runnable(){
+			@Override
+			public void run() {
+				float a = yaw;
+				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				cmd.spinLeft(20).doFor(10);
+
+				int i = 0;
+
+				while(a!=yaw){
+					if(i!=0 && i%100 == 0){
+						cmd.hover().doFor(20);
+					}
+					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+					cmd.spinLeft(10).doFor(10);
+				}
+			}
+		});
+		threadID--;
 	}
 	@Override
 	public void spinRight(){
@@ -502,10 +523,20 @@ public class DroneMovement implements iDroneMovement {
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				for (int i = 0 ; i<=150 ; i++){
-					System.out.println("Dollar er en moder bollar <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-					cmd.spinRight(25).doFor(30);
-				}		
+				float a = yaw;
+				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				cmd.spinRight(20).doFor(10);
+
+				int i = 0;
+
+				while(a!=yaw){
+					if(i!=0 && i%100 == 0){
+						cmd.hover().doFor(20);
+					}
+					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+					cmd.spinRight(10).doFor(10);
+				}
 			}
 		});
 		threadID--;
