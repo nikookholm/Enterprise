@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Common.Drone;
 import Main.DroneProgram;
 import Main.Enterprise;
+import Movements.DroneMovement;
 import Navigation.DroneVision;
 import POI.POI;
 import Vector.Vector3D;
@@ -25,8 +26,8 @@ public class DronePosition extends DroneProgram {
 	@Override
 	public void run() {
 		
-		DroneVision v = new DroneVision(getDrone());
-		v.initialSearch(new ArrayList<POI>());
+		DroneMovement dM = new DroneMovement(getDrone());
+		dM.initialSearch(new ArrayList<POI>());
 	
 //		Drone d = getDrone();
 //		KeyboardCommandManager keys = new KeyboardCommandManager(d);

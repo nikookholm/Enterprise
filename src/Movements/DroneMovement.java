@@ -1,7 +1,10 @@
 package Movements;
 
 
+import java.util.ArrayList;
+
 import Common.Drone;
+import Navigation.DroneVision;
 import Navigation.iDroneVision;
 import Navigation.iDroneVision.Condition;
 import Navigation.iDroneVision.Movement;
@@ -78,6 +81,20 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 
+	public Vector3D initialSearch(ArrayList<POI> poi)
+	{
+		DroneVision dV = new DroneVision(drone);
+	drone.getCommandManager().setMinAltitude(1450);
+	drone.getMovement().start();
+	drone.getMovement().hoverTo(1500);
+	drone.getMovement().spinRight();
+	Vector3D dronePos = dV.dronePosition(true);
+	System.out.println(dronePos.getXCoord() +"<<<---- X . Y---->>>"+ dronePos.getYCoord() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+	drone.getMovement().landing();
+	
+	return dronePos;
+	}
+	
 	public void start() {		
 		
 		cmd.takeOff();
