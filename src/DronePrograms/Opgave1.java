@@ -1,31 +1,23 @@
 package DronePrograms;
 
 import java.util.ArrayList;
-
+import Common.Drone;
 import Main.DroneProgram;
-import Movements.DroneMovement;
 import Movements.iDroneMovement;
-import Navigation.DroneVision;
-import Navigation.OpenCVOperations;
-import Navigation.QRfinder;
 import Navigation.iDroneNavigation;
-import Navigation.CircleSequence.CircleSequence;
 import POI.POI;
 import POI.POICircle;
-import POI.POIWallPoint;
-import Vector.Vector3D;
 
 public class Opgave1 extends DroneProgram {
 
-	private ArrayList<POI> pois;
-	private POI			   nextRing = null;	
+	private ArrayList<POI> pois			 = new ArrayList<>();
 	private final int 	   numberOfRings = 3;
-	private DroneVision    vision;
+	private int			   ringsPassed   = 0;
+	private POICircle	   nextRing 	 = null;
 
 	@Override
 	public void abort() {
 		getDrone().landing();
-
 	}
 	
 	@Override
@@ -47,104 +39,60 @@ public class Opgave1 extends DroneProgram {
 		// points. Tiden er 5 minutter.
 
 
-		iDroneMovement   m = getDrone().getMovement();
-		iDroneNavigation n = getDrone().getNavigation();
-		//OpenCVOperations o = new OpenCVOperations();
+		Drone			 d = getDrone();
+		iDroneMovement   m = d.getMovement();
+		iDroneNavigation n = d.getNavigation();
 
-		m.start();
-		m.hoverTo(1500); // Er i milimeter
+		m.start();											// Take of
+		m.hoverTo(1500); // Er i milimeter					// Op i højde til at læse QR-koder
 		
-		n.getVision().initialSearch(pois);
+		m.initialSearch(pois);								// Drejer på stedet og finder sin position
 		
 		while (!finished())
 		{
 			
-			if (nextRingIsInList())
+			if (nextRingIsInList())							// Kigger om den næste ring er i listen
 			{
-				
+				m.flyTo(nextRing);							// flyv til den næste ring
+				m.flyThroughRing(nextRing);					// ... og igennem den
+				countUpRings();
 			}
 			else
 			{
-				n.getVision().search();
+				m.search();									// Afsøg rum efter flere ringe
 			}
 			
 		}
 		
-		m.landing();
+		m.flyHome();										// Flyv tilbage til start pos
+	}
 		
-		
-		// (næsten) Oprindelig opgave 1 herunder.
-
-		m.start();											 // Flyver op til 2 meter
-		
-		m.rotateToAngle(90, 100);
-		
-		Vector3D crd =  n.getVision().dronePosition(true); 	 // Afsøg rum
-
-		getDrone().setCoords(crd);	  						 // Når de er fundet og loop-et stopper, bruges calibrate()
-		
-		if(crd != null){
-			int nrOfRingFound = 0;
-			
-			while(nrOfRingFound < 7){
-				
-				
-			}
-		}
-		
-//		getDrone().getMovement().search();
-//															// til at fastsætte dronens position
-//
-//		while (!finished())									// Så længe opgaven ikke er færdig ....							
-//		{
-//			while(nextRingIsInList())						// ... og den næste ring vi skal finde er på listen
-//			{
-//				m.flyTo(nextRing);							// flyv til den næste ring
-//				m.flyThroughRing(nextRing);					// ... og igennem den
-//			}
-//
-//		}
-//
-//		m.flyHome();										// Og flyv hjem
-
-		// All good!
-
-		
-
+	private void countUpRings()
+	{
+		ringsPassed++;				
 	}
 
 	private boolean nextRingIsInList() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	private boolean finished() {
-
-		// Været igennem alle ringe?
-
-		// Returneret hjem ?
-
-		// Success! 
-
-		return false;
-
-
-	}
-	private boolean hasFound2WallPOIs() {
-
-		int wallPoisFound = 0;
-
-		for (POI poi : pois )
+		
+		boolean nextCircleFound = false;
+		
+		for (POI p : pois)
 		{
-			if (poi instanceof POIWallPoint)
+			if (p instanceof POICircle)
 			{
-				wallPoisFound++;
+				if (((POICircle)p).getCode().equals("P.0" + (ringsPassed+1)))
+				{
+					nextRing = (POICircle)p;
+					nextCircleFound = true;
+				}
 			}
 		}
-
-		return (wallPoisFound >= 2);
+		
+		return false;
 	}
 
-
+	private boolean finished()
+	{
+		return false;
+	}
 }

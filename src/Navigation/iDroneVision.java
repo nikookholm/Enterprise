@@ -14,10 +14,8 @@ public interface iDroneVision {
 
 	public List<POI> scanQR( Condition condition);
 	public Movement calibrateToCircle(Vector3D dronepos); 
-	public Vector3D dronePosition(boolean firstTime);
+	public Vector3D dronePosition(boolean firstTime, ArrayList<POI> poi);
 	public ImageListener getImageListener();
-	public Vector3D initialSearch(ArrayList<POI> poi);
-	
 	public enum Movement { 	Initial, Forward, Backward, Left, Right, SpinLeft, SpinRight, Up, Down, UpLeft, UpRight, DownLeft, DownRight,
 							StopAndSpin, None, RightUp, RightDown, LeftDown, LeftUp};
 	

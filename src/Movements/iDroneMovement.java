@@ -1,6 +1,9 @@
 package Movements;
 
+import java.util.ArrayList;
+
 import POI.POI;
+import Vector.Vector3D;
 import de.yadrone.base.navdata.AttitudeListener;
 import de.yadrone.base.navdata.GyroListener;
 
@@ -21,6 +24,7 @@ public interface iDroneMovement {
 	public POI flyThroughRing(POI nextRing);
 	public void stopAndDecent();
 	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance);
+	public Vector3D initialSearch(ArrayList<POI> poi);
 	
 	//Standard Methods
 	public void landing();
