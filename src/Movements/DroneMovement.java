@@ -366,48 +366,110 @@ public class DroneMovement implements iDroneMovement {
 		
 		
 		OpenCVOperations opCV = new OpenCVOperations();
-		Vector3D differen = opCV.findCircle(image);
+		Vector3D differen = opCV.findCircle(currentImage);
 		
 		Movement move = drone.getNavigation().getVision().calibrateToCircle(differen); // 
-		
+		int w = 50;
+		int millis = 0;
 		while (move != Movement.Forward) {
 			
 			switch (move) {
 			
 			case Up :
-				cmd.up(10).doFor(1000);
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.up(20).doFor(w);
+					}
+				});
+				
 				break;
 			
 			case RightUp:
-				cmd.goRight(10).doFor(1000);
-				cmd.up(10).doFor(500);
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.goRight(20).doFor(w);
+						cmd.up(20).doFor(w);
+					}
+				});
+
 				break;
 			
 			case Right:
-				cmd.goRight(10).doFor(1000);
+				
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.goRight(20).doFor(w);
+					}
+				});
 				break;
 			
 			case RightDown:
-			cmd.goRight(10).doFor(1000);
-			cmd.down(10).doFor(1000);
+				cmd.schedule(millis, new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					cmd.goRight(10).doFor(1000);
+					cmd.down(10).doFor(1000);
+				}
+			});
 				break;
 				
 			case Down:
-				cmd.down(10).doFor(1000);
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.down(10).doFor(1000);
+					}
+				});
 				break;
 				
 			case LeftDown:
-				cmd.goLeft(10).doFor(1000);
-				cmd.down(10).doFor(1000);
+				
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.goLeft(10).doFor(1000);
+						cmd.down(10).doFor(1000);
+					}
+				});
+			
 				break;
 				
 			case Left:
-				cmd.goLeft(10).doFor(1000);
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.goLeft(20).doFor(w);
+					}
+				});
 				break;
 	
 			case LeftUp:
-				cmd.goLeft(10).doFor(1000);
-				cmd.up(10).doFor(1000);
+				cmd.schedule(millis, new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						cmd.goLeft(20).doFor(w);
+						cmd.up(20).doFor(w);
+					}
+				});
 				break;
 				
 			case Forward:
