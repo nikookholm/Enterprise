@@ -34,11 +34,13 @@ public class DroneMovement implements iDroneMovement {
 	private float yaw;
 	private int altitude;
 	private BufferedImage currentImage;
+	OpenCVOperations opCV;
 
 	public DroneMovement(Drone drone)
 	{
 		this.drone = drone;
 		cmd = drone.getCommandManager();
+		opCV = new OpenCVOperations();
 	}
 	
 	
@@ -399,57 +401,71 @@ public class DroneMovement implements iDroneMovement {
 	public void flyThroughRing() {
 		System.out.println("thoughtringr1");
 		
-		OpenCVOperations opCV = new OpenCVOperations();
+		
 		Vector3D differen = opCV.findCircle(currentImage);
 		
 		Movement move = drone.getNavigation().getVision().calibrateToCircle(differen); // 
-		int w = 5;
+		int distanceToFly = 5; // in cm
 		int millis = 0;
 		System.out.println(move);
 			switch (move) {
 			
 			case Up :
-				goUp(w, millis);
+				goUp(distanceToFly, millis);
+				tempFlight();
 				
 				break;
 			
 			case RightUp:
-				flyRightConstant(w, millis);
-				goUp(w, millis);
-
+				flyRightConstant(distanceToFly, millis);
+				tempFlight();
+				goUp(distanceToFly, millis);
+				tempFlight();
 				break;
 			
 			case Right:
-				flyRightConstant(w, millis);
+				flyRightConstant(distanceToFly, millis);
+				tempFlight();
 				break;
 			
 			case RightDown:
-				flyRightConstant(w, millis);
-				goDown(w, millis);
+				flyRightConstant(distanceToFly, millis);
+				tempFlight();
+				goDown(distanceToFly, millis);
+				tempFlight();
 				break;
 				
 			case Down:
-				goDown(w, millis);
+				goDown(distanceToFly, millis);
+				tempFlight();
 				break;
 				
 			case LeftDown:
 				
-				flyLeftConstant(w, millis);
-				goDown(w, millis);
+				flyLeftConstant(distanceToFly, millis);
+				tempFlight();
+				goDown(distanceToFly, millis);
+				tempFlight();
 			
 				break;
 				
 			case Left:
-				flyLeftConstant(w, millis);
+				flyLeftConstant(distanceToFly, millis);
+				tempFlight();
+				break;
 	
 			case LeftUp:
-				flyLeftConstant(w, millis);
+				flyLeftConstant(distanceToFly, millis);
+				tempFlight();
+				break;
 				
 			case Forward:
 				flyForwardConstant(300, millis);
+				tempFlight();
 				break;
 			case None:
 				hover();
+				break
 						
 			default:
 				
