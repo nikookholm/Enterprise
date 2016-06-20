@@ -183,6 +183,20 @@ public class DroneVision implements iDroneVision {
 		return action;
 	}	
 
+	
+	public Vector3D initialSearch(ArrayList<POI> POI)
+	{
+
+	drone.getCommandManager().setMinAltitude(1450);
+	drone.getMovement().start();
+	drone.getMovement().hoverTo(1500);
+	drone.getMovement().spinRight();
+	Vector3D dronePos = dronePosition(true);
+	System.out.println(dronePos.getXCoord() +"<<<---- X . Y---->>>"+ dronePos.getYCoord() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+	drone.getMovement().landing();
+	return dronePos;
+
+	}
 	/***********Get drone position from wallmarks*************/
 	public Vector3D dronePosition(boolean firstTime){
 
