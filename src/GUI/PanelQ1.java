@@ -86,6 +86,7 @@ public class PanelQ1 extends JPanel{
 			    //owner.getMain().stopProgram();
 				cancel.setEnabled(true);
 				start.setEnabled(true);
+				owner.getMain().getDrone().reset();
 			}
 		});
 		
