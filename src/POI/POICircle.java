@@ -12,8 +12,8 @@ public class POICircle extends POI {
 	private double centrumY;
 
 	
-	public POICircle(Vector3D coordinates, Vector3D dronepos, int radius, double distancee, double cenX, double cenY) {
-		super(coordinates, dronepos);
+	public POICircle(Vector3D coordinates/*, Vector3D dronepos*/, int radius, double distancee, double cenX, double cenY) {
+		super(coordinates, null);
 		this.radius = radius;
 		this.distance = distancee;
 		this.centrumX = cenX;

@@ -82,8 +82,8 @@ public class OpenCVOperations {
 		return findQR(bufferedImageToMat(image));
 	}
 
-	public Vector3D findCircle(BufferedImage image,/* BufferedImage image2 Vector3D dronePos*/){
-		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image), dronePos);
+	public Vector3D findCircle(BufferedImage image/* BufferedImage image2 Vector3D dronePos*/){
+		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image)/*, dronePos*/);
 //		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
 		
 //		ArrayList<POICircle> result = new ArrayList<>();
@@ -178,7 +178,7 @@ public class OpenCVOperations {
 //
 //	}
 
-	public ArrayList<POICircle> findCircle(Mat image, Vector3D dronePos){
+	public ArrayList<POICircle> findCircle(Mat image/*, Vector3D dronePos*/){
 		Mat image_gray = new Mat();
 		Mat circles = new Mat();
 		
@@ -198,7 +198,7 @@ public class OpenCVOperations {
 
 
 			double dist = ((4.45*500*720)/(3.17*radius))/10;
-			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), dronePos, radius,dist,cenX,cenY));
+			results.add(new POICircle(new Vector3D(circle[0], 0, circle[1]), /*dronePos,*/ radius,dist,cenX,cenY));
 			
 		}
 		
