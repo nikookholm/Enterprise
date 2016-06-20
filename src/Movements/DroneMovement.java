@@ -102,26 +102,6 @@ public class DroneMovement implements iDroneMovement {
 		hover();
 	}
 	
-	// Flyv frem i bestemme distance (cm) 
-	public void flyForwardConstant(int cm, int startTime){
-		
-		cmd.schedule(startTime, new Runnable() {
-			
-			@Override
-			public void run() {
-				for(int i = 0 ; i<cm ; i++){
-					cmd.forward(20).doFor(20);
-					updatePositionForward(1);
-					if(i%100==0 && i!=0){
-						cmd.hover().doFor(500);
-					}
-				}
-				cmd.hover();
-			}
-		});
-		
-	}
-	
 	public void spinRight(int cm, int startTime){
 		cmd.schedule(startTime,new Runnable() {
 			
@@ -146,10 +126,30 @@ public class DroneMovement implements iDroneMovement {
 			}
 		});
 	}
+	
+	// Flyv frem i bestemme distance (cm) 
+	public void flyForwardConstant(int cm, int startTime){
+		newThreadID();
+		cmd.schedule(startTime, new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i = 0 ; i<cm ; i++){
+					cmd.forward(20).doFor(20);
+					updatePositionForward(1);
+					if(i%100==0 && i!=0){
+						cmd.hover().doFor(500);
+					}
+				}
+				threadID--;
+			}
+		});
+		
+	}
 
 	// Flyv tilbage i bestemme distance (cm) 
 	public void flyBackwardConstant(int cm, int startTime){
-		
+		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
 			
 			@Override
@@ -161,13 +161,14 @@ public class DroneMovement implements iDroneMovement {
 						cmd.hover().doFor(500);
 					}
 				}
+				threadID--;
 			}
 		});
 	}
 	
 	// Flyv frem i bestemme distance (cm) 
 	public void flyLeftConstant(int cm, int startTime){
-		
+		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
 
 			@Override
@@ -176,6 +177,7 @@ public class DroneMovement implements iDroneMovement {
 					cmd.goLeft(20).doFor(20);
 					updatePositionBackward(1);
 				}
+				threadID--;
 			}
 		});
 			updatePositionLeft(cm);
@@ -193,7 +195,7 @@ public class DroneMovement implements iDroneMovement {
 	
 	// Flyv frem i bestemme distance (cm) 
 	public void flyRightConstant(int cm, int startTime){
-		
+		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
 
 			@Override
@@ -202,7 +204,7 @@ public class DroneMovement implements iDroneMovement {
 					cmd.goRight(20).doFor(20);
 					updatePositionBackward(1);
 				}
-				
+				threadID--;
 			}
 		});
 			updatePositionLeft(cm);
@@ -248,18 +250,62 @@ public class DroneMovement implements iDroneMovement {
 					tempFlight();
 					
 				} else if(flyXDir>0 && flyYDir==0){
+				
 					rotateToAngle(270,0);
+					tempFlight();
 					flyForwardConstant(flyXDir, 0);
+					tempFlight();
+					
 				} else if(flyXDir<0 && flyYDir==0){
+					
 					rotateToAngle(90,0);
+					tempFlight();
 					flyForwardConstant(flyXDir, 0);
+					tempFlight();
+					
 				} else if(flyXDir<0 && flyYDir<0){
+					
+					rotateToAngle(90,0);
+					tempFlight();
+					flyForwardConstant(flyXDir, 0);
+					tempFlight();
+					rotateToAngle(180,0);
+					tempFlight();
+					flyForwardConstant(flyYDir, 0);
+					tempFlight();
 					
 				} else if(flyXDir<0 && flyYDir>0){
 					
+					rotateToAngle(90,0);
+					tempFlight();
+					flyForwardConstant(flyXDir, 0);
+					tempFlight();
+					rotateToAngle(0,0);
+					tempFlight();
+					flyForwardConstant(flyYDir, 0);
+					tempFlight();
+					
 				} else if(flyXDir>0 && flyYDir<0){
 					
+					rotateToAngle(270,0);
+					tempFlight();
+					flyForwardConstant(flyXDir, 0);
+					tempFlight();
+					rotateToAngle(180,0);
+					tempFlight();
+					flyForwardConstant(flyYDir, 0);
+					tempFlight();
+					
 				} else if(flyXDir>0 && flyYDir>0){
+					
+					rotateToAngle(270,0);
+					tempFlight();
+					flyForwardConstant(flyXDir, 0);
+					tempFlight();
+					rotateToAngle(0,0);
+					tempFlight();
+					flyForwardConstant(flyYDir, 0);
+					tempFlight();
 					
 				} 
 			}
@@ -380,31 +426,28 @@ public class DroneMovement implements iDroneMovement {
 	///////////////////////////
 	//Standard Flight Methods//
 	public void flyForward(){
-		int id = newThreadID();
+		newThreadID();
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				drone.getMain().getGUI().getLog().add("id: " + id + ", threadID: " + threadID + ", flyv fremad!");
-				drone.getMain().getGUI().getLog().add("Threads: " + amountOfThreads);
-				while(id == threadID){
-					cmd.forward(20).doFor(10);
+				for (int i = 0 ; i<=150 ; i++){
+					cmd.forward(25).doFor(30);
 				}
+				threadID--;
 			}
 		});
-		
 	}
 	@Override
 	public void flyBackward(){
-		int id = newThreadID();
-		
+		newThreadID();
+
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
-				drone.getMain().getGUI().getLog().add("id: " + id + ", threadID: " + threadID + ", flyv bagud!");
-				drone.getMain().getGUI().getLog().add("Threads: " + amountOfThreads);
-				while(id == threadID){
-					cmd.backward(20).doFor(10);
+				for (int i = 0 ; i<=150 ; i++){
+					cmd.backward(25).doFor(30);
 				}
+				threadID--;
 			}
 		});
 	}
@@ -420,12 +463,14 @@ public class DroneMovement implements iDroneMovement {
 	}
 	@Override
 	public void spinRight(){
+		newThreadID();
 		cmd.schedule(0, new Runnable(){
-		@Override
+			@Override
 			public void run() {
-					cmd.spinRight(20).doFor(10);
+				cmd.spinRight(20).doFor(10);
 			}
 		});
+		threadID--;
 	}
 	@Override
 	public void hover(){
@@ -438,9 +483,9 @@ public class DroneMovement implements iDroneMovement {
 	public void landing() {
 		cmd.hover().doFor(500);
 		cmd.landing();
-		
+
 	}
-	
+
 	public int getCurrentAngle(){
 		return currentAngle;
 	}
