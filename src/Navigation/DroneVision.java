@@ -296,8 +296,8 @@ public class DroneVision implements iDroneVision {
 		int margin = 5;
 		double rest = leftDist - rightDist;
 		
-		if(leftDist-rightDist >margin || leftDist-rightDist < margin){
-			diff = new Vector3D(leftDist-rightDist, 0, 0);
+		if(rest >margin || rest < margin){
+			diff = new Vector3D(rest, 0, 0);
 		}
 		else{
 			return diff = new Vector3D(0,0,0);
