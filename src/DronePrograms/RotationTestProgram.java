@@ -51,7 +51,7 @@ public class RotationTestProgram extends DroneProgram {
 		
 //		DM.start();
 //		DM.goUp(50, 0);
-		getDrone().getCommandManager().takeOff().doFor(5000).hover().doFor(5000).up(8).doFor(9000);
+		getDrone().getCommandManager().takeOff().doFor(5000).hover().doFor(5000).up(8).doFor(11000);
 //		get
 		//.up(10).doFor(8000);
 		System.out.println(" >ZZZZZZZZZZ<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>");
@@ -59,7 +59,7 @@ public class RotationTestProgram extends DroneProgram {
 		System.out.println(" <<<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 //		Vector3D differen = opCV.findCircle(currentImage);
 //		DV.calibrateToCircle(differen);
-//		getDrone().getMovement().flyForwardConstant(5, 0);
+		getDrone().getMovement().flyForwardConstant(5, 0);
 //		DM.flyThroughRing();
 		DM.landing();
 		System.out.println("laaaander nuuu >>>>>>>>>>>>>>>>>>>>>>>");
