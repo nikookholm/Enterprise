@@ -59,8 +59,10 @@ public class RotationTestProgram extends DroneProgram {
 		System.out.println(" <<<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 //		Vector3D differen = opCV.findCircle(currentImage);
 //		DV.calibrateToCircle(differen);
-		getDrone().getMovement().flyForwardConstant(5, 0);
+//		getDrone().getMovement().flyForwardConstant(5, 0);
 //		DM.flyThroughRing();
+		DM.landing();
+		System.out.println("laaaander nuuu >>>>>>>>>>>>>>>>>>>>>>>");
 		}
 	}
 	

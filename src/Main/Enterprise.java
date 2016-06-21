@@ -66,7 +66,7 @@ public class Enterprise {
 		//programs.add(new NikosDroneProgram());
 		//programs.add(new TestProgram());
 		programs.add(new LpogDollar());
-		//programs.add(new RotationTestProgram());
+		programs.add(new RotationTestProgram());
 		programs.add(new AmalProgram());
 		//programs.add(new DronePosition());
 		programs.add(new FlyThroughRingTest());

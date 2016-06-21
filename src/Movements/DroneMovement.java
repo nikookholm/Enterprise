@@ -43,7 +43,7 @@ public class DroneMovement implements iDroneMovement {
 		this.drone = drone;
 		cmd = drone.getCommandManager();
 		opCV = new OpenCVOperations();
-		SearchHelper searchHelper = new SearchHelper(drone.getMain().getActiveProgram().getPOIList(), drone);
+//		SearchHelper searchHelper = new SearchHelper(drone.getMain().getActiveProgram().getPOIList(), drone);
 	}
 	
 	
