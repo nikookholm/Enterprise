@@ -43,7 +43,7 @@ public class DroneVision implements iDroneVision {
 		poi = new ArrayList<POI>();
 		drone.getCommandManager().setMaxVideoBitrate(3000);
 		drone.getCommandManager().setVideoBitrate(3000);
-		drone.getCommandManager().setVideoCodec(VideoCodec.H264_360P);
+		drone.getCommandManager().setVideoCodec(VideoCodec.H264_720P);
 		drone.getCommandManager().setVideoCodecFps(20);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
@@ -173,7 +173,7 @@ public class DroneVision implements iDroneVision {
 			
 			action = Movement.Forward;
 		}
-		System.out.println(action +"NORMAL ||||| TOSTRING " +  action.toString());
+		System.out.println(action +"NORMAL ||||| TOSTRING " +  action.toString() + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		return action;
 //		}
 //		else{

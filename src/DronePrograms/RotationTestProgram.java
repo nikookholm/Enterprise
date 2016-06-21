@@ -51,7 +51,7 @@ public class RotationTestProgram extends DroneProgram {
 		
 //		DM.start();
 //		DM.goUp(50, 0);
-		getDrone().getCommandManager().takeOff().doFor(5000).hover().doFor(5000).up(8).doFor(11000);
+		getDrone().getCommandManager().takeOff().doFor(5000).hover().doFor(5000).up(8).doFor(8000);
 //		get
 		//.up(10).doFor(8000);
 		System.out.println(" >ZZZZZZZZZZ<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>");

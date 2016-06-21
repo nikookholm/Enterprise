@@ -85,7 +85,7 @@ public class OpenCVOperations {
 	public Vector3D findCircle(BufferedImage image){
 		System.out.println("findimage");
 		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image)/*, dronePos*/);
-		int margin = 35;
+		int margin = 35*2;
 		Vector3D distanceToPoint = new Vector3D(0,10,0);
 
 		//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
