@@ -1,6 +1,7 @@
 package DronePrograms;
 
 import java.awt.List;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import Common.Drone;
@@ -20,11 +21,15 @@ import de.yadrone.base.navdata.Pressure;
 import de.yadrone.base.navdata.PressureListener;
 import de.yadrone.base.navdata.StateListener;
 import Navigation.DroneVision;
+import Navigation.OpenCVOperations;
 import Navigation.QRPoi;
-import POI.POICircle;;
+import POI.POICircle;
+import Vector.Vector3D;;
 
 public class RotationTestProgram extends DroneProgram {
 	int altitude;
+	OpenCVOperations opCV;
+	private BufferedImage currentImage;
 
 	@Override
 	public void abort() {
@@ -41,15 +46,21 @@ public class RotationTestProgram extends DroneProgram {
 	@Override
 	public void run() {
 
-		iDroneMovement DM = getDrone().getMovement();
 		DroneVision DV = getDrone().getNavigation().getVision();
+		iDroneMovement DM = getDrone().getMovement();
 		
-		DM.start();
-		DM.goUp(50, 0);
-		while(true){
-			//getDrone().getMain().getGUI().getLog().add("<<<<<<<<<<<");
-			//System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-		DM.flyThroughRing();
+//		DM.start();
+//		DM.goUp(50, 0);
+		getDrone().getCommandManager().takeOff().doFor(5000).hover().doFor(5000).up(8).doFor(9000);
+//		get
+		//.up(10).doFor(8000);
+		System.out.println(" >ZZZZZZZZZZ<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>");
+		getDrone().getMovement().flyThroughRing();
+		System.out.println(" <<<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+//		Vector3D differen = opCV.findCircle(currentImage);
+//		DV.calibrateToCircle(differen);
+		getDrone().getMovement().flyForwardConstant(5, 0);
+//		DM.flyThroughRing();
 		}
 	}
 	
@@ -141,8 +152,3 @@ public class RotationTestProgram extends DroneProgram {
 //
 //		
 //	}
-
-
-
-
-}

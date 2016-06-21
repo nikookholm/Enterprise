@@ -25,9 +25,15 @@ public class DronePosition extends DroneProgram {
 
 	@Override
 	public void run() {
-		KeyboardCommandManager input = new KeyboardCommandManager(getDrone());
-		DroneMovement dM = new DroneMovement(getDrone());
-		dM.initialSearch(new ArrayList<POI>());
+//		KeyboardCommandManager input = new KeyboardCommandManager(getDrone());
+//		DroneMovement dM = new DroneMovement(getDrone());
+//		dM.initialSearch(new ArrayList<POI>());
+		
+		Drone d = getDrone();
+		d.getMovement().start();
+		d.getMovement().hoverTo(1500);
+		d.getCommandManager().spinRight(15).doFor(10000);
+		d.getMovement().landing();
 	
 //		Drone d = getDrone();
 //		KeyboardCommandManager keys = new KeyboardCommandManager(d);
