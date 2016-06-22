@@ -47,10 +47,6 @@ public class QRfinder {
 	 * ''''''''''''''GLOBALE VARIABLER'''''''''''''''''''
 	 */
 
-	private final int nord = 0;
-	private final int eas = 1;
-	private final int syd = 2;
-	private final int ves = 3;
 	private BufferedImage qrdet;
 	private ArrayList<QRPoi> QRFun = new ArrayList<QRPoi>();
 	private Mat traces;
@@ -72,9 +68,6 @@ public class QRfinder {
 	public void findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-		double lin1, lin2, lin3;
-
-		int polen = 0;
 
 		Mat grey = new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
 		Mat edges = new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
@@ -84,7 +77,6 @@ public class QRfinder {
 		Mat qr_thres = new Mat();
 		traces = new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
 
-		int mark;
 
 		if (!newImage.empty()) {
 
@@ -100,7 +92,7 @@ public class QRfinder {
 			Imgproc.equalizeHist(grey, grey);
 			Imgproc.Canny(grey, edges, 70, 210, 3, false);
 			Imgproc.findContours(edges, countersFundet, heica, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-			mark = 0;
+
 
 			Moments[] momm = new Moments[countersFundet.size()];
 
@@ -125,7 +117,6 @@ public class QRfinder {
 						antalF = j - 4;
 
 						boxEs.add(antalF);
-						mark++;
 
 					}
 				}
@@ -179,17 +170,6 @@ public class QRfinder {
 					qr_gray.get(0, 0, data);
 					String result = decode(qrdet);
 					if (result != " ") {
-
-						// System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[3]
-						// ) + "<<<<<<<<<OP NED VENSTRE");
-						// System.out.println(distance(cornerList.get(abs)[1],cornerList.get(abs)[2]
-						// ) + "<<<<<<<<<<<<<<<<<<OP NED HØJRE");
-						// System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[1]
-						// ) + "<<<<<<<<<<<<<<< VENSTRE HØJRE OP");
-						// System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[2]
-						// ) + "<<<<<<<<<<<<<<<<<<<VENSTREOP HØJRENED SKRÅT");
-						// System.out.println(distance(cornerList.get(abs)[3],cornerList.get(abs)[1]
-						// ) + "<<<<<<<<<<<<<<<<<CENSTRENED HØJREOP SKRÅT");
 						double distVenstre = distance(cornerList.get(abs)[0], cornerList.get(abs)[3]);
 						double distHøjre = distance(cornerList.get(abs)[1], cornerList.get(abs)[2]);
 						double cenX = cornerList.get(abs)[0].x
