@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -113,9 +112,9 @@ public class QRfinder {
 			for (int i = 0; i < heica.rows(); i++) {
 				for (int j = 0; j < heica.cols(); j++) {
 					double[] fun = heica.get(i, j);
-//					 if (fun[0] != -1) {
-//					 count = 0;
-//					 }
+					// if (fun[0] != -1) {
+					// count = 0;
+					// }
 					if (fun[1] != -1) {
 						count = 0;
 					}
@@ -149,7 +148,6 @@ public class QRfinder {
 
 			}
 
-			
 			MatOfPoint2f fin1 = new MatOfPoint2f();
 			//
 			Mat warp = new Mat();
@@ -181,26 +179,32 @@ public class QRfinder {
 					qr_gray.get(0, 0, data);
 					String result = decode(qrdet);
 					if (result != " ") {
-						
-						
-//						System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[3] ) + "<<<<<<<<<OP NED VENSTRE");
-//						System.out.println(distance(cornerList.get(abs)[1],cornerList.get(abs)[2] ) + "<<<<<<<<<<<<<<<<<<OP NED HØJRE");
-//						System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[1] ) + "<<<<<<<<<<<<<<< VENSTRE HØJRE OP");
-//						System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[2] ) + "<<<<<<<<<<<<<<<<<<<VENSTREOP HØJRENED SKRÅT");
-//						System.out.println(distance(cornerList.get(abs)[3],cornerList.get(abs)[1] ) + "<<<<<<<<<<<<<<<<<CENSTRENED HØJREOP SKRÅT");
-						double distVenstre = distance(cornerList.get(abs)[0],cornerList.get(abs)[3]);
-						double distHøjre = distance(cornerList.get(abs)[1],cornerList.get(abs)[2]);
-						double cenX = cornerList.get(abs)[0].x - (distance(cornerList.get(abs)[0],cornerList.get(abs)[1])/2);
-						disToQR = (4.45*400*360)/(3.17*distance(cornerList.get(abs)[1], cornerList.get(abs)[2]));
+
+						// System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[3]
+						// ) + "<<<<<<<<<OP NED VENSTRE");
+						// System.out.println(distance(cornerList.get(abs)[1],cornerList.get(abs)[2]
+						// ) + "<<<<<<<<<<<<<<<<<<OP NED HØJRE");
+						// System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[1]
+						// ) + "<<<<<<<<<<<<<<< VENSTRE HØJRE OP");
+						// System.out.println(distance(cornerList.get(abs)[0],cornerList.get(abs)[2]
+						// ) + "<<<<<<<<<<<<<<<<<<<VENSTREOP HØJRENED SKRÅT");
+						// System.out.println(distance(cornerList.get(abs)[3],cornerList.get(abs)[1]
+						// ) + "<<<<<<<<<<<<<<<<<CENSTRENED HØJREOP SKRÅT");
+						double distVenstre = distance(cornerList.get(abs)[0], cornerList.get(abs)[3]);
+						double distHøjre = distance(cornerList.get(abs)[1], cornerList.get(abs)[2]);
+						double cenX = cornerList.get(abs)[0].x
+								- (distance(cornerList.get(abs)[0], cornerList.get(abs)[1]) / 2);
+						disToQR = (4.45 * 400 * 360)
+								/ (3.17 * distance(cornerList.get(abs)[1], cornerList.get(abs)[2]));
 						QRFun.add(new QRPoi(0, 0, 0));
 						System.out.println(disToQR + " BEFORE");
-						System.out.println(disToQR/10 + " AFTER");
+						System.out.println(disToQR / 10 + " AFTER");
 						QRFun.get(POIcounter).setDistHøjre(distHøjre);
 						QRFun.get(POIcounter).setDistVenstre(distVenstre);
-						QRFun.get(POIcounter).setCentrum(new Point(cenX,0));
+						QRFun.get(POIcounter).setCentrum(new Point(cenX, 0));
 						QRFun.get(POIcounter).setCode(result);
 						QRFun.get(POIcounter).setQRimg(qrdet);
-						QRFun.get(POIcounter).setDistance(disToQR/10);
+						QRFun.get(POIcounter).setDistance(disToQR / 10);
 						POIcounter++;
 
 					}
@@ -219,14 +223,13 @@ public class QRfinder {
 					Imgproc.drawContours(newImage, countersFundet, boxEs.get(abs), new Scalar(100, 50, 255), 3, 8,
 							heica, 0, new Point(-1, -1));
 
-				}}
-				matToImg switcher = new matToImg();
-				sortsQR();
+				}
+			}
+			matToImg switcher = new matToImg();
+			sortsQR();
 
-				debuImg = switcher.matToBufferedImage(qr_gray);
-				
+			debuImg = switcher.matToBufferedImage(qr_gray);
 
-			
 		}
 
 		else {
@@ -241,7 +244,6 @@ public class QRfinder {
 	public ArrayList<POI> getFunderQR() {
 		return funderQR;
 	}
-	
 
 	/*
 	 * 
@@ -258,7 +260,8 @@ public class QRfinder {
 			}
 
 			else if (QRFun.get(j).getCode().startsWith("P")) {
-				funderQR.add(new POICircle(QRFun.get(j).getCode(), QRFun.get(j).getDistance(),QRFun.get(j).getCentrum().x,QRFun.get(j).getDistVenstre(),QRFun.get(j).getDistHøjre()));
+				funderQR.add(new POICircle(QRFun.get(j).getCode(), QRFun.get(j).getDistance(),
+						QRFun.get(j).getCentrum().x, QRFun.get(j).getDistVenstre(), QRFun.get(j).getDistHøjre()));
 			}
 		}
 	}
@@ -421,117 +424,6 @@ public class QRfinder {
 
 	/*
 	 * 
-	 * '''''''''''''' Metode der tjekker QRkodens vinkel, og rette den "op" så
-	 * den kan læses. '''''''''''''''''''
-	 */
-
-	private MatOfPoint2f update(int nordpolen, MatOfPoint2f inp, MatOfPoint2f outp) {
-		Point m0 = new Point(), m1 = new Point(), m2 = new Point(), m3 = new Point();
-
-		Point[] inparray = inp.toArray();
-		List<Point> outarray = new ArrayList<Point>(outp.toList());
-
-		if (nordpolen == nord) {
-			m0 = inparray[0];
-			m1 = inparray[1];
-			m2 = inparray[2];
-			m3 = inparray[3];
-		}
-		if (nordpolen == eas) {
-			m0 = inparray[1];
-			m1 = inparray[2];
-			m2 = inparray[3];
-			m3 = inparray[0];
-			;
-		}
-		if (nordpolen == syd) {
-			m0 = inparray[2];
-			m1 = inparray[3];
-			m2 = inparray[0];
-			m3 = inparray[1];
-		}
-		if (nordpolen == ves) {
-			m0 = inparray[3];
-			m1 = inparray[0];
-			m2 = inparray[1];
-			m3 = inparray[2];
-		}
-
-		outarray.add(m0);
-		outarray.add(m1);
-		outarray.add(m2);
-		outarray.add(m3);
-
-		Point[] arrg = outarray.toArray(new Point[outarray.size()]);
-
-		MatOfPoint2f jas = new MatOfPoint2f(arrg);
-
-		outp = jas;
-
-		return outp;
-	}
-
-	/*
-	 * 
-	 * '''''''''''''' Metode der finder det sidste punkt på QR koden, altså
-	 * punktet i højre nedre hjørne '''''''''''''''''''
-	 */
-
-	private void LastPoint(Point a1, Point a2, Point b1, Point b2) {
-
-		Point p = new Point(a1.x, a1.y);
-		Point p1 = new Point(b1.x, b1.y);
-		Point r = new Point(a2.x - a1.x, a2.y - a1.y);
-		Point s = new Point(b2.x - b1.x, b2.y - b1.y);
-		Point o = new Point(p1.x - p.x, p1.y - p.y);
-
-		if (cross(r, s) == 0) {
-
-			return;
-		}
-
-		double t = cross(o, s) / cross(r, s);
-
-		Point sd = new Point(t * r.x, t * r.y);
-
-		Point ds = new Point(p.x + sd.x, p.y + sd.y);
-
-		// dj = ds;
-
-	}
-
-	/*
-	 * 
-	 * ''''''''''''''Matematik der bruges til at dinde hjørnerne
-	 * '''''''''''''''''''
-	 */
-
-	private double cross(Point d, Point s) {
-
-		return d.x * s.y - d.y * s.x;
-	}
-
-	/*
-	 * 
-	 * '''''''''''''' Matematik. bruges til at finde retningen af QR koden
-	 * '''''''''''''''''''
-	 */
-
-	private double slope(Point L, Point D) {
-		double dy, dx;
-
-		dx = D.x - L.x;
-		dy = D.y - L.y;
-
-		if (dy != 0) {
-
-			return (dy / dx);
-		} else
-			return 0;
-	}
-
-	/*
-	 * 
 	 * '''''''''''''' funktion der finder længden mellem 3 punkter. Også kaldt
 	 * Pythagoras :) '''''''''''''''''''
 	 */
@@ -589,15 +481,6 @@ public class QRfinder {
 		return " ";
 	}
 
-	// public List<QRPoi> getQRFun() {
-	// return QRFun;
-	// }
-
-	//
-	// public BufferedImage getQrdet() {
-	// return qrdet;
-	// }
-
 	/*
 	 * 
 	 * ''''''''''''''Metode til at finde centrum af QR koderne. DE LIGGER INDE I
@@ -627,13 +510,6 @@ public class QRfinder {
 	public ArrayList<QRPoi> getQRFun() {
 		return QRFun;
 	}
-	
-	
-
-	
-	
-	
-	
 
 	/*
 	 * 
