@@ -33,7 +33,6 @@ public class RotationTestProgram extends DroneProgram {
 
 	@Override
 	public void abort() {
-		// TODO Auto-generated method stub
 		getDrone().landing();
 
 	}
@@ -48,21 +47,10 @@ public class RotationTestProgram extends DroneProgram {
 
 		DroneVision DV = getDrone().getNavigation().getVision();
 		iDroneMovement DM = getDrone().getMovement();
-		
-//		DM.start();
-//		DM.goUp(50, 0);
 		getDrone().getCommandManager().takeOff().doFor(5000).hover().doFor(5000).up(10).doFor(8000);
-//		get
-		//.up(10).doFor(8000);
-		System.out.println(" >ZZZZZZZZZZ<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>");
 		getDrone().getMovement().flyThroughRing();
-		System.out.println(" <<<<<<<<<<<<<<<<ZZZZZZZZZZZZZZZZZZZZZZZZZZ<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-//		Vector3D differen = opCV.findCircle(currentImage);
-//		DV.calibrateToCircle(differen);
 		getDrone().getMovement().flyForwardConstant(5, 0);
-//		DM.flyThroughRing();
 		DM.landing();
-		System.out.println("laaaander nuuu >>>>>>>>>>>>>>>>>>>>>>>");
 		}
 	}
 	
