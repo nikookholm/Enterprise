@@ -82,47 +82,54 @@ public class OpenCVOperations {
 		return findQR(bufferedImageToMat(image));
 	}
 
-	public Vector3D findCircle(BufferedImage image){
-		System.out.println("findimage");
-		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image)/*, dronePos*/);
-		int margin = 27;
-		Vector3D distanceToPoint = new Vector3D(0,10,0);
-
-		//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
-		
-//		ArrayList<POICircle> result = new ArrayList<>();
-//		for(POICircle liCheck : PotentialCircleCoordinates){
-//			for(POICircle niCheck : PotentialCircleCoordinates1){
-//				if((liCheck.getRadius() == niCheck.getRadius()) && (liCheck.getCoordinates() == niCheck.getCoordinates())){
-//					result.add(liCheck);
-//				}
-//			}
+//	public Vector3D findCircle(BufferedImage image){
+//		System.out.println("findimage");
+//		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image));
+//		int margin = 35;
+//		Vector3D distanceToPoint = new Vector3D(0,10,0);
+//
+//		//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
+//		
+////		ArrayList<POICircle> result = new ArrayList<>();
+////		for(POICircle liCheck : PotentialCircleCoordinates){
+////			for(POICircle niCheck : PotentialCircleCoordinates1){
+////				if((liCheck.getRadius() == niCheck.getRadius()) && (liCheck.getCoordinates() == niCheck.getCoordinates())){
+////					result.add(liCheck);
+////				}
+////			}
+////		}
+//		if(result.size()>0){
+//		Vector3D centerPoint = new Vector3D(image.getWidth()/2, image.getHeight(), 0);
+//		if(result.get(0).getxPos() > centerPoint.getXCoord()+margin){
+//			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
+//			distanceToPoint.setYCoord(0);
+//		}else if(result.get(0).getxPos() < centerPoint.getXCoord()-margin){
+//			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - result.get(0).getxPos()));
+//			distanceToPoint.setYCoord(0);
+//
 //		}
-		if(result.size()>0){
-			System.out.println("BEREGNER FORSKEL");
-		Vector3D centerPoint = new Vector3D(image.getWidth()/2, image.getHeight(), 0);
-		if(result.get(0).getxPos() > centerPoint.getXCoord()+margin){
-			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
-			distanceToPoint.setYCoord(0);
-		}else if(result.get(0).getxPos() < centerPoint.getXCoord()-margin){
-			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - result.get(0).getxPos()));
-			distanceToPoint.setYCoord(0);
-
-		}
-		if(result.get(0).getzPos() > centerPoint.getXCoord()+margin){
-			//distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
-			//distanceToPoint.setYCoord(0);
-
-		}else if(result.get(0).getzPos() < centerPoint.getXCoord()-margin){
-			//distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
-			//distanceToPoint.setYCoord(0);
-
-		}
-		}
-		System.out.println(distanceToPoint.getXCoord()  +"<-<<<<<---- XXXX YYYYY---->>>>> " + distanceToPoint.getYCoord() + " ------------>>>>>>>>> Z" + distanceToPoint.getZCoord());
-		return distanceToPoint;
-	}
+//		if(result.get(0).getzPos() > centerPoint.getXCoord()+margin){
+//			//distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
+//			//distanceToPoint.setYCoord(0);
+//
+//		}else if(result.get(0).getzPos() < centerPoint.getXCoord()-margin){
+//			//distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
+//			//distanceToPoint.setYCoord(0);
+//
+//		}
+//		}
+//		System.out.println(distanceToPoint.getXCoord()  +"<-<<<<<---- XXXX YYYYY---->>>>> " + distanceToPoint.getYCoord() + " ------------>>>>>>>>> Z" + distanceToPoint.getZCoord());
+//		return distanceToPoint;
+//	}
+//	
 	
+	public ArrayList<POICircle> findCircles(BufferedImage img){
+		
+				
+		ArrayList<POICircle> circlesFound = new ArrayList<POICircle>();
+			
+		return  (circlesFound = findCircle(bufferedImageToMat(img)));
+	}
 	/******************************private************************************/
 	
 	private ArrayList<POI> findObjects(BufferedImage arg0, Vector3D coordinates, int angle) {
@@ -200,7 +207,6 @@ public class OpenCVOperations {
 	
 		circlesFound.clear();
 		for (int i = 0; i < circles.cols(); i++) {
-			System.out.println("CIRCLEFOUND");
 			
 			double circle[] = circles.get(0, i);
 			circlesFound.add(circle);
@@ -219,22 +225,22 @@ public class OpenCVOperations {
 		
 	}
 	
-	
+	/*
+	 * Would be used for assignment 2, to find blocks
+	 */
 	private void findBlocks(Mat image, Vector3D coordinates, int angle) {
 		// Add code to find Blocks
 	}
-
+	/*
+	 * Would be used for assignment 3, to find blocks
+	 */
 	private void findAirports(Mat image, Vector3D coordinates, int angle) {
 		// Add code to find Airports
 	}
-	
-	public BufferedImage drawCircles(BufferedImage arg0){
-		BufferedImage img = null;
-		
-		
-		return img;
-	}
 
+	/*
+	 * Returns the circles found
+	 */
 	public ArrayList<double[]> getCircles(){
 		return circlesFound;
 	}

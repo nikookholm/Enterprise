@@ -190,7 +190,14 @@ public class VectorDistance {
 	/*****************Calculate from 2 qr-codes************************/
 	/******************************************************************/
 	
-	
+	/**
+	 *  Calculates drone position from 2 wallpoints where their distance is given
+	 * @param wallPoint1
+	 * @param distance1
+	 * @param wallPoint2
+	 * @param distance2
+	 * @return Vector3D droneposition
+	 */
 	public Vector3D getDronePosTwoPoints(Vector3D wallPoint1, double distance1, Vector3D wallPoint2, double distance2){
 		double x0, y0, x1, y1, x2, y2, x3, y3;
 		x0 = wallPoint1.getXCoord();
