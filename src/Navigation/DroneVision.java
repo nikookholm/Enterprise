@@ -222,7 +222,7 @@ public class DroneVision implements iDroneVision {
 			drone.getMain().getGUI().updateCorrectedImage(currImage);
 		} else {
 			currImage = findQR(img);
-			lastImage = CVOp.drawCircles(currImage);
+//			lastImage = CVOp.drawCircles(currImage);
 			drone.getMain().getGUI().updateCorrectedImage(lastImage);
 		}
 	}
@@ -234,9 +234,10 @@ public class DroneVision implements iDroneVision {
 		iDroneGUI droneGui = drone.getMain().getGUI();
 
 		DecimalFormat numberFormat = new DecimalFormat("0.00");
+		
 
 		Mat imageMat = new Mat();
-		imageMat = new HoughCircles().bufferedImageToMat(image);
+		imageMat = CVOp.bufferedImageToMat(image);
 		qrfind = new QRfinder();
 
 		try {
