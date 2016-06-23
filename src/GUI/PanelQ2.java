@@ -91,13 +91,9 @@ public class PanelQ2 extends JPanel{
 				frontBtn.setIcon(img);
 				bottomBtn.setIcon(img2);
 				imageBtn.setIcon(img2);
-
-//				droneGui.getMain().getDrone().getCommandManager().setVideoChannel(VideoChannel.LARGE_HORI_SMALL_VERT);
 				changeMe = "cam";
 
 			} else if (eventListener.getSource().equals(bottomBtn) && camTjek == false){
-//				droneGui.getMain().getDrone().toggleCamera();
-//				droneGui.getMain().getDrone().getCommandManager().setVideoChannel(VideoChannel.LARGE_VERT_SMALL_HORI);
 
 				camTjek = true;
 				imgTjek = false;

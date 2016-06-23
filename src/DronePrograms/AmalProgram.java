@@ -4,14 +4,8 @@ import Main.DroneProgram;
 import Movements.iDroneMovement;
 import Navigation.iDroneVision;
 import Navigation.iDroneVision.Condition;
-import POI.POI;
-import Vector.Vector3D;
 
 public class AmalProgram extends DroneProgram {
-
-
-
-
 
 	@Override
 	public void abort() {
@@ -22,7 +16,7 @@ public class AmalProgram extends DroneProgram {
 
 	@Override
 	public String getProgramName() {
-		return "AmalPro";
+		return "test start position";
 	}
 
 	@Override
@@ -41,10 +35,7 @@ public class AmalProgram extends DroneProgram {
 		
 		} else {
 			
-			Vector3D v = vcmd.dronePosition(true, super.getPOIList());
-			
-			
-			mcmd.flyForwardConstant(cm, startTime);
+		
 		}
 		
 		
