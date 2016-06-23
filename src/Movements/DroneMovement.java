@@ -26,7 +26,6 @@ public class DroneMovement implements iDroneMovement {
 	private Drone drone;
 	private int currentAngle = 0;
 	private int threadID = 0;
-	private int amountOfThreads = 0;
 	private CommandManager cmd;
 
 	GyroPhysData gyro; 
@@ -38,6 +37,11 @@ public class DroneMovement implements iDroneMovement {
 	OpenCVOperations opCV;
 	private SearchHelper searchHelper;
 
+	/**
+	 * The Constructor of this class
+	 * @author Lars
+	 * @param Drone
+	 */
 	public DroneMovement(Drone drone)
 	{
 		this.drone = drone;
@@ -51,14 +55,20 @@ public class DroneMovement implements iDroneMovement {
 	/**
 	 * The hoverTo method sets the max height, to be sure how high it is allowed to flight.
 	 * It then flies as high as possible and hovers until another command is given.
+	 * It is not done in a seperate thread.
+	 * @author Lars
 	 * @param height
-	 * @return void
 	 */
 	public void hoverTo(int height) {
 		cmd.setMaxAltitude(height);
 		cmd.up(30).doFor(1600);
 	}
 	
+	
+	/**
+	 * Anwar tjek lige dit haram
+	 * @author Anwar
+	 */
 	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance){
 		if(distance >3000){
 		if(cenX + farMargin < CircleX){
@@ -90,29 +100,42 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 
-	public Vector3D initialSearch(ArrayList<POI> poi)
-	{
+	/**
+	 * This method is a compilation of other methods, so the drone only has to call this.
+	 * The methods starts the drone, makes it hover in a 1.5 m altitude.
+	 * Then spins it right 360 degrees and finds the position.
+	 * This methods does not run in a seperate thread.
+	 * @author Favad
+	 * @param ArrayList of poi
+	 * @return drone position in Vector3D
+	 */
+	public Vector3D initialSearch(ArrayList<POI> poi){
 		
-	cmd.setMinAltitude(1450);
-	start();
-	hoverTo(1500);
-	spinRight();
-	System.out.println(">>>>>>>>>> <<<<<<<<<<<<");
-	Vector3D dronePos = drone.getNavigation().getVision().dronePosition(true, poi);
-	
-	System.out.println(dronePos.getXCoord() +"<<<---- X . Y---->>>"+ dronePos.getYCoord() + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-	drone.getMovement().landing();
-	
-	return dronePos;
+		cmd.setMinAltitude(1450);
+		start();
+		hoverTo(1500);
+		spinRight();
+		Vector3D dronePos = drone.getNavigation().getVision().dronePosition(true, poi);
+
+		return dronePos;
 	}
 	
+	/**
+	 * 
+	 */
 	public void start() {		
 		
 		cmd.takeOff();
 		hover();
+		
 	}
 	
+	/**
+	 * Spins Right a certain amount of time
+	 * @param cm to fly, when to execute.
+	 */
 	public void spinRight(int cm, int startTime){
+		
 		newThreadID();
 
 		cmd.schedule(startTime,new Runnable() {
@@ -126,7 +149,13 @@ public class DroneMovement implements iDroneMovement {
 			}
 		});
 	}
+	
+	/**
+	 * Spins Left a certain amount of time
+	 * @param cm to fly, when to execute.
+	 */
 	public void spinLeft(int cm, int startTime){
+		
 		newThreadID();
 
 		cmd.schedule(startTime,new Runnable() {
@@ -141,8 +170,12 @@ public class DroneMovement implements iDroneMovement {
 		});
 	}
 	
-	
+	/**
+	 * Goes up a certain amount of cm
+	 * @param cm to fly up, when to execute.
+	 */
 	public void goUp(int cm, int startTime){
+		
 		newThreadID();
 
 		cmd.schedule(startTime,new Runnable() {
@@ -156,6 +189,11 @@ public class DroneMovement implements iDroneMovement {
 			}
 		});
 	}
+	
+	/**
+	 * Goes down a certain amount of cm
+	 * @param cm to fly down, when to execute.
+	 */
 	public void goDown(int cm, int startTime){
 		newThreadID();
 
@@ -171,8 +209,11 @@ public class DroneMovement implements iDroneMovement {
 		});
 	}
 	
-	
-	// Flyv frem i bestemme distance (cm) 
+
+	/**
+	 * Goes forward a certain amount of cm
+	 * @param cm to fly forward, when to execute.
+	 */
 	public void flyForwardConstant(int cm, int startTime){
 		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
@@ -192,7 +233,10 @@ public class DroneMovement implements iDroneMovement {
 		
 	}
 
-	// Flyv tilbage i bestemme distance (cm) 
+	/**
+	 * Goes backward a certain amount of cm
+	 * @param cm to fly backward, when to execute.
+	 */
 	public void flyBackwardConstant(int cm, int startTime){
 		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
@@ -211,7 +255,10 @@ public class DroneMovement implements iDroneMovement {
 		});
 	}
 	
-	// Flyv frem i bestemme distance (cm) 
+	/**
+	 * Goes Left a certain amount of cm
+	 * @param cm to fly left, when to execute.
+	 */
 	public void flyLeftConstant(int cm, int startTime){
 		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
@@ -220,25 +267,18 @@ public class DroneMovement implements iDroneMovement {
 			public void run() {
 				for(int i=0; i<cm; i++){
 					cmd.goLeft(20).doFor(20);
-					updatePositionBackward(1);
+					updatePositionLeft(1);
 				}
 				threadID--;
 			}
 		});
-			updatePositionLeft(cm);
-		/** Mangler at finde konstant hastigheden for flyLeft**/
-//		for(int i = 0 ; i<cm ; i++){
-//			cmd.forward(20).doFor(2);
-//			updatePositionForward(1);
-//			if(i%100==0 && i!=0){
-//				cmd.hover().doFor(500);
-//			}
-//		}
-
 	}
 	
 	
-	// Flyv frem i bestemme distance (cm) 
+	/**
+	 * Goes right a certain amount of cm
+	 * @param cm to fly right, when to execute.
+	 */
 	public void flyRightConstant(int cm, int startTime){
 		newThreadID();
 		cmd.schedule(startTime, new Runnable() {
@@ -247,25 +287,16 @@ public class DroneMovement implements iDroneMovement {
 			public void run() {
 				for(int i=0; i<cm; i++){
 					cmd.goRight(20).doFor(20);
-					updatePositionBackward(1);
+					updatePositionRight(1);
 				}
 				threadID--;
 			}
 		});
-			updatePositionLeft(cm);
-			
-		/** Mangler at finde konstant hastigheden for flyRight**/
-//		for(int i = 0 ; i<cm ; i++){
-//			cmd.forward(20).doFor(2);
-//			updatePositionForward(1);
-//			if(i%100==0 && i!=0){
-//				cmd.hover().doFor(500);
-//			}
-//		}
 	}
 	
 	/**
-	 * 
+	 * Flies to the given point of interest from its own position
+	 * @param point of interest
 	 */
 	@Override
 	public void flyTo(POI interest) {
@@ -359,10 +390,10 @@ public class DroneMovement implements iDroneMovement {
 	}
 
 	/**
-	 * 
+	 * Turns to the specified angle.
+	 * If its 90 and you are at 0 it turns left, if its 270 and you are at 0 it turns right.
+	 * @param the angle to fly to, when to execute 
 	 */
-
-	@Override
 	public void rotateToAngle(int angle, int startTime) {
 		angle = angle%360;
 		int aod; //amount of degrees
@@ -391,15 +422,20 @@ public class DroneMovement implements iDroneMovement {
 		}
 	}
 
-	@Override
+	/**
+	 * Not implemented yet
+	 */
 	public void flyHome() {
 		//mangler startcoordinates
 		//mangler flytoCoordinate
 	}
 
 	
-	//kører loop med scan ring, skal tage imod 
-	// metoderne blev ikke testet.
+	
+	/**
+	 * calls Scan Ring internally to move to the desired position.
+	 * Then does a switch case on the return
+	 */
 	@Override
 	public void flyThroughRing() {
 		System.out.println("thoughtringr1");
@@ -494,10 +530,11 @@ public class DroneMovement implements iDroneMovement {
 
 	}
 	
-	@Override
+	/**
+	 * Not implemented
+	 */
 	public void stopAndDecent() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	///////////////////////////
@@ -528,11 +565,11 @@ public class DroneMovement implements iDroneMovement {
 			}
 		});
 	}
-	@Override
+	//not implemented
 	public void flyLeft(){
 
 	}
-	@Override
+	//not implemented
 	public void flyRight(){
 	}
 	@Override
@@ -542,7 +579,6 @@ public class DroneMovement implements iDroneMovement {
 			@Override
 			public void run() {
 				float a = yaw;
-				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 				cmd.spinLeft(20).doFor(10);
 
 				int i = 0;
@@ -551,7 +587,6 @@ public class DroneMovement implements iDroneMovement {
 					if(i!=0 && i%100 == 0){
 						cmd.hover().doFor(20);
 					}
-					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
 					cmd.spinLeft(10).doFor(10);
 				}
@@ -559,14 +594,13 @@ public class DroneMovement implements iDroneMovement {
 		});
 		threadID--;
 	}
-	@Override
+	//not correct, roll back messed with it
 	public void spinRight(){
 		newThreadID();
 		cmd.schedule(0, new Runnable(){
 			@Override
 			public void run() {
 				float a = yaw;
-				System.out.println(a + " a <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 				cmd.spinRight(20).doFor(10);
 
 				int i = 0;
@@ -575,15 +609,16 @@ public class DroneMovement implements iDroneMovement {
 					if(i!=0 && i%100 == 0){
 						cmd.hover().doFor(20);
 					}
-					System.out.println(yaw + " yaw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
 					cmd.spinRight(10).doFor(10);
 				}
 			}
 		});
 		threadID--;
 	}
-	@Override
+
+	/**
+	 * 
+	 */
 	public void hover(){
 		cmd.schedule(0, new Runnable() {
 			
@@ -598,7 +633,9 @@ public class DroneMovement implements iDroneMovement {
 		
 	}
 
-	@Override
+	/**
+	 * 
+	 */
 	public void landing() {
 		cmd.hover().doFor(500);
 		cmd.landing();
@@ -626,6 +663,10 @@ public class DroneMovement implements iDroneMovement {
 		cmd.goRight(20).doFor(doFor);
 	}
 	
+	/**
+	 * 
+	 * @param degrees
+	 */
 	private void turnRight(int degrees){
 		newThreadID();
 		for(int i=0; i<degrees; i++){
@@ -642,7 +683,11 @@ public class DroneMovement implements iDroneMovement {
 		cmd.hover();
 		threadID--;
 	}
-
+	
+	/**
+	 * 
+	 * @param degrees
+	 */
 	private void turnLeft(int degrees) {
 		newThreadID();
 		for(int i=0; i<degrees; i++){
@@ -661,6 +706,10 @@ public class DroneMovement implements iDroneMovement {
 	}	
 	
 	//ThreadControl
+	/**
+	 * 
+	 * @return
+	 */
 	private int newThreadID(){
 		threadID++;
 		amountOfThreads++;
@@ -669,7 +718,12 @@ public class DroneMovement implements iDroneMovement {
 	
 	
 	//Update position
-	
+
+	/**
+	 * 
+	 * @param distance
+	 * @return
+	 */
 	private Vector3D updateXY(int distance){
 		Vector3D coordinates = new Vector3D(0,0,0);
 		int angle = currentAngle;
@@ -728,7 +782,9 @@ public class DroneMovement implements iDroneMovement {
 		drone.incCoordX(coordinates.getYCoord());
 		drone.incCoordY(coordinates.getXCoord());	
 	}
-	
+	/**
+	 * 
+	 */
 	private void tempFlight(){
 		int tempThreadID = threadID;
 		while(tempThreadID == threadID){
@@ -822,12 +878,7 @@ public class DroneMovement implements iDroneMovement {
 
 	}
 
-	@Override
-	public void search() {
-		
-		
-		
-	}
+	
 	public int getAltitude() {
 		return altitude;
 	}
@@ -841,6 +892,9 @@ public class DroneMovement implements iDroneMovement {
 		return yaw;
 	}
 	
+	/**
+	 * 
+	 */
 	public Vector3D onAQuestForCoordinates()
 	{
 		int i;
