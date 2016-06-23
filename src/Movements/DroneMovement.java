@@ -65,40 +65,6 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	
-	/**
-	 * Anwar tjek lige dit haram
-	 * @author Anwar
-	 */
-	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance){
-		if(distance >3000){
-		if(cenX + farMargin < CircleX){
-			flyRightConstant(20, 50);
-			System.out.println("RIGHT RIGHT RIGHT!!!");
-		}
-		if(cenX - farMargin > CircleX){
-			System.out.println("LEFT LEFT LEFT!!!");
-			flyLeftConstant(20, 50);
-		}
-		}
-		else if(distance<3000){
-			if(cenX + closeMargin < CircleX){
-				flyRightConstant(20, 500);
-				System.out.println("CLOSE RIGHT RIGHT RIGHT");
-			}
-			if(cenX - closeMargin > CircleX){
-				flyLeftConstant(20, 500);
-				System.out.println("CLOSE LEFT LEFT LEFT");
-			}
-			if(cenX > CircleX-closeMargin && cenX < CircleX+closeMargin){
-				System.out.println("JACKPOT! GO!!!");
-				return true;
-			}
-		}
-		
-
-		return false;
-	}
-	
 
 	/**
 	 * This method is a compilation of other methods, so the drone only has to call this.
