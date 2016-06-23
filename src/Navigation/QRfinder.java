@@ -33,8 +33,6 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
-
-import de.yadrone.base.video.ImageListener;
 import POI.POI;
 import POI.POICircle;
 import POI.POIWallPoint;
@@ -58,8 +56,8 @@ public class QRfinder {
 	OpenCVOperations CV;
 	/*
 	 * 
-	 * ''''''''''''''QRFINDEREN********************** INPUT : BILLEDE I MAT
-	 * FORM.
+	 * ''''''''''''''QRFINDEREN********************** INPUT : BILLEDE I MATFORM.
+	 * 
 	 * 
 	 * OUTPUT: POI LISTE SOM INHOLDER ENTEN POICIRCLER ELLER POIWALLPOINTS
 	 * '''''''''''''''''''
@@ -68,7 +66,6 @@ public class QRfinder {
 	public void findQR(Mat newImage) throws Exception {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-
 		Mat grey = new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
 		Mat edges = new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
 		Mat qr = new Mat();
@@ -76,7 +73,6 @@ public class QRfinder {
 		Mat qr_gray = new Mat();
 		Mat qr_thres = new Mat();
 		traces = new Mat(newImage.size(), CvType.makeType(newImage.depth(), 1));
-
 
 		if (!newImage.empty()) {
 
@@ -92,7 +88,6 @@ public class QRfinder {
 			Imgproc.equalizeHist(grey, grey);
 			Imgproc.Canny(grey, edges, 70, 210, 3, false);
 			Imgproc.findContours(edges, countersFundet, heica, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-
 
 			Moments[] momm = new Moments[countersFundet.size()];
 
@@ -291,99 +286,47 @@ public class QRfinder {
 		maksi[2] = 0.0;
 		maksi[3] = 0.0;
 
-		double pd1 = 0.0;
-		double pd2 = 0.0;
-
 		Point[] sj = Dj.get(punk1).toArray();
 
-		if (slop > 5 || slop < -5) {
-			double temp_dist;
-			for (int i = 0; i < Dj.get(punk1).total(); i++) {
-				pd1 = lineCalc(D, A, sj[i]);
-				pd2 = lineCalc(S, F, sj[i]);
+		double temp_dist;
+		double halfx = (A.x + S.x) / 2;
+		double halfy = (A.y + F.y) / 2;
 
-				if ((pd1 >= 0.0) && (pd2 > 0.0)) {
+		for (int i = 0; i < sj.length; i++) {
 
-					temp_dist = distance(sj[i], Z);
-					if (temp_dist > maksi[1]) {
-						maksi[1] = temp_dist;
-						op1 = sj[i];
-					}
+			if ((sj[i].x < halfx) && (sj[i].y <= halfy)) {
 
-				} else if ((pd1 > 0.0) && (pd2 <= 0.0)) {
-
-					temp_dist = distance(sj[i], X);
-					if (temp_dist > maksi[2]) {
-						maksi[2] = temp_dist;
-						ned0 = sj[i];
-					}
-
-				} else if ((pd1 <= 0.0) && (pd2 < 0.0)) {
-
-					temp_dist = distance(sj[i], C);
-					if (temp_dist > maksi[3]) {
-						maksi[3] = temp_dist;
-						ned1 = sj[i];
-					}
-
-				} else if ((pd1 < 0.0) && (pd2 >= 0.0)) {
-
-					temp_dist = distance(sj[i], V);
-
-					if (temp_dist > maksi[0]) {
-						maksi[0] = temp_dist;
-						op0 = sj[i];
-					}
-
-				} else
-					continue;
-
-			}
-
-		}
-
-		else {
-			double temp_dist;
-			double halfx = (A.x + S.x) / 2;
-			double halfy = (A.y + F.y) / 2;
-
-			for (int i = 0; i < sj.length; i++) {
-
-				if ((sj[i].x < halfx) && (sj[i].y <= halfy)) {
-
-					temp_dist = distance(sj[i], D);
-					if (temp_dist > maksi[2]) {
-						maksi[2] = temp_dist;
-						op0 = sj[i];
-					}
-
-				} else if ((sj[i].x >= halfx) && (sj[i].y < halfy)) {
-
-					temp_dist = distance(sj[i], F);
-					if (temp_dist > maksi[3]) {
-						maksi[3] = temp_dist;
-						op1 = sj[i];
-					}
-
-				} else if ((sj[i].x > halfx) && (sj[i].y >= halfy)) {
-
-					temp_dist = distance(sj[i], A);
-					if (temp_dist > maksi[0]) {
-						maksi[0] = temp_dist;
-						ned0 = sj[i];
-					}
-
-				} else if ((sj[i].x <= halfx) && (sj[i].y > halfy)) {
-
-					temp_dist = distance(sj[i], S);
-					if (temp_dist > maksi[1]) {
-						maksi[1] = temp_dist;
-						ned1 = sj[i];
-					}
-
+				temp_dist = distance(sj[i], D);
+				if (temp_dist > maksi[2]) {
+					maksi[2] = temp_dist;
+					op0 = sj[i];
 				}
-			}
 
+			} else if ((sj[i].x >= halfx) && (sj[i].y < halfy)) {
+
+				temp_dist = distance(sj[i], F);
+				if (temp_dist > maksi[3]) {
+					maksi[3] = temp_dist;
+					op1 = sj[i];
+				}
+
+			} else if ((sj[i].x > halfx) && (sj[i].y >= halfy)) {
+
+				temp_dist = distance(sj[i], A);
+				if (temp_dist > maksi[0]) {
+					maksi[0] = temp_dist;
+					ned0 = sj[i];
+				}
+
+			} else if ((sj[i].x <= halfx) && (sj[i].y > halfy)) {
+
+				temp_dist = distance(sj[i], S);
+				if (temp_dist > maksi[1]) {
+					maksi[1] = temp_dist;
+					ned1 = sj[i];
+				}
+
+			}
 		}
 
 		List<Point> fin = new ArrayList<Point>(cd.toList());
@@ -400,24 +343,6 @@ public class QRfinder {
 		cd = fiin;
 
 		return cd;
-	}
-
-	/*
-	 * 
-	 * '''''''''''''' funktion der finder længden mellem 3 punkter. Også kaldt
-	 * Pythagoras :) '''''''''''''''''''
-	 */
-	private double lineCalc(Point d, Point s, Point t) {
-		double a, b, c, pdist;
-
-		a = -((s.y - d.y) / (s.x - d.x));
-		b = 1;
-		c = (((s.y - d.y) / (s.x - d.x)) * d.x) - d.y;
-
-		pdist = (a * t.x + (b * t.y) + c) / Math.sqrt((a * a) + (b * b));
-
-		return pdist;
-
 	}
 
 	/*
@@ -459,20 +384,6 @@ public class QRfinder {
 		}
 
 		return " ";
-	}
-
-	/*
-	 * 
-	 * ''''''''''''''Metode til at finde centrum af QR koderne. DE LIGGER INDE I
-	 * QRPOI VIS MAN SKAL BRUGE DEM. '''''''''''''''''''
-	 */
-	private Point centrumPoint(Point corn1, Point lastCorn) {
-		Point cen;
-
-		double len = distance(corn1, lastCorn);
-		cen = new Point(corn1.x + (len / 2), corn1.y + (len / 2));
-
-		return cen;
 	}
 
 	/*
