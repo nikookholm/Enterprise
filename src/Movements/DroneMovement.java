@@ -630,7 +630,7 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	/**
-	 * 
+	 * Turns left an amount of degrees
 	 * @param degrees
 	 */
 	private void turnRight(int degrees){
@@ -651,7 +651,7 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	/**
-	 * 
+	 * Turns left an amount of degrees
 	 * @param degrees
 	 */
 	private void turnLeft(int degrees) {
@@ -673,12 +673,11 @@ public class DroneMovement implements iDroneMovement {
 	
 	//ThreadControl
 	/**
-	 * 
-	 * @return
+	 * Thread control always needs to be done in each respective method.
+	 * @return the ThreadID
 	 */
 	private int newThreadID(){
 		threadID++;
-		amountOfThreads++;
 		return threadID;
 	}
 	
@@ -686,9 +685,9 @@ public class DroneMovement implements iDroneMovement {
 	//Update position
 
 	/**
-	 * 
+	 * Updates the position
 	 * @param distance
-	 * @return
+	 * @return Vector3D
 	 */
 	private Vector3D updateXY(int distance){
 		Vector3D coordinates = new Vector3D(0,0,0);
@@ -859,7 +858,8 @@ public class DroneMovement implements iDroneMovement {
 	}
 	
 	/**
-	 * 
+	 * Flies if it doesn't find a start-coordinate and tracks that.
+	 * @return Vector3D
 	 */
 	public Vector3D onAQuestForCoordinates()
 	{

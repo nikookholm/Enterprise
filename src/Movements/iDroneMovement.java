@@ -26,8 +26,8 @@ public interface iDroneMovement {
 	public void spinRight(int cm, int startTime);
 	public void flyThroughRing();
 	public void stopAndDecent();
-	public boolean calibrateToCircle(int cenX,double CircleX, int closeMargin, int farMargin,double distance);
 	public Vector3D initialSearch(ArrayList<POI> poi);
+	public Vector3D onAQuestForCoordinates();
 	
 	//Standard Methods
 	public void landing();
@@ -47,8 +47,6 @@ public interface iDroneMovement {
 	public float getYaw();
 	public GyroListener getGyroListener();
 	public AttitudeListener getAttitudeListener();
-	public void search();
-	public Vector3D onAQuestForCoordinates();
 	ImageListener getImage();
 
 }
