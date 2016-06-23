@@ -33,6 +33,10 @@ public class OpenCVOperations {
 	QRfinder findqr;
 	ArrayList<double[]> circlesFound = new ArrayList<>();
 	
+	/*
+	 * Constructor.
+	 * OpenCV requires the System.loadLibrary to work
+	 */
 	public OpenCVOperations(){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		findqr = new QRfinder();
@@ -76,52 +80,61 @@ public class OpenCVOperations {
 		}
 		return interestsFound;
 	}
-
+/*
+ * Finds the QR codes in a given image
+ */
 	public ArrayList<POI> findQR(BufferedImage image) {
 
 		return findQR(bufferedImageToMat(image));
 	}
+	
+	/**
+	 *  This function takes a buffered image and checks for circles in it, then finds the correct circle
+	 *  and returns the Vector3D that the drone needs to adjust to.
+	 * @param img
+	 * @return A Vector3D position for the correct circle
+	 */
+/*
+	public Vector3D findCircle(BufferedImage image){
+		System.out.println("findimage");
+		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image));
+		int margin = 35;
+		Vector3D distanceToPoint = new Vector3D(0,10,0);
 
-//	public Vector3D findCircle(BufferedImage image){
-//		System.out.println("findimage");
-//		ArrayList<POICircle> result = findCircle(bufferedImageToMat(image));
-//		int margin = 35;
-//		Vector3D distanceToPoint = new Vector3D(0,10,0);
-//
-//		//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
-//		
-////		ArrayList<POICircle> result = new ArrayList<>();
-////		for(POICircle liCheck : PotentialCircleCoordinates){
-////			for(POICircle niCheck : PotentialCircleCoordinates1){
-////				if((liCheck.getRadius() == niCheck.getRadius()) && (liCheck.getCoordinates() == niCheck.getCoordinates())){
-////					result.add(liCheck);
-////				}
-////			}
-////		}
-//		if(result.size()>0){
-//		Vector3D centerPoint = new Vector3D(image.getWidth()/2, image.getHeight(), 0);
-//		if(result.get(0).getxPos() > centerPoint.getXCoord()+margin){
-//			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
-//			distanceToPoint.setYCoord(0);
-//		}else if(result.get(0).getxPos() < centerPoint.getXCoord()-margin){
-//			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - result.get(0).getxPos()));
-//			distanceToPoint.setYCoord(0);
-//
-//		}
-//		if(result.get(0).getzPos() > centerPoint.getXCoord()+margin){
-//			//distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
-//			//distanceToPoint.setYCoord(0);
-//
-//		}else if(result.get(0).getzPos() < centerPoint.getXCoord()-margin){
-//			//distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
-//			//distanceToPoint.setYCoord(0);
-//
-//		}
-//		}
-//		System.out.println(distanceToPoint.getXCoord()  +"<-<<<<<---- XXXX YYYYY---->>>>> " + distanceToPoint.getYCoord() + " ------------>>>>>>>>> Z" + distanceToPoint.getZCoord());
-//		return distanceToPoint;
-//	}
-//	
+		//		ArrayList<POICircle> PotentialCircleCoordinates1 = findCircle(bufferedImageToMat(image2), dronePos);
+		
+		ArrayList<POICircle> result = new ArrayList<>();
+		for(POICircle liCheck : PotentialCircleCoordinates){
+			for(POICircle niCheck : PotentialCircleCoordinates1){
+				if((liCheck.getRadius() == niCheck.getRadius()) && (liCheck.getCoordinates() == niCheck.getCoordinates())){
+					result.add(liCheck);
+				}
+			}
+		}
+		if(result.size()>0){
+		Vector3D centerPoint = new Vector3D(image.getWidth()/2, image.getHeight(), 0);
+		if(result.get(0).getxPos() > centerPoint.getXCoord()+margin){
+			distanceToPoint.setXCoord(result.get(0).getxPos() - centerPoint.getXCoord());
+			distanceToPoint.setYCoord(0);
+		}else if(result.get(0).getxPos() < centerPoint.getXCoord()-margin){
+			distanceToPoint.setXCoord(-(centerPoint.getXCoord() - result.get(0).getxPos()));
+			distanceToPoint.setYCoord(0);
+
+		}
+		if(result.get(0).getzPos() > centerPoint.getXCoord()+margin){
+			//distanceToPoint.setZCoord(result.get(0).getyPos() - centerPoint.getYCoord());
+			//distanceToPoint.setYCoord(0);
+
+		}else if(result.get(0).getzPos() < centerPoint.getXCoord()-margin){
+			//distanceToPoint.setZCoord(-(centerPoint.getYCoord() - result.get(0).getyPos()));
+			//distanceToPoint.setYCoord(0);
+
+		}
+		}
+		System.out.println(distanceToPoint.getXCoord()  +"<-<<<<<---- XXXX YYYYY---->>>>> " + distanceToPoint.getYCoord() + " ------------>>>>>>>>> Z" + distanceToPoint.getZCoord());
+		return distanceToPoint;
+	}
+*/	
 	
 	public ArrayList<POICircle> findCircles(BufferedImage img){
 		
@@ -131,7 +144,10 @@ public class OpenCVOperations {
 		return  (circlesFound = findCircle(bufferedImageToMat(img)));
 	}
 	/******************************private************************************/
-	
+	/*
+	 * Finds all objects in the image, calculates the coordinates for them aswell
+	 * with a given droneposition and angle to the objects
+	 */
 	private ArrayList<POI> findObjects(BufferedImage arg0, Vector3D coordinates, int angle) {
 		objectsFound.clear();
 
@@ -143,6 +159,10 @@ public class OpenCVOperations {
 
 		return objectsFound;
 	}
+	/*
+	 * Checks if the QR codes found in the image is identical to older QRs found, if they arent, they will be added
+	 * to the interests found
+	 */
 	public void checkForOld(ArrayList<POI> qrFun, ArrayList<POI> interestFound){
 		String tempCode;
 		int counter = 0;
@@ -160,7 +180,9 @@ public class OpenCVOperations {
 			counter = 0;
 		}
 	}
-	
+	/*
+	 * Finds QR codes in the given matrix image, returns all the QRs found.
+	 */
 	private ArrayList<POI> findQR(Mat image) {
 
 		ArrayList<POI> fundet = new ArrayList<>();
@@ -177,25 +199,6 @@ public class OpenCVOperations {
 
 		return interestsFound;
 	}
-
-	// needs to be changed to finding single Circle after moving to a given circles QR code
-//	private void findCircles(Mat image, Vector3D coordinates, int angle) {
-//
-//		Mat image_gray = new Mat();
-//		Mat circles = new Mat();
-//
-//		Imgproc.cvtColor(image, image_gray, Imgproc.COLOR_BGR2GRAY);
-//		Imgproc.GaussianBlur(image_gray, image_gray, new Size(9, 9), 2, 2);
-//		Imgproc.HoughCircles(image_gray, circles, Imgproc.CV_HOUGH_GRADIENT, 1, image_gray.rows() / 8, 200, 100, 0, 0);
-//
-//		for (int i = 0; i < circles.cols(); i++) {
-//
-//			double circle[] = circles.get(0, i);
-//			int radius = (int) Math.round(circle[2]);
-//			objectsFound.add(new POICircle(new Vector3D(0,0,0), coordinates, radius));
-//		}
-//
-//	}
 
 	public ArrayList<POICircle> findCircle(Mat image/*, Vector3D dronePos*/){
 		Mat image_gray = new Mat();
