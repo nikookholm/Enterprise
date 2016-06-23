@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
 
 import de.yadrone.base.command.VideoCodec;
 import de.yadrone.base.video.*;
@@ -46,7 +44,7 @@ public class DroneVision implements iDroneVision {
 		drone.getCommandManager().setMaxVideoBitrate(3000);
 		drone.getCommandManager().setVideoBitrate(3000);
 		drone.getCommandManager().setVideoCodec(VideoCodec.H264_360P);
-		drone.getCommandManager().setVideoCodecFps(20);
+		drone.getCommandManager().setVideoCodecFps(30);
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 
@@ -153,8 +151,8 @@ public class DroneVision implements iDroneVision {
 	public Movement calibrateToCircle(Vector3D dronepos) {
 		System.out.println("calibrate<<<<<<<<<<<<<<<<");
 		Movement action = null;
-
-		// if(dronepos.getZCoord() < 10){
+		
+//		if(dronepos.getZCoord() < 10){
 		if (dronepos.getXCoord() == 0 && dronepos.getZCoord() < 0) {
 			action = Movement.Up;
 		} else if (dronepos.getXCoord() < 0 && dronepos.getZCoord() < 0) {
@@ -172,15 +170,15 @@ public class DroneVision implements iDroneVision {
 		} else if (dronepos.getXCoord() > 0 && dronepos.getZCoord() < 0) {
 			action = Movement.LeftUp;
 		} else if (dronepos.getXCoord() == 0 && dronepos.getZCoord() == 0) {
-
+			
 			action = Movement.Forward;
 		}
-		System.out.println(action + "NORMAL ||||| TOSTRING " + action.toString());
+		System.out.println(action +"NORMAL ||||| TOSTRING " +  action.toString() + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		return action;
-		// }
-		// else{
-		// return action = Movement.None;
-		// }
+//		}
+//		else{
+//			return action = Movement.None;
+//		}
 	}
 
 	/*********** Get drone position from wallmarks *************/
@@ -243,15 +241,10 @@ public class DroneVision implements iDroneVision {
 
 		try {
 			qrfind.findQR(imageMat);
-		} catch (Exception E) {
+			circlesFound = CVOp.findCircle(imageMat);
+			// new Vector3D(0, 0,0));
 
-		}
-		circlesFound = CVOp.findCircle(imageMat);
-		// new Vector3D(0, 0,0));
-		for (int i = 0; i < circlesFound.size(); i++) {
-			Core.circle(imageMat, new Point(circlesFound.get(i).getCentrumX(), circlesFound.get(i).getCentrumY()), circlesFound.get(i).getRadius(), new Scalar(255,255,255));
-			Core.circle(imageMat, new Point(circlesFound.get(i).getCentrumX(), circlesFound.get(i).getCentrumY()), 3, new Scalar(0,255,0));
-
+		} catch (Exception e) {
 		}
 
 		im = qrfind.getQRFun();
@@ -263,12 +256,12 @@ public class DroneVision implements iDroneVision {
 
 			}
 		}
-//		if (imgTjek == true) {
-//			image = qrfind.getDebugImg();
-//		}
+		if (imgTjek == true) {
+			image = qrfind.getDebugImg();
+		}
 		im.clear();
-		
-		return matToImg.matToBufferedImage(imageMat);
+
+		return image;
 
 	}
 

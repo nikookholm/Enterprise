@@ -1,8 +1,6 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.image.ImageObserver;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -20,7 +18,6 @@ public class PanelQ3 extends JPanel {
 		
 		textArea.setEditable(false);
 		
-		
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 		this.add(scrollPane, BorderLayout.CENTER);
@@ -33,11 +30,8 @@ public class PanelQ3 extends JPanel {
 
 	@Override
 	public void repaint() {
-		// TODO Auto-generated method stub
 		super.repaint();
-		
-		//scrollPane.setSize(this.getWidth(), this.getHeight());
-	}
+		}
 	
 	
 	
